@@ -1,10 +1,10 @@
 type ExampleStruct {
   a: int
-  b: float
+  b: number
   c: str
 
   D: list[int] = [1, 2, 3, 4]
-  E: (int, float, str) = (10, 20.0, "thirty")
+  E: (int, number, str) = (10, 20.0, "thirty")
 }
 
 F1 = {
@@ -30,7 +30,7 @@ F3 {
 // struct embedding
 type ChildStruct {
   & ExampleStruct
-  d: float
+  d: number
   e: str
 }
 
@@ -45,7 +45,7 @@ N: ChildStruct {
 // optional fields
 type StructWithNullableField {
   a?: int
-  b: float
+  b: number
 }
 
 // satisfies the type bound
@@ -69,7 +69,7 @@ H1: StructAllowingExtraFields {
 // fields containing non-word characters
 type StructWithSpecialFieldNames {
   `field with spaces`: int
-  `field-with-dash`: float
+  `field-with-dash`: number
   `field.with.dot`: str
 }
 

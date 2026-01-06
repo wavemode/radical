@@ -1,8 +1,8 @@
 a: int = 5
 
-b: float = 5.0
+b: number = 5.0
 
-c: str = "five"
+c: string = "five"
 
 d: bool = true
 
@@ -10,13 +10,13 @@ d: bool = true
 e: [int] = [1, 2, 3, 4, 5]
 
 // tuple
-f: (int, float, str) = (10, 20.0, "thirty")
+f: (int, number, string) = (10, 20.0, "thirty")
 
 // dictionary / map
-g: {str, int} = {
+g: {string, int} = {
     "one": 1,
     "two": 2,
-    "three": 3
+    "three": 3,
 }
 
 // set
