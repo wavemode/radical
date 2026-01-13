@@ -7,4 +7,9 @@ lint:
 format:
 	uv run ruff format src
 
-.PHONY: test lint format
+typecheck:
+	uv run ty check src
+
+check: lint format typecheck
+
+.PHONY: test lint format typecheck check

@@ -1,10 +1,10 @@
-type ExampleStruct {
+type ExampleRecord {
   a: int
-  b: number
+  b: float
   c: str
 
   D: list[int] = [1, 2, 3, 4]
-  E: (int, number, str) = (10, 20.0, "thirty")
+  E: (int, float, str) = (10, 20.0, "thirty")
 }
 
 F1 = {
@@ -14,7 +14,7 @@ F1 = {
 }
 
 // equivalent to F1:
-F2: ExampleStruct {
+F2: ExampleRecord {
   a = 40
   b = 50.0
   c = "sixty"
@@ -27,14 +27,14 @@ F3 {
   c = "sixty"
 }
 
-// struct embedding
-type ChildStruct {
-  & ExampleStruct
-  d: number
+// type embedding
+type ChildRecord {
+  & ExampleRecord
+  d: float
   e: str
 }
 
-N: ChildStruct {
+N: ChildRecord {
   d = 60.0
   e = "seventy"
 
@@ -43,37 +43,37 @@ N: ChildStruct {
 }
 
 // optional fields
-type StructWithNullableField {
+type RecordWithNullableField {
   a?: int
-  b: number
+  b: float
 }
 
 // satisfies the type bound
-G1: StructWithNullableField {
+G1: RecordWithNullableField {
   b = 10.0
 }
 
 // extra fields
-type StructAllowingExtraFields {
+type RecordAllowingExtraFields {
   a: int
   & any
 }
 
 // satisfies the type bound
-H1: StructAllowingExtraFields {
+H1: RecordAllowingExtraFields {
   a = 20
   extra_field_1 = "hello"
   extra_field_2 = 30.5
 }
 
 // fields containing non-word characters
-type StructWithSpecialFieldNames {
+type RecordWithSpecialFieldNames {
   `field with spaces`: int
-  `field-with-dash`: number
+  `field-with-dash`: float
   `field.with.dot`: str
 }
 
-I1: StructWithSpecialFieldNames {
+I1: RecordWithSpecialFieldNames {
   `field with spaces` = 1
   `field-with-dash` = 2.5
   `field.with.dot` = "three"

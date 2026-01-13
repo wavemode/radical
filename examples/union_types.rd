@@ -2,9 +2,9 @@ type A { a: int }
 type B { b: int }
 type C { c: int }
 
-type ExampleUnion = A | B | C | number
+type ExampleUnion = A | B | C | float
 // alternatively (since equals sign is optional):
-// type ExampleUnion A | B | C | number
+// type ExampleUnion A | B | C | float
 
 X: ExampleUnion {
     b = 50
