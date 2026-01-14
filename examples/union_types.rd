@@ -1,19 +1,19 @@
-type A { a: int }
-type B { b: int }
-type C { c: int }
+type A = { a: Int }
+type B = { b: Int }
+type C = { c: Int }
 
-type ExampleUnion = A | B | C | float
-// alternatively (since equals sign is optional):
-// type ExampleUnion A | B | C | float
+type ExampleUnion = A | B | C | Float
 
-X: ExampleUnion {
+w: ExampleUnion = {
+    a = 25
+}
+
+x: ExampleUnion = {
     b = 50
 }
 
-Y: ExampleUnion {
+y: ExampleUnion = {
     c = 100
 }
 
-Z: ExampleUnion = 10.5
-// alternatively:
-// Z 10.5
+z: ExampleUnion = 10.5

@@ -1,40 +1,38 @@
-enum A {
-    X
-    Y
-    Z
-}
+type A =
+    "X"
+    | "Y"
+    | "Z"
 
-enum B {
-    FIRST = 1
-    SECOND = 2
-    THIRD = 3
-}
+let first = 1
+let second = 2
+let third = 3
+type B =
+    first
+    | second
+    | third
 
-enum C {
-    RED = "red"
-    GREEN = "green"
-    BLUE = "blue"
-}
+let red = "red"
+let green = "green"
+let blue = "blue"
+type C =
+    red
+    | green
+    | blue
 
-enum D {
-    UP = (0, 1)
-    DOWN = (0, -1)
-    LEFT = (-1, 0)
-    RIGHT = (1, 0)
-}
 
-enum E {
-    FOURTH = 4
-    FIFTH = 5
-    & B
-}
+let up = (0, 1)
+let down = (0, -1)
+let left = (-1, 0)
+let right = (1, 0)
+type D = up | down | left | right
 
-enum F {
-    Point2D(x: float, y: float)
-    Point3D(x: float, y: float, z: float)
-}
+let type FOURTH = 4
+let type FIFTH = 5
+type E =
+    FOURTH
+    | FIFTH
+    | B
 
-b = B::SECOND
-c = C::RED
-d = D::LEFT
-f2d = F::Point2D(3.0, 4.0)
+let data Point2D(x: Float, y: Float)
+let data Point3D(x: Float, y: Float, z: Float)
+type F = Point2D | Point3D

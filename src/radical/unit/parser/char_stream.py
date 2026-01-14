@@ -15,6 +15,10 @@ class CharStream(Unit):
     def at_end(self) -> bool:
         return self._position.line > len(self._data)
 
+    def advance(self, n: int = 1) -> None:
+        for _ in range(n):
+            self._advance()
+
     def read_char(self) -> str:
         char = self.peek_char()
         self._advance()

@@ -1,15 +1,25 @@
-a: int = 5
+a : Int
+a = 5
 
-b: float = 5.0
+b : Float
+b = 5.0
 
-c: str = "five"
+c : String
+c = "five"
 
-d: bool = true
+c2 : Char
+c2 = 'f'
 
-// list
-e: list[int] = [1, 2, 3, 4, 5]
+c3 : Char
+c3 = c[0]
 
-// equivalent to e (commas are optional in lieu of newlines)
+d : Bool
+d = True
+
+e : List[Int]
+e = [1, 2, 3, 4, 5]
+
+-- equivalent to e (commas are optional in lieu of newlines)
 e2 = [
     1
     2
@@ -18,27 +28,28 @@ e2 = [
     5
 ]
 
-// tuple
-f: (int, float, str) = (10, 20.0, "thirty")
+f : (Int, Float, String)
+f = (10, 20.0, "thirty")
 
-// dictionary / map
-g: map[str, int] = {
+-- dictionary / map
+g : Map[String, Int]
+g = {
     one = 1
     two = 2
     three = 3
 }
 
-// equivalent to g (bracket syntax)
-["g2"] = {
+-- equivalent to g (bracket syntax)
+g2 = {
     ["one"] = 1
     ["two"] = 2
     ["three"] = 3
 }
 
-// set
-h: set[int] = {1, 2, 3, 4, 5, 4, 3, 2, 1}  // duplicates will be ignored
+h : Set[Int]
+h = {1, 2, 3, 4, 5, 4, 3, 2, 1}  -- duplicates will be ignored
 
-// equiavlent to h (commas are optional in lieu of newlines)
+-- equiavlent to h (commas are optional in lieu of newlines)
 h2 = {
     1
     2
@@ -51,8 +62,8 @@ h2 = {
     1
 }
 
-// tree
-i: tree[('name', str) | ('other_name', tree[('child1', int), ('child2', float)])] = {
+i : Tree[("name", String) | ("other_name", Tree[("child1", Int), ("child2", Float)])]
+i = {
     name "value"
     name "value2"
     name "value3"
@@ -62,8 +73,8 @@ i: tree[('name', str) | ('other_name', tree[('child1', int), ('child2', float)])
     }
 }
 
-// equivalent to i.to_list()
-["i2"] = [
+-- equivalent to i.to_list()
+i2 = [
     ("name", "value")
     ("name", "value2")
     ("name", "value3")
@@ -73,9 +84,10 @@ i: tree[('name', str) | ('other_name', tree[('child1', int), ('child2', float)])
     })
 ]
 
-// equivalent to i.to_map()
-i3: { 'name': str, 'other_name': { 'child1': int, 'child2': float } } = {
-    // since this is a hashmap, only the last 'name' entry would be kept
+-- equivalent to i.to_map()
+i3 : { name : String, other_name : { child1 : Int, child2 : Float } }
+i3 = {
+    -- since this is a hashmap, only the last "name" entry would be kept
     name = "value3"
     other_name = {
         child1 = 10
@@ -83,7 +95,12 @@ i3: { 'name': str, 'other_name': { 'child1': int, 'child2': float } } = {
     }
 }
 
-j: null = null
-j2: int | null = null  // nullable value
+j : Null
+j = Null
 
-k: any = "can be anything"
+-- Nullable value
+j2 : Int | Null
+j2 = Null
+
+k : Any
+k = "can be anything"

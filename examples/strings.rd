@@ -1,50 +1,50 @@
-string_constant = "This is a string constant"
+stringConstant = "This is a string constant"
 
-multi_line_string = """
-This is a multi-line
-string that spans
-several lines.
+multiLineString = """
+    This is a multi-line
+    string that spans
+    several lines.
 
-Escape sequence are supported: \n, \t, \", \', \\
+    Escape sequence are supported: \n, \t, \", \", \\
 """
 
-raw_string = r"C:\Users\Name\Documents\file.txt"  # no escape sequences are processed
+rawString = r"C:\Users\Name\Documents\file.txt"  -- no escape sequences are processed
 
-raw_multi_line_string = r"""
+rawMultiLineString = r"""
 This is a raw multi-line string. Escape sequences like \n and \t
 are not processed here.
 """
 
-formatted_string = f"The value of string_constant is: {string_constant}"
+formatString = f"The value of stringConstant is: {stringConstant}"
 
-another_formatted_string = f"""
+anotherFormatString = f"""
 Multi-line formatted string:
-- Original: {string_constant}
+- Original: {stringConstant}
 """
 
-concatenated_string = "Hello, " + "world!"  # using + operator
+concatenatedString = "Hello, " + "world!"  -- using + operator
 
-unicode_string = "☂️🌧️"
-first_code_point: str = unicode_string[0]
-second_code_point: str = unicode_string[1]
-umbrella: str = unicode_string[0:2]  # umbrella emoji consists of two code points
+unicodeString = "☂️🌧️"
+firstCodePoint: str = unicodeString[0]
+secondCodePoint: str = unicodeString[1]
+umbrella: str = unicodeString[0:2]  -- umbrella emoji consists of two code points
 
-# stdlib utilities
-import std.strings
+-- builtin methods
 
-strlen = f"Length of unicode_string is: {strings.length(unicode_string)}" # will count unicode code points
-upper_str = f"Uppercase: {strings.to_upper(string_constant)}"
-lower_str = f"Lowercase: {strings.to_lower(string_constant)}"
-replaced_str = f"Replaced string: {strings.replace(string_constant, 'constant', 'value')}"
-trimmed_str = f"Trimmed string: '{strings.trim('   padded string   ')}'"
-split_str = strings.split("one,two,three", ",")
-joined_str = strings.join(["one", "two", "three"], "; ")
-substring = f"Substring (0, 4): {strings.substring(string_constant, 0, 4)}"
-find_index = f"Index of 'is': {strings.find(string_constant, 'is')}"
-
-
-multi_line_string_strip_indent = strings.strip_indent("""
+strlen = f"Length of unicodeString is: {unicodeString.length()}" -- will count unicode code points
+upperStr = f"Uppercase: {stringConstant.toUpper()}"
+lowerStr = f"Lowercase: {stringConstant.toLower()}"
+replacedStr = f"Replaced string: {stringConstant.replace("is", "was")}"
+trimmedStr = f"Trimmed string: {"   padded string   ".trim()}"
+splitStr = "one,two,three".split(",")
+joinedStr = "; ".join(["one", "two", "three"])
+substring = f"Substring (0, 4): {stringConstant[0:4]}"
+findIndex = f"Index of "is": {stringConstant.indexOf("is")}"
+includesSubstr = f"Includes "string": {stringConstant.includes("string")}"
+startsWithSubstr = f"Starts with "This": {stringConstant.startsWith("This")}"
+endsWithSubstr = f"Ends with "constant": {stringConstant.endsWith("constant")}"
+multiLineStringStrippedIndent = """
         This is a multi-line string with indentation.
     Four leading spaces will be stripped from each line.
-""")
+""".stripIndent()
 

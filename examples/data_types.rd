@@ -1,20 +1,37 @@
-import std::math
+import std.math
+import std.io
 
-data Point2D(x: float, y: float)
-data Point3D(x: float, y: float, z: float)
+data Point2D(x: Float, y: Float)
 
-fun distance_from(a: Point2D, b: Point2D): float {
-    return math::sqrt(math::pow(a.x - b.x, 2) + math::pow(a.y - b.y, 2))
-}
+data Point3D(x: Float, y: Float, z: Float):
+    fun toPoint2D(): Point2D =
+        Point2D(x, y)
+    
+    fun +(other: Point3D): Point3D =
+        Point3D(x + other.x, y + other.y, z + other.z)
+
+fun distanceFrom(a: Point2D, b: Point2D, &IO): Float =
+    io.println(f"Calculating distance between points: {a} and {b}")
+    let dx = a.x - b.x
+    let dy = a.y - b.y
+    let distSquared = math.pow(dx, 2) + math.pow(dy, 2)
+    math.sqrt(distSquared)
+
+-- alternative syntax
+distanceFrom2 : (Point2D, Point2D, &IO) -> Float
+distanceFrom2 = (a, b) ->
+    io.println(f"Calculating distance between points: {a} and {b}")
+    let dx = a.x - b.x
+        dy = a.y - b.y
+        distSquared = math.pow(dx, 2) + math.pow(dy, 2)
+    in math.sqrt(distSquared)
 
 a = Point2D(3.0, 4.0)
 b = Point2D(0.0, 0.0)
-distance = distance_from(a, b)
+distance = distanceFrom(a, b)
 
 c = Point3D(1.0, 2.0, 3.0)
 d = Point3D(
-    x = 4.0,
-    y = 5.0,
-    z = 6.0,
+    ..c
+    z = 6.0
 )
-
