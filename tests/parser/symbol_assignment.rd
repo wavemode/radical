@@ -3,21 +3,23 @@ var2 = var1
 
 (*
 Module(
-    VariableBindingStatement(
-        name=Symbol(
-            name="var1"
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="var1"
+            ),
+            value=StringLiteral(
+                value="value"
+            )
         ),
-        value=StringLiteral(
-            value="value"
+        VariableBindingStatement(
+            name=Symbol(
+                name="var2"
+            ),
+            value=Symbol(
+                name="var1"
+            )
         )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="var2"
-        ),
-        value=Symbol(
-            name="var1"
-        )
-    )
+    ]
 )
 *)

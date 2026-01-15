@@ -19,7 +19,10 @@ class TestParser(TestCase):
         text_case_start = text.rfind("(*")
         test_case_end = text.rfind("*)")
         test_case = text[text_case_start + 2 : test_case_end].strip()
-        self.assertEqual(formatted, test_case)
+        if formatted != test_case:
+            raise AssertionError(
+                f"Parsed output did not match expected output.\n\nExpected:\n{test_case}\n\nGot:\n{formatted}"
+            )
 
     def test_all(self):
         for root, _, files in os.walk("tests/parser"):

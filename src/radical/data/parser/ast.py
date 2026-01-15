@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 
 from radical.data.parser.position import Position
-from typing import Literal, Any
+from typing import Any
 import json
+from enum import StrEnum
 
 
 @dataclass(frozen=True)
@@ -10,12 +11,10 @@ class Node:
     position: Position
 
     def format(self, name: str | None = None, indent_level: int = 0) -> str:
-        parts: list[str] = []
         indent = " " * 4 * indent_level
+        parts: list[str] = [indent]
         if name is not None:
-            parts.append(f"{indent}{name}=")
-        else:
-            parts.append(f"{indent}")
+            parts.append(f"{name}=")
         parts.append(f"{self.__class__.__name__[:-4]}(\n")
 
         field_lines: list[str] = []
@@ -38,13 +37,24 @@ class Node:
 
     @staticmethod
     def format_value(value: Any, name: str | None = None, indent_level: int = 0) -> str:
-        parts: list[str] = []
+        if isinstance(value, Node):
+            return value.format(name=name, indent_level=indent_level)
+
         indent = " " * 4 * indent_level
+        parts: list[str] = [indent]
         if name is not None:
-            parts.append(f"{indent}{name}=")
+            parts.append(f"{name}=")
+        if isinstance(value, list):
+            parts.append("[\n")
+            element_lines: list[str] = []
+            for element in value:
+                element_lines.append(
+                    Node.format_value(element, indent_level=indent_level + 1)
+                )
+            parts.append(",\n".join(element_lines))
+            parts.append(f"\n{indent}]")
         else:
-            parts.append(f"{indent}")
-        parts.append(json.dumps(value))
+            parts.append(json.dumps(value))
         return "".join(parts)
 
 
@@ -93,7 +103,11 @@ class SciFloatLiteralNode(Node):
 
 # Operations
 
-UnaryOperator = Literal["+", "-", "not"]
+
+class UnaryOperator(StrEnum):
+    PLUS = "+"
+    MINUS = "-"
+    NOT = "not"
 
 
 @dataclass(frozen=True)
@@ -102,25 +116,24 @@ class UnaryOperationNode(Node):
     operand: "ValueExpressionNode"
 
 
-BinaryOperator = Literal[
-    "+",
-    "-",
-    "*",
-    "/",
-    "//",
-    "%",
-    "**",
-    ":",
-    "|>",
-    "and",
-    "or",
-    "==",
-    "!=",
-    "<",
-    "<=",
-    ">",
-    ">=",
-]
+class BinaryOperator(StrEnum):
+    ADD = "+"
+    SUBTRACT = "-"
+    MULTIPLY = "*"
+    DIVIDE = "/"
+    FLOOR_DIVIDE = "//"
+    MODULO = "%"
+    EXPONENTIATION = "**"
+    COLON = ":"
+    PIPE = "|>"
+    AND = "and"
+    OR = "or"
+    EQUAL = "=="
+    NOT_EQUAL = "!="
+    LESS_THAN = "<"
+    LESS_THAN_EQUAL = "<="
+    GREATER_THAN = ">"
+    GREATER_THAN_EQUAL = ">="
 
 
 @dataclass(frozen=True)
@@ -150,9 +163,15 @@ class AttributeAccessNode(Node):
 
 
 @dataclass(frozen=True)
+class FunctionCallArgumentNode(Node):
+    name: SymbolNode | None
+    value: "ValueExpressionNode"
+
+
+@dataclass(frozen=True)
 class FunctionCallNode(Node):
     function: "ValueExpressionNode"
-    arguments: list["ValueExpressionNode"]
+    arguments: list[FunctionCallArgumentNode]
 
 
 # Variables
@@ -169,6 +188,11 @@ class VariableBindingStatementNode(Node):
 class LetInNode(Node):
     definitions: list[VariableBindingStatementNode]
     body: "ValueExpressionNode"
+
+
+@dataclass(frozen=True)
+class LetStatementNode(Node):
+    definition: VariableBindingStatementNode
 
 
 # Collections
@@ -238,6 +262,8 @@ ValueExpressionNode = (
     | IntegerLiteralNode
     | FloatLiteralNode
     | SciFloatLiteralNode
+    | UnaryOperationNode
+    | BinaryOperationNode
 )
 
 
@@ -247,10 +273,3 @@ TopLevelDeclarationNode = VariableBindingStatementNode
 @dataclass(frozen=True)
 class ModuleNode(Node):
     top_level_nodes: list[TopLevelDeclarationNode]
-
-    def format(self, name: str | None = None, indent_level: int = 0) -> str:
-        definition_lines: list[str] = []
-        indent = " " * 4 * indent_level
-        for node in self.top_level_nodes:
-            definition_lines.append(node.format(indent_level=indent_level + 1))
-        return f"{indent}Module(\n" + ",\n".join(definition_lines) + f"\n{indent})"

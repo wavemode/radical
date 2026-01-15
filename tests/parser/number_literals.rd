@@ -13,85 +13,87 @@ negativeSciFloatLiteralWithFractionNegativeExponent = -3.0e-5
 
 (*
 Module(
-    VariableBindingStatement(
-        name=Symbol(
-            name="integerLiteral"
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="integerLiteral"
+            ),
+            value=IntegerLiteral(
+                value="42"
+            )
         ),
-        value=IntegerLiteral(
-            value="42"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeIntegerLiteral"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeIntegerLiteral"
+            ),
+            value=IntegerLiteral(
+                value="-7"
+            )
         ),
-        value=IntegerLiteral(
-            value="-7"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="floatLiteral"
+        VariableBindingStatement(
+            name=Symbol(
+                name="floatLiteral"
+            ),
+            value=FloatLiteral(
+                value="3.1415"
+            )
         ),
-        value=FloatLiteral(
-            value="3.1415"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeFloatLiteral"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeFloatLiteral"
+            ),
+            value=FloatLiteral(
+                value="-0.001"
+            )
         ),
-        value=FloatLiteral(
-            value="-0.001"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="sciFloatLiteralNoFraction"
+        VariableBindingStatement(
+            name=Symbol(
+                name="sciFloatLiteralNoFraction"
+            ),
+            value=SciFloatLiteral(
+                value="1e10"
+            )
         ),
-        value=SciFloatLiteral(
-            value="1e10"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeSciFloatLiteralNoFraction"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeSciFloatLiteralNoFraction"
+            ),
+            value=SciFloatLiteral(
+                value="-2.5E8"
+            )
         ),
-        value=SciFloatLiteral(
-            value="-2.5E8"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeSciFloatLiteralNoFractionNegativeExponent"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeSciFloatLiteralNoFractionNegativeExponent"
+            ),
+            value=SciFloatLiteral(
+                value="-4e-3"
+            )
         ),
-        value=SciFloatLiteral(
-            value="-4e-3"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="sciFloatLiteralWithFraction"
+        VariableBindingStatement(
+            name=Symbol(
+                name="sciFloatLiteralWithFraction"
+            ),
+            value=SciFloatLiteral(
+                value="6.022e23"
+            )
         ),
-        value=SciFloatLiteral(
-            value="6.022e23"
-        )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeSciFloatLiteralWithFraction"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeSciFloatLiteralWithFraction"
+            ),
+            value=SciFloatLiteral(
+                value="-9.81E4"
+            )
         ),
-        value=SciFloatLiteral(
-            value="-9.81E4"
+        VariableBindingStatement(
+            name=Symbol(
+                name="negativeSciFloatLiteralWithFractionNegativeExponent"
+            ),
+            value=SciFloatLiteral(
+                value="-3.0e-5"
+            )
         )
-    ),
-    VariableBindingStatement(
-        name=Symbol(
-            name="negativeSciFloatLiteralWithFractionNegativeExponent"
-        ),
-        value=SciFloatLiteral(
-            value="-3.0e-5"
-        )
-    )
+    ]
 )
 *)

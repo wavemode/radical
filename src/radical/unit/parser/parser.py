@@ -12,6 +12,8 @@ from radical.data.parser.ast import (
     IntegerLiteralNode,
     FloatLiteralNode,
     SciFloatLiteralNode,
+    UnaryOperationNode,
+    UnaryOperator,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -72,12 +74,33 @@ class Parser(Unit):
             return self.parse_multi_line_string_literal()
         elif self.check_string_literal():
             return self.parse_string_literal()
-        elif self.check_symbol():
-            return self.parse_symbol()
         elif self.check_number_literal():
             return self.parse_number_literal()
+        elif self.check_unary_operation():
+            return self.parse_unary_operation()
+        elif self.check_symbol():
+            return self.parse_symbol()
         else:
             self._raise_parse_error("Expected a value")
+
+    def check_unary_operation(self) -> bool:
+        return self._peek() in ("+", "-") or self.check_word("not")
+
+    def parse_unary_operation(self) -> UnaryOperationNode:
+        position = self._position()
+        operator: UnaryOperator
+        if self.check_word("not"):
+            operator = UnaryOperator.NOT
+            self.parse_specific_charachters("not")
+        else:
+            operator = UnaryOperator(self._read())
+        self.skip_whitespace()
+        operand = self.parse_value()
+        return UnaryOperationNode(
+            position=position,
+            operator=operator,
+            operand=operand,
+        )
 
     def check_number_literal(self) -> bool:
         char1, char2 = self._peek(2)
@@ -156,7 +179,7 @@ class Parser(Unit):
     def check_symbol(self) -> bool:
         # TODO: support backtick-quoted symbols
         char = self._peek()
-        return (not self.check_reserved_word()) and (char.isalpha() or char == "_")
+        return char.isalpha() or char == "_"
 
     def parse_symbol(self) -> SymbolNode:
         start_position = self._position()
@@ -175,10 +198,6 @@ class Parser(Unit):
             position=start_position,
             name="".join(name_chars),
         )
-
-    def check_reserved_word(self) -> bool:
-        # none yet
-        return False
 
     def check_string_literal(self) -> bool:
         return self._peek() == '"'
@@ -331,6 +350,22 @@ class Parser(Unit):
                     self._read()
                 else:
                     break
+
+    def check_word(self, expected: str) -> bool:
+        position = self._position()
+        matching = True
+        index = 0
+        while not self.at_end():
+            if index == len(expected):
+                break
+            if self._read() != expected[index]:
+                matching = False
+                break
+            index += 1
+        next_char = self._peek()
+        at_end = self.at_end()
+        self._reset_position(position)
+        return matching and (at_end or not (next_char.isalnum() or next_char == "_"))
 
     def check_specific_charachters(self, expected: str) -> bool:
         position = self._position()

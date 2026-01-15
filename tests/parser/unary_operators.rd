@@ -1,0 +1,98 @@
+unaryNot = not 5
+unaryMinus = - 10
+unaryPlus = + 15
+
+unaryPlusMinus = + - 20
+unaryMinusPlus = - + 25
+unaryNotMinusPlusPlusMinus = not - + + - 30
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryNot"
+            ),
+            value=UnaryOperation(
+                operator="not",
+                operand=IntegerLiteral(
+                    value="5"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryMinus"
+            ),
+            value=UnaryOperation(
+                operator="-",
+                operand=IntegerLiteral(
+                    value="10"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryPlus"
+            ),
+            value=UnaryOperation(
+                operator="+",
+                operand=IntegerLiteral(
+                    value="15"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryPlusMinus"
+            ),
+            value=UnaryOperation(
+                operator="+",
+                operand=UnaryOperation(
+                    operator="-",
+                    operand=IntegerLiteral(
+                        value="20"
+                    )
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryMinusPlus"
+            ),
+            value=UnaryOperation(
+                operator="-",
+                operand=UnaryOperation(
+                    operator="+",
+                    operand=IntegerLiteral(
+                        value="25"
+                    )
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="unaryNotMinusPlusPlusMinus"
+            ),
+            value=UnaryOperation(
+                operator="not",
+                operand=UnaryOperation(
+                    operator="-",
+                    operand=UnaryOperation(
+                        operator="+",
+                        operand=UnaryOperation(
+                            operator="+",
+                            operand=UnaryOperation(
+                                operator="-",
+                                operand=IntegerLiteral(
+                                    value="30"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    ]
+)
+*)
