@@ -1,5 +1,8 @@
 plainLiteral = "Hello, \n\r\t\\\"World!" -- end of line comment
 
+PLAIN_LITERAL_WITH_UPPERCASE_NAME = "This is a test string."
+_PLAIN_LITERAL_WITH_UNDERSCORE = "Another test string."
+
 multLineLiteral = """This is a
 multi-line string.\n\r\t\\\""""
 
@@ -19,6 +22,22 @@ Module(
         ),
         value=StringLiteral(
             value="Hello, \n\r\t\\\"World!"
+        )
+    ),
+    VariableBindingStatement(
+        name=Symbol(
+            name="PLAIN_LITERAL_WITH_UPPERCASE_NAME"
+        ),
+        value=StringLiteral(
+            value="This is a test string."
+        )
+    ),
+    VariableBindingStatement(
+        name=Symbol(
+            name="_PLAIN_LITERAL_WITH_UNDERSCORE"
+        ),
+        value=StringLiteral(
+            value="Another test string."
         )
     ),
     VariableBindingStatement(

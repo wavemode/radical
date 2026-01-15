@@ -91,11 +91,6 @@ class SciFloatLiteralNode(Node):
     value: str
 
 
-@dataclass(frozen=True)
-class BooleanLiteralNode(Node):
-    value: bool
-
-
 # Operations
 
 UnaryOperator = Literal["+", "-", "not"]

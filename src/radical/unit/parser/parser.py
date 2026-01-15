@@ -156,15 +156,13 @@ class Parser(Unit):
     def check_symbol(self) -> bool:
         # TODO: support backtick-quoted symbols
         char = self._peek()
-        return (not self.check_reserved_word()) and (
-            (char.isalpha() and char.islower()) or char == "_"
-        )
+        return (not self.check_reserved_word()) and (char.isalpha() or char == "_")
 
     def parse_symbol(self) -> SymbolNode:
         start_position = self._position()
         name_chars: list[str] = []
         char = self._peek()
-        if (char.isalpha() and char.islower()) or char == "_":
+        if char.isalpha() or char == "_":
             name_chars.append(self._read())
         else:
             self._raise_parse_error("Expected symbol", position=start_position)
