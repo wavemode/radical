@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from radical.data.parser.position import Position
-from typing import Any
+from typing import Any, Sequence
 import json
 from enum import StrEnum
 
@@ -117,23 +117,48 @@ class UnaryOperationNode(Node):
 
 
 class BinaryOperator(StrEnum):
-    ADD = "+"
-    SUBTRACT = "-"
+    EXPONENTIATION = "**"
     MULTIPLY = "*"
     DIVIDE = "/"
     FLOOR_DIVIDE = "//"
     MODULO = "%"
-    EXPONENTIATION = "**"
-    COLON = ":"
-    PIPE = "|>"
-    AND = "and"
-    OR = "or"
+    ADD = "+"
+    SUBTRACT = "-"
     EQUAL = "=="
     NOT_EQUAL = "!="
     LESS_THAN = "<"
     LESS_THAN_EQUAL = "<="
     GREATER_THAN = ">"
     GREATER_THAN_EQUAL = ">="
+    AND = "and"
+    OR = "or"
+    PIPE = "|>"
+
+
+BINARY_OPERATOR_PRECEDENCE: Sequence[Sequence[BinaryOperator]] = (
+    (BinaryOperator.EXPONENTIATION,),
+    (
+        BinaryOperator.MULTIPLY,
+        BinaryOperator.DIVIDE,
+        BinaryOperator.FLOOR_DIVIDE,
+        BinaryOperator.MODULO,
+    ),
+    (
+        BinaryOperator.ADD,
+        BinaryOperator.SUBTRACT,
+    ),
+    (
+        BinaryOperator.EQUAL,
+        BinaryOperator.NOT_EQUAL,
+        BinaryOperator.LESS_THAN,
+        BinaryOperator.LESS_THAN_EQUAL,
+        BinaryOperator.GREATER_THAN,
+        BinaryOperator.GREATER_THAN_EQUAL,
+    ),
+    (BinaryOperator.AND,),
+    (BinaryOperator.OR,),
+    (BinaryOperator.PIPE,),
+)
 
 
 @dataclass(frozen=True)

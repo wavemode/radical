@@ -1,0 +1,43 @@
+binaryAnd = True and False
+binaryAndOr = True and False or True
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="binaryAnd"
+            ),
+            value=BinaryOperation(
+                left=Symbol(
+                    name="True"
+                ),
+                operator="and",
+                right=Symbol(
+                    name="False"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="binaryAndOr"
+            ),
+            value=BinaryOperation(
+                left=BinaryOperation(
+                    left=Symbol(
+                        name="True"
+                    ),
+                    operator="and",
+                    right=Symbol(
+                        name="False"
+                    )
+                ),
+                operator="or",
+                right=Symbol(
+                    name="True"
+                )
+            )
+        )
+    ]
+)
+*)

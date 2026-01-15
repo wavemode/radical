@@ -14,6 +14,9 @@ from radical.data.parser.ast import (
     SciFloatLiteralNode,
     UnaryOperationNode,
     UnaryOperator,
+    BinaryOperationNode,
+    BinaryOperator,
+    BINARY_OPERATOR_PRECEDENCE,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -66,6 +69,23 @@ class Parser(Unit):
         )
 
     def parse_value(self) -> ValueExpressionNode:
+        value = self.parse_single_value_expression()
+        self.skip_non_breaking_whitespace()
+
+        if self.check_binary_operator():
+            binary_operation_sequence: list[BinaryOperator | ValueExpressionNode] = [
+                value
+            ]
+            while self.check_binary_operator():
+                binary_operation_sequence.append(self.parse_binary_operator())
+                self.skip_whitespace()
+                binary_operation_sequence.append(self.parse_single_value_expression())
+                self.skip_non_breaking_whitespace()
+            return self.group_binary_operations(binary_operation_sequence)
+
+        return value
+
+    def parse_single_value_expression(self) -> ValueExpressionNode:
         if self.check_raw_multi_line_string_literal():
             return self.parse_raw_multi_line_string_literal()
         elif self.check_raw_string_literal():
@@ -82,6 +102,75 @@ class Parser(Unit):
             return self.parse_symbol()
         else:
             self._raise_parse_error("Expected a value")
+
+    def check_binary_operator(self) -> bool:
+        return self.check_any_sequence(
+            [
+                op.value
+                for op in BinaryOperator
+                if op not in (BinaryOperator.AND, BinaryOperator.OR)
+            ]
+        ) or self.check_any_word(["and", "or"])
+
+    def parse_binary_operator(self) -> BinaryOperator:
+        if self.check_word("and"):
+            self._read(3)
+            return BinaryOperator.AND
+        elif self.check_word("or"):
+            self._read(2)
+            return BinaryOperator.OR
+        else:
+            operator_str = self.parse_any_sequence(
+                [
+                    op.value
+                    for op in BinaryOperator
+                    if op not in (BinaryOperator.AND, BinaryOperator.OR)
+                ]
+            )
+            return BinaryOperator(operator_str)
+
+    def group_binary_operations(
+        self,
+        sequence: list[BinaryOperator | ValueExpressionNode],
+    ) -> BinaryOperationNode:
+        precedence_level = 0
+        index = 1
+
+        def matches_current_precedence_level() -> bool:
+            operator = sequence[index]
+            assert isinstance(operator, BinaryOperator)
+            return operator in BINARY_OPERATOR_PRECEDENCE[precedence_level]
+
+        def make_group() -> None:
+            left = sequence[index - 1]
+            operator = sequence[index]
+            right = sequence[index + 1]
+            assert isinstance(left, ValueExpressionNode)
+            assert isinstance(operator, BinaryOperator)
+            assert isinstance(right, ValueExpressionNode)
+            new_node = BinaryOperationNode(
+                position=left.position,
+                left=left,
+                operator=operator,
+                right=right,
+            )
+            sequence[index - 1 : index + 2] = [new_node]
+
+        while len(sequence) > 1:
+            if matches_current_precedence_level():
+                make_group()
+                index = 1
+                print([type(elem).__name__ for elem in sequence])
+            else:
+                index += 2
+                if index >= len(sequence):
+                    precedence_level += 1
+                    index = 1
+                    if precedence_level == len(BINARY_OPERATOR_PRECEDENCE):
+                        self._raise_parse_error("Failed to group binary operations")
+
+        assert isinstance(sequence[0], BinaryOperationNode)
+        return sequence[0]
 
     def check_unary_operation(self) -> bool:
         return self._peek() in ("+", "-") or self.check_word("not")
@@ -351,6 +440,46 @@ class Parser(Unit):
                 else:
                     break
 
+    def check_any_sequence(self, expected: list[str]) -> bool:
+        position = self._position()
+        longest = max(len(seq) for seq in expected)
+        chars: list[str] = []
+        index = 0
+        while not self.at_end() and index < longest:
+            chars.append(self._read())
+            index += 1
+        word = "".join(chars)
+        self._reset_position(position)
+        return any(word.startswith(seq) for seq in expected)
+
+    def parse_any_sequence(self, expected: list[str]) -> str:
+        position = self._position()
+        longest = max(len(seq) for seq in expected)
+        chars: list[str] = []
+        index = 0
+        while not self.at_end() and index < longest:
+            chars.append(self._read())
+            index += 1
+        word = "".join(chars)
+        self._reset_position(position)
+        return max(
+            (seq for seq in expected if word.startswith(seq)),
+            key=lambda s: len(s),
+        )
+
+    def check_any_word(self, expected: list[str]) -> bool:
+        for word in expected:
+            if self.check_word(word):
+                return True
+        return False
+
+    def parse_any_word(self, expected: list[str]) -> str:
+        for word in expected:
+            if self.check_word(word):
+                self._read(len(word))
+                return word
+        self._raise_parse_error(f"Expected one of: {', '.join(expected)}")
+
     def check_word(self, expected: str) -> bool:
         position = self._position()
         matching = True
@@ -362,8 +491,11 @@ class Parser(Unit):
                 matching = False
                 break
             index += 1
-        next_char = self._peek()
         at_end = self.at_end()
+        if at_end:
+            next_char = ""
+        else:
+            next_char = self._peek()
         self._reset_position(position)
         return matching and (at_end or not (next_char.isalnum() or next_char == "_"))
 
