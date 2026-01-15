@@ -48,15 +48,15 @@ class CharStream(Unit):
 
     def _char_at(self, line: int, column: int) -> str:
         if line < 1 or line > len(self._data):
-            raise PositionOutOfBoundsError()
+            raise PositionOutOfBoundsError("Unexpected end of file")
         line_content = self._data[line - 1]
         if column < 1 or column > len(line_content) + 1:
-            raise PositionOutOfBoundsError()
+            raise PositionOutOfBoundsError("Unexpected end of file")
         return line_content[column - 1]
 
     def _advance(self) -> None:
         if self.at_end():
-            raise EndOfFileError()
+            raise EndOfFileError("Unexpected end of file")
         current_line_content = self._data[self._position.line - 1]
         if self._position.column == len(current_line_content):
             self._position.line += 1

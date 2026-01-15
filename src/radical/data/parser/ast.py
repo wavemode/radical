@@ -92,11 +92,6 @@ class SciFloatLiteralNode(Node):
 
 
 @dataclass(frozen=True)
-class NullLiteralNode(Node):
-    pass
-
-
-@dataclass(frozen=True)
 class BooleanLiteralNode(Node):
     value: bool
 
@@ -169,7 +164,7 @@ class FunctionCallNode(Node):
 
 
 @dataclass(frozen=True)
-class VariableBindingNode(Node):
+class VariableBindingStatementNode(Node):
     name: SymbolNode
     value: "ValueExpressionNode"
     type: "ValueExpressionNode | None"
@@ -177,7 +172,7 @@ class VariableBindingNode(Node):
 
 @dataclass(frozen=True)
 class LetInNode(Node):
-    definitions: list[VariableBindingNode]
+    definitions: list[VariableBindingStatementNode]
     body: "ValueExpressionNode"
 
 
@@ -245,10 +240,13 @@ ValueExpressionNode = (
     | RawStringLiteralNode
     | MultiLineStringLiteralNode
     | RawMultiLineStringLiteralNode
+    | IntegerLiteralNode
+    | FloatLiteralNode
+    | SciFloatLiteralNode
 )
 
 
-TopLevelDeclarationNode = VariableBindingNode
+TopLevelDeclarationNode = VariableBindingStatementNode
 
 
 @dataclass(frozen=True)

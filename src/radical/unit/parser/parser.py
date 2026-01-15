@@ -1,6 +1,6 @@
 from typing import NoReturn
 from radical.data.parser.ast import (
-    VariableBindingNode,
+    VariableBindingStatementNode,
     ModuleNode,
     MultiLineStringLiteralNode,
     RawMultiLineStringLiteralNode,
@@ -9,6 +9,9 @@ from radical.data.parser.ast import (
     SymbolNode,
     TopLevelDeclarationNode,
     ValueExpressionNode,
+    IntegerLiteralNode,
+    FloatLiteralNode,
+    SciFloatLiteralNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -45,7 +48,7 @@ class Parser(Unit):
         else:
             self._raise_parse_error("Expected a top-level declaration")
 
-    def parse_variable_binding(self) -> VariableBindingNode:
+    def parse_variable_binding(self) -> VariableBindingStatementNode:
         # TODO: support type annotation
         start_position = self._position()
         name_node = self.parse_symbol()
@@ -53,7 +56,7 @@ class Parser(Unit):
         self.parse_specific_charachters("=")
         self.skip_whitespace()
         value_node = self.parse_value()
-        return VariableBindingNode(
+        return VariableBindingStatementNode(
             position=start_position,
             name=name_node,
             value=value_node,
@@ -71,8 +74,84 @@ class Parser(Unit):
             return self.parse_string_literal()
         elif self.check_symbol():
             return self.parse_symbol()
+        elif self.check_number_literal():
+            return self.parse_number_literal()
         else:
             self._raise_parse_error("Expected a value")
+
+    def check_number_literal(self) -> bool:
+        char1, char2 = self._peek(2)
+        return char1.isdigit() or (char1 == "-" and char2.isdigit())
+
+    def parse_number_literal(
+        self,
+    ) -> SciFloatLiteralNode | FloatLiteralNode | IntegerLiteralNode:
+        position = self._position()
+        sign: str | None = None
+
+        if self._peek() == "-":
+            sign = self._read()
+
+        integer_chars = self.parse_numeral_sequence()
+        fractional_chars: list[str] | None = None
+        e: str | None = None
+        exponent_chars: list[str] | None = None
+        exponent_sign: str | None = None
+
+        if not self.at_end() and self._peek() == ".":
+            self._read()
+            fractional_chars = self.parse_numeral_sequence()
+
+        if not self.at_end() and self._peek().lower() == "e":
+            e = self._read()
+            if self._peek() in ("+", "-"):
+                exponent_sign = self._read()
+            exponent_chars = self.parse_numeral_sequence()
+
+        if exponent_chars is not None:
+            parts: list[str] = [sign or "", *integer_chars]
+            if fractional_chars is not None:
+                parts.append(".")
+                parts.extend(fractional_chars)
+            assert e is not None
+            parts.append(e)
+            parts.append(exponent_sign or "")
+            parts.extend(exponent_chars)
+
+            return SciFloatLiteralNode(
+                position=position,
+                value="".join(parts),
+            )
+
+        if fractional_chars is not None:
+            value_parts: list[str] = [
+                sign or "",
+                *integer_chars,
+                ".",
+                *fractional_chars,
+            ]
+            return FloatLiteralNode(
+                position=position,
+                value="".join(value_parts),
+            )
+
+        value = "".join([sign or "", *integer_chars])
+        return IntegerLiteralNode(
+            position=self._position(),
+            value=value,
+        )
+
+    def parse_numeral_sequence(self) -> list[str]:
+        numeral_chars: list[str] = []
+        while not self.at_end():
+            char = self._peek()
+            if char.isdigit():
+                numeral_chars.append(self._read())
+            else:
+                break
+        if not numeral_chars:
+            self._raise_parse_error("Expected numeral sequence")
+        return numeral_chars
 
     def check_symbol(self) -> bool:
         # TODO: support backtick-quoted symbols

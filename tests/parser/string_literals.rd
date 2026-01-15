@@ -13,7 +13,7 @@ string literal.\n\r\t\\\"""
 
 (*
 Module(
-    VariableBinding(
+    VariableBindingStatement(
         name=Symbol(
             name="plainLiteral"
         ),
@@ -21,7 +21,7 @@ Module(
             value="Hello, \n\r\t\\\"World!"
         )
     ),
-    VariableBinding(
+    VariableBindingStatement(
         name=Symbol(
             name="multLineLiteral"
         ),
@@ -29,7 +29,7 @@ Module(
             value="This is a\nmulti-line string.\n\r\t\\\""
         )
     ),
-    VariableBinding(
+    VariableBindingStatement(
         name=Symbol(
             name="rawLiteral"
         ),
@@ -37,7 +37,7 @@ Module(
             value="Raw string literal\\n\\r\\t\\\\"
         )
     ),
-    VariableBinding(
+    VariableBindingStatement(
         name=Symbol(
             name="multiLineRawLiteral"
         ),
