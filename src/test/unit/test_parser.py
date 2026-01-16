@@ -6,15 +6,15 @@ import textwrap
 import os
 
 
-def _parser_from_text(text: str) -> Parser:
-    return Parser(CharStream(textwrap.dedent(text)))
+def _parser_from_text(text: str, filename: str) -> Parser:
+    return Parser(CharStream(textwrap.dedent(text)), filename=filename)
 
 
 class TestParser(TestCase):
     maxDiff = None
 
-    def _assert_matching_output(self, text: str):
-        parser = _parser_from_text(text)
+    def _assert_matching_output(self, text: str, filename: str):
+        parser = _parser_from_text(text, filename=filename)
         module = parser.parse_module()
         formatted = module.format()
         test_case_start = text.rfind("(*")
@@ -28,33 +28,11 @@ class TestParser(TestCase):
             )
 
     def test_all(self):
-        for root, _, files in os.walk("tests/parser"):
+        for root, _, files in os.walk("test_cases/parser"):
             for file in files:
                 if file.endswith(".rd"):
                     file_path = os.path.join(root, file)
                     with open(file_path, "r") as f:
                         text = f.read()
                     with self.subTest(file_path):
-                        self._assert_matching_output(text)
-
-
-def fix_all_files():
-    for root, _, files in os.walk("tests/parser"):
-        for file in files:
-            if file.endswith(".rd"):
-                file_path = os.path.join(root, file)
-                with open(file_path, "rw") as f:
-                    text = f.read()
-                    parser = _parser_from_text(text)
-                    module = parser.parse_module()
-                    formatted = module.format()
-                    test_case_start = text.rfind("(*")
-                    test_case_end = text.rfind("*)")
-                    new_text = (
-                        text[: test_case_start + 2]
-                        + "\n"
-                        + formatted
-                        + "\n"
-                        + text[test_case_end:]
-                    )
-                    f.write(new_text)
+                        self._assert_matching_output(text, filename=file_path)

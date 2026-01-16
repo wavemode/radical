@@ -52,10 +52,12 @@ from radical.util.core.unit import Unit
 
 class Parser(Unit):
     _char_stream: CharStream
+    _filename: str
 
-    def __init__(self, char_stream: CharStream) -> None:
+    def __init__(self, char_stream: CharStream, filename: str) -> None:
         super().__init__()
         self._char_stream = self.add_child(char_stream)
+        self._filename = filename
         self._seen_non_whitespace = False
         self._indent_level = 0
 
@@ -1062,4 +1064,8 @@ class Parser(Unit):
     def _raise_parse_error(
         self, message: str, position: Position | None = None
     ) -> NoReturn:
-        raise ParseError(message, position=position or self._position())
+        raise ParseError(
+            message,
+            position=position or self._position(),
+            filename=self._filename,
+        )

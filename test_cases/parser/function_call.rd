@@ -17,13 +17,18 @@ callOfCallOfCall = func1()(func2())(func3()(100))
 
 (*
 Module(
+    position=(1, 1),
     top_level_nodes=[
         VariableBindingStatement(
+            position=(1, 1),
             name=Symbol(
+                position=(1, 1),
                 name="noArgs"
             ),
             value=FunctionCall(
+                position=(1, 10),
                 function=Symbol(
+                    position=(1, 10),
                     name="func"
                 ),
                 arguments=[
@@ -32,16 +37,22 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(2, 1),
             name=Symbol(
+                position=(2, 1),
                 name="singleArg"
             ),
             value=FunctionCall(
+                position=(2, 13),
                 function=Symbol(
+                    position=(2, 13),
                     name="func"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(2, 18),
                         value=IntegerLiteral(
+                            position=(2, 20),
                             value="42"
                         )
                     )
@@ -49,16 +60,22 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(3, 1),
             name=Symbol(
+                position=(3, 1),
                 name="singleArgTrailingComma"
             ),
             value=FunctionCall(
+                position=(3, 26),
                 function=Symbol(
+                    position=(3, 26),
                     name="func"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(4, 5),
                         value=IntegerLiteral(
+                            position=(4, 7),
                             value="42"
                         )
                     )
@@ -66,26 +83,36 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(7, 1),
             name=Symbol(
+                position=(7, 1),
                 name="multipleArgs"
             ),
             value=FunctionCall(
+                position=(7, 16),
                 function=Symbol(
+                    position=(7, 16),
                     name="func"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(7, 21),
                         value=IntegerLiteral(
+                            position=(7, 22),
                             value="1"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(7, 24),
                         value=IntegerLiteral(
+                            position=(7, 25),
                             value="2"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(7, 27),
                         value=IntegerLiteral(
+                            position=(7, 28),
                             value="3"
                         )
                     )
@@ -93,22 +120,31 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(8, 1),
             name=Symbol(
+                position=(8, 1),
                 name="nestedFunctionCalls"
             ),
             value=FunctionCall(
+                position=(8, 23),
                 function=Symbol(
+                    position=(8, 23),
                     name="outerFunc"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(8, 33),
                         value=FunctionCall(
+                            position=(8, 33),
                             function=Symbol(
+                                position=(8, 33),
                                 name="innerFunc1"
                             ),
                             arguments=[
                                 FunctionCallArgument(
+                                    position=(8, 44),
                                     value=IntegerLiteral(
+                                        position=(8, 46),
                                         value="10"
                                     )
                                 )
@@ -116,18 +152,25 @@ Module(
                         )
                     ),
                     FunctionCallArgument(
+                        position=(8, 49),
                         value=FunctionCall(
+                            position=(8, 49),
                             function=Symbol(
+                                position=(8, 49),
                                 name="innerFunc2"
                             ),
                             arguments=[
                                 FunctionCallArgument(
+                                    position=(8, 60),
                                     value=IntegerLiteral(
+                                        position=(8, 62),
                                         value="20"
                                     )
                                 ),
                                 FunctionCallArgument(
+                                    position=(8, 64),
                                     value=IntegerLiteral(
+                                        position=(8, 66),
                                         value="30"
                                     )
                                 )
@@ -138,26 +181,36 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(10, 1),
             name=Symbol(
+                position=(10, 1),
                 name="methodCall"
             ),
             value=FunctionCall(
+                position=(10, 14),
                 function=AttributeAccess(
+                    position=(10, 14),
                     object=Symbol(
+                        position=(10, 14),
                         name="obj"
                     ),
                     attribute=Symbol(
+                        position=(10, 18),
                         name="method"
                     )
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(10, 25),
                         value=IntegerLiteral(
+                            position=(10, 28),
                             value="100"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(10, 30),
                         value=StringLiteral(
+                            position=(10, 30),
                             value="test"
                         )
                     )
@@ -165,19 +218,29 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(11, 1),
             name=Symbol(
+                position=(11, 1),
                 name="chainedMethodCalls"
             ),
             value=FunctionCall(
+                position=(11, 22),
                 function=AttributeAccess(
+                    position=(11, 22),
                     object=FunctionCall(
+                        position=(11, 22),
                         function=AttributeAccess(
+                            position=(11, 22),
                             object=FunctionCall(
+                                position=(11, 22),
                                 function=AttributeAccess(
+                                    position=(11, 22),
                                     object=Symbol(
+                                        position=(11, 22),
                                         name="obj"
                                     ),
                                     attribute=Symbol(
+                                        position=(11, 26),
                                         name="firstMethod"
                                     )
                                 ),
@@ -186,24 +249,30 @@ Module(
                                 ]
                             ),
                             attribute=Symbol(
+                                position=(11, 40),
                                 name="secondMethod"
                             )
                         ),
                         arguments=[
                             FunctionCallArgument(
+                                position=(11, 53),
                                 value=IntegerLiteral(
+                                    position=(11, 56),
                                     value="200"
                                 )
                             )
                         ]
                     ),
                     attribute=Symbol(
+                        position=(11, 58),
                         name="thirdMethod"
                     )
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(11, 70),
                         value=StringLiteral(
+                            position=(11, 70),
                             value="chain"
                         )
                     )
@@ -211,35 +280,48 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(13, 1),
             name=Symbol(
+                position=(13, 1),
                 name="namedArgs"
             ),
             value=FunctionCall(
+                position=(13, 13),
                 function=Symbol(
+                    position=(13, 13),
                     name="func"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(13, 18),
                         name=Symbol(
+                            position=(13, 18),
                             name="arg1"
                         ),
                         value=IntegerLiteral(
+                            position=(13, 25),
                             value="10"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(13, 27),
                         name=Symbol(
+                            position=(13, 27),
                             name="arg2"
                         ),
                         value=StringLiteral(
+                            position=(13, 32),
                             value="hello"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(13, 41),
                         name=Symbol(
+                            position=(13, 41),
                             name="arg3"
                         ),
                         value=Symbol(
+                            position=(13, 46),
                             name="true"
                         )
                     )
@@ -247,37 +329,51 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(14, 1),
             name=Symbol(
+                position=(14, 1),
                 name="mixedArgs"
             ),
             value=FunctionCall(
+                position=(14, 13),
                 function=Symbol(
+                    position=(14, 13),
                     name="func"
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(14, 18),
                         value=IntegerLiteral(
+                            position=(14, 19),
                             value="5"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(14, 21),
                         name=Symbol(
+                            position=(14, 21),
                             name="arg1"
                         ),
                         value=StringLiteral(
+                            position=(14, 26),
                             value="value"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(14, 35),
                         value=IntegerLiteral(
+                            position=(14, 37),
                             value="10"
                         )
                     ),
                     FunctionCallArgument(
+                        position=(14, 39),
                         name=Symbol(
+                            position=(14, 39),
                             name="arg2"
                         ),
                         value=StringLiteral(
+                            position=(14, 44),
                             value="another"
                         )
                     )
@@ -285,13 +381,19 @@ Module(
             )
         ),
         VariableBindingStatement(
+            position=(16, 1),
             name=Symbol(
+                position=(16, 1),
                 name="callOfCallOfCall"
             ),
             value=FunctionCall(
+                position=(16, 20),
                 function=FunctionCall(
+                    position=(16, 20),
                     function=FunctionCall(
+                        position=(16, 20),
                         function=Symbol(
+                            position=(16, 20),
                             name="func1"
                         ),
                         arguments=[
@@ -300,8 +402,11 @@ Module(
                     ),
                     arguments=[
                         FunctionCallArgument(
+                            position=(16, 28),
                             value=FunctionCall(
+                                position=(16, 28),
                                 function=Symbol(
+                                    position=(16, 28),
                                     name="func2"
                                 ),
                                 arguments=[
@@ -313,9 +418,13 @@ Module(
                 ),
                 arguments=[
                     FunctionCallArgument(
+                        position=(16, 37),
                         value=FunctionCall(
+                            position=(16, 37),
                             function=FunctionCall(
+                                position=(16, 37),
                                 function=Symbol(
+                                    position=(16, 37),
                                     name="func3"
                                 ),
                                 arguments=[
@@ -324,7 +433,9 @@ Module(
                             ),
                             arguments=[
                                 FunctionCallArgument(
+                                    position=(16, 45),
                                     value=IntegerLiteral(
+                                        position=(16, 48),
                                         value="100"
                                     )
                                 )

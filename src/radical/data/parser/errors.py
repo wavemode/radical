@@ -16,7 +16,7 @@ class PositionOutOfBoundsError(Exception):
 class ParseError(Exception):
     """Raised when a parsing error occurs."""
 
-    def __init__(self, message: str, position: Position) -> None:
-        super().__init__(f"{message} at {position}")
+    def __init__(self, message: str, position: Position, filename: str) -> None:
+        super().__init__(f"{message} at {filename}:{position.line}:{position.column}")
         self.message = message
         self.position = position
