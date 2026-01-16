@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-from radical.unit.parser.parser import Parser
+from radical.unit.parser.file_parser import FileParser
 from radical.unit.parser.char_stream import CharStream
 import textwrap
 
 import os
 
 
-def _parser_from_text(text: str, filename: str) -> Parser:
-    return Parser(CharStream(textwrap.dedent(text)), filename=filename)
+def _parser_from_text(text: str, filename: str) -> FileParser:
+    return FileParser(CharStream(textwrap.dedent(text)), filename=filename)
 
 
-def fix_test_cases():
+def fix_parser_tests():
     for root, _, files in os.walk("test_cases/parser"):
         for file in files:
             if file.endswith(".rd"):
@@ -40,4 +40,4 @@ def fix_test_cases():
 
 
 if __name__ == "__main__":
-    fix_test_cases()
+    fix_parser_tests()

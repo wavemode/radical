@@ -1,13 +1,13 @@
 from unittest import TestCase
-from radical.unit.parser.parser import Parser
+from radical.unit.parser.file_parser import FileParser
 from radical.unit.parser.char_stream import CharStream
 import textwrap
 
 import os
 
 
-def _parser_from_text(text: str, filename: str) -> Parser:
-    return Parser(CharStream(textwrap.dedent(text)), filename=filename)
+def _parser_from_text(text: str, filename: str) -> FileParser:
+    return FileParser(CharStream(textwrap.dedent(text)), filename=filename)
 
 
 class TestParser(TestCase):

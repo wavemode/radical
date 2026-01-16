@@ -50,7 +50,7 @@ from radical.unit.parser.char_stream import CharStream
 from radical.util.core.unit import Unit
 
 
-class Parser(Unit):
+class FileParser(Unit):
     _char_stream: CharStream
     _filename: str
 
