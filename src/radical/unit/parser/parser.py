@@ -7,8 +7,8 @@ from radical.data.parser.ast import (
     RawStringLiteralNode,
     StringLiteralNode,
     SymbolNode,
-    TopLevelDeclarationNode,
-    ValueExpressionNode,
+    TopLevelDeclarationNodeType,
+    ValueExpressionNodeType,
     IntegerLiteralNode,
     FloatLiteralNode,
     SciFloatLiteralNode,
@@ -21,6 +21,24 @@ from radical.data.parser.ast import (
     OperatorAssociativity,
     UnaryOperationNode,
     BinaryOperationNode,
+    ParenthesizedExpressionNode,
+    SetLiteralNode,
+    SetComprehensionNode,
+    MapLiteralNode,
+    MapComprehensionNode,
+    IndexAccessNode,
+    SliceAccessNode,
+    AttributeAccessNode,
+    FunctionCallArgumentNode,
+    FunctionCallNode,
+    ListLiteralNode,
+    TupleLiteralNode,
+    ListComprehensionNode,
+    ComprehensionBindingNode,
+    ComprehensionGuardNode,
+    EntryNode,
+    TreeLiteralNode,
+    TreeComprehensionNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -39,7 +57,7 @@ class Parser(Unit):
 
     def parse_module(self) -> ModuleNode:
         position = self._position()
-        top_level_nodes: list[TopLevelDeclarationNode] = []
+        top_level_nodes: list[TopLevelDeclarationNodeType] = []
         self.skip_whitespace()
         while not self.at_end():
             if not self._indent_level == 0:
@@ -51,7 +69,7 @@ class Parser(Unit):
             top_level_nodes=top_level_nodes,
         )
 
-    def parse_top_level_declaration(self) -> TopLevelDeclarationNode:
+    def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
         if self.check_symbol():
             return self.parse_variable_binding()
         else:
@@ -72,9 +90,9 @@ class Parser(Unit):
             type=None,
         )
 
-    def parse_value(self, min_precedence: int = 0) -> ValueExpressionNode:
+    def parse_value(self, min_precedence: int = 0) -> ValueExpressionNodeType:
         position_before_lhs = self._position()
-        lhs: ValueExpressionNode | None = None
+        lhs: ValueExpressionNodeType | None = None
         if not self.check_unary_operator():
             lhs = self.parse_single_value_expression()
             self.skip_non_breaking_whitespace()
@@ -132,21 +150,399 @@ class Parser(Unit):
         assert lhs is not None
         return lhs
 
-    def parse_single_value_expression(self) -> ValueExpressionNode:
-        if self.check_raw_multi_line_string_literal():
-            return self.parse_raw_multi_line_string_literal()
+    def parse_single_value_expression(self) -> ValueExpressionNodeType:
+        value: ValueExpressionNodeType
+        if self.check_parenthesized_expression():
+            value = self.parse_parenthesized_expression()
+        elif self.check_list_literal():
+            value = self.parse_list_literal()
+        elif self.check_set_or_map_or_tree_literal():
+            value = self.parse_set_or_map_or_tree_literal()
+        elif self.check_raw_multi_line_string_literal():
+            value = self.parse_raw_multi_line_string_literal()
         elif self.check_raw_string_literal():
-            return self.parse_raw_string_literal()
+            value = self.parse_raw_string_literal()
         elif self.check_multi_line_string_literal():
-            return self.parse_multi_line_string_literal()
+            value = self.parse_multi_line_string_literal()
         elif self.check_string_literal():
-            return self.parse_string_literal()
+            value = self.parse_string_literal()
         elif self.check_number_literal():
-            return self.parse_number_literal()
+            value = self.parse_number_literal()
         elif self.check_symbol():
-            return self.parse_symbol()
+            value = self.parse_symbol()
         else:
             self._raise_parse_error("Expected a value")
+
+        while not self.at_end():
+            if self.check_specific_charachters("["):
+                value = self.parse_index_or_slice_access(value)
+            elif self.check_specific_charachters("."):
+                value = self.parse_attribute_access(value)
+            elif self.check_specific_charachters("("):
+                value = self.parse_function_call(value)
+            else:
+                break
+
+        return value
+
+    def parse_function_call(
+        self, function: ValueExpressionNodeType
+    ) -> FunctionCallNode:
+        start_position = function.position
+        self.parse_specific_charachters("(")
+        self.skip_whitespace()
+
+        arguments: list[FunctionCallArgumentNode] = []
+
+        while not self.check_specific_charachters(")"):
+            arguments.append(self.parse_function_call_argument())
+            self.skip_whitespace()
+            if self.check_specific_charachters(","):
+                self._read()
+            self.skip_whitespace()
+
+        self.parse_specific_charachters(")")
+        return FunctionCallNode(
+            position=start_position,
+            function=function,
+            arguments=arguments,
+        )
+
+    def parse_function_call_argument(self) -> FunctionCallArgumentNode:
+        start_position = self._position()
+        name: SymbolNode | None = None
+        value: ValueExpressionNodeType
+        if self.check_symbol():
+            name = self.parse_symbol()
+            self.skip_whitespace()
+            if self.check_specific_charachters("="):
+                self.parse_specific_charachters("=")
+                self.skip_whitespace()
+                value = self.parse_value()
+            else:
+                self._reset_position(start_position)
+                value = self.parse_value()
+                name = None
+        else:
+            value = self.parse_value()
+
+        return FunctionCallArgumentNode(
+            position=start_position,
+            name=name,
+            value=value,
+        )
+
+    def parse_attribute_access(
+        self, object: ValueExpressionNodeType
+    ) -> AttributeAccessNode:
+        start_position = object.position
+        self.parse_specific_charachters(".")
+        self.skip_whitespace()
+        attribute = self.parse_symbol()
+        return AttributeAccessNode(
+            position=start_position,
+            object=object,
+            attribute=attribute,
+        )
+
+    def parse_index_or_slice_access(
+        self, collection: ValueExpressionNodeType
+    ) -> SliceAccessNode | IndexAccessNode:
+        start_position = collection.position
+        self.parse_specific_charachters("[")
+        self.skip_whitespace()
+
+        is_slice = False
+        slice_start: ValueExpressionNodeType | None = None
+        slice_end: ValueExpressionNodeType | None = None
+
+        if not self.check_specific_charachters(":"):
+            slice_start = self.parse_value()
+            self.skip_whitespace()
+
+        if self.check_specific_charachters(":"):
+            is_slice = True
+            self._read()
+            self.skip_whitespace()
+            if not self.check_specific_charachters("]"):
+                slice_end = self.parse_value()
+                self.skip_whitespace()
+
+        self.parse_specific_charachters("]")
+        if is_slice:
+            return SliceAccessNode(
+                position=start_position,
+                collection=collection,
+                start=slice_start,
+                end=slice_end,
+            )
+        else:
+            assert slice_start is not None
+            return IndexAccessNode(
+                position=start_position,
+                collection=collection,
+                index=slice_start,
+            )
+
+    def check_comprehension_clause(self) -> bool:
+        return self.check_any_word(["for", "if"])
+
+    def parse_comprehension_clauses(
+        self,
+    ) -> list[ComprehensionGuardNode | ComprehensionBindingNode]:
+        clauses: list[ComprehensionGuardNode | ComprehensionBindingNode] = []
+        while True:
+            if self.check_word("for"):
+                start_position = self._position()
+                self._read(3)
+                self.skip_whitespace()
+                variables: list[SymbolNode] = []
+                variables.append(self.parse_symbol())
+                self.skip_whitespace()
+                while self.check_specific_charachters(","):
+                    self._read()
+                    self.skip_whitespace()
+                    variables.append(self.parse_symbol())
+                    self.skip_whitespace()
+                self.parse_word("in")
+                self.skip_whitespace()
+                iterable = self.parse_value()
+                self.skip_whitespace()
+                clauses.append(
+                    ComprehensionBindingNode(
+                        position=start_position,
+                        variables=variables,
+                        iterable=iterable,
+                    )
+                )
+            elif self.check_word("if"):
+                start_position = self._position()
+                self._read(2)
+                self.skip_whitespace()
+                condition = self.parse_value()
+                self.skip_whitespace()
+                clauses.append(
+                    ComprehensionGuardNode(
+                        position=start_position,
+                        condition=condition,
+                    )
+                )
+            else:
+                break
+        return clauses
+
+    def check_list_literal(self) -> bool:
+        return self.check_specific_charachters("[")
+
+    def parse_list_literal(self) -> ListLiteralNode | ListComprehensionNode:
+        start_position = self._position()
+        self.parse_specific_charachters("[")
+        self.skip_whitespace()
+
+        elements: list[ValueExpressionNodeType] = []
+        while not self.check_specific_charachters("]"):
+            if self.check_comprehension_clause():
+                if len(elements) != 1:
+                    self._raise_parse_error(
+                        "List comprehension must have exactly one element expression",
+                        position=start_position,
+                    )
+                clauses = self.parse_comprehension_clauses()
+                self.skip_whitespace()
+                self.parse_specific_charachters("]")
+                return ListComprehensionNode(
+                    position=start_position,
+                    element=elements[0],
+                    clauses=clauses,
+                )
+
+            elements.append(self.parse_value())
+            self.skip_non_breaking_whitespace()
+            if self.check_specific_charachters(","):
+                self._read()
+                self.skip_whitespace()
+            elif self.check_specific_charachters("\n"):
+                self.skip_whitespace()
+                if self.check_specific_charachters(","):
+                    self._read()
+                    self.skip_whitespace()
+            elif self.check_specific_charachters("]"):
+                break
+            elif not self.check_comprehension_clause():
+                self._raise_parse_error(
+                    "Expected either ',' or newline between list elements",
+                )
+
+        self.parse_specific_charachters("]")
+        return ListLiteralNode(
+            position=start_position,
+            elements=elements,
+        )
+
+    def check_set_or_map_or_tree_literal(self) -> bool:
+        return self.check_specific_charachters("{")
+
+    def parse_set_or_map_or_tree_literal(
+        self,
+    ) -> (
+        SetLiteralNode
+        | MapLiteralNode
+        | SetComprehensionNode
+        | MapComprehensionNode
+        | TreeLiteralNode
+        | TreeComprehensionNode
+    ):
+        start_position = self._position()
+        self.parse_specific_charachters("{")
+        self.skip_whitespace()
+
+        is_tree = False
+        elements: list[ValueExpressionNodeType] = []
+        entries: list[EntryNode] = []
+
+        while not self.check_specific_charachters("}"):
+            if self.check_comprehension_clause():
+                clauses = self.parse_comprehension_clauses()
+                if len(elements) == 1:
+                    element = elements[0]
+                    self.skip_whitespace()
+                    self.parse_specific_charachters("}")
+                    return SetComprehensionNode(
+                        position=start_position,
+                        element=element,
+                        clauses=clauses,
+                    )
+                elif len(entries) == 1:
+                    key = entries[0].key
+                    value = entries[0].value
+                    self.skip_whitespace()
+                    self.parse_specific_charachters("}")
+                    return MapComprehensionNode(
+                        position=start_position,
+                        key=key,
+                        value=value,
+                        clauses=clauses,
+                    )
+                else:
+                    self._raise_parse_error(
+                        "Comprehension must have exactly one key/value or element expression",
+                        position=start_position,
+                    )
+
+            key_or_element = self.parse_value()
+            self.skip_non_breaking_whitespace()
+            if self.check_specific_charachters("="):
+                if isinstance(key_or_element, ListLiteralNode):
+                    if not len(key_or_element.elements) == 1:
+                        self._raise_parse_error(
+                            "Map literal key must be a symbol or single value expression",
+                            position=start_position,
+                        )
+                    key_or_element = key_or_element.elements[0]
+                elif not isinstance(key_or_element, SymbolNode):
+                    self._raise_parse_error(
+                        "Map literal key must be a symbol or single value expression",
+                        position=start_position,
+                    )
+                self._read()
+                self.skip_whitespace()
+                value = self.parse_value()
+                entries.append(
+                    EntryNode(
+                        position=key_or_element.position,
+                        key=key_or_element,
+                        value=value,
+                    )
+                )
+            elif (
+                not self.check_any_sequence([",", "\n", "}"])
+                and not self.check_comprehension_clause()
+            ):
+                is_tree = True
+                value = self.parse_value()
+                entries.append(
+                    EntryNode(
+                        position=key_or_element.position,
+                        key=key_or_element,
+                        value=value,
+                    )
+                )
+            else:
+                elements.append(key_or_element)
+
+            if self.check_specific_charachters(","):
+                self._read()
+                self.skip_whitespace()
+            elif self.check_specific_charachters("\n"):
+                self.skip_whitespace()
+                if self.check_specific_charachters(","):
+                    self._read()
+                    self.skip_whitespace()
+            elif self.check_specific_charachters("}"):
+                break
+            elif not self.check_comprehension_clause():
+                self._raise_parse_error(
+                    "Expected either ',' or newline between set/map elements"
+                    if not is_tree
+                    else "Expected either ',' or newline between tree entries",
+                )
+
+        self.parse_specific_charachters("}")
+        if elements:
+            if len(entries) > 0:
+                self._raise_parse_error(
+                    "Cannot mix set elements and map entries in a single literal",
+                    position=start_position,
+                )
+            return SetLiteralNode(
+                position=start_position,
+                elements=elements,
+            )
+        elif is_tree:
+            return TreeLiteralNode(
+                position=start_position,
+                entries=entries,
+            )
+        else:
+            return MapLiteralNode(
+                position=start_position,
+                entries=entries,
+            )
+
+    def check_parenthesized_expression(self) -> bool:
+        return self.check_specific_charachters("(")
+
+    def parse_parenthesized_expression(
+        self,
+    ) -> ParenthesizedExpressionNode | TupleLiteralNode:
+        start_position = self._position()
+        self.parse_specific_charachters("(")
+        self.skip_whitespace()
+        expression = self.parse_value()
+        self.skip_whitespace()
+
+        if self.check_specific_charachters(","):
+            self._read()
+            self.skip_whitespace()
+
+            elements: list[ValueExpressionNodeType] = [expression]
+            while not self.check_specific_charachters(")"):
+                elements.append(self.parse_value())
+                self.skip_whitespace()
+                if self.check_specific_charachters(","):
+                    self._read()
+                    self.skip_whitespace()
+            self.parse_specific_charachters(")")
+            return TupleLiteralNode(
+                position=start_position,
+                elements=elements,
+            )
+
+        self.parse_specific_charachters(")")
+        return ParenthesizedExpressionNode(
+            position=start_position,
+            expression=expression,
+        )
 
     def check_binary_operator(self) -> bool:
         return self.check_any_sequence(
@@ -175,7 +571,7 @@ class Parser(Unit):
             return BinaryOperator(operator_str)
 
     def check_unary_operator(self) -> bool:
-        return self._peek() in ("+", "-") or self.check_word("not")
+        return self.check_any_sequence(["+", "-"]) or self.check_word("not")
 
     def parse_unary_operator(self) -> UnaryOperator:
         if self.check_word("not"):
@@ -185,7 +581,9 @@ class Parser(Unit):
             return UnaryOperator(self._read())
 
     def check_number_literal(self) -> bool:
-        return self._peek().isdigit()
+        return self.check_any_sequence(
+            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        )
 
     def parse_number_literal(
         self,
@@ -198,11 +596,11 @@ class Parser(Unit):
         exponent_chars: list[str] | None = None
         exponent_sign: str | None = None
 
-        if not self.at_end() and self._peek() == ".":
+        if self.check_specific_charachters("."):
             self._read()
             fractional_chars = self.parse_numeral_sequence()
 
-        if not self.at_end() and self._peek().lower() == "e":
+        if self.check_any_sequence(["e", "E"]):
             e = self._read()
             if self._peek() in ("+", "-"):
                 exponent_sign = self._read()
@@ -242,7 +640,7 @@ class Parser(Unit):
 
     def parse_numeral_sequence(self) -> list[str]:
         numeral_chars: list[str] = []
-        while not self.at_end():
+        while True:
             char = self._peek()
             if char.isdigit():
                 numeral_chars.append(self._read())
@@ -265,7 +663,7 @@ class Parser(Unit):
             name_chars.append(self._read())
         else:
             self._raise_parse_error("Expected symbol", position=start_position)
-        while not self.at_end():
+        while True:
             if self._peek().isalnum() or self._peek() == "_":
                 name_chars.append(self._read())
             else:
@@ -276,7 +674,7 @@ class Parser(Unit):
         )
 
     def check_string_literal(self) -> bool:
-        return self._peek() == '"'
+        return self.check_specific_charachters('"')
 
     def parse_string_literal(self) -> StringLiteralNode:
         start_position = self._position()
@@ -289,7 +687,7 @@ class Parser(Unit):
                     position=start_position,
                     value="".join(value_chars),
                 )
-            elif self._peek() == "\\":
+            elif self.check_specific_charachters("\\"):
                 value_chars.append(self.parse_string_literal_escape_sequence())
             else:
                 value_chars.append(self._read())
@@ -309,7 +707,7 @@ class Parser(Unit):
                     position=start_position,
                     value="".join(value_chars),
                 )
-            elif self._peek() == "\\":
+            elif self.check_specific_charachters("\\"):
                 value_chars.append(self.parse_string_literal_escape_sequence())
             else:
                 value_chars.append(self._read())
@@ -386,13 +784,14 @@ class Parser(Unit):
 
     def skip_single_line_comment(self) -> None:
         self.parse_specific_charachters("--")
-        while not self.at_end() and not self._peek() == "\n":
+        while not self.at_end() and self._peek() != "\n":
             self._read()
 
     def check_multi_line_comment(self) -> bool:
         return self.check_specific_charachters("(*")
 
     def skip_multi_line_comment(self) -> None:
+        position = self._position()
         self.parse_specific_charachters("(*")
         level = 1
         while not self.at_end():
@@ -406,7 +805,10 @@ class Parser(Unit):
                     return
             else:
                 self._read()
-        self._raise_parse_error("Unterminated multi-line comment")
+        self._raise_parse_error(
+            "Unterminated multi-line comment",
+            position=position,
+        )
 
     def skip_non_breaking_whitespace(self) -> None:
         self.skip_chars({" ", "\t", "\r"})
@@ -462,6 +864,12 @@ class Parser(Unit):
                 return True
         return False
 
+    def parse_word(self, expected: str) -> str:
+        if self.check_word(expected):
+            self._read(len(expected))
+            return expected
+        self._raise_parse_error(f"Expected '{expected}'")
+
     def parse_any_word(self, expected: list[str]) -> str:
         for word in expected:
             if self.check_word(word):
@@ -489,16 +897,7 @@ class Parser(Unit):
         return matching and (at_end or not (next_char.isalnum() or next_char == "_"))
 
     def check_specific_charachters(self, expected: str) -> bool:
-        position = self._position()
-        matching = True
-        index = 0
-        while index < len(expected):
-            if self.at_end() or self._read() != expected[index]:
-                matching = False
-                break
-            index += 1
-        self._reset_position(position)
-        return matching
+        return self._peek(len(expected)) == expected
 
     def parse_specific_charachters(self, expected: str) -> None:
         actual = self._read(len(expected))
@@ -510,8 +909,16 @@ class Parser(Unit):
 
     def _peek(self, n: int = 1) -> str:
         if n == 1:
-            return self._char_stream.peek_char()
-        return self._char_stream.peek_chars(n)
+            return "" if self.at_end() else self._char_stream.peek_char()
+
+        position = self._char_stream.get_position()
+        chars: list[str] = []
+        for _ in range(n):
+            if self.at_end():
+                break
+            chars.append(self._read())
+        self._char_stream.reset_position(position)
+        return "".join(chars)
 
     def _read(self, n: int = 1) -> str:
         result = self._peek(n)

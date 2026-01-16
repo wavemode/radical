@@ -1,0 +1,38 @@
+myVar = 1 + (2 * (3 + 4))
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="myVar"
+            ),
+            value=BinaryOperation(
+                left=IntegerLiteral(
+                    value="1"
+                ),
+                operator="+",
+                right=ParenthesizedExpression(
+                    expression=BinaryOperation(
+                        left=IntegerLiteral(
+                            value="2"
+                        ),
+                        operator="*",
+                        right=ParenthesizedExpression(
+                            expression=BinaryOperation(
+                                left=IntegerLiteral(
+                                    value="3"
+                                ),
+                                operator="+",
+                                right=IntegerLiteral(
+                                    value="4"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    ]
+)
+*)

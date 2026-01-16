@@ -1,0 +1,45 @@
+singleAttributeAccess = obj.attribute
+chainedAttributeAccess = obj.first.second.third
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="singleAttributeAccess"
+            ),
+            value=AttributeAccess(
+                object=Symbol(
+                    name="obj"
+                ),
+                attribute=Symbol(
+                    name="attribute"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="chainedAttributeAccess"
+            ),
+            value=AttributeAccess(
+                object=AttributeAccess(
+                    object=AttributeAccess(
+                        object=Symbol(
+                            name="obj"
+                        ),
+                        attribute=Symbol(
+                            name="first"
+                        )
+                    ),
+                    attribute=Symbol(
+                        name="second"
+                    )
+                ),
+                attribute=Symbol(
+                    name="third"
+                )
+            )
+        )
+    ]
+)
+*)

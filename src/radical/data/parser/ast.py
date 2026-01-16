@@ -110,12 +110,6 @@ class UnaryOperator(StrEnum):
     NOT = "not"
 
 
-@dataclass(frozen=True)
-class UnaryOperationNode(Node):
-    operator: UnaryOperator
-    operand: "ValueExpressionNode"
-
-
 class BinaryOperator(StrEnum):
     EXPONENTIATION = "**"
     MULTIPLY = "*"
@@ -195,40 +189,51 @@ def associativity_of_unary_op(operator: UnaryOperator) -> OperatorAssociativity:
 
 
 @dataclass(frozen=True)
+class UnaryOperationNode(Node):
+    operator: UnaryOperator
+    operand: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class BinaryOperationNode(Node):
-    left: "ValueExpressionNode"
+    left: "ValueExpressionNodeType"
     operator: BinaryOperator
-    right: "ValueExpressionNode"
+    right: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class ParenthesizedExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class IndexAccessNode(Node):
-    collection: "ValueExpressionNode"
-    index: "ValueExpressionNode"
+    collection: "ValueExpressionNodeType"
+    index: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class SliceAccessNode(Node):
-    collection: "ValueExpressionNode"
-    start: "ValueExpressionNode | None"
-    end: "ValueExpressionNode | None"
+    collection: "ValueExpressionNodeType"
+    start: "ValueExpressionNodeType | None"
+    end: "ValueExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
 class AttributeAccessNode(Node):
-    object: "ValueExpressionNode"
+    object: "ValueExpressionNodeType"
     attribute: SymbolNode
 
 
 @dataclass(frozen=True)
 class FunctionCallArgumentNode(Node):
     name: SymbolNode | None
-    value: "ValueExpressionNode"
+    value: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class FunctionCallNode(Node):
-    function: "ValueExpressionNode"
+    function: "ValueExpressionNodeType"
     arguments: list[FunctionCallArgumentNode]
 
 
@@ -238,19 +243,22 @@ class FunctionCallNode(Node):
 @dataclass(frozen=True)
 class VariableBindingStatementNode(Node):
     name: SymbolNode
-    value: "ValueExpressionNode"
-    type: "ValueExpressionNode | None"
+    value: "ValueExpressionNodeType"
+    type: "ValueExpressionNodeType | None"
+
+
+BindingStatementNodeType = VariableBindingStatementNode
 
 
 @dataclass(frozen=True)
 class LetInNode(Node):
-    definitions: list[VariableBindingStatementNode]
-    body: "ValueExpressionNode"
+    definitions: list[BindingStatementNodeType]
+    body: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class LetStatementNode(Node):
-    definition: VariableBindingStatementNode
+    definition: BindingStatementNodeType
 
 
 # Collections
@@ -258,60 +266,78 @@ class LetStatementNode(Node):
 
 @dataclass(frozen=True)
 class ListLiteralNode(Node):
-    elements: list["ValueExpressionNode"]
+    elements: list["ValueExpressionNodeType"]
 
 
 @dataclass(frozen=True)
 class SetLiteralNode(Node):
-    elements: list["ValueExpressionNode"]
+    elements: list["ValueExpressionNodeType"]
+
+
+@dataclass(frozen=True)
+class EntryNode(Node):
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class MapLiteralNode(Node):
-    entries: list[tuple["ValueExpressionNode", "ValueExpressionNode"]]
+    entries: list[EntryNode]
+
+
+@dataclass(frozen=True)
+class TreeLiteralNode(Node):
+    entries: list[EntryNode]
 
 
 @dataclass(frozen=True)
 class TupleLiteralNode(Node):
-    elements: list["ValueExpressionNode"]
+    elements: list["ValueExpressionNodeType"]
 
 
 @dataclass(frozen=True)
 class ComprehensionGuardNode(Node):
-    condition: "ValueExpressionNode"
+    condition: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class ComprehensionBindingNode(Node):
     variables: list[SymbolNode]
-    iterable: "ValueExpressionNode"
+    iterable: "ValueExpressionNodeType"
 
 
-ComprehensionClause = ComprehensionBindingNode | ComprehensionGuardNode
+ComprehensionClauseNodeType = ComprehensionBindingNode | ComprehensionGuardNode
 
 
 @dataclass(frozen=True)
 class ListComprehensionNode(Node):
-    element: "ValueExpressionNode"
-    clauses: list[ComprehensionClause]
+    element: "ValueExpressionNodeType"
+    clauses: list[ComprehensionClauseNodeType]
 
 
 @dataclass(frozen=True)
 class SetComprehensionNode(Node):
-    element: "ValueExpressionNode"
-    clauses: list[ComprehensionClause]
+    element: "ValueExpressionNodeType"
+    clauses: list[ComprehensionClauseNodeType]
 
 
 @dataclass(frozen=True)
 class MapComprehensionNode(Node):
-    key: "ValueExpressionNode"
-    value: "ValueExpressionNode"
-    clauses: list[ComprehensionClause]
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
+    clauses: list[ComprehensionClauseNodeType]
+
+
+@dataclass(frozen=True)
+class TreeComprehensionNode(Node):
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
+    clauses: list[ComprehensionClauseNodeType]
 
 
 # do block, if-then, raise, try-catch-then etc
 
-ValueExpressionNode = (
+ValueExpressionNodeType = (
     SymbolNode
     | StringLiteralNode
     | RawStringLiteralNode
@@ -322,12 +348,27 @@ ValueExpressionNode = (
     | SciFloatLiteralNode
     | UnaryOperationNode
     | BinaryOperationNode
+    | ParenthesizedExpressionNode
+    | IndexAccessNode
+    | SliceAccessNode
+    | AttributeAccessNode
+    | FunctionCallNode
+    | LetInNode
+    | ListLiteralNode
+    | SetLiteralNode
+    | MapLiteralNode
+    | TupleLiteralNode
+    | ListComprehensionNode
+    | SetComprehensionNode
+    | MapComprehensionNode
+    | TreeLiteralNode
+    | TreeComprehensionNode
 )
 
 
-TopLevelDeclarationNode = VariableBindingStatementNode
+TopLevelDeclarationNodeType = BindingStatementNodeType
 
 
 @dataclass(frozen=True)
 class ModuleNode(Node):
-    top_level_nodes: list[TopLevelDeclarationNode]
+    top_level_nodes: list[TopLevelDeclarationNodeType]

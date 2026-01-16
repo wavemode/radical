@@ -1,0 +1,99 @@
+singleElementTuple = (element,)
+multiElementTuple = (element1, element2, element3)
+multiElementTupleWithTrailingComma = (
+    element1, 
+    element2, 
+    element3,
+)
+nestedTuples = ((element1, element2), (element3, element4), (element5,))
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="singleElementTuple"
+            ),
+            value=TupleLiteral(
+                elements=[
+                    Symbol(
+                        name="element"
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="multiElementTuple"
+            ),
+            value=TupleLiteral(
+                elements=[
+                    Symbol(
+                        name="element1"
+                    ),
+                    Symbol(
+                        name="element2"
+                    ),
+                    Symbol(
+                        name="element3"
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="multiElementTupleWithTrailingComma"
+            ),
+            value=TupleLiteral(
+                elements=[
+                    Symbol(
+                        name="element1"
+                    ),
+                    Symbol(
+                        name="element2"
+                    ),
+                    Symbol(
+                        name="element3"
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="nestedTuples"
+            ),
+            value=TupleLiteral(
+                elements=[
+                    TupleLiteral(
+                        elements=[
+                            Symbol(
+                                name="element1"
+                            ),
+                            Symbol(
+                                name="element2"
+                            )
+                        ]
+                    ),
+                    TupleLiteral(
+                        elements=[
+                            Symbol(
+                                name="element3"
+                            ),
+                            Symbol(
+                                name="element4"
+                            )
+                        ]
+                    ),
+                    TupleLiteral(
+                        elements=[
+                            Symbol(
+                                name="element5"
+                            )
+                        ]
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)

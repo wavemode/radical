@@ -1,0 +1,181 @@
+intLiteralIndex = arr[0]
+stringLiteralIndex = map["key"]
+
+multipleIndices = matrix[1][2]
+
+sliceAccess = arr[1:4]
+sliceAccessNoStart = arr[:3]
+sliceAccessNoEnd = arr[2:]
+fullSliceAccess = arr[:]
+nestedSliceAccess = matrix[0:2][1:3]
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="intLiteralIndex"
+            ),
+            value=IndexAccess(
+                collection=Symbol(
+                    name="arr"
+                ),
+                index=IntegerLiteral(
+                    value="0"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="stringLiteralIndex"
+            ),
+            value=IndexAccess(
+                collection=Symbol(
+                    name="map"
+                ),
+                index=StringLiteral(
+                    value="key"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="multipleIndices"
+            ),
+            value=IndexAccess(
+                collection=IndexAccess(
+                    collection=Symbol(
+                        name="matrix"
+                    ),
+                    index=IntegerLiteral(
+                        value="1"
+                    )
+                ),
+                index=IntegerLiteral(
+                    value="2"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="sliceAccess"
+            ),
+            value=SliceAccess(
+                collection=Symbol(
+                    name="arr"
+                ),
+                start=IntegerLiteral(
+                    value="1"
+                ),
+                end=IntegerLiteral(
+                    value="4"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="sliceAccessNoStart"
+            ),
+            value=SliceAccess(
+                collection=Symbol(
+                    name="arr"
+                ),
+                end=IntegerLiteral(
+                    value="3"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="sliceAccessNoEnd"
+            ),
+            value=SliceAccess(
+                collection=Symbol(
+                    name="arr"
+                ),
+                start=IntegerLiteral(
+                    value="2"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="fullSliceAccess"
+            ),
+            value=SliceAccess(
+                collection=Symbol(
+                    name="arr"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="nestedSliceAccess"
+            ),
+            value=SliceAccess(
+                collection=SliceAccess(
+                    collection=Symbol(
+                        name="matrix"
+                    ),
+                    start=IntegerLiteral(
+                        value="0"
+                    ),
+                    end=IntegerLiteral(
+                        value="2"
+                    )
+                ),
+                start=IntegerLiteral(
+                    value="1"
+                ),
+                end=IntegerLiteral(
+                    value="3"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="expressionSlice"
+            ),
+            value=SliceAccess(
+                collection=Symbol(
+                    name="arr"
+                ),
+                start=IndexAccess(
+                    collection=IndexAccess(
+                        collection=Symbol(
+                            name="matrix"
+                        ),
+                        index=IntegerLiteral(
+                            value="0"
+                        )
+                    ),
+                    index=IntegerLiteral(
+                        value="0"
+                    )
+                ),
+                end=BinaryOperation(
+                    left=IndexAccess(
+                        collection=IndexAccess(
+                            collection=Symbol(
+                                name="matrix"
+                            ),
+                            index=IntegerLiteral(
+                                value="1"
+                            )
+                        ),
+                        index=IntegerLiteral(
+                            value="1"
+                        )
+                    ),
+                    operator="+",
+                    right=IntegerLiteral(
+                        value="2"
+                    )
+                )
+            )
+        )
+    ]
+)
+*)
+
+expressionSlice = arr[matrix[0][0] : matrix[1][1] + 2]
