@@ -48,6 +48,7 @@ from radical.data.parser.ast import (
     GenericTypeNode,
     ParenthesizedTypeNode,
     TupleTypeNode,
+    UnionTypeNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -87,6 +88,25 @@ class FileParser(Unit):
             self._raise_parse_error("Expected a top-level declaration")
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
+        expr: TypeExpressionNodeType = self.parse_single_type_expression()
+
+        self.skip_whitespace()
+
+        while self.check_specific_charachters("|"):
+            position_before_op = self._position()
+            self._read()
+            self.skip_whitespace()
+            right_expr = self.parse_single_type_expression()
+            expr = UnionTypeNode(
+                position=position_before_op,
+                left=expr,
+                right=right_expr,
+            )
+            self.skip_whitespace()
+
+        return expr
+
+    def parse_single_type_expression(self) -> TypeExpressionNodeType:
         expr: TypeExpressionNodeType
         if self.check_type_name():
             expr = self.parse_type_name()
@@ -106,7 +126,7 @@ class FileParser(Unit):
 
     def check_parenthesized_type(self) -> bool:
         return self.check_specific_charachters("(")
-    
+
     def parse_parenthesized_type(self) -> ParenthesizedTypeNode | TupleTypeNode:
         start_position = self._position()
         self.parse_specific_charachters("(")

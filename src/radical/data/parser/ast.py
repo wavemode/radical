@@ -103,9 +103,11 @@ class TypeExpressionNode(Node):
 class ParenthesizedTypeNode(Node):
     type: "TypeExpressionNodeType"
 
+
 @dataclass(frozen=True)
 class TupleTypeNode(Node):
     element_types: list["TypeExpressionNodeType"]
+
 
 @dataclass(frozen=True)
 class GenericTypeNode(Node):
