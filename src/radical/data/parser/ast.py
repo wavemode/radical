@@ -314,10 +314,16 @@ class IfThenElseNode(Node):
 class VariableBindingStatementNode(Node):
     name: SymbolNode
     value: "ValueExpressionNodeType"
-    type: "ValueExpressionNodeType | None"
+    type: "TypeExpressionNodeType | None"
 
 
-BindingStatementNodeType = VariableBindingStatementNode
+@dataclass(frozen=True)
+class VariableTypeSignatureNode(Node):
+    name: SymbolNode
+    type: "ValueExpressionNodeType"
+
+
+BindingStatementNodeType = VariableBindingStatementNode | VariableTypeSignatureNode
 
 
 @dataclass(frozen=True)

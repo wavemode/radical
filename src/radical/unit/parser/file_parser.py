@@ -43,6 +43,8 @@ from radical.data.parser.ast import (
     IfThenElseNode,
     SpreadOperationNode,
     CollectionElementNodeType,
+    TypeNameNode,
+    TypeExpressionNodeType,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -81,19 +83,45 @@ class FileParser(Unit):
         else:
             self._raise_parse_error("Expected a top-level declaration")
 
-    def parse_variable_binding(self) -> VariableBindingStatementNode:
-        # TODO: support type annotation
+    def parse_type_expression(self) -> TypeExpressionNodeType:
+        if self.check_type_name():
+            return self.parse_type_name()
+        else:
+            self._raise_parse_error("Expected a type expression")
+
+    def check_type_name(self) -> bool:
+        return self.check_symbol()
+
+    def parse_type_name(self) -> TypeNameNode:
         start_position = self._position()
         name_node = self.parse_symbol()
-        self.skip_non_breaking_whitespace()
+        return TypeNameNode(
+            position=start_position,
+            name=name_node,
+        )
+
+    def parse_variable_binding(self) -> VariableBindingStatementNode:
+        start_position = self._position()
+        name_node = self.parse_symbol()
+        self.skip_whitespace()
+        type_node: TypeExpressionNodeType | None = None
+
+        if self.check_specific_charachters(":"):
+            self._read()
+            self.skip_whitespace()
+            type_node = self.parse_type_expression()
+            self.skip_whitespace()
+
         self.parse_specific_charachters("=")
         self.skip_whitespace()
         value_node = self.parse_value()
+        self.skip_whitespace()
+
         return VariableBindingStatementNode(
             position=start_position,
             name=name_node,
             value=value_node,
-            type=None,
+            type=type_node,
         )
 
     def parse_value(self, min_precedence: int = 0) -> ValueExpressionNodeType:

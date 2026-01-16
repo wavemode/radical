@@ -19,6 +19,10 @@ class TestParser(TestCase):
         formatted = module.format()
         test_case_start = text.rfind("(*")
         test_case_end = text.rfind("*)")
+        if test_case_start == -1 or test_case_end == -1:
+            raise ValueError(
+                "Test case must contain expected output enclosed in (* ... *)"
+            )
         test_case = text[test_case_start + 2 : test_case_end].strip()
         if formatted != test_case:
             raise AssertionError(

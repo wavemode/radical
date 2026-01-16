@@ -29,11 +29,11 @@ def fix_parser_tests():
                     test_case_end = len(text)
 
                 new_text = (
-                    text[: test_case_start + 2]
-                    + "\n"
+                    text[:test_case_start]
+                    + "(*\n"
                     + formatted
-                    + "\n"
-                    + text[test_case_end:]
+                    + "\n*)"
+                    + text[test_case_end + 2 :]
                 )
                 with open(file_path, "w") as f:
                     f.write(new_text)
