@@ -52,6 +52,8 @@ from radical.data.parser.ast import (
     TrueKeywordNode,
     FalseKeywordNode,
     NullKeywordNode,
+    TypeOfExpressionNode,
+    TypeExpressionNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -111,10 +113,28 @@ class FileParser(Unit):
 
     def parse_single_type_expression(self) -> TypeExpressionNodeType:
         expr: TypeExpressionNodeType
-        if self.check_type_name():
-            expr = self.parse_type_name()
-        elif self.check_parenthesized_type():
+        if self.check_parenthesized_type():
             expr = self.parse_parenthesized_type()
+        elif self.check_typeof_keyword():
+            start_position = self._position()
+            self._read(6)
+            self.skip_whitespace()
+            value_expr = self.parse_value()
+            expr = TypeOfExpressionNode(
+                position=start_position,
+                value=value_expr,
+            )
+        elif self.check_type_keyword():
+            start_position = self._position()
+            self._read(4)
+            self.skip_whitespace()
+            value_expr = self.parse_value()
+            expr = TypeExpressionNode(
+                position=start_position,
+                value=value_expr,
+            )
+        elif self.check_type_name():
+            expr = self.parse_type_name()
         else:
             self._raise_parse_error("Expected a type expression")
 
@@ -126,6 +146,12 @@ class FileParser(Unit):
             )
 
         return expr
+
+    def check_type_keyword(self) -> bool:
+        return self.check_word("type")
+
+    def check_typeof_keyword(self) -> bool:
+        return self.check_word("typeof")
 
     def check_parenthesized_type(self) -> bool:
         return self.check_specific_charachters("(")
@@ -192,8 +218,8 @@ class FileParser(Unit):
         start_position = self._position()
         name_node = self.parse_symbol()
         self.skip_whitespace()
-        type_node: TypeExpressionNodeType | None = None
 
+        type_node: TypeExpressionNodeType | None = None
         if self.check_specific_charachters(":"):
             self._read()
             self.skip_whitespace()
