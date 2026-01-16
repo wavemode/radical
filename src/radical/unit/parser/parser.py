@@ -1,4 +1,4 @@
-from typing import NoReturn
+from typing import NoReturn, cast
 from radical.data.parser.ast import (
     VariableBindingStatementNode,
     ModuleNode,
@@ -36,9 +36,13 @@ from radical.data.parser.ast import (
     ListComprehensionNode,
     ComprehensionBindingNode,
     ComprehensionGuardNode,
-    EntryNode,
+    MapEntryNode,
+    TreeEntryNode,
     TreeLiteralNode,
     TreeComprehensionNode,
+    IfThenElseNode,
+    SpreadOperationNode,
+    CollectionElementNodeType,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -154,6 +158,8 @@ class Parser(Unit):
         value: ValueExpressionNodeType
         if self.check_parenthesized_expression():
             value = self.parse_parenthesized_expression()
+        elif self.check_if_then_else():
+            value = self.parse_if_then_else()
         elif self.check_list_literal():
             value = self.parse_list_literal()
         elif self.check_set_or_map_or_tree_literal():
@@ -284,6 +290,29 @@ class Parser(Unit):
                 index=slice_start,
             )
 
+    def check_if_then_else(self) -> bool:
+        return self.check_word("if")
+
+    def parse_if_then_else(self) -> IfThenElseNode:
+        start_position = self._position()
+        self.parse_word("if")
+        self.skip_whitespace()
+        condition = self.parse_value()
+        self.skip_whitespace()
+        self.parse_word("then")
+        self.skip_whitespace()
+        then_branch = self.parse_value()
+        self.skip_whitespace()
+        self.parse_word("else")
+        self.skip_whitespace()
+        else_branch = self.parse_value()
+        return IfThenElseNode(
+            position=start_position,
+            condition=condition,
+            then_branch=then_branch,
+            else_branch=else_branch,
+        )
+
     def check_comprehension_clause(self) -> bool:
         return self.check_any_word(["for", "if"])
 
@@ -331,6 +360,19 @@ class Parser(Unit):
                 break
         return clauses
 
+    def check_spread_operation(self) -> bool:
+        return self.check_specific_charachters("...")
+
+    def parse_spread_operation(self) -> SpreadOperationNode:
+        start_position = self._position()
+        self.parse_specific_charachters("...")
+        self.skip_whitespace()
+        collection = self.parse_value()
+        return SpreadOperationNode(
+            position=start_position,
+            collection=collection,
+        )
+
     def check_list_literal(self) -> bool:
         return self.check_specific_charachters("[")
 
@@ -339,7 +381,7 @@ class Parser(Unit):
         self.parse_specific_charachters("[")
         self.skip_whitespace()
 
-        elements: list[ValueExpressionNodeType] = []
+        elements: list[ValueExpressionNodeType | SpreadOperationNode] = []
         while not self.check_specific_charachters("]"):
             if self.check_comprehension_clause():
                 if len(elements) != 1:
@@ -347,16 +389,29 @@ class Parser(Unit):
                         "List comprehension must have exactly one element expression",
                         position=start_position,
                     )
+                elif isinstance(elements[0], SpreadOperationNode):
+                    self._raise_parse_error(
+                        "List comprehension element cannot be a spread operation",
+                        position=start_position,
+                    )
                 clauses = self.parse_comprehension_clauses()
                 self.skip_whitespace()
                 self.parse_specific_charachters("]")
+
+                # satisfy typechecker
+                assert not isinstance(elements[0], SpreadOperationNode)
+
                 return ListComprehensionNode(
                     position=start_position,
                     element=elements[0],
                     clauses=clauses,
                 )
 
-            elements.append(self.parse_value())
+            elements.append(
+                self.parse_spread_operation()
+                if self.check_spread_operation()
+                else self.parse_value()
+            )
             self.skip_non_breaking_whitespace()
             if self.check_specific_charachters(","):
                 self._read()
@@ -370,7 +425,7 @@ class Parser(Unit):
                 break
             elif not self.check_comprehension_clause():
                 self._raise_parse_error(
-                    "Expected either ',' or newline between list elements",
+                    "Expected either ',' or newline between collection elements",
                 )
 
         self.parse_specific_charachters("]")
@@ -396,79 +451,149 @@ class Parser(Unit):
         self.parse_specific_charachters("{")
         self.skip_whitespace()
 
-        is_tree = False
-        elements: list[ValueExpressionNodeType] = []
-        entries: list[EntryNode] = []
+        has_tree_entries = False
+        has_set_entries = False
+        has_map_entries = False
+        elements: list[CollectionElementNodeType] = []
 
         while not self.check_specific_charachters("}"):
             if self.check_comprehension_clause():
-                clauses = self.parse_comprehension_clauses()
-                if len(elements) == 1:
-                    element = elements[0]
-                    self.skip_whitespace()
-                    self.parse_specific_charachters("}")
-                    return SetComprehensionNode(
-                        position=start_position,
-                        element=element,
-                        clauses=clauses,
-                    )
-                elif len(entries) == 1:
-                    key = entries[0].key
-                    value = entries[0].value
-                    self.skip_whitespace()
-                    self.parse_specific_charachters("}")
-                    return MapComprehensionNode(
-                        position=start_position,
-                        key=key,
-                        value=value,
-                        clauses=clauses,
-                    )
-                else:
+                if len(elements) != 1:
                     self._raise_parse_error(
                         "Comprehension must have exactly one key/value or element expression",
                         position=start_position,
                     )
-
-            key_or_element = self.parse_value()
-            self.skip_non_breaking_whitespace()
-            if self.check_specific_charachters("="):
-                if isinstance(key_or_element, ListLiteralNode):
-                    if not len(key_or_element.elements) == 1:
-                        self._raise_parse_error(
-                            "Map literal key must be a symbol or single value expression",
-                            position=start_position,
-                        )
-                    key_or_element = key_or_element.elements[0]
-                elif not isinstance(key_or_element, SymbolNode):
+                if isinstance(elements[0], SpreadOperationNode):
                     self._raise_parse_error(
-                        "Map literal key must be a symbol or single value expression",
+                        "Comprehension element cannot be a spread operation",
                         position=start_position,
                     )
-                self._read()
+
+                clauses = self.parse_comprehension_clauses()
                 self.skip_whitespace()
-                value = self.parse_value()
-                entries.append(
-                    EntryNode(
-                        position=key_or_element.position,
-                        key=key_or_element,
-                        value=value,
+                self.parse_specific_charachters("}")
+
+                if isinstance(elements[0], MapEntryNode):
+                    return MapComprehensionNode(
+                        position=start_position,
+                        entry=elements[0],
+                        clauses=clauses,
                     )
-                )
-            elif (
-                not self.check_any_sequence([",", "\n", "}"])
-                and not self.check_comprehension_clause()
-            ):
-                is_tree = True
-                value = self.parse_value()
-                entries.append(
-                    EntryNode(
-                        position=key_or_element.position,
-                        key=key_or_element,
-                        value=value,
+                elif isinstance(elements[0], TreeEntryNode):
+                    return TreeComprehensionNode(
+                        position=start_position,
+                        entry=elements[0],
+                        clauses=clauses,
                     )
-                )
+                else:
+                    # satisfy typechecker
+                    assert not isinstance(elements[0], SpreadOperationNode)
+
+                    return SetComprehensionNode(
+                        position=start_position,
+                        element=elements[0],
+                        clauses=clauses,
+                    )
+
+            if self.check_spread_operation():
+                elements.append(self.parse_spread_operation())
             else:
-                elements.append(key_or_element)
+                key_or_element = self.parse_value()
+                expression_key = False
+                self.skip_non_breaking_whitespace()
+                if self.check_specific_charachters("="):
+                    if isinstance(key_or_element, ListLiteralNode):
+                        if not len(key_or_element.elements) == 1:
+                            self._raise_parse_error(
+                                "Map key must be a single value",
+                                position=key_or_element.position,
+                            )
+                        key_or_element = key_or_element.elements[0]
+                        expression_key = True
+                    elif not isinstance(key_or_element, SymbolNode):
+                        self._raise_parse_error(
+                            "Map key must be a symbol",
+                            position=key_or_element.position,
+                        )
+
+                    self._read()
+                    self.skip_whitespace()
+                    value = self.parse_value()
+
+                    has_map_entries = True
+                    if has_tree_entries:
+                        self._raise_parse_error(
+                            "Cannot mix map entries and tree entries in the same literal",
+                            position=start_position,
+                        )
+                    elif has_set_entries:
+                        self._raise_parse_error(
+                            "Cannot mix map entries and set elements in the same literal",
+                            position=start_position,
+                        )
+
+                    # satisfy typechecker
+                    assert not isinstance(key_or_element, SpreadOperationNode)
+
+                    elements.append(
+                        MapEntryNode(
+                            position=key_or_element.position,
+                            key=key_or_element,
+                            value=value,
+                            expression_key=expression_key,
+                        )
+                    )
+                elif (
+                    not self.check_any_sequence([",", "\n", "}"])
+                    and not self.check_comprehension_clause()
+                ):
+                    if isinstance(key_or_element, ListLiteralNode):
+                        if not len(key_or_element.elements) == 1:
+                            self._raise_parse_error(
+                                "Tree key must be a single value",
+                                position=key_or_element.position,
+                            )
+                        key_or_element = key_or_element.elements[0]
+                        expression_key = True
+                    elif not isinstance(key_or_element, SymbolNode):
+                        self._raise_parse_error(
+                            "Tree key must be a symbol",
+                            position=key_or_element.position,
+                        )
+
+                    value = self.parse_value()
+
+                    has_tree_entries = True
+                    if has_map_entries:
+                        self._raise_parse_error(
+                            "Cannot mix tree entries and map entries in the same literal",
+                            position=start_position,
+                        )
+                    elif has_set_entries:
+                        self._raise_parse_error(
+                            "Cannot mix tree entries and set elements in the same literal",
+                            position=start_position,
+                        )
+
+                    # satisfy typechecker
+                    assert not isinstance(key_or_element, SpreadOperationNode)
+
+                    elements.append(
+                        TreeEntryNode(
+                            position=key_or_element.position,
+                            key=key_or_element,
+                            value=value,
+                            expression_key=expression_key,
+                        )
+                    )
+                else:
+                    has_set_entries = True
+                    if has_map_entries or has_tree_entries:
+                        self._raise_parse_error(
+                            "Map or tree literals must have key/value pairs",
+                            position=start_position,
+                        )
+                    elements.append(key_or_element)
 
             if self.check_specific_charachters(","):
                 self._read()
@@ -482,31 +607,27 @@ class Parser(Unit):
                 break
             elif not self.check_comprehension_clause():
                 self._raise_parse_error(
-                    "Expected either ',' or newline between set/map elements"
-                    if not is_tree
-                    else "Expected either ',' or newline between tree entries",
+                    "Expected either ',' or newline between collection elements"
                 )
 
         self.parse_specific_charachters("}")
-        if elements:
-            if len(entries) > 0:
-                self._raise_parse_error(
-                    "Cannot mix set elements and map entries in a single literal",
-                    position=start_position,
-                )
-            return SetLiteralNode(
-                position=start_position,
-                elements=elements,
-            )
-        elif is_tree:
-            return TreeLiteralNode(
-                position=start_position,
-                entries=entries,
-            )
-        else:
+
+        if has_map_entries or (not has_tree_entries and not has_set_entries):
             return MapLiteralNode(
                 position=start_position,
-                entries=entries,
+                entries=cast(list[MapEntryNode | SpreadOperationNode], elements),
+            )
+        elif has_tree_entries:
+            return TreeLiteralNode(
+                position=start_position,
+                entries=cast(list[TreeEntryNode | SpreadOperationNode], elements),
+            )
+        else:
+            return SetLiteralNode(
+                position=start_position,
+                elements=cast(
+                    list[ValueExpressionNodeType | SpreadOperationNode], elements
+                ),
             )
 
     def check_parenthesized_expression(self) -> bool:
@@ -581,9 +702,7 @@ class Parser(Unit):
             return UnaryOperator(self._read())
 
     def check_number_literal(self) -> bool:
-        return self.check_any_sequence(
-            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        )
+        return self._peek().isdigit()
 
     def parse_number_literal(
         self,

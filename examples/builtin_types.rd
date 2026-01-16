@@ -14,7 +14,7 @@ c3 : Char
 c3 = c[0]
 
 d : Bool
-d = True
+d = true
 
 e : List[Int]
 e = [1, 2, 3, 4, 5]
@@ -96,11 +96,11 @@ i3 = {
 }
 
 j : Null
-j = Null
+j = null
 
--- Nullable value
+-- nullable value
 j2 : Int | Null
-j2 = Null
+j2 = null
 
 k : Any
 k = "can be anything"

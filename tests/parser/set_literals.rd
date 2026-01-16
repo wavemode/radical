@@ -1,4 +1,4 @@
-simpleSet = { value1, "value1", value2, 42, value3, False }
+simpleSet = { value1, "value1", value2, 42, value3, false }
 setWithoutCommas =
     {
         a
@@ -48,7 +48,7 @@ Module(
                         name="value3"
                     ),
                     Symbol(
-                        name="False"
+                        name="false"
                     )
                 ]
             )
@@ -88,21 +88,23 @@ Module(
                 elements=[
                     MapLiteral(
                         entries=[
-                            Entry(
+                            MapEntry(
                                 key=Symbol(
                                     name="innerKey1"
                                 ),
                                 value=StringLiteral(
                                     value="innerValue1"
-                                )
+                                ),
+                                expression_key=false
                             ),
-                            Entry(
+                            MapEntry(
                                 key=Symbol(
                                     name="innerKey2"
                                 ),
                                 value=FloatLiteral(
                                     value="3.14"
-                                )
+                                ),
+                                expression_key=false
                             )
                         ]
                     ),
@@ -210,11 +212,14 @@ Module(
             ),
             value=SetComprehension(
                 element=MapComprehension(
-                    key=Symbol(
-                        name="subK"
-                    ),
-                    value=Symbol(
-                        name="subV"
+                    entry=MapEntry(
+                        key=Symbol(
+                            name="subK"
+                        ),
+                        value=Symbol(
+                            name="subV"
+                        ),
+                        expression_key=false
                     ),
                     clauses=[
                         ComprehensionBinding(

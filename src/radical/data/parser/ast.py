@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from radical.data.parser.position import Position
-from typing import Any, Sequence
+from typing import Any, Sequence, cast
 import json
 from enum import StrEnum
 
@@ -19,9 +19,13 @@ class Node:
 
         field_lines: list[str] = []
         for field_name, field_value in self.__dict__.items():
-            if field_name == "position" or field_value is None:
+            if field_value is None:
                 continue
-            if isinstance(field_value, Node):
+            if isinstance(field_value, Position):
+                field_lines.append(
+                    f"{indent}    {field_name}=({field_value.line}, {field_value.column})"
+                )
+            elif isinstance(field_value, Node):
                 field_lines.append(
                     field_value.format(name=field_name, indent_level=indent_level + 1)
                 )
@@ -47,7 +51,7 @@ class Node:
         if isinstance(value, list):
             parts.append("[\n")
             element_lines: list[str] = []
-            for element in value:
+            for element in cast(list[Any], value):
                 element_lines.append(
                     Node.format_value(element, indent_level=indent_level + 1)
                 )
@@ -57,6 +61,64 @@ class Node:
             parts.append(json.dumps(value))
         return "".join(parts)
 
+
+# Types
+
+
+@dataclass(frozen=True)
+class TypeNameNode(Node):
+    name: "SymbolNode"
+
+
+@dataclass(frozen=True)
+class UnionTypeNode(Node):
+    left: "TypeExpressionNodeType"
+    right: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class FunctionArgumentTypeNode(Node):
+    # TODO: variadic arguments
+    name: "SymbolNode | None"
+    type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class FunctionTypeNode(Node):
+    argument_types: list[FunctionArgumentTypeNode]
+    return_type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class TypeOfExpressionNode(Node):
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class TypeExpressionNode(Node):
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class ParenthesizedTypeNode(Node):
+    type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class GenericTypeNode(Node):
+    base_type: TypeNameNode
+    type_arguments: list["TypeExpressionNodeType"]
+
+
+TypeExpressionNodeType = (
+    TypeNameNode
+    | UnionTypeNode
+    | FunctionTypeNode
+    | TypeOfExpressionNode
+    | TypeExpressionNode
+    | ParenthesizedTypeNode
+    | GenericTypeNode
+)
 
 # Scalars
 
@@ -227,6 +289,7 @@ class AttributeAccessNode(Node):
 
 @dataclass(frozen=True)
 class FunctionCallArgumentNode(Node):
+    # TODO: variadic arguments
     name: SymbolNode | None
     value: "ValueExpressionNodeType"
 
@@ -235,6 +298,13 @@ class FunctionCallArgumentNode(Node):
 class FunctionCallNode(Node):
     function: "ValueExpressionNodeType"
     arguments: list[FunctionCallArgumentNode]
+
+
+@dataclass(frozen=True)
+class IfThenElseNode(Node):
+    condition: "ValueExpressionNodeType"
+    then_branch: "ValueExpressionNodeType"
+    else_branch: "ValueExpressionNodeType"
 
 
 # Variables
@@ -265,29 +335,42 @@ class LetStatementNode(Node):
 
 
 @dataclass(frozen=True)
+class SpreadOperationNode(Node):
+    collection: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class MapEntryNode(Node):
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
+    expression_key: bool
+
+
+@dataclass(frozen=True)
+class TreeEntryNode(Node):
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
+    expression_key: bool
+
+
+@dataclass(frozen=True)
 class ListLiteralNode(Node):
-    elements: list["ValueExpressionNodeType"]
+    elements: list["ValueExpressionNodeType | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)
 class SetLiteralNode(Node):
-    elements: list["ValueExpressionNodeType"]
-
-
-@dataclass(frozen=True)
-class EntryNode(Node):
-    key: "ValueExpressionNodeType"
-    value: "ValueExpressionNodeType"
+    elements: list["ValueExpressionNodeType | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)
 class MapLiteralNode(Node):
-    entries: list[EntryNode]
+    entries: list["MapEntryNode | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)
 class TreeLiteralNode(Node):
-    entries: list[EntryNode]
+    entries: list["TreeEntryNode | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)
@@ -323,19 +406,17 @@ class SetComprehensionNode(Node):
 
 @dataclass(frozen=True)
 class MapComprehensionNode(Node):
-    key: "ValueExpressionNodeType"
-    value: "ValueExpressionNodeType"
+    entry: "MapEntryNode"
     clauses: list[ComprehensionClauseNodeType]
 
 
 @dataclass(frozen=True)
 class TreeComprehensionNode(Node):
-    key: "ValueExpressionNodeType"
-    value: "ValueExpressionNodeType"
+    entry: "TreeEntryNode"
     clauses: list[ComprehensionClauseNodeType]
 
 
-# do block, if-then, raise, try-catch-then etc
+# TODO: if-then, raise, try-catch-then etc
 
 ValueExpressionNodeType = (
     SymbolNode
@@ -363,8 +444,12 @@ ValueExpressionNodeType = (
     | MapComprehensionNode
     | TreeLiteralNode
     | TreeComprehensionNode
+    | IfThenElseNode
 )
 
+CollectionElementNodeType = (
+    ValueExpressionNodeType | SpreadOperationNode | MapEntryNode | TreeEntryNode
+)
 
 TopLevelDeclarationNodeType = BindingStatementNodeType
 

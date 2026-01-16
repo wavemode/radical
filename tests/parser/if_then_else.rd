@@ -1,0 +1,49 @@
+myValue = if conditionValue then valueIfTrue else valueIfFalse
+nestedIf = if cond1 then if ifcond2 then thenval2 else val3 else elseval4
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="myValue"
+            ),
+            value=IfThenElse(
+                condition=Symbol(
+                    name="conditionValue"
+                ),
+                then_branch=Symbol(
+                    name="valueIfTrue"
+                ),
+                else_branch=Symbol(
+                    name="valueIfFalse"
+                )
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="nestedIf"
+            ),
+            value=IfThenElse(
+                condition=Symbol(
+                    name="cond1"
+                ),
+                then_branch=IfThenElse(
+                    condition=Symbol(
+                        name="ifcond2"
+                    ),
+                    then_branch=Symbol(
+                        name="thenval2"
+                    ),
+                    else_branch=Symbol(
+                        name="val3"
+                    )
+                ),
+                else_branch=Symbol(
+                    name="elseval4"
+                )
+            )
+        )
+    ]
+)
+*)

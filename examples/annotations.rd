@@ -5,7 +5,7 @@ fun myAnnotation(param1: String, param2: Int): String =
 -- annotations can be applied to any declaration or field
 -- annotations are stored as metadata of the module
 @myAnnotation("test", 42)
-fun annotatedFunction() = Null
+fun annotatedFunction() = null
 
 anno1 = () -> 10.5
 
@@ -13,9 +13,9 @@ anno1 = () -> 10.5
 @anno1
 var1 = "value"
 
-anno2 = (param: String = "optional", flag: Bool): Null -> Null
+anno2 = (param: String = "optional", flag: Bool): null -> null
 
-@anno2(flag=True)
+@anno2(flag=true)
 fun anno3(param: Int): Int =
     param * 2
 
@@ -23,7 +23,7 @@ fun anno3(param: Int): Int =
 -- apply annotation to a type declaration and its fields
 @anno3(5)
 type MyType = {
-    @anno2("custom", False)
+    @anno2("custom", false)
     field1: Int
 
     @anno3(10)

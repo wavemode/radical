@@ -1,6 +1,6 @@
-binaryAnd = True and False
-binaryAndOr = True and False or True
-binaryOrAnd = False or True and False
+binaryAnd = true and false
+binaryAndOr = true and false or true
+binaryOrAnd = false or true and false
 
 plusMinus = 1 + 2 - 3
 minusPlus = 4 - 5 + 6
@@ -31,11 +31,11 @@ Module(
             ),
             value=BinaryOperation(
                 left=Symbol(
-                    name="True"
+                    name="true"
                 ),
                 operator="and",
                 right=Symbol(
-                    name="False"
+                    name="false"
                 )
             )
         ),
@@ -46,16 +46,16 @@ Module(
             value=BinaryOperation(
                 left=BinaryOperation(
                     left=Symbol(
-                        name="True"
+                        name="true"
                     ),
                     operator="and",
                     right=Symbol(
-                        name="False"
+                        name="false"
                     )
                 ),
                 operator="or",
                 right=Symbol(
-                    name="True"
+                    name="true"
                 )
             )
         ),
@@ -65,16 +65,16 @@ Module(
             ),
             value=BinaryOperation(
                 left=Symbol(
-                    name="False"
+                    name="false"
                 ),
                 operator="or",
                 right=BinaryOperation(
                     left=Symbol(
-                        name="True"
+                        name="true"
                     ),
                     operator="and",
                     right=Symbol(
-                        name="False"
+                        name="false"
                     )
                 )
             )

@@ -10,7 +10,7 @@ nestedFunctionCalls = outerFunc(innerFunc1(10), innerFunc2(20, 30))
 methodCall = obj.method(100, "test")
 chainedMethodCalls = obj.firstMethod().secondMethod(200).thirdMethod("chain")
 
-namedArgs = func(arg1=10, arg2="hello", arg3=True)
+namedArgs = func(arg1=10, arg2="hello", arg3=true)
 mixedArgs = func(5, arg1="value", 10, arg2="another")
 
 callOfCallOfCall = func1()(func2())(func3()(100))
@@ -240,7 +240,7 @@ Module(
                             name="arg3"
                         ),
                         value=Symbol(
-                            name="True"
+                            name="true"
                         )
                     )
                 ]

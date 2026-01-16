@@ -1,0 +1,231 @@
+listWithSingleSpread = [...otherList]
+mapWithSingleSpread = {
+    ...otherMap
+}
+
+listWithMultipleSpreads = [
+    1
+    ...listA
+    2
+    ...listB
+    3
+]
+
+mapWithMultipleSpreads = {
+    key1 = "value1"
+    ...mapA
+    key2 = "value2"
+    ...mapB
+    key3 = "value3"
+}
+
+setWithMultipleSpreads = {
+    1
+    ...setA
+    2
+    ...setB
+    3
+}
+
+treeWithMultipleSpreads = {
+    name "value"
+    ...treeA
+    otherName {
+        child1 10
+        child2 20.0
+    }
+    ...treeB
+}
+
+(*
+Module(
+    top_level_nodes=[
+        VariableBindingStatement(
+            name=Symbol(
+                name="listWithSingleSpread"
+            ),
+            value=ListLiteral(
+                elements=[
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="otherList"
+                        )
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="mapWithSingleSpread"
+            ),
+            value=MapLiteral(
+                entries=[
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="otherMap"
+                        )
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="listWithMultipleSpreads"
+            ),
+            value=ListLiteral(
+                elements=[
+                    IntegerLiteral(
+                        value="1"
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="listA"
+                        )
+                    ),
+                    IntegerLiteral(
+                        value="2"
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="listB"
+                        )
+                    ),
+                    IntegerLiteral(
+                        value="3"
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="mapWithMultipleSpreads"
+            ),
+            value=MapLiteral(
+                entries=[
+                    MapEntry(
+                        key=Symbol(
+                            name="key1"
+                        ),
+                        value=StringLiteral(
+                            value="value1"
+                        ),
+                        expression_key=false
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="mapA"
+                        )
+                    ),
+                    MapEntry(
+                        key=Symbol(
+                            name="key2"
+                        ),
+                        value=StringLiteral(
+                            value="value2"
+                        ),
+                        expression_key=false
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="mapB"
+                        )
+                    ),
+                    MapEntry(
+                        key=Symbol(
+                            name="key3"
+                        ),
+                        value=StringLiteral(
+                            value="value3"
+                        ),
+                        expression_key=false
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="setWithMultipleSpreads"
+            ),
+            value=SetLiteral(
+                elements=[
+                    IntegerLiteral(
+                        value="1"
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="setA"
+                        )
+                    ),
+                    IntegerLiteral(
+                        value="2"
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="setB"
+                        )
+                    ),
+                    IntegerLiteral(
+                        value="3"
+                    )
+                ]
+            )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="treeWithMultipleSpreads"
+            ),
+            value=TreeLiteral(
+                entries=[
+                    TreeEntry(
+                        key=Symbol(
+                            name="name"
+                        ),
+                        value=StringLiteral(
+                            value="value"
+                        ),
+                        expression_key=false
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="treeA"
+                        )
+                    ),
+                    TreeEntry(
+                        key=Symbol(
+                            name="otherName"
+                        ),
+                        value=TreeLiteral(
+                            entries=[
+                                TreeEntry(
+                                    key=Symbol(
+                                        name="child1"
+                                    ),
+                                    value=IntegerLiteral(
+                                        value="10"
+                                    ),
+                                    expression_key=false
+                                ),
+                                TreeEntry(
+                                    key=Symbol(
+                                        name="child2"
+                                    ),
+                                    value=FloatLiteral(
+                                        value="20.0"
+                                    ),
+                                    expression_key=false
+                                )
+                            ]
+                        ),
+                        expression_key=false
+                    ),
+                    SpreadOperation(
+                        collection=Symbol(
+                            name="treeB"
+                        )
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)

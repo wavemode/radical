@@ -1,7 +1,7 @@
 emptyMap = {  }
 simpleMap = { key1 = "value1"
     , key2 = 42
-    , key3 = False }
+    , key3 = false }
 mapWithoutCommas =
     {
         a = 1
@@ -16,7 +16,7 @@ nestedMap = {
     outerKey2 = [1, 2, 3]
 }
 mapWithExpressions = {
-    sumKey = 10 + 20,
+    sumKey = 10 + 20
     ["concat" + "Key"] = "Hello, " + "world!"
 }
 mapComprehension = { k = v * 2 for k, v in someMap if v > 10 }
@@ -41,29 +41,32 @@ Module(
             ),
             value=MapLiteral(
                 entries=[
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="key1"
                         ),
                         value=StringLiteral(
                             value="value1"
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="key2"
                         ),
                         value=IntegerLiteral(
                             value="42"
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="key3"
                         ),
                         value=Symbol(
-                            name="False"
-                        )
+                            name="false"
+                        ),
+                        expression_key=false
                     )
                 ]
             )
@@ -74,29 +77,32 @@ Module(
             ),
             value=MapLiteral(
                 entries=[
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="a"
                         ),
                         value=IntegerLiteral(
                             value="1"
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="b"
                         ),
                         value=IntegerLiteral(
                             value="2"
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="c"
                         ),
                         value=IntegerLiteral(
                             value="3"
-                        )
+                        ),
+                        expression_key=false
                     )
                 ]
             )
@@ -107,32 +113,35 @@ Module(
             ),
             value=MapLiteral(
                 entries=[
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="outerKey1"
                         ),
                         value=MapLiteral(
                             entries=[
-                                Entry(
+                                MapEntry(
                                     key=Symbol(
                                         name="innerKey1"
                                     ),
                                     value=StringLiteral(
                                         value="innerValue1"
-                                    )
+                                    ),
+                                    expression_key=false
                                 ),
-                                Entry(
+                                MapEntry(
                                     key=Symbol(
                                         name="innerKey2"
                                     ),
                                     value=FloatLiteral(
                                         value="3.14"
-                                    )
+                                    ),
+                                    expression_key=false
                                 )
                             ]
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="outerKey2"
                         ),
@@ -148,7 +157,8 @@ Module(
                                     value="3"
                                 )
                             ]
-                        )
+                        ),
+                        expression_key=false
                     )
                 ]
             )
@@ -159,7 +169,7 @@ Module(
             ),
             value=MapLiteral(
                 entries=[
-                    Entry(
+                    MapEntry(
                         key=Symbol(
                             name="sumKey"
                         ),
@@ -171,9 +181,10 @@ Module(
                             right=IntegerLiteral(
                                 value="20"
                             )
-                        )
+                        ),
+                        expression_key=false
                     ),
-                    Entry(
+                    MapEntry(
                         key=BinaryOperation(
                             left=StringLiteral(
                                 value="concat"
@@ -191,7 +202,8 @@ Module(
                             right=StringLiteral(
                                 value="world!"
                             )
-                        )
+                        ),
+                        expression_key=true
                     )
                 ]
             )
@@ -201,17 +213,20 @@ Module(
                 name="mapComprehension"
             ),
             value=MapComprehension(
-                key=Symbol(
-                    name="k"
-                ),
-                value=BinaryOperation(
-                    left=Symbol(
-                        name="v"
+                entry=MapEntry(
+                    key=Symbol(
+                        name="k"
                     ),
-                    operator="*",
-                    right=IntegerLiteral(
-                        value="2"
-                    )
+                    value=BinaryOperation(
+                        left=Symbol(
+                            name="v"
+                        ),
+                        operator="*",
+                        right=IntegerLiteral(
+                            value="2"
+                        )
+                    ),
+                    expression_key=false
                 ),
                 clauses=[
                     ComprehensionBinding(
@@ -246,31 +261,37 @@ Module(
                 name="nestedComprehension"
             ),
             value=MapComprehension(
-                key=Symbol(
-                    name="k"
-                ),
-                value=MapComprehension(
+                entry=MapEntry(
                     key=Symbol(
-                        name="subK"
+                        name="k"
                     ),
-                    value=Symbol(
-                        name="subV"
-                    ),
-                    clauses=[
-                        ComprehensionBinding(
-                            variables=[
-                                Symbol(
-                                    name="subK"
-                                ),
-                                Symbol(
-                                    name="subV"
+                    value=MapComprehension(
+                        entry=MapEntry(
+                            key=Symbol(
+                                name="subK"
+                            ),
+                            value=Symbol(
+                                name="subV"
+                            ),
+                            expression_key=false
+                        ),
+                        clauses=[
+                            ComprehensionBinding(
+                                variables=[
+                                    Symbol(
+                                        name="subK"
+                                    ),
+                                    Symbol(
+                                        name="subV"
+                                    )
+                                ],
+                                iterable=Symbol(
+                                    name="v"
                                 )
-                            ],
-                            iterable=Symbol(
-                                name="v"
                             )
-                        )
-                    ]
+                        ]
+                    ),
+                    expression_key=false
                 ),
                 clauses=[
                     ComprehensionBinding(
