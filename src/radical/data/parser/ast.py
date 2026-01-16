@@ -106,7 +106,7 @@ class ParenthesizedTypeNode(Node):
 
 @dataclass(frozen=True)
 class GenericTypeNode(Node):
-    base_type: TypeNameNode
+    base_type: "TypeExpressionNodeType"
     type_arguments: list["TypeExpressionNodeType"]
 
 

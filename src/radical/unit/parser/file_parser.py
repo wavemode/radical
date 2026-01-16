@@ -45,6 +45,7 @@ from radical.data.parser.ast import (
     CollectionElementNodeType,
     TypeNameNode,
     TypeExpressionNodeType,
+    GenericTypeNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -84,10 +85,37 @@ class FileParser(Unit):
             self._raise_parse_error("Expected a top-level declaration")
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
+        expr: TypeExpressionNodeType
         if self.check_type_name():
-            return self.parse_type_name()
+            expr = self.parse_type_name()
         else:
             self._raise_parse_error("Expected a type expression")
+
+        while self.check_specific_charachters("["):
+            expr = GenericTypeNode(
+                position=expr.position,
+                base_type=expr,
+                type_arguments=self.parse_type_arguments(),
+            )
+
+        return expr
+
+    def parse_type_arguments(self) -> list[TypeExpressionNodeType]:
+        type_arguments: list[TypeExpressionNodeType] = []
+        self.parse_specific_charachters("[")
+        self.skip_whitespace()
+
+        while not self.check_specific_charachters("]"):
+            type_arguments.append(self.parse_type_expression())
+            self.skip_whitespace()
+            if self.check_specific_charachters(","):
+                self._read()
+                self.skip_whitespace()
+            else:
+                break
+
+        self.parse_specific_charachters("]")
+        return type_arguments
 
     def check_type_name(self) -> bool:
         return self.check_symbol()
@@ -115,7 +143,6 @@ class FileParser(Unit):
         self.parse_specific_charachters("=")
         self.skip_whitespace()
         value_node = self.parse_value()
-        self.skip_whitespace()
 
         return VariableBindingStatementNode(
             position=start_position,
