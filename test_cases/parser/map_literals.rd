@@ -67,7 +67,7 @@ Module(
                             name="key2"
                         ),
                         value=IntegerLiteral(
-                            position=(3, 16),
+                            position=(3, 14),
                             value="42"
                         ),
                         expression_key=false
@@ -103,7 +103,7 @@ Module(
                             name="a"
                         ),
                         value=IntegerLiteral(
-                            position=(7, 14),
+                            position=(7, 13),
                             value="1"
                         ),
                         expression_key=false
@@ -115,7 +115,7 @@ Module(
                             name="b"
                         ),
                         value=IntegerLiteral(
-                            position=(8, 14),
+                            position=(8, 13),
                             value="2"
                         ),
                         expression_key=false
@@ -127,7 +127,7 @@ Module(
                             name="c"
                         ),
                         value=IntegerLiteral(
-                            position=(9, 14),
+                            position=(9, 13),
                             value="3"
                         ),
                         expression_key=false
@@ -191,15 +191,15 @@ Module(
                             position=(16, 17),
                             elements=[
                                 IntegerLiteral(
-                                    position=(16, 19),
+                                    position=(16, 18),
                                     value="1"
                                 ),
                                 IntegerLiteral(
-                                    position=(16, 22),
+                                    position=(16, 21),
                                     value="2"
                                 ),
                                 IntegerLiteral(
-                                    position=(16, 25),
+                                    position=(16, 24),
                                     value="3"
                                 )
                             ]
@@ -227,12 +227,12 @@ Module(
                         value=BinaryOperation(
                             position=(19, 14),
                             left=IntegerLiteral(
-                                position=(19, 16),
+                                position=(19, 14),
                                 value="10"
                             ),
                             operator="+",
                             right=IntegerLiteral(
-                                position=(19, 21),
+                                position=(19, 19),
                                 value="20"
                             )
                         ),
@@ -291,7 +291,7 @@ Module(
                         ),
                         operator="*",
                         right=IntegerLiteral(
-                            position=(22, 31),
+                            position=(22, 30),
                             value="2"
                         )
                     ),
@@ -325,7 +325,7 @@ Module(
                             ),
                             operator=">",
                             right=IntegerLiteral(
-                                position=(22, 61),
+                                position=(22, 59),
                                 value="10"
                             )
                         )

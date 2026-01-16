@@ -26,7 +26,7 @@ Module(
                     name="arr"
                 ),
                 index=IntegerLiteral(
-                    position=(1, 24),
+                    position=(1, 23),
                     value="0"
                 )
             )
@@ -64,12 +64,12 @@ Module(
                         name="matrix"
                     ),
                     index=IntegerLiteral(
-                        position=(4, 27),
+                        position=(4, 26),
                         value="1"
                     )
                 ),
                 index=IntegerLiteral(
-                    position=(4, 30),
+                    position=(4, 29),
                     value="2"
                 )
             )
@@ -87,11 +87,11 @@ Module(
                     name="arr"
                 ),
                 start=IntegerLiteral(
-                    position=(6, 20),
+                    position=(6, 19),
                     value="1"
                 ),
                 end=IntegerLiteral(
-                    position=(6, 22),
+                    position=(6, 21),
                     value="4"
                 )
             )
@@ -109,7 +109,7 @@ Module(
                     name="arr"
                 ),
                 end=IntegerLiteral(
-                    position=(7, 28),
+                    position=(7, 27),
                     value="3"
                 )
             )
@@ -127,7 +127,7 @@ Module(
                     name="arr"
                 ),
                 start=IntegerLiteral(
-                    position=(8, 25),
+                    position=(8, 24),
                     value="2"
                 )
             )
@@ -161,20 +161,20 @@ Module(
                         name="matrix"
                     ),
                     start=IntegerLiteral(
-                        position=(10, 29),
+                        position=(10, 28),
                         value="0"
                     ),
                     end=IntegerLiteral(
-                        position=(10, 31),
+                        position=(10, 30),
                         value="2"
                     )
                 ),
                 start=IntegerLiteral(
-                    position=(10, 34),
+                    position=(10, 33),
                     value="1"
                 ),
                 end=IntegerLiteral(
-                    position=(10, 36),
+                    position=(10, 35),
                     value="3"
                 )
             )
@@ -200,12 +200,12 @@ Module(
                             name="matrix"
                         ),
                         index=IntegerLiteral(
-                            position=(244, 31),
+                            position=(244, 30),
                             value="0"
                         )
                     ),
                     index=IntegerLiteral(
-                        position=(244, 34),
+                        position=(244, 33),
                         value="0"
                     )
                 ),
@@ -220,18 +220,18 @@ Module(
                                 name="matrix"
                             ),
                             index=IntegerLiteral(
-                                position=(244, 46),
+                                position=(244, 45),
                                 value="1"
                             )
                         ),
                         index=IntegerLiteral(
-                            position=(244, 49),
+                            position=(244, 48),
                             value="1"
                         )
                     ),
                     operator="+",
                     right=IntegerLiteral(
-                        position=(244, 54),
+                        position=(244, 53),
                         value="2"
                     )
                 )

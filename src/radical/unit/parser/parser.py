@@ -755,7 +755,7 @@ class Parser(Unit):
 
         value = "".join(integer_chars)
         return IntegerLiteralNode(
-            position=self._position(),
+            position=position,
             value=value,
         )
 

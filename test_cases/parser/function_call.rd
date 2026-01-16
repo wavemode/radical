@@ -52,7 +52,7 @@ Module(
                     FunctionCallArgument(
                         position=(2, 18),
                         value=IntegerLiteral(
-                            position=(2, 20),
+                            position=(2, 18),
                             value="42"
                         )
                     )
@@ -75,7 +75,7 @@ Module(
                     FunctionCallArgument(
                         position=(4, 5),
                         value=IntegerLiteral(
-                            position=(4, 7),
+                            position=(4, 5),
                             value="42"
                         )
                     )
@@ -98,21 +98,21 @@ Module(
                     FunctionCallArgument(
                         position=(7, 21),
                         value=IntegerLiteral(
-                            position=(7, 22),
+                            position=(7, 21),
                             value="1"
                         )
                     ),
                     FunctionCallArgument(
                         position=(7, 24),
                         value=IntegerLiteral(
-                            position=(7, 25),
+                            position=(7, 24),
                             value="2"
                         )
                     ),
                     FunctionCallArgument(
                         position=(7, 27),
                         value=IntegerLiteral(
-                            position=(7, 28),
+                            position=(7, 27),
                             value="3"
                         )
                     )
@@ -144,7 +144,7 @@ Module(
                                 FunctionCallArgument(
                                     position=(8, 44),
                                     value=IntegerLiteral(
-                                        position=(8, 46),
+                                        position=(8, 44),
                                         value="10"
                                     )
                                 )
@@ -163,14 +163,14 @@ Module(
                                 FunctionCallArgument(
                                     position=(8, 60),
                                     value=IntegerLiteral(
-                                        position=(8, 62),
+                                        position=(8, 60),
                                         value="20"
                                     )
                                 ),
                                 FunctionCallArgument(
                                     position=(8, 64),
                                     value=IntegerLiteral(
-                                        position=(8, 66),
+                                        position=(8, 64),
                                         value="30"
                                     )
                                 )
@@ -203,7 +203,7 @@ Module(
                     FunctionCallArgument(
                         position=(10, 25),
                         value=IntegerLiteral(
-                            position=(10, 28),
+                            position=(10, 25),
                             value="100"
                         )
                     ),
@@ -257,7 +257,7 @@ Module(
                             FunctionCallArgument(
                                 position=(11, 53),
                                 value=IntegerLiteral(
-                                    position=(11, 56),
+                                    position=(11, 53),
                                     value="200"
                                 )
                             )
@@ -299,7 +299,7 @@ Module(
                             name="arg1"
                         ),
                         value=IntegerLiteral(
-                            position=(13, 25),
+                            position=(13, 23),
                             value="10"
                         )
                     ),
@@ -344,7 +344,7 @@ Module(
                     FunctionCallArgument(
                         position=(14, 18),
                         value=IntegerLiteral(
-                            position=(14, 19),
+                            position=(14, 18),
                             value="5"
                         )
                     ),
@@ -362,7 +362,7 @@ Module(
                     FunctionCallArgument(
                         position=(14, 35),
                         value=IntegerLiteral(
-                            position=(14, 37),
+                            position=(14, 35),
                             value="10"
                         )
                     ),
@@ -435,7 +435,7 @@ Module(
                                 FunctionCallArgument(
                                     position=(16, 45),
                                     value=IntegerLiteral(
-                                        position=(16, 48),
+                                        position=(16, 45),
                                         value="100"
                                     )
                                 )

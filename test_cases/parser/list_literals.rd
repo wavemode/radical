@@ -71,7 +71,7 @@ Module(
                 position=(2, 21),
                 elements=[
                     IntegerLiteral(
-                        position=(2, 24),
+                        position=(2, 22),
                         value="42"
                     )
                 ]
@@ -105,21 +105,21 @@ Module(
                     position=(6, 24),
                     elements=[
                         IntegerLiteral(
-                            position=(7, 7),
+                            position=(7, 5),
                             value="10"
                         ),
                         IntegerLiteral(
-                            position=(8, 9),
+                            position=(8, 7),
                             value="20"
                         ),
                         IntegerLiteral(
-                            position=(9, 9),
+                            position=(9, 7),
                             value="30"
                         )
                     ]
                 ),
                 index=IntegerLiteral(
-                    position=(10, 4),
+                    position=(10, 3),
                     value="1"
                 )
             )
@@ -134,23 +134,23 @@ Module(
                 position=(11, 21),
                 elements=[
                     IntegerLiteral(
-                        position=(12, 6),
+                        position=(12, 5),
                         value="1"
                     ),
                     IntegerLiteral(
-                        position=(13, 6),
+                        position=(13, 5),
                         value="2"
                     ),
                     IntegerLiteral(
-                        position=(14, 6),
+                        position=(14, 5),
                         value="3"
                     ),
                     IntegerLiteral(
-                        position=(15, 6),
+                        position=(15, 5),
                         value="4"
                     ),
                     IntegerLiteral(
-                        position=(16, 6),
+                        position=(16, 5),
                         value="5"
                     )
                 ]
@@ -193,15 +193,15 @@ Module(
                         position=(25, 5),
                         elements=[
                             IntegerLiteral(
-                                position=(25, 7),
+                                position=(25, 6),
                                 value="1"
                             ),
                             IntegerLiteral(
-                                position=(25, 10),
+                                position=(25, 9),
                                 value="2"
                             ),
                             IntegerLiteral(
-                                position=(25, 13),
+                                position=(25, 12),
                                 value="3"
                             )
                         ]
@@ -210,15 +210,15 @@ Module(
                         position=(26, 5),
                         elements=[
                             IntegerLiteral(
-                                position=(26, 7),
+                                position=(26, 6),
                                 value="4"
                             ),
                             IntegerLiteral(
-                                position=(26, 10),
+                                position=(26, 9),
                                 value="5"
                             ),
                             IntegerLiteral(
-                                position=(26, 13),
+                                position=(26, 12),
                                 value="6"
                             )
                         ]
@@ -238,38 +238,38 @@ Module(
                     BinaryOperation(
                         position=(29, 5),
                         left=IntegerLiteral(
-                            position=(29, 6),
+                            position=(29, 5),
                             value="1"
                         ),
                         operator="+",
                         right=IntegerLiteral(
-                            position=(29, 10),
+                            position=(29, 9),
                             value="2"
                         )
                     ),
                     BinaryOperation(
                         position=(30, 5),
                         left=IntegerLiteral(
-                            position=(30, 6),
+                            position=(30, 5),
                             value="3"
                         ),
                         operator="*",
                         right=IntegerLiteral(
-                            position=(30, 10),
+                            position=(30, 9),
                             value="4"
                         )
                     ),
                     BinaryOperation(
                         position=(31, 5),
                         left=IntegerLiteral(
-                            position=(31, 6),
+                            position=(31, 5),
                             value="5"
                         ),
                         operator="-",
                         right=BinaryOperation(
                             position=(31, 9),
                             left=IntegerLiteral(
-                                position=(31, 10),
+                                position=(31, 9),
                                 value="6"
                             ),
                             operator="*",
@@ -278,12 +278,12 @@ Module(
                                 expression=BinaryOperation(
                                     position=(31, 14),
                                     left=IntegerLiteral(
-                                        position=(31, 15),
+                                        position=(31, 14),
                                         value="8"
                                     ),
                                     operator="/",
                                     right=IntegerLiteral(
-                                        position=(31, 19),
+                                        position=(31, 18),
                                         value="2"
                                     )
                                 )
@@ -295,7 +295,7 @@ Module(
                         left=BinaryOperation(
                             position=(32, 5),
                             left=IntegerLiteral(
-                                position=(32, 6),
+                                position=(32, 5),
                                 value="8"
                             ),
                             operator="+",
@@ -308,12 +308,12 @@ Module(
                                         name="matrix"
                                     ),
                                     index=IntegerLiteral(
-                                        position=(32, 17),
+                                        position=(32, 16),
                                         value="0"
                                     )
                                 ),
                                 index=IntegerLiteral(
-                                    position=(32, 20),
+                                    position=(32, 19),
                                     value="1"
                                 )
                             )
@@ -350,7 +350,7 @@ Module(
                     ),
                     operator="*",
                     right=IntegerLiteral(
-                        position=(35, 29),
+                        position=(35, 28),
                         value="2"
                     )
                 ),
@@ -442,13 +442,13 @@ Module(
                                 ),
                                 operator="%",
                                 right=IntegerLiteral(
-                                    position=(37, 54),
+                                    position=(37, 53),
                                     value="2"
                                 )
                             ),
                             operator="==",
                             right=IntegerLiteral(
-                                position=(37, 59),
+                                position=(37, 58),
                                 value="0"
                             )
                         )
@@ -506,7 +506,7 @@ Module(
                             ),
                             operator=">",
                             right=IntegerLiteral(
-                                position=(41, 21),
+                                position=(41, 20),
                                 value="2"
                             )
                         )
@@ -589,15 +589,15 @@ Module(
                                         position=(45, 47),
                                         elements=[
                                             IntegerLiteral(
-                                                position=(45, 49),
+                                                position=(45, 48),
                                                 value="1"
                                             ),
                                             IntegerLiteral(
-                                                position=(45, 52),
+                                                position=(45, 51),
                                                 value="2"
                                             ),
                                             IntegerLiteral(
-                                                position=(45, 55),
+                                                position=(45, 54),
                                                 value="3"
                                             )
                                         ]
@@ -605,7 +605,7 @@ Module(
                                 ]
                             ),
                             index=IntegerLiteral(
-                                position=(45, 59),
+                                position=(45, 58),
                                 value="0"
                             )
                         )
@@ -622,13 +622,13 @@ Module(
                                 ),
                                 operator="%",
                                 right=IntegerLiteral(
-                                    position=(45, 68),
+                                    position=(45, 67),
                                     value="2"
                                 )
                             ),
                             operator="==",
                             right=IntegerLiteral(
-                                position=(45, 73),
+                                position=(45, 72),
                                 value="1"
                             )
                         )

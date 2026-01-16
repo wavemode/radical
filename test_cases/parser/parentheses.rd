@@ -13,7 +13,7 @@ Module(
             value=BinaryOperation(
                 position=(1, 9),
                 left=IntegerLiteral(
-                    position=(1, 10),
+                    position=(1, 9),
                     value="1"
                 ),
                 operator="+",
@@ -22,7 +22,7 @@ Module(
                     expression=BinaryOperation(
                         position=(1, 14),
                         left=IntegerLiteral(
-                            position=(1, 15),
+                            position=(1, 14),
                             value="2"
                         ),
                         operator="*",
@@ -31,12 +31,12 @@ Module(
                             expression=BinaryOperation(
                                 position=(1, 19),
                                 left=IntegerLiteral(
-                                    position=(1, 20),
+                                    position=(1, 19),
                                     value="3"
                                 ),
                                 operator="+",
                                 right=IntegerLiteral(
-                                    position=(1, 24),
+                                    position=(1, 23),
                                     value="4"
                                 )
                             )

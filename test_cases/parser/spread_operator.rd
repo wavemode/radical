@@ -89,7 +89,7 @@ Module(
                 position=(6, 27),
                 elements=[
                     IntegerLiteral(
-                        position=(7, 6),
+                        position=(7, 5),
                         value="1"
                     ),
                     SpreadOperation(
@@ -100,7 +100,7 @@ Module(
                         )
                     ),
                     IntegerLiteral(
-                        position=(9, 6),
+                        position=(9, 5),
                         value="2"
                     ),
                     SpreadOperation(
@@ -111,7 +111,7 @@ Module(
                         )
                     ),
                     IntegerLiteral(
-                        position=(11, 6),
+                        position=(11, 5),
                         value="3"
                     )
                 ]
@@ -189,7 +189,7 @@ Module(
                 position=(22, 26),
                 elements=[
                     IntegerLiteral(
-                        position=(23, 6),
+                        position=(23, 5),
                         value="1"
                     ),
                     SpreadOperation(
@@ -200,7 +200,7 @@ Module(
                         )
                     ),
                     IntegerLiteral(
-                        position=(25, 6),
+                        position=(25, 5),
                         value="2"
                     ),
                     SpreadOperation(
@@ -211,7 +211,7 @@ Module(
                         )
                     ),
                     IntegerLiteral(
-                        position=(27, 6),
+                        position=(27, 5),
                         value="3"
                     )
                 ]
@@ -261,7 +261,7 @@ Module(
                                         name="child1"
                                     ),
                                     value=IntegerLiteral(
-                                        position=(34, 18),
+                                        position=(34, 16),
                                         value="10"
                                     ),
                                     expression_key=false

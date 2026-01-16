@@ -22,7 +22,7 @@ Module(
                 name="integerLiteral"
             ),
             value=IntegerLiteral(
-                position=(1, 20),
+                position=(1, 18),
                 value="42"
             )
         ),
@@ -36,7 +36,7 @@ Module(
                 position=(2, 26),
                 operator="-",
                 operand=IntegerLiteral(
-                    position=(2, 28),
+                    position=(2, 27),
                     value="7"
                 )
             )

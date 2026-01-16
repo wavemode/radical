@@ -20,7 +20,7 @@ Module(
                 position=(1, 12),
                 operator="not",
                 operand=IntegerLiteral(
-                    position=(1, 17),
+                    position=(1, 16),
                     value="5"
                 )
             )
@@ -35,7 +35,7 @@ Module(
                 position=(2, 14),
                 operator="-",
                 operand=IntegerLiteral(
-                    position=(2, 18),
+                    position=(2, 16),
                     value="10"
                 )
             )
@@ -50,7 +50,7 @@ Module(
                 position=(3, 13),
                 operator="+",
                 operand=IntegerLiteral(
-                    position=(3, 17),
+                    position=(3, 15),
                     value="15"
                 )
             )
@@ -68,7 +68,7 @@ Module(
                     position=(5, 20),
                     operator="-",
                     operand=IntegerLiteral(
-                        position=(5, 24),
+                        position=(5, 22),
                         value="20"
                     )
                 )
@@ -87,7 +87,7 @@ Module(
                     position=(6, 20),
                     operator="+",
                     operand=IntegerLiteral(
-                        position=(6, 24),
+                        position=(6, 22),
                         value="25"
                     )
                 )
@@ -115,7 +115,7 @@ Module(
                                 position=(7, 40),
                                 operator="-",
                                 operand=IntegerLiteral(
-                                    position=(7, 44),
+                                    position=(7, 42),
                                     value="30"
                                 )
                             )
