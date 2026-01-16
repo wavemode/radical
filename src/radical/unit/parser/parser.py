@@ -12,11 +12,15 @@ from radical.data.parser.ast import (
     IntegerLiteralNode,
     FloatLiteralNode,
     SciFloatLiteralNode,
-    UnaryOperationNode,
     UnaryOperator,
-    BinaryOperationNode,
     BinaryOperator,
-    BINARY_OPERATOR_PRECEDENCE,
+    precedence_of_binary_op,
+    precendence_of_unary_op,
+    associativity_of_binary_op,
+    associativity_of_unary_op,
+    OperatorAssociativity,
+    UnaryOperationNode,
+    BinaryOperationNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -68,22 +72,65 @@ class Parser(Unit):
             type=None,
         )
 
-    def parse_value(self) -> ValueExpressionNode:
-        value = self.parse_single_value_expression()
-        self.skip_non_breaking_whitespace()
+    def parse_value(self, min_precedence: int = 0) -> ValueExpressionNode:
+        position_before_lhs = self._position()
+        lhs: ValueExpressionNode | None = None
+        if not self.check_unary_operator():
+            lhs = self.parse_single_value_expression()
+            self.skip_non_breaking_whitespace()
 
-        if self.check_binary_operator():
-            binary_operation_sequence: list[BinaryOperator | ValueExpressionNode] = [
-                value
-            ]
-            while self.check_binary_operator():
-                binary_operation_sequence.append(self.parse_binary_operator())
-                self.skip_whitespace()
-                binary_operation_sequence.append(self.parse_single_value_expression())
-                self.skip_non_breaking_whitespace()
-            return self.group_binary_operations(binary_operation_sequence)
+        while not self.at_end():
+            position_before_op = self._position()
+            op: BinaryOperator | UnaryOperator | None = None
+            if lhs is None:
+                op = self.parse_unary_operator()
+            elif self.check_binary_operator():
+                op = self.parse_binary_operator()
 
-        return value
+            if op is None:
+                break
+
+            precedence: int
+            associativity: OperatorAssociativity
+
+            if isinstance(op, BinaryOperator):
+                precedence = precedence_of_binary_op(op)
+                associativity = associativity_of_binary_op(op)
+                if precedence < min_precedence:
+                    self._reset_position(position_before_op)
+                    break
+            else:
+                precedence = precendence_of_unary_op(op)
+                associativity = associativity_of_unary_op(op)
+
+            self.skip_whitespace()
+            rhs = self.parse_value(
+                min_precedence=(
+                    # Adding 1 makes it so that another operation to the right with the same precedence
+                    # level as the current operator will not be included in the rhs expression (due to
+                    # the min_precedence now being 1 higher than the current operator's precedence).
+                    # Thus causing left associativity (e.g. a - b - c  parsed as (a - b) - c).
+                    precedence + 1
+                    if associativity == OperatorAssociativity.LEFT
+                    else precedence
+                )
+            )
+            if isinstance(op, UnaryOperator):
+                lhs = UnaryOperationNode(
+                    operator=op, operand=rhs, position=position_before_op
+                )
+            else:
+                assert lhs is not None
+                lhs = BinaryOperationNode(
+                    left=lhs,
+                    operator=op,
+                    right=rhs,
+                    position=position_before_lhs,
+                )
+            self.skip_non_breaking_whitespace()
+
+        assert lhs is not None
+        return lhs
 
     def parse_single_value_expression(self) -> ValueExpressionNode:
         if self.check_raw_multi_line_string_literal():
@@ -96,8 +143,6 @@ class Parser(Unit):
             return self.parse_string_literal()
         elif self.check_number_literal():
             return self.parse_number_literal()
-        elif self.check_unary_operation():
-            return self.parse_unary_operation()
         elif self.check_symbol():
             return self.parse_symbol()
         else:
@@ -129,80 +174,23 @@ class Parser(Unit):
             )
             return BinaryOperator(operator_str)
 
-    def group_binary_operations(
-        self,
-        sequence: list[BinaryOperator | ValueExpressionNode],
-    ) -> BinaryOperationNode:
-        precedence_level = 0
-        index = 1
-
-        def matches_current_precedence_level() -> bool:
-            operator = sequence[index]
-            assert isinstance(operator, BinaryOperator)
-            return operator in BINARY_OPERATOR_PRECEDENCE[precedence_level]
-
-        def make_group() -> None:
-            left = sequence[index - 1]
-            operator = sequence[index]
-            right = sequence[index + 1]
-            assert isinstance(left, ValueExpressionNode)
-            assert isinstance(operator, BinaryOperator)
-            assert isinstance(right, ValueExpressionNode)
-            new_node = BinaryOperationNode(
-                position=left.position,
-                left=left,
-                operator=operator,
-                right=right,
-            )
-            sequence[index - 1 : index + 2] = [new_node]
-
-        while len(sequence) > 1:
-            if matches_current_precedence_level():
-                make_group()
-                index = 1
-                print([type(elem).__name__ for elem in sequence])
-            else:
-                index += 2
-                if index >= len(sequence):
-                    precedence_level += 1
-                    index = 1
-                    if precedence_level == len(BINARY_OPERATOR_PRECEDENCE):
-                        self._raise_parse_error("Failed to group binary operations")
-
-        assert isinstance(sequence[0], BinaryOperationNode)
-        return sequence[0]
-
-    def check_unary_operation(self) -> bool:
+    def check_unary_operator(self) -> bool:
         return self._peek() in ("+", "-") or self.check_word("not")
 
-    def parse_unary_operation(self) -> UnaryOperationNode:
-        position = self._position()
-        operator: UnaryOperator
+    def parse_unary_operator(self) -> UnaryOperator:
         if self.check_word("not"):
-            operator = UnaryOperator.NOT
-            self.parse_specific_charachters("not")
+            self._read(3)
+            return UnaryOperator.NOT
         else:
-            operator = UnaryOperator(self._read())
-        self.skip_whitespace()
-        operand = self.parse_value()
-        return UnaryOperationNode(
-            position=position,
-            operator=operator,
-            operand=operand,
-        )
+            return UnaryOperator(self._read())
 
     def check_number_literal(self) -> bool:
-        char1, char2 = self._peek(2)
-        return char1.isdigit() or (char1 == "-" and char2.isdigit())
+        return self._peek().isdigit()
 
     def parse_number_literal(
         self,
     ) -> SciFloatLiteralNode | FloatLiteralNode | IntegerLiteralNode:
         position = self._position()
-        sign: str | None = None
-
-        if self._peek() == "-":
-            sign = self._read()
 
         integer_chars = self.parse_numeral_sequence()
         fractional_chars: list[str] | None = None
@@ -221,7 +209,7 @@ class Parser(Unit):
             exponent_chars = self.parse_numeral_sequence()
 
         if exponent_chars is not None:
-            parts: list[str] = [sign or "", *integer_chars]
+            parts: list[str] = [*integer_chars]
             if fractional_chars is not None:
                 parts.append(".")
                 parts.extend(fractional_chars)
@@ -237,7 +225,6 @@ class Parser(Unit):
 
         if fractional_chars is not None:
             value_parts: list[str] = [
-                sign or "",
                 *integer_chars,
                 ".",
                 *fractional_chars,
@@ -247,7 +234,7 @@ class Parser(Unit):
                 value="".join(value_parts),
             )
 
-        value = "".join([sign or "", *integer_chars])
+        value = "".join(integer_chars)
         return IntegerLiteralNode(
             position=self._position(),
             value=value,
@@ -462,10 +449,12 @@ class Parser(Unit):
             index += 1
         word = "".join(chars)
         self._reset_position(position)
-        return max(
+        result = max(
             (seq for seq in expected if word.startswith(seq)),
             key=lambda s: len(s),
         )
+        self._read(len(result))
+        return result
 
     def check_any_word(self, expected: list[str]) -> bool:
         for word in expected:

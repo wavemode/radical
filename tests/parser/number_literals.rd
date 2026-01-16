@@ -26,8 +26,11 @@ Module(
             name=Symbol(
                 name="negativeIntegerLiteral"
             ),
-            value=IntegerLiteral(
-                value="-7"
+            value=UnaryOperation(
+                operator="-",
+                operand=IntegerLiteral(
+                    value="7"
+                )
             )
         ),
         VariableBindingStatement(
@@ -42,8 +45,11 @@ Module(
             name=Symbol(
                 name="negativeFloatLiteral"
             ),
-            value=FloatLiteral(
-                value="-0.001"
+            value=UnaryOperation(
+                operator="-",
+                operand=FloatLiteral(
+                    value="0.001"
+                )
             )
         ),
         VariableBindingStatement(
@@ -58,16 +64,22 @@ Module(
             name=Symbol(
                 name="negativeSciFloatLiteralNoFraction"
             ),
-            value=SciFloatLiteral(
-                value="-2.5E8"
+            value=UnaryOperation(
+                operator="-",
+                operand=SciFloatLiteral(
+                    value="2.5E8"
+                )
             )
         ),
         VariableBindingStatement(
             name=Symbol(
                 name="negativeSciFloatLiteralNoFractionNegativeExponent"
             ),
-            value=SciFloatLiteral(
-                value="-4e-3"
+            value=UnaryOperation(
+                operator="-",
+                operand=SciFloatLiteral(
+                    value="4e-3"
+                )
             )
         ),
         VariableBindingStatement(
@@ -82,16 +94,22 @@ Module(
             name=Symbol(
                 name="negativeSciFloatLiteralWithFraction"
             ),
-            value=SciFloatLiteral(
-                value="-9.81E4"
+            value=UnaryOperation(
+                operator="-",
+                operand=SciFloatLiteral(
+                    value="9.81E4"
+                )
             )
         ),
         VariableBindingStatement(
             name=Symbol(
                 name="negativeSciFloatLiteralWithFractionNegativeExponent"
             ),
-            value=SciFloatLiteral(
-                value="-3.0e-5"
+            value=UnaryOperation(
+                operator="-",
+                operand=SciFloatLiteral(
+                    value="3.0e-5"
+                )
             )
         )
     ]

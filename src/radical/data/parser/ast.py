@@ -135,8 +135,9 @@ class BinaryOperator(StrEnum):
     PIPE = "|>"
 
 
-BINARY_OPERATOR_PRECEDENCE: Sequence[Sequence[BinaryOperator]] = (
+OPERATOR_PRECEDENCE: Sequence[Sequence[BinaryOperator | UnaryOperator]] = (
     (BinaryOperator.EXPONENTIATION,),
+    (UnaryOperator.PLUS, UnaryOperator.MINUS),
     (
         BinaryOperator.MULTIPLY,
         BinaryOperator.DIVIDE,
@@ -155,10 +156,42 @@ BINARY_OPERATOR_PRECEDENCE: Sequence[Sequence[BinaryOperator]] = (
         BinaryOperator.GREATER_THAN,
         BinaryOperator.GREATER_THAN_EQUAL,
     ),
+    (UnaryOperator.NOT,),
     (BinaryOperator.AND,),
     (BinaryOperator.OR,),
     (BinaryOperator.PIPE,),
 )
+
+
+def precendence_of_unary_op(operator: UnaryOperator) -> int:
+    for precedence, operators in enumerate(reversed(OPERATOR_PRECEDENCE), start=1):
+        if operator in operators and precedence in (4, 8):
+            return precedence
+    raise ValueError(f"Unknown unary operator: {operator}")
+
+
+def precedence_of_binary_op(operator: BinaryOperator) -> int:
+    for precedence, operators in enumerate(reversed(OPERATOR_PRECEDENCE), start=1):
+        if operator in operators and precedence not in (4, 8):
+            return precedence
+    raise ValueError(f"Unknown binary operator: {operator}")
+
+
+class OperatorAssociativity(StrEnum):
+    LEFT = "left"
+    RIGHT = "right"
+
+
+def associativity_of_binary_op(operator: BinaryOperator) -> OperatorAssociativity:
+    return (
+        OperatorAssociativity.RIGHT
+        if operator == BinaryOperator.EXPONENTIATION
+        else OperatorAssociativity.LEFT
+    )
+
+
+def associativity_of_unary_op(operator: UnaryOperator) -> OperatorAssociativity:
+    return OperatorAssociativity.RIGHT
 
 
 @dataclass(frozen=True)
