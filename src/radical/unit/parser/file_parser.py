@@ -49,6 +49,9 @@ from radical.data.parser.ast import (
     ParenthesizedTypeNode,
     TupleTypeNode,
     UnionTypeNode,
+    TrueKeywordNode,
+    FalseKeywordNode,
+    NullKeywordNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -269,6 +272,7 @@ class FileParser(Unit):
         return lhs
 
     def parse_single_value_expression(self) -> ValueExpressionNodeType:
+        position = self._position()
         value: ValueExpressionNodeType
         if self.check_parenthesized_expression():
             value = self.parse_parenthesized_expression()
@@ -288,6 +292,15 @@ class FileParser(Unit):
             value = self.parse_string_literal()
         elif self.check_number_literal():
             value = self.parse_number_literal()
+        elif self.check_true_keyword():
+            value = TrueKeywordNode(position=position)
+            self._read(4)
+        elif self.check_false_keyword():
+            value = FalseKeywordNode(position=position)
+            self._read(5)
+        elif self.check_null_keyword():
+            value = NullKeywordNode(position=position)
+            self._read(4)
         elif self.check_symbol():
             value = self.parse_symbol()
         else:
@@ -882,6 +895,15 @@ class FileParser(Unit):
         if not numeral_chars:
             self._raise_parse_error("Expected numeral sequence")
         return numeral_chars
+
+    def check_true_keyword(self) -> bool:
+        return self.check_word("true")
+    
+    def check_false_keyword(self) -> bool:
+        return self.check_word("false")
+
+    def check_null_keyword(self) -> bool:
+        return self.check_word("null")
 
     def check_symbol(self) -> bool:
         # TODO: support backtick-quoted symbols

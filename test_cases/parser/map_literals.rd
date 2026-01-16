@@ -78,9 +78,8 @@ Module(
                             position=(4, 7),
                             name="key3"
                         ),
-                        value=Symbol(
-                            position=(4, 14),
-                            name="false"
+                        value=FalseKeyword(
+                            position=(4, 14)
                         ),
                         expression_key=false
                     )

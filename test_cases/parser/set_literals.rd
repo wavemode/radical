@@ -56,9 +56,8 @@ Module(
                         position=(1, 45),
                         name="value3"
                     ),
-                    Symbol(
-                        position=(1, 53),
-                        name="false"
+                    FalseKeyword(
+                        position=(1, 53)
                     )
                 ]
             )

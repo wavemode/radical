@@ -133,6 +133,17 @@ TypeExpressionNodeType = (
 class SymbolNode(Node):
     name: str
 
+@dataclass(frozen=True)
+class TrueKeywordNode(Node):
+    pass
+
+@dataclass(frozen=True)
+class FalseKeywordNode(Node):
+    pass
+
+@dataclass(frozen=True)
+class NullKeywordNode(Node):
+    pass
 
 @dataclass(frozen=True)
 class StringLiteralNode(Node):
@@ -432,6 +443,9 @@ class TreeComprehensionNode(Node):
 
 ValueExpressionNodeType = (
     SymbolNode
+    | TrueKeywordNode
+    | FalseKeywordNode
+    | NullKeywordNode
     | StringLiteralNode
     | RawStringLiteralNode
     | MultiLineStringLiteralNode

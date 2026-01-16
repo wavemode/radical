@@ -320,9 +320,8 @@ Module(
                             position=(13, 41),
                             name="arg3"
                         ),
-                        value=Symbol(
-                            position=(13, 46),
-                            name="true"
+                        value=TrueKeyword(
+                            position=(13, 46)
                         )
                     )
                 ]

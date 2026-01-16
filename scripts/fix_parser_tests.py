@@ -41,3 +41,5 @@ def fix_parser_tests():
 
 if __name__ == "__main__":
     fix_parser_tests()
+    # run it again in case we messed up line/column positions
+    fix_parser_tests()

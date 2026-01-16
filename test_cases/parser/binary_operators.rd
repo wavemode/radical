@@ -34,14 +34,12 @@ Module(
             ),
             value=BinaryOperation(
                 position=(1, 13),
-                left=Symbol(
-                    position=(1, 13),
-                    name="true"
+                left=TrueKeyword(
+                    position=(1, 13)
                 ),
                 operator="and",
-                right=Symbol(
-                    position=(1, 22),
-                    name="false"
+                right=FalseKeyword(
+                    position=(1, 22)
                 )
             )
         ),
@@ -55,20 +53,17 @@ Module(
                 position=(2, 15),
                 left=BinaryOperation(
                     position=(2, 15),
-                    left=Symbol(
-                        position=(2, 15),
-                        name="true"
+                    left=TrueKeyword(
+                        position=(2, 15)
                     ),
                     operator="and",
-                    right=Symbol(
-                        position=(2, 24),
-                        name="false"
+                    right=FalseKeyword(
+                        position=(2, 24)
                     )
                 ),
                 operator="or",
-                right=Symbol(
-                    position=(2, 33),
-                    name="true"
+                right=TrueKeyword(
+                    position=(2, 33)
                 )
             )
         ),
@@ -80,21 +75,18 @@ Module(
             ),
             value=BinaryOperation(
                 position=(3, 15),
-                left=Symbol(
-                    position=(3, 15),
-                    name="false"
+                left=FalseKeyword(
+                    position=(3, 15)
                 ),
                 operator="or",
                 right=BinaryOperation(
                     position=(3, 24),
-                    left=Symbol(
-                        position=(3, 24),
-                        name="true"
+                    left=TrueKeyword(
+                        position=(3, 24)
                     ),
                     operator="and",
-                    right=Symbol(
-                        position=(3, 33),
-                        name="false"
+                    right=FalseKeyword(
+                        position=(3, 33)
                     )
                 )
             )
@@ -468,36 +460,36 @@ Module(
             )
         ),
         VariableBindingStatement(
-            position=(509, 1),
+            position=(501, 1),
             name=Symbol(
-                position=(509, 1),
+                position=(501, 1),
                 name="plusMinusPlus"
             ),
             value=BinaryOperation(
-                position=(509, 17),
+                position=(501, 17),
                 left=BinaryOperation(
-                    position=(509, 17),
+                    position=(501, 17),
                     left=BinaryOperation(
-                        position=(509, 17),
+                        position=(501, 17),
                         left=IntegerLiteral(
-                            position=(509, 17),
+                            position=(501, 17),
                             value="1"
                         ),
                         operator="+",
                         right=IntegerLiteral(
-                            position=(509, 21),
+                            position=(501, 21),
                             value="2"
                         )
                     ),
                     operator="-",
                     right=IntegerLiteral(
-                        position=(509, 25),
+                        position=(501, 25),
                         value="3"
                     )
                 ),
                 operator="+",
                 right=IntegerLiteral(
-                    position=(509, 29),
+                    position=(501, 29),
                     value="4"
                 )
             )
