@@ -71,6 +71,16 @@ class TypeNameNode(Node):
 
 
 @dataclass(frozen=True)
+class StringLiteralTypeNode(Node):
+    value: "StringNodeType"
+
+
+@dataclass(frozen=True)
+class NumberLiteralTypeNode(Node):
+    value: "NumberNodeType"
+
+
+@dataclass(frozen=True)
 class UnionTypeNode(Node):
     left: "TypeExpressionNodeType"
     right: "TypeExpressionNodeType"
@@ -124,6 +134,8 @@ TypeExpressionNodeType = (
     | ParenthesizedTypeNode
     | GenericTypeNode
     | TupleTypeNode
+    | StringLiteralTypeNode
+    | NumberLiteralTypeNode
 )
 
 # Scalars
@@ -133,17 +145,21 @@ TypeExpressionNodeType = (
 class SymbolNode(Node):
     name: str
 
+
 @dataclass(frozen=True)
 class TrueKeywordNode(Node):
     pass
+
 
 @dataclass(frozen=True)
 class FalseKeywordNode(Node):
     pass
 
+
 @dataclass(frozen=True)
 class NullKeywordNode(Node):
     pass
+
 
 @dataclass(frozen=True)
 class StringLiteralNode(Node):
@@ -165,6 +181,14 @@ class RawMultiLineStringLiteralNode(Node):
     value: str
 
 
+StringNodeType = (
+    StringLiteralNode
+    | RawStringLiteralNode
+    | MultiLineStringLiteralNode
+    | RawMultiLineStringLiteralNode
+)
+
+
 @dataclass(frozen=True)
 class IntegerLiteralNode(Node):
     value: str
@@ -179,6 +203,8 @@ class FloatLiteralNode(Node):
 class SciFloatLiteralNode(Node):
     value: str
 
+
+NumberNodeType = IntegerLiteralNode | FloatLiteralNode | SciFloatLiteralNode
 
 # Operations
 

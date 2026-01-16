@@ -54,6 +54,9 @@ from radical.data.parser.ast import (
     NullKeywordNode,
     TypeOfExpressionNode,
     TypeExpressionNode,
+    StringLiteralTypeNode,
+    NumberLiteralTypeNode,
+    StringNodeType,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -132,6 +135,18 @@ class FileParser(Unit):
             expr = TypeExpressionNode(
                 position=start_position,
                 value=value_expr,
+            )
+        elif self.check_string():
+            literal = self.parse_string()
+            expr = StringLiteralTypeNode(
+                position=literal.position,
+                value=literal,
+            )
+        elif self.check_number():
+            literal = self.parse_number()
+            expr = NumberLiteralTypeNode(
+                position=literal.position,
+                value=literal,
             )
         elif self.check_type_name():
             expr = self.parse_type_name()
@@ -308,16 +323,10 @@ class FileParser(Unit):
             value = self.parse_list_literal()
         elif self.check_set_or_map_or_tree_literal():
             value = self.parse_set_or_map_or_tree_literal()
-        elif self.check_raw_multi_line_string_literal():
-            value = self.parse_raw_multi_line_string_literal()
-        elif self.check_raw_string_literal():
-            value = self.parse_raw_string_literal()
-        elif self.check_multi_line_string_literal():
-            value = self.parse_multi_line_string_literal()
-        elif self.check_string_literal():
-            value = self.parse_string_literal()
-        elif self.check_number_literal():
-            value = self.parse_number_literal()
+        elif self.check_string():
+            value = self.parse_string()
+        elif self.check_number():
+            value = self.parse_number()
         elif self.check_true_keyword():
             value = TrueKeywordNode(position=position)
             self._read(4)
@@ -854,10 +863,10 @@ class FileParser(Unit):
         else:
             return UnaryOperator(self._read())
 
-    def check_number_literal(self) -> bool:
+    def check_number(self) -> bool:
         return self._peek().isdigit()
 
-    def parse_number_literal(
+    def parse_number(
         self,
     ) -> SciFloatLiteralNode | FloatLiteralNode | IntegerLiteralNode:
         position = self._position()
@@ -924,7 +933,7 @@ class FileParser(Unit):
 
     def check_true_keyword(self) -> bool:
         return self.check_word("true")
-    
+
     def check_false_keyword(self) -> bool:
         return self.check_word("false")
 
@@ -953,6 +962,26 @@ class FileParser(Unit):
             position=start_position,
             name="".join(name_chars),
         )
+
+    def check_string(self) -> bool:
+        return (
+            self.check_raw_multi_line_string_literal()
+            or self.check_raw_string_literal()
+            or self.check_multi_line_string_literal()
+            or self.check_string_literal()
+        )
+
+    def parse_string(self) -> StringNodeType:
+        if self.check_raw_multi_line_string_literal():
+            return self.parse_raw_multi_line_string_literal()
+        elif self.check_raw_string_literal():
+            return self.parse_raw_string_literal()
+        elif self.check_multi_line_string_literal():
+            return self.parse_multi_line_string_literal()
+        elif self.check_string_literal():
+            return self.parse_string_literal()
+        else:
+            self._raise_parse_error("Expected a string literal")
 
     def check_string_literal(self) -> bool:
         return self.check_specific_charachters('"')
