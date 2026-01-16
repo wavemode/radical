@@ -353,7 +353,35 @@ Module(
                     )
                 )
             )
+        ),
+        VariableBindingStatement(
+            name=Symbol(
+                name="plusMinusPlus"
+            ),
+            value=BinaryOperation(
+                left=BinaryOperation(
+                    left=BinaryOperation(
+                        left=IntegerLiteral(
+                            value="1"
+                        ),
+                        operator="+",
+                        right=IntegerLiteral(
+                            value="2"
+                        )
+                    ),
+                    operator="-",
+                    right=IntegerLiteral(
+                        value="3"
+                    )
+                ),
+                operator="+",
+                right=IntegerLiteral(
+                    value="4"
+                )
+            )
         )
     ]
 )
 *)
+
+plusMinusPlus = 1 + 2 - 3 + 4

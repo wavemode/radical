@@ -1,6 +1,3 @@
-var1 = "value"
-var2 = var1
-
 (*
 Module(
     top_level_nodes=[
@@ -23,3 +20,6 @@ Module(
     ]
 )
 *)
+
+var1 = "value"
+var2 = var1
