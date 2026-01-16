@@ -46,6 +46,8 @@ from radical.data.parser.ast import (
     TypeNameNode,
     TypeExpressionNodeType,
     GenericTypeNode,
+    ParenthesizedTypeNode,
+    TupleTypeNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -88,6 +90,8 @@ class FileParser(Unit):
         expr: TypeExpressionNodeType
         if self.check_type_name():
             expr = self.parse_type_name()
+        elif self.check_parenthesized_type():
+            expr = self.parse_parenthesized_type()
         else:
             self._raise_parse_error("Expected a type expression")
 
@@ -99,6 +103,39 @@ class FileParser(Unit):
             )
 
         return expr
+
+    def check_parenthesized_type(self) -> bool:
+        return self.check_specific_charachters("(")
+    
+    def parse_parenthesized_type(self) -> ParenthesizedTypeNode | TupleTypeNode:
+        start_position = self._position()
+        self.parse_specific_charachters("(")
+        self.skip_whitespace()
+        type_expr = self.parse_type_expression()
+        self.skip_whitespace()
+
+        if self.check_specific_charachters(","):
+            self._read()
+            self.skip_whitespace()
+
+            element_types: list[TypeExpressionNodeType] = [type_expr]
+            while not self.check_specific_charachters(")"):
+                element_types.append(self.parse_type_expression())
+                self.skip_whitespace()
+                if self.check_specific_charachters(","):
+                    self._read()
+                    self.skip_whitespace()
+            self.parse_specific_charachters(")")
+            return TupleTypeNode(
+                position=start_position,
+                element_types=element_types,
+            )
+
+        self.parse_specific_charachters(")")
+        return ParenthesizedTypeNode(
+            position=start_position,
+            type=type_expr,
+        )
 
     def parse_type_arguments(self) -> list[TypeExpressionNodeType]:
         type_arguments: list[TypeExpressionNodeType] = []
