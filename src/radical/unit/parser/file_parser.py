@@ -1122,7 +1122,8 @@ class FileParser(Unit):
                 "assert",
                 "data",
                 "case",
-                "ofimport",
+                "of",
+                "import",
                 "as",
             ]
         )
