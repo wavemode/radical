@@ -375,13 +375,13 @@ BindingStatementNodeType = VariableBindingStatementNode | VariableTypeSignatureN
 
 @dataclass(frozen=True)
 class LetInNode(Node):
-    definitions: list[BindingStatementNodeType]
+    bindings: list[BindingStatementNodeType]
     body: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class LetStatementNode(Node):
-    definition: BindingStatementNodeType
+    binding: BindingStatementNodeType
 
 
 # Collections

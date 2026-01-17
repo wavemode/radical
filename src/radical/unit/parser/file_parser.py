@@ -60,6 +60,8 @@ from radical.data.parser.ast import (
     VariableTypeSignatureNode,
     FunctionArgumentTypeNode,
     FunctionTypeNode,
+    LetInNode,
+    BindingStatementNodeType,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -92,7 +94,7 @@ class FileParser(Unit):
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
         if self.check_symbol():
-            return self.parse_variable_binding()
+            return self.parse_binding_statement()
         else:
             self._raise_parse_error("Expected a top-level declaration")
 
@@ -360,7 +362,7 @@ class FileParser(Unit):
             name=name_node,
         )
 
-    def parse_variable_binding(
+    def parse_binding_statement(
         self,
     ) -> VariableBindingStatementNode | VariableTypeSignatureNode:
         start_position = self._position()
@@ -468,6 +470,8 @@ class FileParser(Unit):
             value = self.parse_parenthesized_expression()
         elif self.check_if_then_else():
             value = self.parse_if_then_else()
+        elif self.check_let_in_expression():
+            value = self.parse_let_in_expression()
         elif self.check_list_literal():
             value = self.parse_list_literal()
         elif self.check_set_or_map_or_tree_literal():
@@ -501,6 +505,29 @@ class FileParser(Unit):
                 break
 
         return value
+
+    def check_let_in_expression(self) -> bool:
+        return self.check_word("let")
+    
+    def parse_let_in_expression(self) -> LetInNode:
+        start_position = self._position()
+        self.parse_word("let")
+        self.skip_whitespace()
+
+        bindings: list[BindingStatementNodeType] = []
+        while self.check_symbol():
+            bindings.append(self.parse_binding_statement())
+            self.skip_whitespace()
+
+        self.parse_word("in")
+        self.skip_whitespace()
+        body = self.parse_value()
+
+        return LetInNode(
+            position=start_position,
+            bindings=bindings,
+            body=body,
+        )
 
     def parse_function_call(
         self, function: ValueExpressionNodeType
