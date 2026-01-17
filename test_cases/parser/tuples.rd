@@ -15,14 +15,16 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="singleElementTuple"
+                name="singleElementTuple",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(1, 22),
                 elements=[
                     Symbol(
                         position=(1, 23),
-                        name="element"
+                        name="element",
+                        quoted=false
                     )
                 ]
             )
@@ -31,22 +33,26 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="multiElementTuple"
+                name="multiElementTuple",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(2, 21),
                 elements=[
                     Symbol(
                         position=(2, 22),
-                        name="element1"
+                        name="element1",
+                        quoted=false
                     ),
                     Symbol(
                         position=(2, 32),
-                        name="element2"
+                        name="element2",
+                        quoted=false
                     ),
                     Symbol(
                         position=(2, 42),
-                        name="element3"
+                        name="element3",
+                        quoted=false
                     )
                 ]
             )
@@ -55,22 +61,26 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="multiElementTupleWithTrailingComma"
+                name="multiElementTupleWithTrailingComma",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(3, 38),
                 elements=[
                     Symbol(
                         position=(4, 5),
-                        name="element1"
+                        name="element1",
+                        quoted=false
                     ),
                     Symbol(
                         position=(5, 5),
-                        name="element2"
+                        name="element2",
+                        quoted=false
                     ),
                     Symbol(
                         position=(6, 5),
-                        name="element3"
+                        name="element3",
+                        quoted=false
                     )
                 ]
             )
@@ -79,7 +89,8 @@ Module(
             position=(8, 1),
             name=Symbol(
                 position=(8, 1),
-                name="nestedTuples"
+                name="nestedTuples",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(8, 16),
@@ -89,11 +100,13 @@ Module(
                         elements=[
                             Symbol(
                                 position=(8, 18),
-                                name="element1"
+                                name="element1",
+                                quoted=false
                             ),
                             Symbol(
                                 position=(8, 28),
-                                name="element2"
+                                name="element2",
+                                quoted=false
                             )
                         ]
                     ),
@@ -102,11 +115,13 @@ Module(
                         elements=[
                             Symbol(
                                 position=(8, 40),
-                                name="element3"
+                                name="element3",
+                                quoted=false
                             ),
                             Symbol(
                                 position=(8, 50),
-                                name="element4"
+                                name="element4",
+                                quoted=false
                             )
                         ]
                     ),
@@ -115,7 +130,8 @@ Module(
                         elements=[
                             Symbol(
                                 position=(8, 62),
-                                name="element5"
+                                name="element5",
+                                quoted=false
                             )
                         ]
                     )

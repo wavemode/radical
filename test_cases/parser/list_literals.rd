@@ -52,7 +52,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="emptyList"
+                name="emptyList",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(1, 13),
@@ -65,7 +66,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="singleElementList"
+                name="singleElementList",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(2, 21),
@@ -81,7 +83,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="singleElementListWithTrailingComma"
+                name="singleElementListWithTrailingComma",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(3, 38),
@@ -97,7 +100,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="listLiteralRetrieval"
+                name="listLiteralRetrieval",
+                quoted=false
             ),
             value=IndexAccess(
                 position=(6, 24),
@@ -128,7 +132,8 @@ Module(
             position=(11, 1),
             name=Symbol(
                 position=(11, 1),
-                name="listWithoutCommas"
+                name="listWithoutCommas",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(11, 21),
@@ -160,7 +165,8 @@ Module(
             position=(19, 1),
             name=Symbol(
                 position=(19, 1),
-                name="multiElementList"
+                name="multiElementList",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(19, 20),
@@ -184,7 +190,8 @@ Module(
             position=(24, 1),
             name=Symbol(
                 position=(24, 1),
-                name="nestedLists"
+                name="nestedLists",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(24, 15),
@@ -230,7 +237,8 @@ Module(
             position=(28, 1),
             name=Symbol(
                 position=(28, 1),
-                name="listWithExpressions"
+                name="listWithExpressions",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(28, 23),
@@ -305,7 +313,8 @@ Module(
                                     position=(32, 9),
                                     collection=Symbol(
                                         position=(32, 9),
-                                        name="matrix"
+                                        name="matrix",
+                                        quoted=false
                                     ),
                                     index=IntegerLiteral(
                                         position=(32, 16),
@@ -323,11 +332,13 @@ Module(
                             position=(32, 24),
                             object=Symbol(
                                 position=(32, 24),
-                                name="vector"
+                                name="vector",
+                                quoted=false
                             ),
                             attribute=Symbol(
                                 position=(32, 31),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         )
                     )
@@ -338,7 +349,8 @@ Module(
             position=(35, 1),
             name=Symbol(
                 position=(35, 1),
-                name="simpleComprehension"
+                name="simpleComprehension",
+                quoted=false
             ),
             value=ListComprehension(
                 position=(35, 23),
@@ -346,7 +358,8 @@ Module(
                     position=(35, 24),
                     left=Symbol(
                         position=(35, 24),
-                        name="x"
+                        name="x",
+                        quoted=false
                     ),
                     operator="*",
                     right=IntegerLiteral(
@@ -360,12 +373,14 @@ Module(
                         variables=[
                             Symbol(
                                 position=(35, 34),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(35, 39),
-                            name="seq"
+                            name="seq",
+                            quoted=false
                         )
                     )
                 ]
@@ -375,13 +390,15 @@ Module(
             position=(36, 1),
             name=Symbol(
                 position=(36, 1),
-                name="keyValueComprehension"
+                name="keyValueComprehension",
+                quoted=false
             ),
             value=ListComprehension(
                 position=(36, 25),
                 element=Symbol(
                     position=(36, 26),
-                    name="v"
+                    name="v",
+                    quoted=false
                 ),
                 clauses=[
                     ComprehensionBinding(
@@ -389,16 +406,19 @@ Module(
                         variables=[
                             Symbol(
                                 position=(36, 32),
-                                name="k"
+                                name="k",
+                                quoted=false
                             ),
                             Symbol(
                                 position=(36, 35),
-                                name="v"
+                                name="v",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(36, 40),
-                            name="mapItems"
+                            name="mapItems",
+                            quoted=false
                         )
                     )
                 ]
@@ -408,13 +428,15 @@ Module(
             position=(37, 1),
             name=Symbol(
                 position=(37, 1),
-                name="comprehensionWithCondition"
+                name="comprehensionWithCondition",
+                quoted=false
             ),
             value=ListComprehension(
                 position=(37, 30),
                 element=Symbol(
                     position=(37, 31),
-                    name="x"
+                    name="x",
+                    quoted=false
                 ),
                 clauses=[
                     ComprehensionBinding(
@@ -422,12 +444,14 @@ Module(
                         variables=[
                             Symbol(
                                 position=(37, 37),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(37, 42),
-                            name="seq"
+                            name="seq",
+                            quoted=false
                         )
                     ),
                     ComprehensionGuard(
@@ -438,7 +462,8 @@ Module(
                                 position=(37, 49),
                                 left=Symbol(
                                     position=(37, 49),
-                                    name="x"
+                                    name="x",
+                                    quoted=false
                                 ),
                                 operator="%",
                                 right=IntegerLiteral(
@@ -460,7 +485,8 @@ Module(
             position=(38, 1),
             name=Symbol(
                 position=(38, 1),
-                name="multiComprehension"
+                name="multiComprehension",
+                quoted=false
             ),
             value=ListComprehension(
                 position=(38, 22),
@@ -468,11 +494,13 @@ Module(
                     position=(39, 5),
                     object=Symbol(
                         position=(39, 5),
-                        name="x"
+                        name="x",
+                        quoted=false
                     ),
                     attribute=Symbol(
                         position=(39, 7),
-                        name="name"
+                        name="name",
+                        quoted=false
                     )
                 ),
                 clauses=[
@@ -481,12 +509,14 @@ Module(
                         variables=[
                             Symbol(
                                 position=(40, 9),
-                                name="xs"
+                                name="xs",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(40, 15),
-                            name="listOfLists"
+                            name="listOfLists",
+                            quoted=false
                         )
                     ),
                     ComprehensionGuard(
@@ -497,11 +527,13 @@ Module(
                                 position=(41, 8),
                                 object=Symbol(
                                     position=(41, 8),
-                                    name="xs"
+                                    name="xs",
+                                    quoted=false
                                 ),
                                 attribute=Symbol(
                                     position=(41, 11),
-                                    name="length"
+                                    name="length",
+                                    quoted=false
                                 )
                             ),
                             operator=">",
@@ -516,12 +548,14 @@ Module(
                         variables=[
                             Symbol(
                                 position=(42, 9),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(42, 14),
-                            name="xs"
+                            name="xs",
+                            quoted=false
                         )
                     ),
                     ComprehensionGuard(
@@ -530,11 +564,13 @@ Module(
                             position=(43, 8),
                             object=Symbol(
                                 position=(43, 8),
-                                name="x"
+                                name="x",
+                                quoted=false
                             ),
                             attribute=Symbol(
                                 position=(43, 10),
-                                name="active"
+                                name="active",
+                                quoted=false
                             )
                         )
                     )
@@ -545,7 +581,8 @@ Module(
             position=(45, 1),
             name=Symbol(
                 position=(45, 1),
-                name="nestedComprehension"
+                name="nestedComprehension",
+                quoted=false
             ),
             value=ListComprehension(
                 position=(45, 23),
@@ -553,7 +590,8 @@ Module(
                     position=(45, 24),
                     element=Symbol(
                         position=(45, 25),
-                        name="y"
+                        name="y",
+                        quoted=false
                     ),
                     clauses=[
                         ComprehensionBinding(
@@ -561,12 +599,14 @@ Module(
                             variables=[
                                 Symbol(
                                     position=(45, 31),
-                                    name="y"
+                                    name="y",
+                                    quoted=false
                                 )
                             ],
                             iterable=Symbol(
                                 position=(45, 36),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         )
                     ]
@@ -577,7 +617,8 @@ Module(
                         variables=[
                             Symbol(
                                 position=(45, 42),
-                                name="x"
+                                name="x",
+                                quoted=false
                             )
                         ],
                         iterable=IndexAccess(
@@ -618,7 +659,8 @@ Module(
                                 position=(45, 63),
                                 left=Symbol(
                                     position=(45, 63),
-                                    name="x"
+                                    name="x",
+                                    quoted=false
                                 ),
                                 operator="%",
                                 right=IntegerLiteral(

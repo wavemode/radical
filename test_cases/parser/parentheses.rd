@@ -8,7 +8,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="myVar"
+                name="myVar",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(1, 9),

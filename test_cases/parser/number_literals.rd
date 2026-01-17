@@ -19,7 +19,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="integerLiteral"
+                name="integerLiteral",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(1, 18),
@@ -30,7 +31,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="negativeIntegerLiteral"
+                name="negativeIntegerLiteral",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(2, 26),
@@ -45,7 +47,8 @@ Module(
             position=(4, 1),
             name=Symbol(
                 position=(4, 1),
-                name="floatLiteral"
+                name="floatLiteral",
+                quoted=false
             ),
             value=FloatLiteral(
                 position=(4, 16),
@@ -56,7 +59,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="negativeFloatLiteral"
+                name="negativeFloatLiteral",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(5, 24),
@@ -71,7 +75,8 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="sciFloatLiteralNoFraction"
+                name="sciFloatLiteralNoFraction",
+                quoted=false
             ),
             value=SciFloatLiteral(
                 position=(7, 29),
@@ -82,7 +87,8 @@ Module(
             position=(8, 1),
             name=Symbol(
                 position=(8, 1),
-                name="negativeSciFloatLiteralNoFraction"
+                name="negativeSciFloatLiteralNoFraction",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(8, 37),
@@ -97,7 +103,8 @@ Module(
             position=(9, 1),
             name=Symbol(
                 position=(9, 1),
-                name="negativeSciFloatLiteralNoFractionNegativeExponent"
+                name="negativeSciFloatLiteralNoFractionNegativeExponent",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(9, 53),
@@ -112,7 +119,8 @@ Module(
             position=(10, 1),
             name=Symbol(
                 position=(10, 1),
-                name="sciFloatLiteralWithFraction"
+                name="sciFloatLiteralWithFraction",
+                quoted=false
             ),
             value=SciFloatLiteral(
                 position=(10, 31),
@@ -123,7 +131,8 @@ Module(
             position=(11, 1),
             name=Symbol(
                 position=(11, 1),
-                name="negativeSciFloatLiteralWithFraction"
+                name="negativeSciFloatLiteralWithFraction",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(11, 39),
@@ -138,7 +147,8 @@ Module(
             position=(12, 1),
             name=Symbol(
                 position=(12, 1),
-                name="negativeSciFloatLiteralWithFractionNegativeExponent"
+                name="negativeSciFloatLiteralWithFractionNegativeExponent",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(12, 55),

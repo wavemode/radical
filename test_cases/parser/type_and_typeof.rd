@@ -20,7 +20,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="myValue"
+                name="myValue",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(1, 11),
@@ -31,7 +32,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="otherValue"
+                name="otherValue",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(3, 31),
@@ -41,7 +43,8 @@ Module(
                 position=(3, 14),
                 value=Symbol(
                     position=(3, 21),
-                    name="myValue"
+                    name="myValue",
+                    quoted=false
                 )
             )
         ),
@@ -49,7 +52,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="option1"
+                name="option1",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(5, 11),
@@ -60,7 +64,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="option2"
+                name="option2",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(6, 11),
@@ -71,7 +76,8 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="option3"
+                name="option3",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(7, 11),
@@ -82,7 +88,8 @@ Module(
             position=(9, 1),
             name=Symbol(
                 position=(9, 1),
-                name="enumValue"
+                name="enumValue",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(13, 7),
@@ -96,14 +103,16 @@ Module(
                         position=(10, 5),
                         value=Symbol(
                             position=(10, 10),
-                            name="option1"
+                            name="option1",
+                            quoted=false
                         )
                     ),
                     right=TypeExpression(
                         position=(11, 7),
                         value=Symbol(
                             position=(11, 12),
-                            name="option2"
+                            name="option2",
+                            quoted=false
                         )
                     )
                 ),
@@ -111,7 +120,8 @@ Module(
                     position=(12, 7),
                     value=Symbol(
                         position=(12, 12),
-                        name="option3"
+                        name="option3",
+                        quoted=false
                     )
                 )
             )

@@ -11,7 +11,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="a"
+                name="a",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(1, 11),
@@ -21,7 +22,8 @@ Module(
                 position=(1, 5),
                 name=Symbol(
                     position=(1, 5),
-                    name="Int"
+                    name="Int",
+                    quoted=false
                 )
             )
         ),
@@ -29,7 +31,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="b"
+                name="b",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(2, 14),
@@ -39,7 +42,8 @@ Module(
                 position=(2, 5),
                 name=Symbol(
                     position=(2, 5),
-                    name="String"
+                    name="String",
+                    quoted=false
                 )
             )
         )

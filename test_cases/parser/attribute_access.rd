@@ -9,17 +9,20 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="singleAttributeAccess"
+                name="singleAttributeAccess",
+                quoted=false
             ),
             value=AttributeAccess(
                 position=(1, 25),
                 object=Symbol(
                     position=(1, 25),
-                    name="obj"
+                    name="obj",
+                    quoted=false
                 ),
                 attribute=Symbol(
                     position=(1, 29),
-                    name="attribute"
+                    name="attribute",
+                    quoted=false
                 )
             )
         ),
@@ -27,7 +30,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="chainedAttributeAccess"
+                name="chainedAttributeAccess",
+                quoted=false
             ),
             value=AttributeAccess(
                 position=(2, 26),
@@ -37,21 +41,25 @@ Module(
                         position=(2, 26),
                         object=Symbol(
                             position=(2, 26),
-                            name="obj"
+                            name="obj",
+                            quoted=false
                         ),
                         attribute=Symbol(
                             position=(2, 30),
-                            name="first"
+                            name="first",
+                            quoted=false
                         )
                     ),
                     attribute=Symbol(
                         position=(2, 36),
-                        name="second"
+                        name="second",
+                        quoted=false
                     )
                 ),
                 attribute=Symbol(
                     position=(2, 43),
-                    name="third"
+                    name="third",
+                    quoted=false
                 )
             )
         )

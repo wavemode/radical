@@ -1090,26 +1090,79 @@ class FileParser(Unit):
         return self.check_word("null")
 
     def check_symbol(self) -> bool:
-        # TODO: support backtick-quoted symbols
+        if self.check_specific_charachters("`"):
+            return True
+        if self.check_reserved_word():
+            return False
         char = self._peek()
         return char.isalpha() or char == "_"
+
+    def check_reserved_word(self) -> bool:
+        return self.check_any_word(
+            [
+                "if",
+                "then",
+                "else",
+                "for",
+                "in",
+                "and",
+                "or",
+                "not",
+                "true",
+                "false",
+                "null",
+                "type",
+                "typeof",
+                "fun",
+                "let",
+                "try",
+                "catch",
+                "finally",
+                "raise",
+                "assert",
+                "data",
+                "case",
+                "ofimport",
+                "as",
+            ]
+        )
 
     def parse_symbol(self) -> SymbolNode:
         start_position = self._position()
         name_chars: list[str] = []
+        quoted = False
+
+        if self.check_specific_charachters("`"):
+            quoted = True
+            self._read()
+
         char = self._peek()
-        if char.isalpha() or char == "_":
+        if char.isalpha() or char == "_" or quoted:
+            if quoted and self.check_specific_charachters("``"):
+                self._read(2)
+                char = "`"
             name_chars.append(self._read())
         else:
             self._raise_parse_error("Expected symbol", position=start_position)
         while True:
-            if self._peek().isalnum() or self._peek() == "_":
+            if self._peek().isalnum() or self._peek() == "_" or quoted:
+                if quoted and self.check_specific_charachters("``"):
+                    self._read(2)
+                    char = "`"
                 name_chars.append(self._read())
             else:
                 break
+        if quoted:
+            if self.check_specific_charachters("`"):
+                self._read()
+            else:
+                self._raise_parse_error(
+                    "Unterminated quoted symbol", position=start_position
+                )
         return SymbolNode(
             position=start_position,
             name="".join(name_chars),
+            quoted=quoted,
         )
 
     def check_string(self) -> bool:
@@ -1318,9 +1371,16 @@ class FileParser(Unit):
         return result
 
     def check_any_word(self, expected: list[str]) -> bool:
+        longest = max(len(word) for word in expected)
+        text = self._peek(longest + 1)
         for word in expected:
-            if self.check_word(word):
-                return True
+            if text.startswith(word):
+                next_char_index = len(word)
+                if next_char_index >= len(text):
+                    return True
+                next_char = text[next_char_index]
+                if not (next_char.isalnum() or next_char == "_"):
+                    return True
         return False
 
     def parse_word(self, expected: str) -> str:

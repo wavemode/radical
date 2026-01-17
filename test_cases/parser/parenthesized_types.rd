@@ -40,7 +40,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="intValue"
+                name="intValue",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(1, 22),
@@ -52,7 +53,8 @@ Module(
                     position=(1, 14),
                     name=Symbol(
                         position=(1, 14),
-                        name="Int"
+                        name="Int",
+                        quoted=false
                     )
                 )
             )
@@ -61,7 +63,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="intTupleValue"
+                name="intTupleValue",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(2, 33),
@@ -87,21 +90,24 @@ Module(
                         position=(2, 18),
                         name=Symbol(
                             position=(2, 18),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     ),
                     TypeName(
                         position=(2, 22),
                         name=Symbol(
                             position=(2, 22),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     ),
                     TypeName(
                         position=(2, 26),
                         name=Symbol(
                             position=(2, 26),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     )
                 ]
@@ -111,7 +117,8 @@ Module(
             position=(4, 1),
             name=Symbol(
                 position=(4, 1),
-                name="listMapAndSetTuple"
+                name="listMapAndSetTuple",
+                quoted=false
             ),
             value=TupleLiteral(
                 position=(4, 69),
@@ -136,7 +143,8 @@ Module(
                                 position=(6, 7),
                                 key=Symbol(
                                     position=(6, 7),
-                                    name="key1"
+                                    name="key1",
+                                    quoted=false
                                 ),
                                 value=IntegerLiteral(
                                     position=(6, 14),
@@ -148,7 +156,8 @@ Module(
                                 position=(6, 17),
                                 key=Symbol(
                                     position=(6, 17),
-                                    name="key2"
+                                    name="key2",
+                                    quoted=false
                                 ),
                                 value=IntegerLiteral(
                                     position=(6, 24),
@@ -186,7 +195,8 @@ Module(
                             position=(4, 24),
                             name=Symbol(
                                 position=(4, 24),
-                                name="List"
+                                name="List",
+                                quoted=false
                             )
                         ),
                         type_arguments=[
@@ -194,7 +204,8 @@ Module(
                                 position=(4, 29),
                                 name=Symbol(
                                     position=(4, 29),
-                                    name="String"
+                                    name="String",
+                                    quoted=false
                                 )
                             )
                         ]
@@ -205,7 +216,8 @@ Module(
                             position=(4, 38),
                             name=Symbol(
                                 position=(4, 38),
-                                name="Map"
+                                name="Map",
+                                quoted=false
                             )
                         ),
                         type_arguments=[
@@ -213,14 +225,16 @@ Module(
                                 position=(4, 42),
                                 name=Symbol(
                                     position=(4, 42),
-                                    name="String"
+                                    name="String",
+                                    quoted=false
                                 )
                             ),
                             TypeName(
                                 position=(4, 50),
                                 name=Symbol(
                                     position=(4, 50),
-                                    name="Int"
+                                    name="Int",
+                                    quoted=false
                                 )
                             )
                         ]
@@ -231,7 +245,8 @@ Module(
                             position=(4, 56),
                             name=Symbol(
                                 position=(4, 56),
-                                name="Set"
+                                name="Set",
+                                quoted=false
                             )
                         ),
                         type_arguments=[
@@ -239,7 +254,8 @@ Module(
                                 position=(4, 60),
                                 name=Symbol(
                                     position=(4, 60),
-                                    name="Int"
+                                    name="Int",
+                                    quoted=false
                                 )
                             )
                         ]
@@ -251,7 +267,8 @@ Module(
             position=(11, 1),
             name=Symbol(
                 position=(11, 1),
-                name="simpleFunctionType"
+                name="simpleFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(11, 22),
@@ -262,7 +279,8 @@ Module(
                             position=(11, 23),
                             name=Symbol(
                                 position=(11, 23),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -274,7 +292,8 @@ Module(
                     position=(11, 31),
                     name=Symbol(
                         position=(11, 31),
-                        name="Int"
+                        name="Int",
+                        quoted=false
                     )
                 )
             )
@@ -283,7 +302,8 @@ Module(
             position=(12, 1),
             name=Symbol(
                 position=(12, 1),
-                name="multipleArgumentsFunctionType"
+                name="multipleArgumentsFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(12, 33),
@@ -294,7 +314,8 @@ Module(
                             position=(12, 34),
                             name=Symbol(
                                 position=(12, 34),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -307,7 +328,8 @@ Module(
                             position=(12, 42),
                             name=Symbol(
                                 position=(12, 42),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -320,7 +342,8 @@ Module(
                             position=(12, 47),
                             name=Symbol(
                                 position=(12, 47),
-                                name="Bool"
+                                name="Bool",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -332,7 +355,8 @@ Module(
                     position=(12, 56),
                     name=Symbol(
                         position=(12, 56),
-                        name="String"
+                        name="String",
+                        quoted=false
                     )
                 )
             )
@@ -341,7 +365,8 @@ Module(
             position=(13, 1),
             name=Symbol(
                 position=(13, 1),
-                name="namedArgumentsFunctionType"
+                name="namedArgumentsFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(13, 30),
@@ -350,13 +375,15 @@ Module(
                         position=(13, 31),
                         name=Symbol(
                             position=(13, 31),
-                            name="name"
+                            name="name",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(13, 37),
                             name=Symbol(
                                 position=(13, 37),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -367,7 +394,8 @@ Module(
                         position=(13, 45),
                         name=Symbol(
                             position=(13, 45),
-                            name="age"
+                            name="age",
+                            quoted=false
                         ),
                         type=GenericType(
                             position=(13, 50),
@@ -375,7 +403,8 @@ Module(
                                 position=(13, 50),
                                 name=Symbol(
                                     position=(13, 50),
-                                    name="List"
+                                    name="List",
+                                    quoted=false
                                 )
                             ),
                             type_arguments=[
@@ -383,7 +412,8 @@ Module(
                                     position=(13, 55),
                                     name=Symbol(
                                         position=(13, 55),
-                                        name="Int"
+                                        name="Int",
+                                        quoted=false
                                     )
                                 )
                             ]
@@ -397,7 +427,8 @@ Module(
                     position=(13, 64),
                     name=Symbol(
                         position=(13, 64),
-                        name="Bool"
+                        name="Bool",
+                        quoted=false
                     )
                 )
             )
@@ -406,7 +437,8 @@ Module(
             position=(15, 1),
             name=Symbol(
                 position=(15, 1),
-                name="optionalFunctionArgumentType"
+                name="optionalFunctionArgumentType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(15, 32),
@@ -415,13 +447,15 @@ Module(
                         position=(15, 33),
                         name=Symbol(
                             position=(15, 33),
-                            name="name"
+                            name="name",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(15, 40),
                             name=Symbol(
                                 position=(15, 40),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -432,13 +466,15 @@ Module(
                         position=(15, 48),
                         name=Symbol(
                             position=(15, 48),
-                            name="age"
+                            name="age",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(15, 54),
                             name=Symbol(
                                 position=(15, 54),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -449,13 +485,15 @@ Module(
                         position=(15, 59),
                         name=Symbol(
                             position=(15, 59),
-                            name="active"
+                            name="active",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(15, 68),
                             name=Symbol(
                                 position=(15, 68),
-                                name="Bool"
+                                name="Bool",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -467,7 +505,8 @@ Module(
                     position=(15, 77),
                     name=Symbol(
                         position=(15, 77),
-                        name="Bool"
+                        name="Bool",
+                        quoted=false
                     )
                 )
             )
@@ -476,7 +515,8 @@ Module(
             position=(16, 1),
             name=Symbol(
                 position=(16, 1),
-                name="variadicFunctionArgumentType"
+                name="variadicFunctionArgumentType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(16, 32),
@@ -485,13 +525,15 @@ Module(
                         position=(16, 33),
                         name=Symbol(
                             position=(16, 36),
-                            name="tags"
+                            name="tags",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(16, 42),
                             name=Symbol(
                                 position=(16, 42),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=true,
@@ -503,7 +545,8 @@ Module(
                     position=(16, 53),
                     name=Symbol(
                         position=(16, 53),
-                        name="Int"
+                        name="Int",
+                        quoted=false
                     )
                 )
             )
@@ -512,7 +555,8 @@ Module(
             position=(18, 1),
             name=Symbol(
                 position=(18, 1),
-                name="mixedNamedAndUnnamed"
+                name="mixedNamedAndUnnamed",
+                quoted=false
             ),
             type=FunctionType(
                 position=(18, 24),
@@ -523,7 +567,8 @@ Module(
                             position=(18, 25),
                             name=Symbol(
                                 position=(18, 25),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -534,13 +579,15 @@ Module(
                         position=(18, 33),
                         name=Symbol(
                             position=(18, 33),
-                            name="age"
+                            name="age",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(18, 38),
                             name=Symbol(
                                 position=(18, 38),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -553,7 +600,8 @@ Module(
                             position=(18, 43),
                             name=Symbol(
                                 position=(18, 43),
-                                name="Bool"
+                                name="Bool",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -565,7 +613,8 @@ Module(
                     position=(18, 52),
                     name=Symbol(
                         position=(18, 52),
-                        name="String"
+                        name="String",
+                        quoted=false
                     )
                 )
             )
@@ -574,7 +623,8 @@ Module(
             position=(20, 1),
             name=Symbol(
                 position=(20, 1),
-                name="nestedFunctionType"
+                name="nestedFunctionType",
+                quoted=false
             ),
             type=TupleType(
                 position=(20, 22),
@@ -586,7 +636,8 @@ Module(
                                 position=(21, 6),
                                 name=Symbol(
                                     position=(21, 6),
-                                    name="f1"
+                                    name="f1",
+                                    quoted=false
                                 ),
                                 type=FunctionType(
                                     position=(21, 10),
@@ -597,7 +648,8 @@ Module(
                                                 position=(21, 11),
                                                 name=Symbol(
                                                     position=(21, 11),
-                                                    name="Int"
+                                                    name="Int",
+                                                    quoted=false
                                                 )
                                             ),
                                             variadic=false,
@@ -610,7 +662,8 @@ Module(
                                                 position=(21, 16),
                                                 name=Symbol(
                                                     position=(21, 16),
-                                                    name="String"
+                                                    name="String",
+                                                    quoted=false
                                                 )
                                             ),
                                             variadic=false,
@@ -622,7 +675,8 @@ Module(
                                         position=(21, 27),
                                         name=Symbol(
                                             position=(21, 27),
-                                            name="Bool"
+                                            name="Bool",
+                                            quoted=false
                                         )
                                     )
                                 ),
@@ -634,7 +688,8 @@ Module(
                                 position=(21, 33),
                                 name=Symbol(
                                     position=(21, 33),
-                                    name="f2"
+                                    name="f2",
+                                    quoted=false
                                 ),
                                 type=FunctionType(
                                     position=(21, 37),
@@ -647,7 +702,8 @@ Module(
                                                     position=(21, 38),
                                                     name=Symbol(
                                                         position=(21, 38),
-                                                        name="List"
+                                                        name="List",
+                                                        quoted=false
                                                     )
                                                 ),
                                                 type_arguments=[
@@ -655,7 +711,8 @@ Module(
                                                         position=(21, 43),
                                                         name=Symbol(
                                                             position=(21, 43),
-                                                            name="Int"
+                                                            name="Int",
+                                                            quoted=false
                                                         )
                                                     )
                                                 ]
@@ -672,7 +729,8 @@ Module(
                                                     position=(21, 49),
                                                     name=Symbol(
                                                         position=(21, 49),
-                                                        name="Map"
+                                                        name="Map",
+                                                        quoted=false
                                                     )
                                                 ),
                                                 type_arguments=[
@@ -680,14 +738,16 @@ Module(
                                                         position=(21, 53),
                                                         name=Symbol(
                                                             position=(21, 53),
-                                                            name="String"
+                                                            name="String",
+                                                            quoted=false
                                                         )
                                                     ),
                                                     TypeName(
                                                         position=(21, 61),
                                                         name=Symbol(
                                                             position=(21, 61),
-                                                            name="Int"
+                                                            name="Int",
+                                                            quoted=false
                                                         )
                                                     )
                                                 ]
@@ -703,7 +763,8 @@ Module(
                                             position=(21, 70),
                                             name=Symbol(
                                                 position=(21, 70),
-                                                name="Set"
+                                                name="Set",
+                                                quoted=false
                                             )
                                         ),
                                         type_arguments=[
@@ -711,7 +772,8 @@ Module(
                                                 position=(21, 74),
                                                 name=Symbol(
                                                     position=(21, 74),
-                                                    name="String"
+                                                    name="String",
+                                                    quoted=false
                                                 )
                                             )
                                         ]
@@ -728,7 +790,8 @@ Module(
                                 position=(22, 8),
                                 name=Symbol(
                                     position=(22, 8),
-                                    name="Map"
+                                    name="Map",
+                                    quoted=false
                                 )
                             ),
                             type_arguments=[
@@ -736,7 +799,8 @@ Module(
                                     position=(23, 9),
                                     name=Symbol(
                                         position=(23, 9),
-                                        name="String"
+                                        name="String",
+                                        quoted=false
                                     )
                                 ),
                                 FunctionType(
@@ -746,13 +810,15 @@ Module(
                                             position=(24, 10),
                                             name=Symbol(
                                                 position=(24, 10),
-                                                name="arg1"
+                                                name="arg1",
+                                                quoted=false
                                             ),
                                             type=TypeName(
                                                 position=(24, 16),
                                                 name=Symbol(
                                                     position=(24, 16),
-                                                    name="Int"
+                                                    name="Int",
+                                                    quoted=false
                                                 )
                                             ),
                                             variadic=false,
@@ -763,13 +829,15 @@ Module(
                                             position=(24, 21),
                                             name=Symbol(
                                                 position=(24, 21),
-                                                name="arg2"
+                                                name="arg2",
+                                                quoted=false
                                             ),
                                             type=TypeName(
                                                 position=(24, 27),
                                                 name=Symbol(
                                                     position=(24, 27),
-                                                    name="Int"
+                                                    name="Int",
+                                                    quoted=false
                                                 )
                                             ),
                                             variadic=false,
@@ -783,7 +851,8 @@ Module(
                                             position=(24, 36),
                                             name=Symbol(
                                                 position=(24, 36),
-                                                name="List"
+                                                name="List",
+                                                quoted=false
                                             )
                                         ),
                                         type_arguments=[
@@ -791,7 +860,8 @@ Module(
                                                 position=(24, 41),
                                                 name=Symbol(
                                                     position=(24, 41),
-                                                    name="Bool"
+                                                    name="Bool",
+                                                    quoted=false
                                                 )
                                             )
                                         ]
@@ -804,7 +874,8 @@ Module(
                         position=(26, 5),
                         name=Symbol(
                             position=(26, 5),
-                            name="Null"
+                            name="Null",
+                            quoted=false
                         )
                     )
                 ]
@@ -814,7 +885,8 @@ Module(
             position=(29, 1),
             name=Symbol(
                 position=(29, 1),
-                name="curriedFunctionType"
+                name="curriedFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(29, 23),
@@ -825,7 +897,8 @@ Module(
                             position=(29, 24),
                             name=Symbol(
                                 position=(29, 24),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -842,7 +915,8 @@ Module(
                                 position=(29, 33),
                                 name=Symbol(
                                     position=(29, 33),
-                                    name="String"
+                                    name="String",
+                                    quoted=false
                                 )
                             ),
                             variadic=false,
@@ -859,7 +933,8 @@ Module(
                                     position=(29, 45),
                                     name=Symbol(
                                         position=(29, 45),
-                                        name="Bool"
+                                        name="Bool",
+                                        quoted=false
                                     )
                                 ),
                                 variadic=false,
@@ -873,7 +948,8 @@ Module(
                                 position=(29, 55),
                                 name=Symbol(
                                     position=(29, 55),
-                                    name="Int"
+                                    name="Int",
+                                    quoted=false
                                 )
                             )
                         )
@@ -885,7 +961,8 @@ Module(
             position=(31, 1),
             name=Symbol(
                 position=(31, 1),
-                name="implicitUnnamedArgumentsFunctionType"
+                name="implicitUnnamedArgumentsFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(31, 40),
@@ -896,7 +973,8 @@ Module(
                             position=(31, 42),
                             name=Symbol(
                                 position=(31, 42),
-                                name="Int"
+                                name="Int",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -909,7 +987,8 @@ Module(
                             position=(31, 48),
                             name=Symbol(
                                 position=(31, 48),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -921,7 +1000,8 @@ Module(
                     position=(31, 59),
                     name=Symbol(
                         position=(31, 59),
-                        name="Bool"
+                        name="Bool",
+                        quoted=false
                     )
                 )
             )
@@ -930,7 +1010,8 @@ Module(
             position=(32, 1),
             name=Symbol(
                 position=(32, 1),
-                name="implicitNamedArgumentsFunctionType"
+                name="implicitNamedArgumentsFunctionType",
+                quoted=false
             ),
             type=FunctionType(
                 position=(32, 38),
@@ -939,13 +1020,15 @@ Module(
                         position=(32, 42),
                         name=Symbol(
                             position=(32, 47),
-                            name="name"
+                            name="name",
+                            quoted=false
                         ),
                         type=TypeName(
                             position=(32, 53),
                             name=Symbol(
                                 position=(32, 53),
-                                name="String"
+                                name="String",
+                                quoted=false
                             )
                         ),
                         variadic=false,
@@ -956,7 +1039,8 @@ Module(
                         position=(32, 61),
                         name=Symbol(
                             position=(32, 66),
-                            name="age"
+                            name="age",
+                            quoted=false
                         ),
                         type=GenericType(
                             position=(32, 71),
@@ -964,7 +1048,8 @@ Module(
                                 position=(32, 71),
                                 name=Symbol(
                                     position=(32, 71),
-                                    name="List"
+                                    name="List",
+                                    quoted=false
                                 )
                             ),
                             type_arguments=[
@@ -972,7 +1057,8 @@ Module(
                                     position=(32, 76),
                                     name=Symbol(
                                         position=(32, 76),
-                                        name="Int"
+                                        name="Int",
+                                        quoted=false
                                     )
                                 )
                             ]
@@ -986,7 +1072,8 @@ Module(
                     position=(33, 14),
                     name=Symbol(
                         position=(33, 14),
-                        name="Bool"
+                        name="Bool",
+                        quoted=false
                     )
                 )
             )

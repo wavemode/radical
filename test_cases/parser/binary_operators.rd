@@ -30,7 +30,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="binaryAnd"
+                name="binaryAnd",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(1, 13),
@@ -47,7 +48,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="binaryAndOr"
+                name="binaryAndOr",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(2, 15),
@@ -71,7 +73,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="binaryOrAnd"
+                name="binaryOrAnd",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(3, 15),
@@ -95,7 +98,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="plusMinus"
+                name="plusMinus",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(5, 13),
@@ -122,7 +126,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="minusPlus"
+                name="minusPlus",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(6, 13),
@@ -149,7 +154,8 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="mixedArithmetic"
+                name="mixedArithmetic",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(7, 19),
@@ -232,7 +238,8 @@ Module(
             position=(9, 1),
             name=Symbol(
                 position=(9, 1),
-                name="allOperators"
+                name="allOperators",
+                quoted=false
             ),
             value=BinaryOperation(
                 position=(10, 5),
@@ -397,7 +404,8 @@ Module(
                                     operator="not",
                                     operand=Symbol(
                                         position=(13, 9),
-                                        name="notand"
+                                        name="notand",
+                                        quoted=false
                                     )
                                 )
                             )
@@ -460,36 +468,37 @@ Module(
             )
         ),
         VariableBindingStatement(
-            position=(501, 1),
+            position=(510, 1),
             name=Symbol(
-                position=(501, 1),
-                name="plusMinusPlus"
+                position=(510, 1),
+                name="plusMinusPlus",
+                quoted=false
             ),
             value=BinaryOperation(
-                position=(501, 17),
+                position=(510, 17),
                 left=BinaryOperation(
-                    position=(501, 17),
+                    position=(510, 17),
                     left=BinaryOperation(
-                        position=(501, 17),
+                        position=(510, 17),
                         left=IntegerLiteral(
-                            position=(501, 17),
+                            position=(510, 17),
                             value="1"
                         ),
                         operator="+",
                         right=IntegerLiteral(
-                            position=(501, 21),
+                            position=(510, 21),
                             value="2"
                         )
                     ),
                     operator="-",
                     right=IntegerLiteral(
-                        position=(501, 25),
+                        position=(510, 25),
                         value="3"
                     )
                 ),
                 operator="+",
                 right=IntegerLiteral(
-                    position=(501, 29),
+                    position=(510, 29),
                     value="4"
                 )
             )

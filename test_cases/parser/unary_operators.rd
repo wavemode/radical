@@ -14,7 +14,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="unaryNot"
+                name="unaryNot",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(1, 12),
@@ -29,7 +30,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="unaryMinus"
+                name="unaryMinus",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(2, 14),
@@ -44,7 +46,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="unaryPlus"
+                name="unaryPlus",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(3, 13),
@@ -59,7 +62,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="unaryPlusMinus"
+                name="unaryPlusMinus",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(5, 18),
@@ -78,7 +82,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="unaryMinusPlus"
+                name="unaryMinusPlus",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(6, 18),
@@ -97,7 +102,8 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="unaryNotMinusPlusPlusMinus"
+                name="unaryNotMinusPlusPlusMinus",
+                quoted=false
             ),
             value=UnaryOperation(
                 position=(7, 30),

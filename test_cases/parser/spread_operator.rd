@@ -45,7 +45,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="listWithSingleSpread"
+                name="listWithSingleSpread",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(1, 24),
@@ -54,7 +55,8 @@ Module(
                         position=(1, 25),
                         collection=Symbol(
                             position=(1, 28),
-                            name="otherList"
+                            name="otherList",
+                            quoted=false
                         )
                     )
                 ]
@@ -64,7 +66,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="mapWithSingleSpread"
+                name="mapWithSingleSpread",
+                quoted=false
             ),
             value=MapLiteral(
                 position=(2, 23),
@@ -73,7 +76,8 @@ Module(
                         position=(3, 5),
                         collection=Symbol(
                             position=(3, 8),
-                            name="otherMap"
+                            name="otherMap",
+                            quoted=false
                         )
                     )
                 ]
@@ -83,7 +87,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="listWithMultipleSpreads"
+                name="listWithMultipleSpreads",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(6, 27),
@@ -96,7 +101,8 @@ Module(
                         position=(8, 5),
                         collection=Symbol(
                             position=(8, 8),
-                            name="listA"
+                            name="listA",
+                            quoted=false
                         )
                     ),
                     IntegerLiteral(
@@ -107,7 +113,8 @@ Module(
                         position=(10, 5),
                         collection=Symbol(
                             position=(10, 8),
-                            name="listB"
+                            name="listB",
+                            quoted=false
                         )
                     ),
                     IntegerLiteral(
@@ -121,7 +128,8 @@ Module(
             position=(14, 1),
             name=Symbol(
                 position=(14, 1),
-                name="mapWithMultipleSpreads"
+                name="mapWithMultipleSpreads",
+                quoted=false
             ),
             value=MapLiteral(
                 position=(14, 26),
@@ -130,7 +138,8 @@ Module(
                         position=(15, 5),
                         key=Symbol(
                             position=(15, 5),
-                            name="key1"
+                            name="key1",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(15, 12),
@@ -142,14 +151,16 @@ Module(
                         position=(16, 5),
                         collection=Symbol(
                             position=(16, 8),
-                            name="mapA"
+                            name="mapA",
+                            quoted=false
                         )
                     ),
                     MapEntry(
                         position=(17, 5),
                         key=Symbol(
                             position=(17, 5),
-                            name="key2"
+                            name="key2",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(17, 12),
@@ -161,14 +172,16 @@ Module(
                         position=(18, 5),
                         collection=Symbol(
                             position=(18, 8),
-                            name="mapB"
+                            name="mapB",
+                            quoted=false
                         )
                     ),
                     MapEntry(
                         position=(19, 5),
                         key=Symbol(
                             position=(19, 5),
-                            name="key3"
+                            name="key3",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(19, 12),
@@ -183,7 +196,8 @@ Module(
             position=(22, 1),
             name=Symbol(
                 position=(22, 1),
-                name="setWithMultipleSpreads"
+                name="setWithMultipleSpreads",
+                quoted=false
             ),
             value=SetLiteral(
                 position=(22, 26),
@@ -196,7 +210,8 @@ Module(
                         position=(24, 5),
                         collection=Symbol(
                             position=(24, 8),
-                            name="setA"
+                            name="setA",
+                            quoted=false
                         )
                     ),
                     IntegerLiteral(
@@ -207,7 +222,8 @@ Module(
                         position=(26, 5),
                         collection=Symbol(
                             position=(26, 8),
-                            name="setB"
+                            name="setB",
+                            quoted=false
                         )
                     ),
                     IntegerLiteral(
@@ -221,7 +237,8 @@ Module(
             position=(30, 1),
             name=Symbol(
                 position=(30, 1),
-                name="treeWithMultipleSpreads"
+                name="treeWithMultipleSpreads",
+                quoted=false
             ),
             value=TreeLiteral(
                 position=(30, 27),
@@ -230,7 +247,8 @@ Module(
                         position=(31, 5),
                         key=Symbol(
                             position=(31, 5),
-                            name="name"
+                            name="name",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(31, 10),
@@ -242,14 +260,16 @@ Module(
                         position=(32, 5),
                         collection=Symbol(
                             position=(32, 8),
-                            name="treeA"
+                            name="treeA",
+                            quoted=false
                         )
                     ),
                     TreeEntry(
                         position=(33, 5),
                         key=Symbol(
                             position=(33, 5),
-                            name="otherName"
+                            name="otherName",
+                            quoted=false
                         ),
                         value=TreeLiteral(
                             position=(33, 15),
@@ -258,7 +278,8 @@ Module(
                                     position=(34, 9),
                                     key=Symbol(
                                         position=(34, 9),
-                                        name="child1"
+                                        name="child1",
+                                        quoted=false
                                     ),
                                     value=IntegerLiteral(
                                         position=(34, 16),
@@ -270,7 +291,8 @@ Module(
                                     position=(35, 9),
                                     key=Symbol(
                                         position=(35, 9),
-                                        name="child2"
+                                        name="child2",
+                                        quoted=false
                                     ),
                                     value=FloatLiteral(
                                         position=(35, 16),
@@ -286,7 +308,8 @@ Module(
                         position=(37, 5),
                         collection=Symbol(
                             position=(37, 8),
-                            name="treeB"
+                            name="treeB",
+                            quoted=false
                         )
                     )
                 ]

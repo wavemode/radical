@@ -10,7 +10,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="myList"
+                name="myList",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(1, 22),
@@ -35,7 +36,8 @@ Module(
                     position=(1, 10),
                     name=Symbol(
                         position=(1, 10),
-                        name="List"
+                        name="List",
+                        quoted=false
                     )
                 ),
                 type_arguments=[
@@ -43,7 +45,8 @@ Module(
                         position=(1, 15),
                         name=Symbol(
                             position=(1, 15),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     )
                 ]
@@ -53,7 +56,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="myMap"
+                name="myMap",
+                quoted=false
             ),
             value=MapLiteral(
                 position=(2, 28),
@@ -62,7 +66,8 @@ Module(
                         position=(2, 30),
                         key=Symbol(
                             position=(2, 30),
-                            name="a"
+                            name="a",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(2, 34),
@@ -74,7 +79,8 @@ Module(
                         position=(2, 37),
                         key=Symbol(
                             position=(2, 37),
-                            name="b"
+                            name="b",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(2, 41),
@@ -86,7 +92,8 @@ Module(
                         position=(2, 44),
                         key=Symbol(
                             position=(2, 44),
-                            name="c"
+                            name="c",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(2, 48),
@@ -102,7 +109,8 @@ Module(
                     position=(2, 9),
                     name=Symbol(
                         position=(2, 9),
-                        name="Map"
+                        name="Map",
+                        quoted=false
                     )
                 ),
                 type_arguments=[
@@ -110,14 +118,16 @@ Module(
                         position=(2, 13),
                         name=Symbol(
                             position=(2, 13),
-                            name="String"
+                            name="String",
+                            quoted=false
                         )
                     ),
                     TypeName(
                         position=(2, 21),
                         name=Symbol(
                             position=(2, 21),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     )
                 ]
@@ -127,7 +137,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="myTree"
+                name="myTree",
+                quoted=false
             ),
             value=TreeLiteral(
                 position=(3, 30),
@@ -136,7 +147,8 @@ Module(
                         position=(3, 32),
                         key=Symbol(
                             position=(3, 32),
-                            name="a"
+                            name="a",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(3, 34),
@@ -148,7 +160,8 @@ Module(
                         position=(3, 37),
                         key=Symbol(
                             position=(3, 37),
-                            name="b"
+                            name="b",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(3, 39),
@@ -160,7 +173,8 @@ Module(
                         position=(3, 42),
                         key=Symbol(
                             position=(3, 42),
-                            name="c"
+                            name="c",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(3, 44),
@@ -176,7 +190,8 @@ Module(
                     position=(3, 10),
                     name=Symbol(
                         position=(3, 10),
-                        name="Tree"
+                        name="Tree",
+                        quoted=false
                     )
                 ),
                 type_arguments=[
@@ -184,14 +199,16 @@ Module(
                         position=(3, 15),
                         name=Symbol(
                             position=(3, 15),
-                            name="String"
+                            name="String",
+                            quoted=false
                         )
                     ),
                     TypeName(
                         position=(3, 23),
                         name=Symbol(
                             position=(3, 23),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     )
                 ]

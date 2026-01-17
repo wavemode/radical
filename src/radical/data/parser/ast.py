@@ -88,7 +88,6 @@ class UnionTypeNode(Node):
 
 @dataclass(frozen=True)
 class FunctionArgumentTypeNode(Node):
-    # TODO: variadic arguments
     name: "SymbolNode | None"
     type: "TypeExpressionNodeType"
     variadic: bool
@@ -148,6 +147,7 @@ TypeExpressionNodeType = (
 @dataclass(frozen=True)
 class SymbolNode(Node):
     name: str
+    quoted: bool
 
 
 @dataclass(frozen=True)
@@ -469,7 +469,7 @@ class TreeComprehensionNode(Node):
     clauses: list[ComprehensionClauseNodeType]
 
 
-# TODO: if-then, raise, try-catch-then etc
+# TODO: raise, try-catch-then etc
 
 ValueExpressionNodeType = (
     SymbolNode

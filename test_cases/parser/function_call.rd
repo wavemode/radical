@@ -23,13 +23,15 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="noArgs"
+                name="noArgs",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(1, 10),
                 function=Symbol(
                     position=(1, 10),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
 
@@ -40,13 +42,15 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="singleArg"
+                name="singleArg",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(2, 13),
                 function=Symbol(
                     position=(2, 13),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
@@ -63,13 +67,15 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="singleArgTrailingComma"
+                name="singleArgTrailingComma",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(3, 26),
                 function=Symbol(
                     position=(3, 26),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
@@ -86,13 +92,15 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="multipleArgs"
+                name="multipleArgs",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(7, 16),
                 function=Symbol(
                     position=(7, 16),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
@@ -123,13 +131,15 @@ Module(
             position=(8, 1),
             name=Symbol(
                 position=(8, 1),
-                name="nestedFunctionCalls"
+                name="nestedFunctionCalls",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(8, 23),
                 function=Symbol(
                     position=(8, 23),
-                    name="outerFunc"
+                    name="outerFunc",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
@@ -138,7 +148,8 @@ Module(
                             position=(8, 33),
                             function=Symbol(
                                 position=(8, 33),
-                                name="innerFunc1"
+                                name="innerFunc1",
+                                quoted=false
                             ),
                             arguments=[
                                 FunctionCallArgument(
@@ -157,7 +168,8 @@ Module(
                             position=(8, 49),
                             function=Symbol(
                                 position=(8, 49),
-                                name="innerFunc2"
+                                name="innerFunc2",
+                                quoted=false
                             ),
                             arguments=[
                                 FunctionCallArgument(
@@ -184,7 +196,8 @@ Module(
             position=(10, 1),
             name=Symbol(
                 position=(10, 1),
-                name="methodCall"
+                name="methodCall",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(10, 14),
@@ -192,11 +205,13 @@ Module(
                     position=(10, 14),
                     object=Symbol(
                         position=(10, 14),
-                        name="obj"
+                        name="obj",
+                        quoted=false
                     ),
                     attribute=Symbol(
                         position=(10, 18),
-                        name="method"
+                        name="method",
+                        quoted=false
                     )
                 ),
                 arguments=[
@@ -221,7 +236,8 @@ Module(
             position=(11, 1),
             name=Symbol(
                 position=(11, 1),
-                name="chainedMethodCalls"
+                name="chainedMethodCalls",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(11, 22),
@@ -237,11 +253,13 @@ Module(
                                     position=(11, 22),
                                     object=Symbol(
                                         position=(11, 22),
-                                        name="obj"
+                                        name="obj",
+                                        quoted=false
                                     ),
                                     attribute=Symbol(
                                         position=(11, 26),
-                                        name="firstMethod"
+                                        name="firstMethod",
+                                        quoted=false
                                     )
                                 ),
                                 arguments=[
@@ -250,7 +268,8 @@ Module(
                             ),
                             attribute=Symbol(
                                 position=(11, 40),
-                                name="secondMethod"
+                                name="secondMethod",
+                                quoted=false
                             )
                         ),
                         arguments=[
@@ -265,7 +284,8 @@ Module(
                     ),
                     attribute=Symbol(
                         position=(11, 58),
-                        name="thirdMethod"
+                        name="thirdMethod",
+                        quoted=false
                     )
                 ),
                 arguments=[
@@ -283,20 +303,23 @@ Module(
             position=(13, 1),
             name=Symbol(
                 position=(13, 1),
-                name="namedArgs"
+                name="namedArgs",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(13, 13),
                 function=Symbol(
                     position=(13, 13),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
                         position=(13, 18),
                         name=Symbol(
                             position=(13, 18),
-                            name="arg1"
+                            name="arg1",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(13, 23),
@@ -307,7 +330,8 @@ Module(
                         position=(13, 27),
                         name=Symbol(
                             position=(13, 27),
-                            name="arg2"
+                            name="arg2",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(13, 32),
@@ -318,7 +342,8 @@ Module(
                         position=(13, 41),
                         name=Symbol(
                             position=(13, 41),
-                            name="arg3"
+                            name="arg3",
+                            quoted=false
                         ),
                         value=TrueKeyword(
                             position=(13, 46)
@@ -331,13 +356,15 @@ Module(
             position=(14, 1),
             name=Symbol(
                 position=(14, 1),
-                name="mixedArgs"
+                name="mixedArgs",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(14, 13),
                 function=Symbol(
                     position=(14, 13),
-                    name="func"
+                    name="func",
+                    quoted=false
                 ),
                 arguments=[
                     FunctionCallArgument(
@@ -351,7 +378,8 @@ Module(
                         position=(14, 21),
                         name=Symbol(
                             position=(14, 21),
-                            name="arg1"
+                            name="arg1",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(14, 26),
@@ -369,7 +397,8 @@ Module(
                         position=(14, 39),
                         name=Symbol(
                             position=(14, 39),
-                            name="arg2"
+                            name="arg2",
+                            quoted=false
                         ),
                         value=StringLiteral(
                             position=(14, 44),
@@ -383,7 +412,8 @@ Module(
             position=(16, 1),
             name=Symbol(
                 position=(16, 1),
-                name="callOfCallOfCall"
+                name="callOfCallOfCall",
+                quoted=false
             ),
             value=FunctionCall(
                 position=(16, 20),
@@ -393,7 +423,8 @@ Module(
                         position=(16, 20),
                         function=Symbol(
                             position=(16, 20),
-                            name="func1"
+                            name="func1",
+                            quoted=false
                         ),
                         arguments=[
 
@@ -406,7 +437,8 @@ Module(
                                 position=(16, 28),
                                 function=Symbol(
                                     position=(16, 28),
-                                    name="func2"
+                                    name="func2",
+                                    quoted=false
                                 ),
                                 arguments=[
 
@@ -424,7 +456,8 @@ Module(
                                 position=(16, 37),
                                 function=Symbol(
                                     position=(16, 37),
-                                    name="func3"
+                                    name="func3",
+                                    quoted=false
                                 ),
                                 arguments=[
 

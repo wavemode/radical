@@ -26,7 +26,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="five"
+                name="five",
+                quoted=false
             ),
             value=IntegerLiteral(
                 position=(1, 12),
@@ -44,7 +45,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="six"
+                name="six",
+                quoted=false
             ),
             value=FloatLiteral(
                 position=(2, 13),
@@ -62,7 +64,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="sci"
+                name="sci",
+                quoted=false
             ),
             value=SciFloatLiteral(
                 position=(3, 15),
@@ -80,7 +83,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="basicStringType"
+                name="basicStringType",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(5, 29),
@@ -98,7 +102,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="rawStringType"
+                name="rawStringType",
+                quoted=false
             ),
             value=RawStringLiteral(
                 position=(6, 34),
@@ -116,7 +121,8 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="multiLineStringType"
+                name="multiLineStringType",
+                quoted=false
             ),
             value=MultiLineStringLiteral(
                 position=(9, 13),
@@ -134,7 +140,8 @@ Module(
             position=(13, 1),
             name=Symbol(
                 position=(13, 1),
-                name="rawMultiLineStringType"
+                name="rawMultiLineStringType",
+                quoted=false
             ),
             value=RawMultiLineStringLiteral(
                 position=(16, 13),

@@ -17,13 +17,15 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="intLiteralIndex"
+                name="intLiteralIndex",
+                quoted=false
             ),
             value=IndexAccess(
                 position=(1, 19),
                 collection=Symbol(
                     position=(1, 19),
-                    name="arr"
+                    name="arr",
+                    quoted=false
                 ),
                 index=IntegerLiteral(
                     position=(1, 23),
@@ -35,13 +37,15 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="stringLiteralIndex"
+                name="stringLiteralIndex",
+                quoted=false
             ),
             value=IndexAccess(
                 position=(2, 22),
                 collection=Symbol(
                     position=(2, 22),
-                    name="map"
+                    name="map",
+                    quoted=false
                 ),
                 index=StringLiteral(
                     position=(2, 26),
@@ -53,7 +57,8 @@ Module(
             position=(4, 1),
             name=Symbol(
                 position=(4, 1),
-                name="multipleIndices"
+                name="multipleIndices",
+                quoted=false
             ),
             value=IndexAccess(
                 position=(4, 19),
@@ -61,7 +66,8 @@ Module(
                     position=(4, 19),
                     collection=Symbol(
                         position=(4, 19),
-                        name="matrix"
+                        name="matrix",
+                        quoted=false
                     ),
                     index=IntegerLiteral(
                         position=(4, 26),
@@ -78,13 +84,15 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="sliceAccess"
+                name="sliceAccess",
+                quoted=false
             ),
             value=SliceAccess(
                 position=(6, 15),
                 collection=Symbol(
                     position=(6, 15),
-                    name="arr"
+                    name="arr",
+                    quoted=false
                 ),
                 start=IntegerLiteral(
                     position=(6, 19),
@@ -100,13 +108,15 @@ Module(
             position=(7, 1),
             name=Symbol(
                 position=(7, 1),
-                name="sliceAccessNoStart"
+                name="sliceAccessNoStart",
+                quoted=false
             ),
             value=SliceAccess(
                 position=(7, 22),
                 collection=Symbol(
                     position=(7, 22),
-                    name="arr"
+                    name="arr",
+                    quoted=false
                 ),
                 end=IntegerLiteral(
                     position=(7, 27),
@@ -118,13 +128,15 @@ Module(
             position=(8, 1),
             name=Symbol(
                 position=(8, 1),
-                name="sliceAccessNoEnd"
+                name="sliceAccessNoEnd",
+                quoted=false
             ),
             value=SliceAccess(
                 position=(8, 20),
                 collection=Symbol(
                     position=(8, 20),
-                    name="arr"
+                    name="arr",
+                    quoted=false
                 ),
                 start=IntegerLiteral(
                     position=(8, 24),
@@ -136,13 +148,15 @@ Module(
             position=(9, 1),
             name=Symbol(
                 position=(9, 1),
-                name="fullSliceAccess"
+                name="fullSliceAccess",
+                quoted=false
             ),
             value=SliceAccess(
                 position=(9, 19),
                 collection=Symbol(
                     position=(9, 19),
-                    name="arr"
+                    name="arr",
+                    quoted=false
                 )
             )
         ),
@@ -150,7 +164,8 @@ Module(
             position=(10, 1),
             name=Symbol(
                 position=(10, 1),
-                name="nestedSliceAccess"
+                name="nestedSliceAccess",
+                quoted=false
             ),
             value=SliceAccess(
                 position=(10, 21),
@@ -158,7 +173,8 @@ Module(
                     position=(10, 21),
                     collection=Symbol(
                         position=(10, 21),
-                        name="matrix"
+                        name="matrix",
+                        quoted=false
                     ),
                     start=IntegerLiteral(
                         position=(10, 28),
@@ -180,58 +196,62 @@ Module(
             )
         ),
         VariableBindingStatement(
-            position=(244, 1),
+            position=(264, 1),
             name=Symbol(
-                position=(244, 1),
-                name="expressionSlice"
+                position=(264, 1),
+                name="expressionSlice",
+                quoted=false
             ),
             value=SliceAccess(
-                position=(244, 19),
+                position=(264, 19),
                 collection=Symbol(
-                    position=(244, 19),
-                    name="arr"
+                    position=(264, 19),
+                    name="arr",
+                    quoted=false
                 ),
                 start=IndexAccess(
-                    position=(244, 23),
+                    position=(264, 23),
                     collection=IndexAccess(
-                        position=(244, 23),
+                        position=(264, 23),
                         collection=Symbol(
-                            position=(244, 23),
-                            name="matrix"
+                            position=(264, 23),
+                            name="matrix",
+                            quoted=false
                         ),
                         index=IntegerLiteral(
-                            position=(244, 30),
+                            position=(264, 30),
                             value="0"
                         )
                     ),
                     index=IntegerLiteral(
-                        position=(244, 33),
+                        position=(264, 33),
                         value="0"
                     )
                 ),
                 end=BinaryOperation(
-                    position=(244, 38),
+                    position=(264, 38),
                     left=IndexAccess(
-                        position=(244, 38),
+                        position=(264, 38),
                         collection=IndexAccess(
-                            position=(244, 38),
+                            position=(264, 38),
                             collection=Symbol(
-                                position=(244, 38),
-                                name="matrix"
+                                position=(264, 38),
+                                name="matrix",
+                                quoted=false
                             ),
                             index=IntegerLiteral(
-                                position=(244, 45),
+                                position=(264, 45),
                                 value="1"
                             )
                         ),
                         index=IntegerLiteral(
-                            position=(244, 48),
+                            position=(264, 48),
                             value="1"
                         )
                     ),
                     operator="+",
                     right=IntegerLiteral(
-                        position=(244, 53),
+                        position=(264, 53),
                         value="2"
                     )
                 )

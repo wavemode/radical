@@ -31,14 +31,16 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="simpleSet"
+                name="simpleSet",
+                quoted=false
             ),
             value=SetLiteral(
                 position=(1, 13),
                 elements=[
                     Symbol(
                         position=(1, 15),
-                        name="value1"
+                        name="value1",
+                        quoted=false
                     ),
                     StringLiteral(
                         position=(1, 23),
@@ -46,7 +48,8 @@ Module(
                     ),
                     Symbol(
                         position=(1, 33),
-                        name="value2"
+                        name="value2",
+                        quoted=false
                     ),
                     IntegerLiteral(
                         position=(1, 41),
@@ -54,7 +57,8 @@ Module(
                     ),
                     Symbol(
                         position=(1, 45),
-                        name="value3"
+                        name="value3",
+                        quoted=false
                     ),
                     FalseKeyword(
                         position=(1, 53)
@@ -66,14 +70,16 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="setWithoutCommas"
+                name="setWithoutCommas",
+                quoted=false
             ),
             value=SetLiteral(
                 position=(3, 5),
                 elements=[
                     Symbol(
                         position=(4, 9),
-                        name="a"
+                        name="a",
+                        quoted=false
                     ),
                     IntegerLiteral(
                         position=(5, 9),
@@ -81,7 +87,8 @@ Module(
                     ),
                     Symbol(
                         position=(6, 9),
-                        name="b"
+                        name="b",
+                        quoted=false
                     ),
                     IntegerLiteral(
                         position=(7, 9),
@@ -89,7 +96,8 @@ Module(
                     ),
                     Symbol(
                         position=(8, 9),
-                        name="c"
+                        name="c",
+                        quoted=false
                     ),
                     IntegerLiteral(
                         position=(9, 9),
@@ -102,7 +110,8 @@ Module(
             position=(11, 1),
             name=Symbol(
                 position=(11, 1),
-                name="nestedSet"
+                name="nestedSet",
+                quoted=false
             ),
             value=SetLiteral(
                 position=(11, 13),
@@ -114,7 +123,8 @@ Module(
                                 position=(13, 9),
                                 key=Symbol(
                                     position=(13, 9),
-                                    name="innerKey1"
+                                    name="innerKey1",
+                                    quoted=false
                                 ),
                                 value=StringLiteral(
                                     position=(13, 21),
@@ -126,7 +136,8 @@ Module(
                                 position=(14, 9),
                                 key=Symbol(
                                     position=(14, 9),
-                                    name="innerKey2"
+                                    name="innerKey2",
+                                    quoted=false
                                 ),
                                 value=FloatLiteral(
                                     position=(14, 21),
@@ -160,7 +171,8 @@ Module(
             position=(18, 1),
             name=Symbol(
                 position=(18, 1),
-                name="setWithExpressions"
+                name="setWithExpressions",
+                quoted=false
             ),
             value=SetLiteral(
                 position=(18, 22),
@@ -213,7 +225,8 @@ Module(
             position=(23, 1),
             name=Symbol(
                 position=(23, 1),
-                name="setComprehension"
+                name="setComprehension",
+                quoted=false
             ),
             value=SetComprehension(
                 position=(23, 20),
@@ -221,7 +234,8 @@ Module(
                     position=(23, 22),
                     left=Symbol(
                         position=(23, 22),
-                        name="v"
+                        name="v",
+                        quoted=false
                     ),
                     operator="*",
                     right=IntegerLiteral(
@@ -235,16 +249,19 @@ Module(
                         variables=[
                             Symbol(
                                 position=(23, 32),
-                                name="k"
+                                name="k",
+                                quoted=false
                             ),
                             Symbol(
                                 position=(23, 35),
-                                name="v"
+                                name="v",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(23, 40),
-                            name="someMap"
+                            name="someMap",
+                            quoted=false
                         )
                     ),
                     ComprehensionGuard(
@@ -253,7 +270,8 @@ Module(
                             position=(23, 51),
                             left=Symbol(
                                 position=(23, 51),
-                                name="v"
+                                name="v",
+                                quoted=false
                             ),
                             operator=">",
                             right=IntegerLiteral(
@@ -269,7 +287,8 @@ Module(
             position=(24, 1),
             name=Symbol(
                 position=(24, 1),
-                name="nestedComprehension"
+                name="nestedComprehension",
+                quoted=false
             ),
             value=SetComprehension(
                 position=(24, 23),
@@ -279,11 +298,13 @@ Module(
                         position=(24, 27),
                         key=Symbol(
                             position=(24, 27),
-                            name="subK"
+                            name="subK",
+                            quoted=false
                         ),
                         value=Symbol(
                             position=(24, 34),
-                            name="subV"
+                            name="subV",
+                            quoted=false
                         ),
                         expression_key=false
                     ),
@@ -293,16 +314,19 @@ Module(
                             variables=[
                                 Symbol(
                                     position=(24, 43),
-                                    name="subK"
+                                    name="subK",
+                                    quoted=false
                                 ),
                                 Symbol(
                                     position=(24, 49),
-                                    name="subV"
+                                    name="subV",
+                                    quoted=false
                                 )
                             ],
                             iterable=Symbol(
                                 position=(24, 57),
-                                name="v"
+                                name="v",
+                                quoted=false
                             )
                         )
                     ]
@@ -313,16 +337,19 @@ Module(
                         variables=[
                             Symbol(
                                 position=(24, 65),
-                                name="k"
+                                name="k",
+                                quoted=false
                             ),
                             Symbol(
                                 position=(24, 68),
-                                name="v"
+                                name="v",
+                                quoted=false
                             )
                         ],
                         iterable=Symbol(
                             position=(24, 73),
-                            name="anotherMap"
+                            name="anotherMap",
+                            quoted=false
                         )
                     )
                 ]

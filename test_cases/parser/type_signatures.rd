@@ -12,7 +12,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="myList"
+                name="myList",
+                quoted=false
             ),
             type=GenericType(
                 position=(1, 10),
@@ -20,7 +21,8 @@ Module(
                     position=(1, 10),
                     name=Symbol(
                         position=(1, 10),
-                        name="List"
+                        name="List",
+                        quoted=false
                     )
                 ),
                 type_arguments=[
@@ -28,7 +30,8 @@ Module(
                         position=(1, 15),
                         name=Symbol(
                             position=(1, 15),
-                            name="String"
+                            name="String",
+                            quoted=false
                         )
                     )
                 ]
@@ -38,7 +41,8 @@ Module(
             position=(2, 1),
             name=Symbol(
                 position=(2, 1),
-                name="myList"
+                name="myList",
+                quoted=false
             ),
             value=ListLiteral(
                 position=(2, 10),
@@ -62,7 +66,8 @@ Module(
             position=(4, 1),
             name=Symbol(
                 position=(4, 1),
-                name="myMap"
+                name="myMap",
+                quoted=false
             ),
             type=GenericType(
                 position=(4, 9),
@@ -70,7 +75,8 @@ Module(
                     position=(4, 9),
                     name=Symbol(
                         position=(4, 9),
-                        name="Map"
+                        name="Map",
+                        quoted=false
                     )
                 ),
                 type_arguments=[
@@ -78,14 +84,16 @@ Module(
                         position=(4, 13),
                         name=Symbol(
                             position=(4, 13),
-                            name="String"
+                            name="String",
+                            quoted=false
                         )
                     ),
                     TypeName(
                         position=(4, 21),
                         name=Symbol(
                             position=(4, 21),
-                            name="Int"
+                            name="Int",
+                            quoted=false
                         )
                     )
                 ]
@@ -95,7 +103,8 @@ Module(
             position=(5, 1),
             name=Symbol(
                 position=(5, 1),
-                name="myMap"
+                name="myMap",
+                quoted=false
             ),
             value=MapLiteral(
                 position=(5, 9),
@@ -104,7 +113,8 @@ Module(
                         position=(5, 11),
                         key=Symbol(
                             position=(5, 11),
-                            name="a"
+                            name="a",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(5, 15),
@@ -128,7 +138,8 @@ Module(
                         position=(5, 29),
                         key=Symbol(
                             position=(5, 29),
-                            name="c"
+                            name="c",
+                            quoted=false
                         ),
                         value=IntegerLiteral(
                             position=(5, 33),

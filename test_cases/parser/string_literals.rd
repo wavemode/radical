@@ -22,7 +22,8 @@ Module(
             position=(1, 1),
             name=Symbol(
                 position=(1, 1),
-                name="plainLiteral"
+                name="plainLiteral",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(1, 16),
@@ -33,7 +34,8 @@ Module(
             position=(3, 1),
             name=Symbol(
                 position=(3, 1),
-                name="PLAIN_LITERAL_WITH_UPPERCASE_NAME"
+                name="PLAIN_LITERAL_WITH_UPPERCASE_NAME",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(3, 37),
@@ -44,7 +46,8 @@ Module(
             position=(4, 1),
             name=Symbol(
                 position=(4, 1),
-                name="_PLAIN_LITERAL_WITH_UNDERSCORE"
+                name="_PLAIN_LITERAL_WITH_UNDERSCORE",
+                quoted=false
             ),
             value=StringLiteral(
                 position=(4, 34),
@@ -55,7 +58,8 @@ Module(
             position=(6, 1),
             name=Symbol(
                 position=(6, 1),
-                name="multLineLiteral"
+                name="multLineLiteral",
+                quoted=false
             ),
             value=MultiLineStringLiteral(
                 position=(6, 19),
@@ -66,7 +70,8 @@ Module(
             position=(12, 1),
             name=Symbol(
                 position=(12, 1),
-                name="rawLiteral"
+                name="rawLiteral",
+                quoted=false
             ),
             value=RawStringLiteral(
                 position=(12, 14),
@@ -77,7 +82,8 @@ Module(
             position=(14, 1),
             name=Symbol(
                 position=(14, 1),
-                name="multiLineRawLiteral"
+                name="multiLineRawLiteral",
+                quoted=false
             ),
             value=RawMultiLineStringLiteral(
                 position=(14, 23),
