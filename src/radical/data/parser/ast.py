@@ -91,6 +91,9 @@ class FunctionArgumentTypeNode(Node):
     # TODO: variadic arguments
     name: "SymbolNode | None"
     type: "TypeExpressionNodeType"
+    variadic: bool
+    optional: bool
+    implicit: bool
 
 
 @dataclass(frozen=True)

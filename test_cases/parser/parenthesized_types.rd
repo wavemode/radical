@@ -1,11 +1,36 @@
 intValue : ( Int ) = 5
-intTupleValue : ( Int, Int, Int ) = (1, 2, 3)
+intTupleValue : (Int,Int,Int) = (1, 2, 3)
 
 listMapAndSetTuple : ( List[String], Map[String, Int], Set[Int] ) = (
     ["a", "b"],
     { key1 = 1, key2 = 2 },
     {1, 2, 3}
 )
+
+
+simpleFunctionType : (Int) -> Int
+multipleArgumentsFunctionType : (String, Int, Bool) -> String
+namedArgumentsFunctionType : (name: String, age: List[Int]) -> Bool
+
+optionalFunctionArgumentType : (name?: String, age?: Int, active?: Bool) -> Bool
+variadicFunctionArgumentType : (...tags: String) -> Int
+
+mixedNamedAndUnnamed : (String, age: Int, Bool) -> String
+
+nestedFunctionType : (
+    (f1: (Int, String) -> Bool, f2: (List[Int], Map[String, Int]) -> Set[String])
+    -> Map[
+        String,
+        (arg1: Int, arg2: Int,) -> List[Bool],
+    ],
+    Null,
+)
+
+curriedFunctionType : (Int) -> (String) -> (Bool) -> (Int)
+
+implicitUnnamedArgumentsFunctionType : (&Int, &String) -> Bool
+implicitNamedArgumentsFunctionType : (   &    name: String, &    age: List[Int]
+    ,   ) -> Bool
 
 (*
 Module(
@@ -39,18 +64,18 @@ Module(
                 name="intTupleValue"
             ),
             value=TupleLiteral(
-                position=(2, 37),
+                position=(2, 33),
                 elements=[
                     IntegerLiteral(
-                        position=(2, 38),
+                        position=(2, 34),
                         value="1"
                     ),
                     IntegerLiteral(
-                        position=(2, 41),
+                        position=(2, 37),
                         value="2"
                     ),
                     IntegerLiteral(
-                        position=(2, 44),
+                        position=(2, 40),
                         value="3"
                     )
                 ]
@@ -59,23 +84,23 @@ Module(
                 position=(2, 17),
                 element_types=[
                     TypeName(
-                        position=(2, 19),
+                        position=(2, 18),
                         name=Symbol(
-                            position=(2, 19),
+                            position=(2, 18),
                             name="Int"
                         )
                     ),
                     TypeName(
-                        position=(2, 24),
+                        position=(2, 22),
                         name=Symbol(
-                            position=(2, 24),
+                            position=(2, 22),
                             name="Int"
                         )
                     ),
                     TypeName(
-                        position=(2, 29),
+                        position=(2, 26),
                         name=Symbol(
-                            position=(2, 29),
+                            position=(2, 26),
                             name="Int"
                         )
                     )
@@ -220,6 +245,750 @@ Module(
                         ]
                     )
                 ]
+            )
+        ),
+        VariableTypeSignature(
+            position=(11, 1),
+            name=Symbol(
+                position=(11, 1),
+                name="simpleFunctionType"
+            ),
+            type=FunctionType(
+                position=(11, 22),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(11, 23),
+                        type=TypeName(
+                            position=(11, 23),
+                            name=Symbol(
+                                position=(11, 23),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(11, 31),
+                    name=Symbol(
+                        position=(11, 31),
+                        name="Int"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(12, 1),
+            name=Symbol(
+                position=(12, 1),
+                name="multipleArgumentsFunctionType"
+            ),
+            type=FunctionType(
+                position=(12, 33),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(12, 34),
+                        type=TypeName(
+                            position=(12, 34),
+                            name=Symbol(
+                                position=(12, 34),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(12, 42),
+                        type=TypeName(
+                            position=(12, 42),
+                            name=Symbol(
+                                position=(12, 42),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(12, 47),
+                        type=TypeName(
+                            position=(12, 47),
+                            name=Symbol(
+                                position=(12, 47),
+                                name="Bool"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(12, 56),
+                    name=Symbol(
+                        position=(12, 56),
+                        name="String"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(13, 1),
+            name=Symbol(
+                position=(13, 1),
+                name="namedArgumentsFunctionType"
+            ),
+            type=FunctionType(
+                position=(13, 30),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(13, 31),
+                        name=Symbol(
+                            position=(13, 31),
+                            name="name"
+                        ),
+                        type=TypeName(
+                            position=(13, 37),
+                            name=Symbol(
+                                position=(13, 37),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(13, 45),
+                        name=Symbol(
+                            position=(13, 45),
+                            name="age"
+                        ),
+                        type=GenericType(
+                            position=(13, 50),
+                            base_type=TypeName(
+                                position=(13, 50),
+                                name=Symbol(
+                                    position=(13, 50),
+                                    name="List"
+                                )
+                            ),
+                            type_arguments=[
+                                TypeName(
+                                    position=(13, 55),
+                                    name=Symbol(
+                                        position=(13, 55),
+                                        name="Int"
+                                    )
+                                )
+                            ]
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(13, 64),
+                    name=Symbol(
+                        position=(13, 64),
+                        name="Bool"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(15, 1),
+            name=Symbol(
+                position=(15, 1),
+                name="optionalFunctionArgumentType"
+            ),
+            type=FunctionType(
+                position=(15, 32),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(15, 33),
+                        name=Symbol(
+                            position=(15, 33),
+                            name="name"
+                        ),
+                        type=TypeName(
+                            position=(15, 40),
+                            name=Symbol(
+                                position=(15, 40),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=true,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(15, 48),
+                        name=Symbol(
+                            position=(15, 48),
+                            name="age"
+                        ),
+                        type=TypeName(
+                            position=(15, 54),
+                            name=Symbol(
+                                position=(15, 54),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=true,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(15, 59),
+                        name=Symbol(
+                            position=(15, 59),
+                            name="active"
+                        ),
+                        type=TypeName(
+                            position=(15, 68),
+                            name=Symbol(
+                                position=(15, 68),
+                                name="Bool"
+                            )
+                        ),
+                        variadic=false,
+                        optional=true,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(15, 77),
+                    name=Symbol(
+                        position=(15, 77),
+                        name="Bool"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(16, 1),
+            name=Symbol(
+                position=(16, 1),
+                name="variadicFunctionArgumentType"
+            ),
+            type=FunctionType(
+                position=(16, 32),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(16, 33),
+                        name=Symbol(
+                            position=(16, 36),
+                            name="tags"
+                        ),
+                        type=TypeName(
+                            position=(16, 42),
+                            name=Symbol(
+                                position=(16, 42),
+                                name="String"
+                            )
+                        ),
+                        variadic=true,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(16, 53),
+                    name=Symbol(
+                        position=(16, 53),
+                        name="Int"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(18, 1),
+            name=Symbol(
+                position=(18, 1),
+                name="mixedNamedAndUnnamed"
+            ),
+            type=FunctionType(
+                position=(18, 24),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(18, 25),
+                        type=TypeName(
+                            position=(18, 25),
+                            name=Symbol(
+                                position=(18, 25),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(18, 33),
+                        name=Symbol(
+                            position=(18, 33),
+                            name="age"
+                        ),
+                        type=TypeName(
+                            position=(18, 38),
+                            name=Symbol(
+                                position=(18, 38),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    ),
+                    FunctionArgumentType(
+                        position=(18, 43),
+                        type=TypeName(
+                            position=(18, 43),
+                            name=Symbol(
+                                position=(18, 43),
+                                name="Bool"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=TypeName(
+                    position=(18, 52),
+                    name=Symbol(
+                        position=(18, 52),
+                        name="String"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(20, 1),
+            name=Symbol(
+                position=(20, 1),
+                name="nestedFunctionType"
+            ),
+            type=TupleType(
+                position=(20, 22),
+                element_types=[
+                    FunctionType(
+                        position=(21, 5),
+                        argument_types=[
+                            FunctionArgumentType(
+                                position=(21, 6),
+                                name=Symbol(
+                                    position=(21, 6),
+                                    name="f1"
+                                ),
+                                type=FunctionType(
+                                    position=(21, 10),
+                                    argument_types=[
+                                        FunctionArgumentType(
+                                            position=(21, 11),
+                                            type=TypeName(
+                                                position=(21, 11),
+                                                name=Symbol(
+                                                    position=(21, 11),
+                                                    name="Int"
+                                                )
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        ),
+                                        FunctionArgumentType(
+                                            position=(21, 16),
+                                            type=TypeName(
+                                                position=(21, 16),
+                                                name=Symbol(
+                                                    position=(21, 16),
+                                                    name="String"
+                                                )
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        )
+                                    ],
+                                    return_type=TypeName(
+                                        position=(21, 27),
+                                        name=Symbol(
+                                            position=(21, 27),
+                                            name="Bool"
+                                        )
+                                    )
+                                ),
+                                variadic=false,
+                                optional=false,
+                                implicit=false
+                            ),
+                            FunctionArgumentType(
+                                position=(21, 33),
+                                name=Symbol(
+                                    position=(21, 33),
+                                    name="f2"
+                                ),
+                                type=FunctionType(
+                                    position=(21, 37),
+                                    argument_types=[
+                                        FunctionArgumentType(
+                                            position=(21, 38),
+                                            type=GenericType(
+                                                position=(21, 38),
+                                                base_type=TypeName(
+                                                    position=(21, 38),
+                                                    name=Symbol(
+                                                        position=(21, 38),
+                                                        name="List"
+                                                    )
+                                                ),
+                                                type_arguments=[
+                                                    TypeName(
+                                                        position=(21, 43),
+                                                        name=Symbol(
+                                                            position=(21, 43),
+                                                            name="Int"
+                                                        )
+                                                    )
+                                                ]
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        ),
+                                        FunctionArgumentType(
+                                            position=(21, 49),
+                                            type=GenericType(
+                                                position=(21, 49),
+                                                base_type=TypeName(
+                                                    position=(21, 49),
+                                                    name=Symbol(
+                                                        position=(21, 49),
+                                                        name="Map"
+                                                    )
+                                                ),
+                                                type_arguments=[
+                                                    TypeName(
+                                                        position=(21, 53),
+                                                        name=Symbol(
+                                                            position=(21, 53),
+                                                            name="String"
+                                                        )
+                                                    ),
+                                                    TypeName(
+                                                        position=(21, 61),
+                                                        name=Symbol(
+                                                            position=(21, 61),
+                                                            name="Int"
+                                                        )
+                                                    )
+                                                ]
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        )
+                                    ],
+                                    return_type=GenericType(
+                                        position=(21, 70),
+                                        base_type=TypeName(
+                                            position=(21, 70),
+                                            name=Symbol(
+                                                position=(21, 70),
+                                                name="Set"
+                                            )
+                                        ),
+                                        type_arguments=[
+                                            TypeName(
+                                                position=(21, 74),
+                                                name=Symbol(
+                                                    position=(21, 74),
+                                                    name="String"
+                                                )
+                                            )
+                                        ]
+                                    )
+                                ),
+                                variadic=false,
+                                optional=false,
+                                implicit=false
+                            )
+                        ],
+                        return_type=GenericType(
+                            position=(22, 8),
+                            base_type=TypeName(
+                                position=(22, 8),
+                                name=Symbol(
+                                    position=(22, 8),
+                                    name="Map"
+                                )
+                            ),
+                            type_arguments=[
+                                TypeName(
+                                    position=(23, 9),
+                                    name=Symbol(
+                                        position=(23, 9),
+                                        name="String"
+                                    )
+                                ),
+                                FunctionType(
+                                    position=(24, 9),
+                                    argument_types=[
+                                        FunctionArgumentType(
+                                            position=(24, 10),
+                                            name=Symbol(
+                                                position=(24, 10),
+                                                name="arg1"
+                                            ),
+                                            type=TypeName(
+                                                position=(24, 16),
+                                                name=Symbol(
+                                                    position=(24, 16),
+                                                    name="Int"
+                                                )
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        ),
+                                        FunctionArgumentType(
+                                            position=(24, 21),
+                                            name=Symbol(
+                                                position=(24, 21),
+                                                name="arg2"
+                                            ),
+                                            type=TypeName(
+                                                position=(24, 27),
+                                                name=Symbol(
+                                                    position=(24, 27),
+                                                    name="Int"
+                                                )
+                                            ),
+                                            variadic=false,
+                                            optional=false,
+                                            implicit=false
+                                        )
+                                    ],
+                                    return_type=GenericType(
+                                        position=(24, 36),
+                                        base_type=TypeName(
+                                            position=(24, 36),
+                                            name=Symbol(
+                                                position=(24, 36),
+                                                name="List"
+                                            )
+                                        ),
+                                        type_arguments=[
+                                            TypeName(
+                                                position=(24, 41),
+                                                name=Symbol(
+                                                    position=(24, 41),
+                                                    name="Bool"
+                                                )
+                                            )
+                                        ]
+                                    )
+                                )
+                            ]
+                        )
+                    ),
+                    TypeName(
+                        position=(26, 5),
+                        name=Symbol(
+                            position=(26, 5),
+                            name="Null"
+                        )
+                    )
+                ]
+            )
+        ),
+        VariableTypeSignature(
+            position=(29, 1),
+            name=Symbol(
+                position=(29, 1),
+                name="curriedFunctionType"
+            ),
+            type=FunctionType(
+                position=(29, 23),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(29, 24),
+                        type=TypeName(
+                            position=(29, 24),
+                            name=Symbol(
+                                position=(29, 24),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=false
+                    )
+                ],
+                return_type=FunctionType(
+                    position=(29, 32),
+                    argument_types=[
+                        FunctionArgumentType(
+                            position=(29, 33),
+                            type=TypeName(
+                                position=(29, 33),
+                                name=Symbol(
+                                    position=(29, 33),
+                                    name="String"
+                                )
+                            ),
+                            variadic=false,
+                            optional=false,
+                            implicit=false
+                        )
+                    ],
+                    return_type=FunctionType(
+                        position=(29, 44),
+                        argument_types=[
+                            FunctionArgumentType(
+                                position=(29, 45),
+                                type=TypeName(
+                                    position=(29, 45),
+                                    name=Symbol(
+                                        position=(29, 45),
+                                        name="Bool"
+                                    )
+                                ),
+                                variadic=false,
+                                optional=false,
+                                implicit=false
+                            )
+                        ],
+                        return_type=ParenthesizedType(
+                            position=(29, 54),
+                            type=TypeName(
+                                position=(29, 55),
+                                name=Symbol(
+                                    position=(29, 55),
+                                    name="Int"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(31, 1),
+            name=Symbol(
+                position=(31, 1),
+                name="implicitUnnamedArgumentsFunctionType"
+            ),
+            type=FunctionType(
+                position=(31, 40),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(31, 41),
+                        type=TypeName(
+                            position=(31, 42),
+                            name=Symbol(
+                                position=(31, 42),
+                                name="Int"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=true
+                    ),
+                    FunctionArgumentType(
+                        position=(31, 47),
+                        type=TypeName(
+                            position=(31, 48),
+                            name=Symbol(
+                                position=(31, 48),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=true
+                    )
+                ],
+                return_type=TypeName(
+                    position=(31, 59),
+                    name=Symbol(
+                        position=(31, 59),
+                        name="Bool"
+                    )
+                )
+            )
+        ),
+        VariableTypeSignature(
+            position=(32, 1),
+            name=Symbol(
+                position=(32, 1),
+                name="implicitNamedArgumentsFunctionType"
+            ),
+            type=FunctionType(
+                position=(32, 38),
+                argument_types=[
+                    FunctionArgumentType(
+                        position=(32, 42),
+                        name=Symbol(
+                            position=(32, 47),
+                            name="name"
+                        ),
+                        type=TypeName(
+                            position=(32, 53),
+                            name=Symbol(
+                                position=(32, 53),
+                                name="String"
+                            )
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=true
+                    ),
+                    FunctionArgumentType(
+                        position=(32, 61),
+                        name=Symbol(
+                            position=(32, 66),
+                            name="age"
+                        ),
+                        type=GenericType(
+                            position=(32, 71),
+                            base_type=TypeName(
+                                position=(32, 71),
+                                name=Symbol(
+                                    position=(32, 71),
+                                    name="List"
+                                )
+                            ),
+                            type_arguments=[
+                                TypeName(
+                                    position=(32, 76),
+                                    name=Symbol(
+                                        position=(32, 76),
+                                        name="Int"
+                                    )
+                                )
+                            ]
+                        ),
+                        variadic=false,
+                        optional=false,
+                        implicit=true
+                    )
+                ],
+                return_type=TypeName(
+                    position=(33, 14),
+                    name=Symbol(
+                        position=(33, 14),
+                        name="Bool"
+                    )
+                )
             )
         )
     ]

@@ -58,6 +58,8 @@ from radical.data.parser.ast import (
     NumberLiteralTypeNode,
     StringNodeType,
     VariableTypeSignatureNode,
+    FunctionArgumentTypeNode,
+    FunctionTypeNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -81,8 +83,6 @@ class FileParser(Unit):
         top_level_nodes: list[TopLevelDeclarationNodeType] = []
         self.skip_whitespace()
         while not self.at_end():
-            if not self._indent_level == 0:
-                self._raise_parse_error("Unexpected indentation at top-level")
             top_level_nodes.append(self.parse_top_level_declaration())
             self.skip_whitespace()
         return ModuleNode(
@@ -172,34 +172,164 @@ class FileParser(Unit):
     def check_parenthesized_type(self) -> bool:
         return self.check_specific_charachters("(")
 
-    def parse_parenthesized_type(self) -> ParenthesizedTypeNode | TupleTypeNode:
+    def parse_parenthesized_type(
+        self,
+    ) -> ParenthesizedTypeNode | TupleTypeNode | FunctionTypeNode:
         start_position = self._position()
         self.parse_specific_charachters("(")
         self.skip_whitespace()
-        type_expr = self.parse_type_expression()
-        self.skip_whitespace()
 
-        if self.check_specific_charachters(","):
-            self._read()
+        function_arguments: list[FunctionArgumentTypeNode] = []
+        function_return_type: TypeExpressionNodeType | None = None
+        tuple_elements: list[TypeExpressionNodeType] = []
+        ordering_indicator: list[int] = []
+
+        while not self.check_specific_charachters(")"):
+            variadic = False
+            optional = False
+            implicit = False
+            element_position = self._position()
+
+            if self.check_specific_charachters("&"):
+                implicit = True
+                self._read()
+                self.skip_whitespace()
+                if self.check_specific_charachters("..."):
+                    self._raise_parse_error(
+                        "Implicit function arguments cannot be variadic",
+                    )
+            elif self.check_specific_charachters("..."):
+                variadic = True
+                self._read(3)
+                self.skip_whitespace()
+                if self.check_specific_charachters("&"):
+                    self._raise_parse_error(
+                        "Variadic function arguments cannot be implicit",
+                    )
+
+            type_or_argument_name = self.parse_type_expression()
             self.skip_whitespace()
 
-            element_types: list[TypeExpressionNodeType] = [type_expr]
-            while not self.check_specific_charachters(")"):
-                element_types.append(self.parse_type_expression())
+            if self.check_specific_charachters("?"):
+                if variadic:
+                    self._raise_parse_error(
+                        "Variadic function arguments cannot be optional",
+                        position=type_or_argument_name.position,
+                    )
+                elif implicit:
+                    self._raise_parse_error(
+                        "Implicit function arguments cannot be optional",
+                        position=type_or_argument_name.position,
+                    )
+                optional = True
+                self._read()
                 self.skip_whitespace()
-                if self.check_specific_charachters(","):
-                    self._read()
-                    self.skip_whitespace()
-            self.parse_specific_charachters(")")
-            return TupleTypeNode(
-                position=start_position,
-                element_types=element_types,
-            )
+
+            if self.check_specific_charachters(":"):
+                if not isinstance(type_or_argument_name, TypeNameNode):
+                    self._raise_parse_error(
+                        "Function argument name must be a symbol",
+                        position=type_or_argument_name.position,
+                    )
+                self._read()
+                self.skip_whitespace()
+                argument_type = self.parse_type_expression()
+
+                # satisfy typechecker
+                assert isinstance(type_or_argument_name, TypeNameNode)
+
+                function_arguments.append(
+                    FunctionArgumentTypeNode(
+                        position=element_position,
+                        name=type_or_argument_name.name,
+                        type=argument_type,
+                        variadic=variadic,
+                        optional=optional,
+                        implicit=implicit,
+                    )
+                )
+                ordering_indicator.append(1)
+            else:
+                if optional:
+                    self._raise_parse_error(
+                        "Only named function arguments can be optional",
+                        position=type_or_argument_name.position,
+                    )
+                if self.check_any_sequence([",", ")"]):
+                    if variadic or implicit:
+                        function_arguments.append(
+                            FunctionArgumentTypeNode(
+                                position=element_position,
+                                name=None,
+                                type=type_or_argument_name,
+                                variadic=variadic,
+                                optional=optional,
+                                implicit=implicit,
+                            )
+                        )
+                        ordering_indicator.append(1)
+                    else:
+                        tuple_elements.append(type_or_argument_name)
+                        ordering_indicator.append(0)
+                else:
+                    self._raise_parse_error(
+                        "Expected ',' or ')' after type expression",
+                        position=self._position(),
+                    )
+            self.skip_whitespace()
+            if self.check_specific_charachters(","):
+                self._read()
+                self.skip_whitespace()
 
         self.parse_specific_charachters(")")
-        return ParenthesizedTypeNode(
+        self.skip_whitespace()
+
+        if self.check_specific_charachters("->"):
+            self._read(2)
+            self.skip_whitespace()
+            function_return_type = self.parse_type_expression()
+
+        if not function_return_type:
+            if function_arguments:
+                self._raise_parse_error(
+                    "Function type must have a return type",
+                )
+            if len(tuple_elements) > 1:
+                return TupleTypeNode(
+                    position=start_position,
+                    element_types=tuple_elements,
+                )
+            return ParenthesizedTypeNode(
+                position=start_position,
+                type=tuple_elements[0],
+            )
+
+        combined_function_arguments: list[FunctionArgumentTypeNode] = []
+        function_arguments_index = 0
+        tuple_elements_index = 0
+        for index in range(len(ordering_indicator)):
+            if ordering_indicator[index] == 1:
+                combined_function_arguments.append(
+                    function_arguments[function_arguments_index]
+                )
+                function_arguments_index += 1
+            else:
+                combined_function_arguments.append(
+                    FunctionArgumentTypeNode(
+                        position=tuple_elements[tuple_elements_index].position,
+                        name=None,
+                        type=tuple_elements[tuple_elements_index],
+                        variadic=False,
+                        optional=False,
+                        implicit=False,
+                    )
+                )
+                tuple_elements_index += 1
+
+        return FunctionTypeNode(
             position=start_position,
-            type=type_expr,
+            argument_types=combined_function_arguments,
+            return_type=function_return_type,
         )
 
     def parse_type_arguments(self) -> list[TypeExpressionNodeType]:
