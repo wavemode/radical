@@ -1140,25 +1140,24 @@ class FileParser(Unit):
         if char.isalpha() or char == "_" or quoted:
             if quoted and self.check_specific_charachters("``"):
                 self._read(2)
-                char = "`"
-            name_chars.append(self._read())
+                name_chars.append("`")
+            else:
+                name_chars.append(self._read())
         else:
             self._raise_parse_error("Expected symbol", position=start_position)
         while True:
             if self._peek().isalnum() or self._peek() == "_" or quoted:
                 if quoted and self.check_specific_charachters("``"):
                     self._read(2)
-                    char = "`"
-                name_chars.append(self._read())
+                    name_chars.append("`")
+                elif quoted and self.check_specific_charachters("`"):
+                    break
+                else:
+                    name_chars.append(self._read())
             else:
                 break
         if quoted:
-            if self.check_specific_charachters("`"):
-                self._read()
-            else:
-                self._raise_parse_error(
-                    "Unterminated quoted symbol", position=start_position
-                )
+            self.parse_specific_charachters("`")
         return SymbolNode(
             position=start_position,
             name="".join(name_chars),
