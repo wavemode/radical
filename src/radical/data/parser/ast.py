@@ -136,6 +136,7 @@ TypeExpressionNodeType = (
     | TupleTypeNode
     | StringLiteralTypeNode
     | NumberLiteralTypeNode
+    | FunctionTypeNode
 )
 
 # Scalars
@@ -363,7 +364,7 @@ class VariableBindingStatementNode(Node):
 @dataclass(frozen=True)
 class VariableTypeSignatureNode(Node):
     name: SymbolNode
-    type: "ValueExpressionNodeType"
+    type: "TypeExpressionNodeType"
 
 
 BindingStatementNodeType = VariableBindingStatementNode | VariableTypeSignatureNode

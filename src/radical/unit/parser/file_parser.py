@@ -57,6 +57,7 @@ from radical.data.parser.ast import (
     StringLiteralTypeNode,
     NumberLiteralTypeNode,
     StringNodeType,
+    VariableTypeSignatureNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -229,21 +230,39 @@ class FileParser(Unit):
             name=name_node,
         )
 
-    def parse_variable_binding(self) -> VariableBindingStatementNode:
+    def parse_variable_binding(
+        self,
+    ) -> VariableBindingStatementNode | VariableTypeSignatureNode:
         start_position = self._position()
         name_node = self.parse_symbol()
         self.skip_whitespace()
 
         type_node: TypeExpressionNodeType | None = None
+        value_node: ValueExpressionNodeType | None = None
+
         if self.check_specific_charachters(":"):
             self._read()
             self.skip_whitespace()
             type_node = self.parse_type_expression()
             self.skip_whitespace()
 
-        self.parse_specific_charachters("=")
-        self.skip_whitespace()
-        value_node = self.parse_value()
+        if self.check_specific_charachters("="):
+            self._read()
+            self.skip_whitespace()
+            value_node = self.parse_value()
+
+        if value_node is None and type_node is None:
+            self._raise_parse_error(
+                "Variable binding must have a type annotation and/or an initial value"
+            )
+
+        if value_node is None:
+            assert type_node is not None
+            return VariableTypeSignatureNode(
+                position=start_position,
+                name=name_node,
+                type=type_node,
+            )
 
         return VariableBindingStatementNode(
             position=start_position,
