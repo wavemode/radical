@@ -10,7 +10,9 @@ class CharStream(Unit):
     def __init__(self, data: str) -> None:
         super().__init__()
         self._data = data.splitlines(keepends=True)
-        self._position = Position(line=1, column=1)
+        self._position = Position(
+            line=1, column=1, indent_level=0, seen_non_whitespace=False
+        )
 
     def at_end(self) -> bool:
         return self._position.line > len(self._data)
@@ -40,11 +42,18 @@ class CharStream(Unit):
         return chars
 
     def get_position(self) -> Position:
-        return Position(line=self._position.line, column=self._position.column)
+        return Position(
+            line=self._position.line,
+            column=self._position.column,
+            indent_level=self._position.indent_level,
+            seen_non_whitespace=self._position.seen_non_whitespace,
+        )
 
     def reset_position(self, position: Position) -> None:
         self._position.line = position.line
         self._position.column = position.column
+        self._position.indent_level = position.indent_level
+        self._position.seen_non_whitespace = position.seen_non_whitespace
 
     def _char_at(self, line: int, column: int) -> str:
         if line < 1 or line > len(self._data):
@@ -61,5 +70,12 @@ class CharStream(Unit):
         if self._position.column == len(current_line_content):
             self._position.line += 1
             self._position.column = 1
+            self._position.indent_level = 0
+            self._position.seen_non_whitespace = False
         else:
+            if current_line_content[self._position.column - 1].isspace():
+                if not self._position.seen_non_whitespace:
+                    self._position.indent_level += 1
+            else:
+                self._position.seen_non_whitespace = True
             self._position.column += 1

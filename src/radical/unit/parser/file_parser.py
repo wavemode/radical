@@ -61,6 +61,7 @@ from radical.data.parser.ast import (
     FunctionArgumentTypeNode,
     FunctionTypeNode,
     LetInNode,
+    LetStatementNode,
     BindingStatementNodeType,
 )
 from radical.data.parser.errors import ParseError
@@ -77,8 +78,6 @@ class FileParser(Unit):
         super().__init__()
         self._char_stream = self.add_child(char_stream)
         self._filename = filename
-        self._seen_non_whitespace = False
-        self._indent_level = 0
 
     def parse_module(self) -> ModuleNode:
         position = self._position()
@@ -100,7 +99,7 @@ class FileParser(Unit):
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
         expr: TypeExpressionNodeType = self.parse_single_type_expression()
-
+        reset_position = self._position()
         self.skip_whitespace()
 
         while self.check_specific_charachters("|"):
@@ -113,8 +112,10 @@ class FileParser(Unit):
                 left=expr,
                 right=right_expr,
             )
+            reset_position = self._position()
             self.skip_whitespace()
 
+        self._reset_position(reset_position)
         return expr
 
     def parse_single_type_expression(self) -> TypeExpressionNodeType:
@@ -367,21 +368,26 @@ class FileParser(Unit):
     ) -> VariableBindingStatementNode | VariableTypeSignatureNode:
         start_position = self._position()
         name_node = self.parse_symbol()
+
         self.skip_whitespace()
 
         type_node: TypeExpressionNodeType | None = None
         value_node: ValueExpressionNodeType | None = None
+        reset_to_position = self._position()
 
         if self.check_specific_charachters(":"):
             self._read()
             self.skip_whitespace()
             type_node = self.parse_type_expression()
+            reset_to_position = self._position()
             self.skip_whitespace()
 
         if self.check_specific_charachters("="):
             self._read()
             self.skip_whitespace()
             value_node = self.parse_value()
+        else:
+            self._reset_position(reset_to_position)
 
         if value_node is None and type_node is None:
             self._raise_parse_error(
@@ -470,8 +476,14 @@ class FileParser(Unit):
             value = self.parse_parenthesized_expression()
         elif self.check_if_then_else():
             value = self.parse_if_then_else()
-        elif self.check_let_in_expression():
-            value = self.parse_let_in_expression()
+        elif self.check_let():
+            potential_value = self.parse_let()
+            if isinstance(potential_value, LetInNode):
+                value = potential_value
+            else:
+                self._raise_parse_error(
+                    "Let expression missing an 'in' clause",
+                )
         elif self.check_list_literal():
             value = self.parse_list_literal()
         elif self.check_set_or_map_or_tree_literal():
@@ -506,18 +518,54 @@ class FileParser(Unit):
 
         return value
 
-    def check_let_in_expression(self) -> bool:
+    def check_let(self) -> bool:
         return self.check_word("let")
-    
-    def parse_let_in_expression(self) -> LetInNode:
+
+    def parse_let(self) -> LetInNode | LetStatementNode:
         start_position = self._position()
+        binding_indent_level = -1
+
         self.parse_word("let")
         self.skip_whitespace()
 
         bindings: list[BindingStatementNodeType] = []
         while self.check_symbol():
+            current_position = self._position()
+            if (
+                binding_indent_level == -1
+                and current_position.line > start_position.line
+            ):
+                if current_position.indent_level <= start_position.indent_level:
+                    self._raise_parse_error(
+                        "Let bindings must be indented relative to the 'let' keyword (initial "
+                        f"indent level {start_position.indent_level}, "
+                        f"found {current_position.indent_level})",
+                    )
+                binding_indent_level = current_position.indent_level
+            elif current_position.indent_level < binding_indent_level:
+                break
+            elif current_position.indent_level > binding_indent_level:
+                self._raise_parse_error(
+                    "Inconsistent indentation in let bindings",
+                )
             bindings.append(self.parse_binding_statement())
-            self.skip_whitespace()
+
+            self.skip_non_breaking_whitespace()
+            if self.check_specific_charachters(","):
+                self._read()
+                self.skip_whitespace()
+            elif self.check_specific_charachters("\n"):
+                self.skip_whitespace()
+            else:
+                self._raise_parse_error(
+                    "Expected ',' or newline between let bindings",
+                )
+
+        if not bindings:
+            self._raise_parse_error(
+                "Let block must have at least one binding",
+                position=start_position,
+            )
 
         self.parse_word("in")
         self.skip_whitespace()
@@ -1457,28 +1505,21 @@ class FileParser(Unit):
         if n == 1:
             return "" if self.at_end() else self._char_stream.peek_char()
 
-        position = self._char_stream.get_position()
+        position = self._position()
         chars: list[str] = []
         for _ in range(n):
             if self.at_end():
                 break
             chars.append(self._read())
-        self._char_stream.reset_position(position)
+        self._reset_position(position)
         return "".join(chars)
 
     def _read(self, n: int = 1) -> str:
-        result = self._peek(n)
+        chars: list[str] = []
         for _ in range(n):
             char = self._char_stream.read_char()
-            if char == "\n":
-                self._seen_non_whitespace = False
-                self._indent_level = 0
-            elif char in (" ", "\t"):
-                if not self._seen_non_whitespace:
-                    self._indent_level += 1
-            else:
-                self._seen_non_whitespace = True
-        return result
+            chars.append(char)
+        return "".join(chars)
 
     def _position(self) -> Position:
         return self._char_stream.get_position()

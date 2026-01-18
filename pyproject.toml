@@ -15,6 +15,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "debugpy>=1.8.19",
     "ruff>=0.14.10",
     "ty>=0.0.9",
 ]

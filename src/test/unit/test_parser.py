@@ -5,6 +5,12 @@ import textwrap
 
 import os
 
+if os.environ.get("RAD_DEBUG"):
+    import debugpy
+
+    debugpy.listen(5678)
+    debugpy.wait_for_client()
+
 
 def _parser_from_text(text: str, filename: str) -> FileParser:
     return FileParser(CharStream(textwrap.dedent(text)), filename=filename)
@@ -32,11 +38,21 @@ class TestParser(TestCase):
             )
 
     def test_all(self):
+        enabled_files_env = os.environ.get("RAD_TEST_FILES")
+        enabled_files: list[str] | None
+        if enabled_files_env:
+            enabled_files = enabled_files_env.split(",")
+        else:
+            enabled_files = None
+
         for root, _, files in os.walk("test_cases/parser"):
             for file in files:
-                if file.endswith(".rd"):
-                    file_path = os.path.join(root, file)
-                    with open(file_path, "r") as f:
-                        text = f.read()
-                    with self.subTest(file_path):
-                        self._assert_matching_output(text, filename=file_path)
+                if not file.endswith(".rd"):
+                    continue
+                file_path = os.path.join(root, file)
+                if enabled_files is not None and file_path not in enabled_files:
+                    continue
+                with open(file_path, "r") as f:
+                    text = f.read()
+                with self.subTest(file_path):
+                    self._assert_matching_output(text, filename=file_path)
