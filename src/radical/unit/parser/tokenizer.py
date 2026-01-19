@@ -7,7 +7,7 @@ from radical.util.core.unit import Unit
 
 class Tokenizer(Unit):
     # TODO: single-quoted strings (+ eliminate Char type from test cases)
-    # TODO: char literals, byte literals in strings
+    # TODO: byte literals in strings
     # TODO: backslash line continuations
 
     def __init__(self, contents: str, filename: str) -> None:
