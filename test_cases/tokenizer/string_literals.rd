@@ -21,6 +21,8 @@ nestedFormatString = f"Outer {f"Inner {f"even more inner {42}"}"} string!"
 
 multilineFormatString = f"""This is a
 multi-line format string with an expression: {10 * 2} and more text."""
+objectLiteralInFormatString = f"Object literal: {{ key = "value", number = 123 }} end."
+curlyBraceEscapedInFormatString = f"Escaped braces: \{ and \} stay as-is."
 
 (*
 Token(type=SYMBOL, value="plainLiteral", position=(1, 1, 0))
@@ -108,5 +110,27 @@ Token(type=INTEGER_LITERAL, value="2", position=(20, 90, 0))
 Token(type=FORMAT_STRING_EXPR_END, value="}", position=(20, 91, 0))
 Token(type=MULTILINE_FORMAT_STRING_SECTION, value=" and more text.", position=(20, 92, 0))
 Token(type=MULTILINE_FORMAT_STRING_END, value="\"\"\"", position=(20, 107, 0))
-Token(type=EOF, value="", position=(110, 1, 0))
+Token(type=SYMBOL, value="objectLiteralInFormatString", position=(21, 1, 0))
+Token(type=ASSIGN, value="=", position=(21, 29, 0))
+Token(type=FORMAT_STRING_START, value="f\"", position=(21, 31, 0))
+Token(type=FORMAT_STRING_SECTION, value="Object literal: ", position=(21, 33, 0))
+Token(type=FORMAT_STRING_EXPR_START, value="{", position=(21, 49, 0))
+Token(type=OBJECT_START, value="{", position=(21, 50, 0))
+Token(type=SYMBOL, value="key", position=(21, 52, 0))
+Token(type=ASSIGN, value="=", position=(21, 56, 0))
+Token(type=STRING_LITERAL, value="value", position=(21, 58, 0))
+Token(type=COMMA, value=",", position=(21, 65, 0))
+Token(type=SYMBOL, value="number", position=(21, 67, 0))
+Token(type=ASSIGN, value="=", position=(21, 74, 0))
+Token(type=INTEGER_LITERAL, value="123", position=(21, 76, 0))
+Token(type=OBJECT_END, value="}", position=(21, 80, 0))
+Token(type=FORMAT_STRING_EXPR_END, value="}", position=(21, 81, 0))
+Token(type=FORMAT_STRING_SECTION, value=" end.", position=(21, 82, 0))
+Token(type=FORMAT_STRING_END, value="\"", position=(21, 87, 0))
+Token(type=SYMBOL, value="curlyBraceEscapedInFormatString", position=(22, 1, 0))
+Token(type=ASSIGN, value="=", position=(22, 33, 0))
+Token(type=FORMAT_STRING_START, value="f\"", position=(22, 35, 0))
+Token(type=FORMAT_STRING_SECTION, value="Escaped braces: { and } stay as-is.", position=(22, 37, 0))
+Token(type=FORMAT_STRING_END, value="\"", position=(22, 74, 0))
+Token(type=EOF, value="", position=(134, 1, 0))
 *)

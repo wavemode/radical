@@ -6,7 +6,7 @@ from radical.util.core.unit import Unit
 
 
 class Tokenizer(Unit):
-    # TODO: char literals, hex numbers, binary numbers, octal numbers, byte literals in strings
+    # TODO: char literals, byte literals in strings
     # TODO: backslash line continuations
 
     def __init__(self, contents: str, filename: str) -> None:
@@ -245,6 +245,9 @@ class Tokenizer(Unit):
             if next_char == "{":
                 self._advance_non_whitespace(2)
                 return "{"
+            elif next_char == "}":
+                self._advance_non_whitespace(2)
+                return "}"
             else:
                 return self._read_string_literal_char()
         else:
@@ -448,12 +451,18 @@ class Tokenizer(Unit):
                         try:
                             float(number)
                         except ValueError:
-                            self._raise_parse_error(f"Invalid number format: '{number}'")
+                            self._raise_parse_error(
+                                f"Invalid number format: '{number}'"
+                            )
                         else:
                             if "e" in number or "E" in number:
-                                self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
+                                self._add_token(
+                                    TokenType.SCI_FLOAT_LITERAL, number, start_position
+                                )
                             else:
-                                self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+                                self._add_token(
+                                    TokenType.FLOAT_LITERAL, number, start_position
+                                )
                             return
         if "e" in number or "E" in number:
             self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
