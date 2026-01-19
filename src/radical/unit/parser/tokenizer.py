@@ -6,6 +6,7 @@ from radical.util.core.unit import Unit
 
 
 class Tokenizer(Unit):
+    # TODO: single-quoted strings (+ eliminate Char type from test cases)
     # TODO: char literals, byte literals in strings
     # TODO: backslash line continuations
 
@@ -119,7 +120,7 @@ class Tokenizer(Unit):
             self._add_token(TokenType.ASSIGN, char)
             self._advance_non_whitespace()
         elif char == "&":
-            self._add_token(TokenType.AMPRESAND, char)
+            self._add_token(TokenType.AMPERSAND, char)
             self._advance_non_whitespace()
         else:
             # Expressions
