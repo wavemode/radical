@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 from typing import cast
-from radical.unit.parser.token_stream import TokenStream
+from radical.unit.parser.tokenizer import Tokenizer
 from radical.data.parser.token import Token
 
 from radical.util.testutils import collect_test_cases
 
 
-def _token_stream_from_text(text: str, filename: str) -> TokenStream:
-    return TokenStream(text, filename=filename)
+def _token_stream_from_text(text: str, filename: str) -> Tokenizer:
+    return Tokenizer(text, filename=filename)
 
 
 def fix_tokenizer_tests():

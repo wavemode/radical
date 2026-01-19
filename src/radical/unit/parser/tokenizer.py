@@ -1,0 +1,440 @@
+from typing import NoReturn
+from radical.data.parser.errors import ParseError
+from radical.data.parser.position import Position
+from radical.data.parser.token import Token, TokenType
+from radical.util.core.unit import Unit
+
+
+class Tokenizer(Unit):
+    def __init__(self, contents: str, filename: str) -> None:
+        super().__init__()
+        self._contents = contents
+        self._filename = filename
+        self._tokens: list[Token] = []
+        self._index = 0
+        self._line = 1
+        self._column = 1
+        self._indent_level = 0
+        self._seen_non_whitespace = False
+        self._tokenize()
+
+    def token_at(self, index: int) -> Token:
+        return self._tokens[index] if index < len(self._tokens) else self._tokens[-1]
+
+    def _tokenize(self) -> None:
+        while not self._at_end():
+            self._read_token()
+        self._add_token(TokenType.EOF, "", self._position())
+
+    def _read_token(self) -> None:
+        char = self._peek()
+        next_char = self._peek(1)
+        if char == "\n":
+            self._advance_newline()
+        elif char.isspace():
+            self._advance_whitespace()
+        elif char == "(" and next_char == "*":
+            self._read_multiline_comment()
+        elif char == "-" and next_char == "-":
+            self._read_singleline_comment()
+        elif char == ",":
+            self._add_token(TokenType.COMMA, char)
+            self._advance_non_whitespace()
+        elif char == ":":
+            self._add_token(TokenType.COLON, char)
+            self._advance_non_whitespace()
+        elif char == "|" and next_char == ">":
+            self._add_token(TokenType.PIPE, "|>")
+            self._advance_non_whitespace(2)
+        elif char == "|":
+            self._add_token(TokenType.VARIANT, char)
+            self._advance_non_whitespace()
+        elif char == "-" and next_char == ">":
+            self._add_token(TokenType.ARROW, "->")
+            self._advance_non_whitespace(2)
+        elif char == "." and next_char == "." and self._peek(2) == ".":
+            self._add_token(TokenType.SPREAD, "...")
+            self._advance_non_whitespace(3)
+        elif char == "?":
+            self._add_token(TokenType.QUESTION, char)
+            self._advance_non_whitespace()
+        elif char == ".":
+            self._add_token(TokenType.DOT, char)
+            self._advance_non_whitespace()
+        elif char == "*" and next_char == "*":
+            self._add_token(TokenType.EXPONENTIATION, "**")
+            self._advance_non_whitespace(2)
+        elif char == "*":
+            self._add_token(TokenType.MULTIPLY, char)
+            self._advance_non_whitespace()
+        elif char == "/" and next_char == "/":
+            self._add_token(TokenType.FLOOR_DIVIDE, "//")
+            self._advance_non_whitespace(2)
+        elif char == "/":
+            self._add_token(TokenType.DIVIDE, char)
+            self._advance_non_whitespace()
+        elif char == "%":
+            self._add_token(TokenType.MODULO, char)
+            self._advance_non_whitespace()
+        elif char == "+":
+            self._add_token(TokenType.ADD, char)
+            self._advance_non_whitespace()
+        elif char == "-":
+            self._add_token(TokenType.SUBTRACT, char)
+            self._advance_non_whitespace()
+        elif char == "=" and next_char == "=":
+            self._add_token(TokenType.EQUAL, "==")
+            self._advance_non_whitespace(2)
+        elif char == "!" and next_char == "=":
+            self._add_token(TokenType.NOT_EQUAL, "!=")
+            self._advance_non_whitespace(2)
+        elif char == "<" and next_char == "=":
+            self._add_token(TokenType.LESS_THAN_EQUAL, "<=")
+            self._advance_non_whitespace(2)
+        elif char == ">" and next_char == "=":
+            self._add_token(TokenType.GREATER_THAN_EQUAL, ">=")
+            self._advance_non_whitespace(2)
+        elif char == "<":
+            self._add_token(TokenType.LESS_THAN, char)
+            self._advance_non_whitespace()
+        elif char == ">":
+            self._add_token(TokenType.GREATER_THAN, char)
+            self._advance_non_whitespace()
+        elif char == "=":
+            self._add_token(TokenType.ASSIGN, char)
+            self._advance_non_whitespace()
+        else:
+            # Expressions
+            if (
+                char == "r"
+                and next_char == '"'
+                and self._peek(2) == '"'
+                and self._peek(3) == '"'
+            ):
+                self._read_raw_multiline_string_literal()
+            elif char == '"' and next_char == '"' and self._peek(2) == '"':
+                self._read_multiline_string_literal()
+            elif char == "r" and next_char == '"':
+                self._read_raw_string_literal()
+            elif char == '"':
+                self._read_string_literal()
+            elif char == "(":
+                self._read_parentheses_expression()
+            elif char == "[":
+                self._read_list_expression()
+            elif char == "{":
+                self._read_object_expression()
+            elif char.isdigit():
+                self._read_number()
+            elif char.isalpha() or char == "_":
+                self._read_word()
+            else:
+                self._raise_parse_error(f"Unexpected character: '{char}'")
+
+            # special cases for when an expression is followed immediately by certain tokens
+            char = self._peek()
+            if char == "(":
+                self._read_function_call_expression()
+            elif char == "[":
+                self._read_indexing_expression()
+
+    def _read_indexing_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.INDEXING_START, "[")
+        self._advance_non_whitespace()
+        while self._peek() != "]":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated indexing expression", start_position
+                )
+            self._read_token()
+
+    def _read_function_call_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.FUNCTION_CALL_START, "(")
+        self._advance_non_whitespace()
+        while self._peek() != ")":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated function call expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.FUNCTION_CALL_END, ")")
+        self._advance_non_whitespace()
+
+    def _read_object_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.OBJECT_START, "{")
+        self._advance_non_whitespace()
+        while self._peek() != "}":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated object expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.OBJECT_END, "}")
+        self._advance_non_whitespace()
+
+    def _read_list_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.LIST_START, "[")
+        self._advance_non_whitespace()
+        while self._peek() != "]":
+            if self._at_end():
+                self._raise_parse_error("Unterminated list expression", start_position)
+            self._read_token()
+        self._add_token(TokenType.LIST_END, "]")
+        self._advance_non_whitespace()
+
+    def _read_parentheses_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(
+            TokenType.PARENTHESES_START,
+            "(",
+        )
+        self._advance_non_whitespace()
+        while self._peek() != ")":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated parentheses expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.PARENTHESES_END, ")")
+        self._advance_non_whitespace()
+
+    def _read_raw_multiline_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace(4)  # Skip opening r"""
+        while not (
+            self._peek() == '"' and self._peek(1) == '"' and self._peek(2) == '"'
+        ):
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated raw multiline string literal", start_position
+                )
+            self._advance_non_whitespace()
+        self._advance_non_whitespace(3)  # Skip closing """
+        string_value = self._contents[start_position.column + 3 : self._index - 3]
+        self._add_token(
+            TokenType.RAW_MULTILINE_STRING_LITERAL, string_value, start_position
+        )
+
+    def _read_raw_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace(2)  # Skip opening r"
+        while self._peek() != '"':
+            if self._at_end() or self._peek() == "\n":
+                self._raise_parse_error(
+                    "Unterminated raw string literal", start_position
+                )
+            self._advance_non_whitespace()
+        self._advance_non_whitespace()  # Skip closing quote
+        string_value = self._contents[start_position.column + 1 : self._index - 1]
+        self._add_token(TokenType.RAW_STRING_LITERAL, string_value, start_position)
+
+    def _read_multiline_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace(3)  # Skip opening """
+        string_chars: list[str] = []
+        while not (
+            self._peek() == '"' and self._peek(1) == '"' and self._peek(2) == '"'
+        ):
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated multiline string literal", start_position
+                )
+            string_chars.append(self._read_string_literal_char())
+        self._advance_non_whitespace(3)  # Skip closing """
+        string_value = "".join(string_chars)
+        self._add_token(
+            TokenType.MULTILINE_STRING_LITERAL, string_value, start_position
+        )
+
+    def _read_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace()  # Skip opening quote
+        string_chars: list[str] = []
+        while self._peek() != '"':
+            if self._at_end() or self._peek() == "\n":
+                self._raise_parse_error("Unterminated string literal", start_position)
+            string_chars.append(self._read_string_literal_char())
+        self._advance_non_whitespace()  # Skip closing quote
+        string_value = "".join(string_chars)
+        self._add_token(TokenType.STRING_LITERAL, string_value, start_position)
+
+    def _read_string_literal_char(self) -> str:
+        char = self._peek()
+        if char == "\\":
+            next_char = self._peek(1)
+            if next_char == "n":
+                self._advance_non_whitespace(2)
+                return "\n"
+            elif next_char == "t":
+                self._advance_non_whitespace(2)
+                return "\t"
+            elif next_char == "\\":
+                self._advance_non_whitespace(2)
+                return "\\"
+            elif next_char == '"':
+                self._advance_non_whitespace(2)
+                return '"'
+            else:
+                self._raise_parse_error(f"Invalid escape sequence: '\\{next_char}'")
+        else:
+            self._advance_non_whitespace()
+            return char
+
+    def _read_number(self) -> None:
+        start_position = self._position()
+        start_index = self._index
+        while self._peek().isdigit() or self._peek() == ".":
+            self._advance_non_whitespace()
+        number = self._contents[start_index : self._index]
+        try:
+            int(number)
+        except ValueError:
+            try:
+                float(number)
+            except ValueError:
+                self._raise_parse_error(f"Invalid number format: '{number}'")
+            else:
+                if "e" in number or "E" in number:
+                    self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
+                else:
+                    self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+        else:
+            self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
+
+    _KEYWORDS = {
+        "if",
+        "then",
+        "else",
+        "for",
+        "in",
+        "and",
+        "or",
+        "not",
+        "true",
+        "false",
+        "null",
+        "type",
+        "typeof",
+        "fun",
+        "let",
+        "try",
+        "catch",
+        "finally",
+        "raise",
+        "assert",
+        "data",
+        "case",
+        "of",
+        "import",
+        "as",
+    }
+
+    def _read_word(self) -> None:
+        start_position = self._position()
+        start_index = self._index
+        while self._peek().isalnum() or self._peek() == "_":
+            self._advance_non_whitespace()
+        word = self._contents[start_index : self._index]
+        if word in self._KEYWORDS:
+            self._add_token(TokenType(word), word, start_position)
+        else:
+            self._add_token(TokenType.SYMBOL, word, start_position)
+
+    def _read_multiline_comment(self) -> None:
+        self._advance_whitespace(2)  # Skip '(*'
+        while not self._at_end():
+            if self._peek() == "(" and self._peek(1) == "*":
+                self._read_multiline_comment()
+            elif self._peek() == "*" and self._peek(1) == ")":
+                self._advance_whitespace(2)  # Skip '*)'
+                return
+            elif self._peek() == "\n":
+                self._advance_newline()
+            else:
+                self._advance_whitespace()
+        self._raise_parse_error("Unterminated multiline comment")
+
+    def _read_singleline_comment(self) -> None:
+        self._advance_whitespace(2)  # Skip '--'
+        while not self._at_end() and self._peek() != "\n":
+            self._advance_whitespace()
+
+    def _peek(self, n: int = 0) -> str:
+        return (
+            self._contents[self._index + n]
+            if self._index + n < len(self._contents)
+            else ""
+        )
+
+    def _at_end(self) -> bool:
+        return self._index >= len(self._contents)
+
+    def _advance_non_whitespace(self, n: int = 1) -> None:
+        self._index += n
+        self._column += n
+        self._seen_non_whitespace = True
+        pass
+
+    def _advance_whitespace(self, n: int = 1) -> None:
+        self._index += n
+        self._column += n
+        if not self._seen_non_whitespace:
+            self._indent_level += n
+        pass
+
+    def _advance_newline(self) -> None:
+        self._index += 1
+        self._line += 1
+        self._column = 1
+        self._seen_non_whitespace = False
+        self._indent_level = 0
+        pass
+
+    def _position(self) -> Position:
+        return Position(
+            line=self._line,
+            column=self._column,
+            indent_level=self._indent_level,
+            seen_non_whitespace=self._seen_non_whitespace,
+        )
+
+    def _add_token(
+        self, token_type: TokenType, value: str, position: Position | None = None
+    ) -> None:
+        token = Token(
+            position=(
+                position
+                if position is not None
+                else Position(
+                    line=self._line,
+                    column=self._column,
+                    indent_level=self._indent_level,
+                    seen_non_whitespace=self._seen_non_whitespace,
+                )
+            ),
+            type=token_type,
+            value=value,
+        )
+        self._tokens.append(token)
+
+    def _raise_parse_error(
+        self, message: str, position: Position | None = None
+    ) -> NoReturn:
+        raise ParseError(
+            message=message,
+            filename=self._filename,
+            position=(
+                position
+                if position is not None
+                else Position(
+                    line=self._line,
+                    column=self._column,
+                    indent_level=self._indent_level,
+                    seen_non_whitespace=self._seen_non_whitespace,
+                )
+            ),
+        )
