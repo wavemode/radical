@@ -44,8 +44,8 @@ class TokenType(Enum):
     FLOOR_DIVIDE = "//"
     DIVIDE = "/"
     MODULO = "%"
-    ADD = "+"
-    SUBTRACT = "-"
+    PLUS = "+"
+    MINUS = "-"
     EQUAL = "=="
     NOT_EQUAL = "!="
     LESS_THAN_EQUAL = "<="
@@ -53,6 +53,7 @@ class TokenType(Enum):
     LESS_THAN = "<"
     GREATER_THAN = ">"
     ASSIGN = "="
+    AMPRESAND = "&"
 
     STRING_LITERAL = "STRING_LITERAL"
     RAW_STRING_LITERAL = "RAW_STRING_LITERAL"

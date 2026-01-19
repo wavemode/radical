@@ -77,10 +77,10 @@ class Tokenizer(Unit):
             self._add_token(TokenType.MODULO, char)
             self._advance_non_whitespace()
         elif char == "+":
-            self._add_token(TokenType.ADD, char)
+            self._add_token(TokenType.PLUS, char)
             self._advance_non_whitespace()
         elif char == "-":
-            self._add_token(TokenType.SUBTRACT, char)
+            self._add_token(TokenType.MINUS, char)
             self._advance_non_whitespace()
         elif char == "=" and next_char == "=":
             self._add_token(TokenType.EQUAL, "==")
@@ -103,6 +103,9 @@ class Tokenizer(Unit):
         elif char == "=":
             self._add_token(TokenType.ASSIGN, char)
             self._advance_non_whitespace()
+        elif char == "&":
+            self._add_token(TokenType.AMPRESAND, char)
+            self._advance_non_whitespace()
         else:
             # Expressions
             if (
@@ -124,6 +127,8 @@ class Tokenizer(Unit):
                 self._read_list_expression()
             elif char == "{":
                 self._read_object_expression()
+            elif char == "`":
+                self._read_quoted_symbol()
             elif char.isdigit():
                 self._read_number()
             elif char.isalpha() or char == "_":
@@ -148,6 +153,8 @@ class Tokenizer(Unit):
                     "Unterminated indexing expression", start_position
                 )
             self._read_token()
+        self._add_token(TokenType.INDEXING_END, "]")
+        self._advance_non_whitespace()
 
     def _read_function_call_expression(self) -> None:
         start_position = self._position()
@@ -205,6 +212,7 @@ class Tokenizer(Unit):
     def _read_raw_multiline_string_literal(self) -> None:
         start_position = self._position()
         self._advance_non_whitespace(4)  # Skip opening r"""
+        start_index = self._index
         while not (
             self._peek() == '"' and self._peek(1) == '"' and self._peek(2) == '"'
         ):
@@ -213,8 +221,8 @@ class Tokenizer(Unit):
                     "Unterminated raw multiline string literal", start_position
                 )
             self._advance_non_whitespace()
+        string_value = self._contents[start_index : self._index]
         self._advance_non_whitespace(3)  # Skip closing """
-        string_value = self._contents[start_position.column + 3 : self._index - 3]
         self._add_token(
             TokenType.RAW_MULTILINE_STRING_LITERAL, string_value, start_position
         )
@@ -222,14 +230,15 @@ class Tokenizer(Unit):
     def _read_raw_string_literal(self) -> None:
         start_position = self._position()
         self._advance_non_whitespace(2)  # Skip opening r"
+        start_index = self._index
         while self._peek() != '"':
             if self._at_end() or self._peek() == "\n":
                 self._raise_parse_error(
                     "Unterminated raw string literal", start_position
                 )
             self._advance_non_whitespace()
+        string_value = self._contents[start_index : self._index]
         self._advance_non_whitespace()  # Skip closing quote
-        string_value = self._contents[start_position.column + 1 : self._index - 1]
         self._add_token(TokenType.RAW_STRING_LITERAL, string_value, start_position)
 
     def _read_multiline_string_literal(self) -> None:
@@ -244,8 +253,8 @@ class Tokenizer(Unit):
                     "Unterminated multiline string literal", start_position
                 )
             string_chars.append(self._read_string_literal_char())
-        self._advance_non_whitespace(3)  # Skip closing """
         string_value = "".join(string_chars)
+        self._advance_non_whitespace(3)  # Skip closing """
         self._add_token(
             TokenType.MULTILINE_STRING_LITERAL, string_value, start_position
         )
@@ -258,8 +267,8 @@ class Tokenizer(Unit):
             if self._at_end() or self._peek() == "\n":
                 self._raise_parse_error("Unterminated string literal", start_position)
             string_chars.append(self._read_string_literal_char())
-        self._advance_non_whitespace()  # Skip closing quote
         string_value = "".join(string_chars)
+        self._advance_non_whitespace()  # Skip closing quote
         self._add_token(TokenType.STRING_LITERAL, string_value, start_position)
 
     def _read_string_literal_char(self) -> str:
@@ -269,6 +278,9 @@ class Tokenizer(Unit):
             if next_char == "n":
                 self._advance_non_whitespace(2)
                 return "\n"
+            elif next_char == "r":
+                self._advance_non_whitespace(2)
+                return "\r"
             elif next_char == "t":
                 self._advance_non_whitespace(2)
                 return "\t"
@@ -343,6 +355,18 @@ class Tokenizer(Unit):
             self._add_token(TokenType(word), word, start_position)
         else:
             self._add_token(TokenType.SYMBOL, word, start_position)
+
+    def _read_quoted_symbol(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace()  # Skip opening backtick
+        start_index = self._index
+        while self._peek() != "`":
+            if self._at_end():
+                self._raise_parse_error("Unterminated quoted symbol", start_position)
+            self._advance_non_whitespace()
+        symbol = self._contents[start_index : self._index]
+        self._advance_non_whitespace()  # Skip closing backtick
+        self._add_token(TokenType.SYMBOL, symbol, start_position)
 
     def _read_multiline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '(*'

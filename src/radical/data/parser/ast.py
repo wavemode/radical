@@ -225,8 +225,8 @@ class BinaryOperator(StrEnum):
     DIVIDE = "/"
     FLOOR_DIVIDE = "//"
     MODULO = "%"
-    ADD = "+"
-    SUBTRACT = "-"
+    PLUS = "+"
+    MINUS = "-"
     EQUAL = "=="
     NOT_EQUAL = "!="
     LESS_THAN = "<"
@@ -248,8 +248,8 @@ OPERATOR_PRECEDENCE: Sequence[Sequence[BinaryOperator | UnaryOperator]] = (
         BinaryOperator.MODULO,
     ),
     (
-        BinaryOperator.ADD,
-        BinaryOperator.SUBTRACT,
+        BinaryOperator.PLUS,
+        BinaryOperator.MINUS,
     ),
     (
         BinaryOperator.EQUAL,
