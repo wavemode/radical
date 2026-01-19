@@ -6,6 +6,9 @@ from radical.util.core.unit import Unit
 
 
 class Tokenizer(Unit):
+    # TODO: char literals, hex numbers, binary numbers, octal numbers, byte literals in strings
+    # TODO: backslash line continuations
+
     def __init__(self, contents: str, filename: str) -> None:
         super().__init__()
         self._contents = contents
@@ -20,6 +23,9 @@ class Tokenizer(Unit):
 
     def token_at(self, index: int) -> Token:
         return self._tokens[index] if index < len(self._tokens) else self._tokens[-1]
+
+    def tokens(self) -> list[Token]:
+        return self._tokens[:]
 
     def _tokenize(self) -> None:
         while not self._at_end():
@@ -108,7 +114,9 @@ class Tokenizer(Unit):
             self._advance_non_whitespace()
         else:
             # Expressions
-            if (
+            if char == "f" and next_char == '"':
+                self._read_format_string_literal()
+            elif (
                 char == "r"
                 and next_char == '"'
                 and self._peek(2) == '"'
@@ -142,6 +150,48 @@ class Tokenizer(Unit):
                 self._read_function_call_expression()
             elif char == "[":
                 self._read_indexing_expression()
+
+    def _read_format_string_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.FORMAT_STRING_EXPR_START, "{")
+        self._advance_non_whitespace()
+        while self._peek() != "}":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated format string expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.FORMAT_STRING_EXPR_END, "}")
+        self._advance_non_whitespace()
+
+    def _read_format_string_section(self) -> None:
+        start_position = self._position()
+        string_chars: list[str] = []
+        while not (
+            self._peek() == "{" or self._peek() == '"'
+        ):
+            if self._at_end() or self._peek() == "\n":
+                self._raise_parse_error(
+                    "Unterminated format string", start_position
+                )
+            string_chars.append(self._read_format_string_char())
+        string_value = "".join(string_chars)
+        self._add_token(
+            TokenType.FORMAT_STRING_SECTION, string_value, start_position
+        )
+
+    def _read_format_string_char(self) -> str:
+        if self._peek() == "\\":
+            next_char = self._peek(1)
+            if next_char == "{":
+                self._advance_non_whitespace(2)
+                return "{"
+            else:
+                return self._read_string_literal_char()
+        else:
+            char = self._peek()
+            self._advance_non_whitespace()
+            return char
 
     def _read_indexing_expression(self) -> None:
         start_position = self._position()

@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
 
-from typing import cast
 from radical.unit.parser.tokenizer import Tokenizer
-from radical.data.parser.token import Token
 
 from radical.util.testutils import collect_test_cases
 
 
-def _token_stream_from_text(text: str, filename: str) -> Tokenizer:
+def _tokenizer_from_text(text: str, filename: str) -> Tokenizer:
     return Tokenizer(text, filename=filename)
 
 
 def fix_tokenizer_tests():
     for test_case in collect_test_cases("test_cases/tokenizer"):
-        token_stream = _token_stream_from_text(
+        tokenizer = _tokenizer_from_text(
             test_case.contents, filename=test_case.path
         )
         formatted = "\n".join(
-            str(token) for token in cast(list[Token], getattr(token_stream, "_tokens"))
+            str(token) for token in tokenizer.tokens()
         )
         test_case.update_expected_output(formatted)
 

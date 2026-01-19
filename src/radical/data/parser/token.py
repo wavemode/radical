@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from radical.data.parser.position import Position
+import json
 
 
 class TokenType(Enum):
@@ -59,7 +60,22 @@ class TokenType(Enum):
     STRING_LITERAL = "STRING_LITERAL"
     RAW_STRING_LITERAL = "RAW_STRING_LITERAL"
     MULTILINE_STRING_LITERAL = "MULTILINE_STRING_LITERAL"
-    RAW_MULTILINE_STRING_LITERAL = "RAW_MULTILINE_STRING_LITERAL"
+    RAW_MULTILINE_STRING_LITERAL = f"RAW_MULTILINE_STRING_LITERAL"
+
+    # in the string f"hello {a + b} world {c + d} !" we have:
+    # FORMAT_STRING_START = 'f"'
+    # FORMAT_STRING_SECTION = 'hello '
+    # FORMAT_STRING_EXPR_START SYMBOL, PLUS, SYMBOL, FORMAT_STRING_EXPR_END
+    # FORMAT_STRING_SECTION = ' world '
+    # FORMAT_STRING_EXPR_START, SYMBOL, PLUS, SYMBOL, FORMAT_STRING_EXPR_END
+    # FORMAT_STRING_SECTION = ' !'
+    # FORMAT_STRING_END = '"'"
+    FORMAT_STRING_START = "FORMAT_STRING_START"
+    FORMAT_STRING_SECTION = "FORMAT_STRING_SECTION"
+    FORMAT_STRING_EXPR_START = "FORMAT_STRING_EXPR_START"
+    FORMAT_STRING_EXPR_END = "FORMAT_STRING_EXPR_END"
+    FORMAT_STRING_END = "FORMAT_STRING_END"
+
     INTEGER_LITERAL = "INTEGER_LITERAL"
     FLOAT_LITERAL = "FLOAT_LITERAL"
     SCI_FLOAT_LITERAL = "SCI_FLOAT_LITERAL"
@@ -86,4 +102,4 @@ class Token:
     value: str
 
     def __str__(self) -> str:
-        return f"Token(type={self.type.name}, value='{self.value}', position=({self.position.line}, {self.position.column}, {self.position.indent_level}))"
+        return f"Token(type={self.type.name}, value={json.dumps(self.value)}, position=({self.position.line}, {self.position.column}, {self.position.indent_level}))"
