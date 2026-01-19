@@ -343,6 +343,7 @@ class Tokenizer(Unit):
         "of",
         "import",
         "as",
+        "const",
     }
 
     def _read_word(self) -> None:

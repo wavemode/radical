@@ -2,7 +2,7 @@
  (*(**)*) if then else for in and or not true false null
           type typeof fun let try
           catch finally raise assert data case of
-          import as
+          import as const
     -- some symbols
     notand
 
@@ -32,9 +32,10 @@ Token(type=CASE, value='case', position=(4, 43, 10))
 Token(type=OF, value='of', position=(4, 48, 10))
 Token(type=IMPORT, value='import', position=(5, 11, 10))
 Token(type=AS, value='as', position=(5, 18, 10))
+Token(type=CONST, value='const', position=(5, 21, 10))
 Token(type=SYMBOL, value='notand', position=(7, 5, 4))
-Token(type=SYMBOL, value='ifthen', position=(40, 5, 4))
-Token(type=EOF, value='', position=(40, 11, 4))
+Token(type=SYMBOL, value='ifthen', position=(41, 5, 4))
+Token(type=EOF, value='', position=(41, 11, 4))
 *)
 
     ifthen

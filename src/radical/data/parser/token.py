@@ -30,6 +30,7 @@ class TokenType(Enum):
     OF = "of"
     IMPORT = "import"
     AS = "as"
+    CONST = "const"
 
     COMMA = ","
     COLON = ":"
