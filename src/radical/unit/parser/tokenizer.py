@@ -19,22 +19,31 @@ class Tokenizer(Unit):
         self._column = 1
         self._indent_level = 0
         self._seen_non_whitespace = False
-        self._tokenize()
+        self._token_index = 0
 
-    def token_at(self, index: int) -> Token:
-        return self._tokens[index] if index < len(self._tokens) else self._tokens[-1]
+    def peek(self, n: int = 0) -> Token:
+        while len(self._tokens) <= self._token_index + n:
+            if self._at_end():
+                return self._tokens[-1]
+            self._read_token()
+        return self._tokens[self._token_index + n]
 
-    def tokens(self) -> list[Token]:
-        return self._tokens[:]
+    def read(self) -> Token:
+        token = self.peek()
+        self._token_index += 1
+        return token
 
-    def _tokenize(self) -> None:
+    def read_all(self) -> list[Token]:
         while not self._at_end():
             self._read_token()
-        self._add_token(TokenType.EOF, "", self._position())
+        return self._tokens[:]
 
     def _read_token(self) -> None:
-        char = self._peek()
-        next_char = self._peek(1)
+        if self._at_end():
+            self._raise_parse_error("Unexpected end of input")
+
+        char = self._peek_char()
+        next_char = self._peek_char(1)
         if char == "\n":
             self._advance_newline()
         elif char.isspace():
@@ -58,7 +67,7 @@ class Tokenizer(Unit):
         elif char == "-" and next_char == ">":
             self._add_token(TokenType.ARROW, "->")
             self._advance_non_whitespace(2)
-        elif char == "." and next_char == "." and self._peek(2) == ".":
+        elif char == "." and next_char == "." and self._peek_char(2) == ".":
             self._add_token(TokenType.SPREAD, "...")
             self._advance_non_whitespace(3)
         elif char == "?":
@@ -114,16 +123,23 @@ class Tokenizer(Unit):
             self._advance_non_whitespace()
         else:
             # Expressions
-            if char == "f" and next_char == '"':
-                self._read_format_string_literal()
+            if (
+                char == "f"
+                and next_char == '"'
+                and self._peek_char(2) == '"'
+                and self._peek_char(3) == '"'
+            ):
+                self._read_multiline_format_string_literal()
+            elif char == "f" and next_char == '"':
+                self._read_format_string_literral()
             elif (
                 char == "r"
                 and next_char == '"'
-                and self._peek(2) == '"'
-                and self._peek(3) == '"'
+                and self._peek_char(2) == '"'
+                and self._peek_char(3) == '"'
             ):
                 self._read_raw_multiline_string_literal()
-            elif char == '"' and next_char == '"' and self._peek(2) == '"':
+            elif char == '"' and next_char == '"' and self._peek_char(2) == '"':
                 self._read_multiline_string_literal()
             elif char == "r" and next_char == '"':
                 self._read_raw_string_literal()
@@ -145,17 +161,66 @@ class Tokenizer(Unit):
                 self._raise_parse_error(f"Unexpected character: '{char}'")
 
             # special cases for when an expression is followed immediately by certain tokens
-            char = self._peek()
+            char = self._peek_char()
             if char == "(":
                 self._read_function_call_expression()
             elif char == "[":
                 self._read_indexing_expression()
 
+        if self._at_end():
+            self._add_token(TokenType.EOF, "", self._position())
+
+    def _read_multiline_format_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace(4)  # Skip opening f"""
+        self._add_token(TokenType.MULTILINE_FORMAT_STRING_START, 'f"""', start_position)
+        while not (
+            self._peek_char() == '"'
+            and self._peek_char(1) == '"'
+            and self._peek_char(2) == '"'
+        ):
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated multiline format string", start_position
+                )
+            elif self._peek_char() == "{":
+                self._read_format_string_expression()
+            else:
+                self._read_multiline_format_string_section()
+        self._add_token(TokenType.MULTILINE_FORMAT_STRING_END, '"""')
+        self._advance_non_whitespace(3)  # Skip closing """
+
+    def _read_multiline_format_string_section(self) -> None:
+        start_position = self._position()
+        string_chars: list[str] = []
+        while self._peek_char() not in ("{", '"'):
+            if self._at_end():
+                self._raise_parse_error("Unterminated format string", start_position)
+            string_chars.append(self._read_format_string_char())
+        string_value = "".join(string_chars)
+        self._add_token(
+            TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
+        )
+
+    def _read_format_string_literral(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.FORMAT_STRING_START, 'f"', start_position)
+        self._advance_non_whitespace(2)  # Skip opening f"
+        while not (self._peek_char() == '"'):
+            if self._at_end() or self._peek_char() == "\n":
+                self._raise_parse_error("Unterminated format string", start_position)
+            elif self._peek_char() == "{":
+                self._read_format_string_expression()
+            else:
+                self._read_format_string_section()
+        self._add_token(TokenType.FORMAT_STRING_END, '"')
+        self._advance_non_whitespace()  # Skip closing quote
+
     def _read_format_string_expression(self) -> None:
         start_position = self._position()
         self._add_token(TokenType.FORMAT_STRING_EXPR_START, "{")
         self._advance_non_whitespace()
-        while self._peek() != "}":
+        while self._peek_char() != "}":
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated format string expression", start_position
@@ -167,29 +232,23 @@ class Tokenizer(Unit):
     def _read_format_string_section(self) -> None:
         start_position = self._position()
         string_chars: list[str] = []
-        while not (
-            self._peek() == "{" or self._peek() == '"'
-        ):
-            if self._at_end() or self._peek() == "\n":
-                self._raise_parse_error(
-                    "Unterminated format string", start_position
-                )
+        while self._peek_char() not in ("{", '"'):
+            if self._at_end() or self._peek_char() == "\n":
+                self._raise_parse_error("Unterminated format string", start_position)
             string_chars.append(self._read_format_string_char())
         string_value = "".join(string_chars)
-        self._add_token(
-            TokenType.FORMAT_STRING_SECTION, string_value, start_position
-        )
+        self._add_token(TokenType.FORMAT_STRING_SECTION, string_value, start_position)
 
     def _read_format_string_char(self) -> str:
-        if self._peek() == "\\":
-            next_char = self._peek(1)
+        if self._peek_char() == "\\":
+            next_char = self._peek_char(1)
             if next_char == "{":
                 self._advance_non_whitespace(2)
                 return "{"
             else:
                 return self._read_string_literal_char()
         else:
-            char = self._peek()
+            char = self._peek_char()
             self._advance_non_whitespace()
             return char
 
@@ -197,7 +256,7 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._add_token(TokenType.INDEXING_START, "[")
         self._advance_non_whitespace()
-        while self._peek() != "]":
+        while self._peek_char() != "]":
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated indexing expression", start_position
@@ -210,7 +269,7 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._add_token(TokenType.FUNCTION_CALL_START, "(")
         self._advance_non_whitespace()
-        while self._peek() != ")":
+        while self._peek_char() != ")":
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated function call expression", start_position
@@ -223,7 +282,7 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._add_token(TokenType.OBJECT_START, "{")
         self._advance_non_whitespace()
-        while self._peek() != "}":
+        while self._peek_char() != "}":
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated object expression", start_position
@@ -236,7 +295,7 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._add_token(TokenType.LIST_START, "[")
         self._advance_non_whitespace()
-        while self._peek() != "]":
+        while self._peek_char() != "]":
             if self._at_end():
                 self._raise_parse_error("Unterminated list expression", start_position)
             self._read_token()
@@ -250,7 +309,7 @@ class Tokenizer(Unit):
             "(",
         )
         self._advance_non_whitespace()
-        while self._peek() != ")":
+        while self._peek_char() != ")":
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated parentheses expression", start_position
@@ -264,7 +323,9 @@ class Tokenizer(Unit):
         self._advance_non_whitespace(4)  # Skip opening r"""
         start_index = self._index
         while not (
-            self._peek() == '"' and self._peek(1) == '"' and self._peek(2) == '"'
+            self._peek_char() == '"'
+            and self._peek_char(1) == '"'
+            and self._peek_char(2) == '"'
         ):
             if self._at_end():
                 self._raise_parse_error(
@@ -281,8 +342,8 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._advance_non_whitespace(2)  # Skip opening r"
         start_index = self._index
-        while self._peek() != '"':
-            if self._at_end() or self._peek() == "\n":
+        while self._peek_char() != '"':
+            if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error(
                     "Unterminated raw string literal", start_position
                 )
@@ -296,7 +357,9 @@ class Tokenizer(Unit):
         self._advance_non_whitespace(3)  # Skip opening """
         string_chars: list[str] = []
         while not (
-            self._peek() == '"' and self._peek(1) == '"' and self._peek(2) == '"'
+            self._peek_char() == '"'
+            and self._peek_char(1) == '"'
+            and self._peek_char(2) == '"'
         ):
             if self._at_end():
                 self._raise_parse_error(
@@ -313,8 +376,8 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._advance_non_whitespace()  # Skip opening quote
         string_chars: list[str] = []
-        while self._peek() != '"':
-            if self._at_end() or self._peek() == "\n":
+        while self._peek_char() != '"':
+            if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error("Unterminated string literal", start_position)
             string_chars.append(self._read_string_literal_char())
         string_value = "".join(string_chars)
@@ -322,9 +385,9 @@ class Tokenizer(Unit):
         self._add_token(TokenType.STRING_LITERAL, string_value, start_position)
 
     def _read_string_literal_char(self) -> str:
-        char = self._peek()
+        char = self._peek_char()
         if char == "\\":
-            next_char = self._peek(1)
+            next_char = self._peek_char(1)
             if next_char == "n":
                 self._advance_non_whitespace(2)
                 return "\n"
@@ -349,21 +412,51 @@ class Tokenizer(Unit):
     def _read_number(self) -> None:
         start_position = self._position()
         start_index = self._index
-        while self._peek().isdigit() or self._peek() in ("e", "E", "+", "-", "."):
+        while self._peek_char().isdigit() or self._peek_char() in (
+            "e",
+            "E",
+            "o",
+            "O",
+            "x",
+            "X",
+            "b",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "_",
+            "+",
+            "-",
+            ".",
+        ):
             self._advance_non_whitespace()
         number = self._contents[start_index : self._index]
         try:
             int(number)
         except ValueError:
             try:
-                float(number)
+                int(number, 2)
             except ValueError:
-                self._raise_parse_error(f"Invalid number format: '{number}'")
-            else:
-                if "e" in number or "E" in number:
-                    self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
-                else:
-                    self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+                try:
+                    int(number, 8)
+                except ValueError:
+                    try:
+                        int(number, 16)
+                    except ValueError:
+                        try:
+                            float(number)
+                        except ValueError:
+                            self._raise_parse_error(f"Invalid number format: '{number}'")
+                        else:
+                            if "e" in number or "E" in number:
+                                self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
+                            else:
+                                self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+                            return
+        if "e" in number or "E" in number:
+            self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
         else:
             self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
 
@@ -399,7 +492,7 @@ class Tokenizer(Unit):
     def _read_word(self) -> None:
         start_position = self._position()
         start_index = self._index
-        while self._peek().isalnum() or self._peek() == "_":
+        while self._peek_char().isalnum() or self._peek_char() == "_":
             self._advance_non_whitespace()
         word = self._contents[start_index : self._index]
         if word in self._KEYWORDS:
@@ -411,7 +504,7 @@ class Tokenizer(Unit):
         start_position = self._position()
         self._advance_non_whitespace()  # Skip opening backtick
         start_index = self._index
-        while self._peek() != "`":
+        while self._peek_char() != "`":
             if self._at_end():
                 self._raise_parse_error("Unterminated quoted symbol", start_position)
             self._advance_non_whitespace()
@@ -422,12 +515,12 @@ class Tokenizer(Unit):
     def _read_multiline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '(*'
         while not self._at_end():
-            if self._peek() == "(" and self._peek(1) == "*":
+            if self._peek_char() == "(" and self._peek_char(1) == "*":
                 self._read_multiline_comment()
-            elif self._peek() == "*" and self._peek(1) == ")":
+            elif self._peek_char() == "*" and self._peek_char(1) == ")":
                 self._advance_whitespace(2)  # Skip '*)'
                 return
-            elif self._peek() == "\n":
+            elif self._peek_char() == "\n":
                 self._advance_newline()
             else:
                 self._advance_whitespace()
@@ -435,10 +528,10 @@ class Tokenizer(Unit):
 
     def _read_singleline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '--'
-        while not self._at_end() and self._peek() != "\n":
+        while not self._at_end() and self._peek_char() != "\n":
             self._advance_whitespace()
 
-    def _peek(self, n: int = 0) -> str:
+    def _peek_char(self, n: int = 0) -> str:
         return (
             self._contents[self._index + n]
             if self._index + n < len(self._contents)

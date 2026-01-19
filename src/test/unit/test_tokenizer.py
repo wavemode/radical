@@ -11,6 +11,7 @@ if os.environ.get("RAD_DEBUG"):
     debugpy.listen(5678)
     debugpy.wait_for_client()
 
+
 class TestParser(TestCase):
     maxDiff = None
 
@@ -21,10 +22,17 @@ class TestParser(TestCase):
             enabled_files = enabled_files_env.split(",")
         else:
             enabled_files = None
-        test_cases = collect_test_cases("test_cases/tokenizer", enabled_files=enabled_files)
+        test_cases = collect_test_cases(
+            "test_cases/tokenizer", enabled_files=enabled_files
+        )
         for test_case in test_cases:
             with self.subTest(test_case.path):
                 self.assertEqual(
                     test_case.expected_output,
-                    "\n".join(str(t) for t in Tokenizer(test_case.contents, test_case.path).tokens())
+                    "\n".join(
+                        str(t)
+                        for t in Tokenizer(
+                            test_case.contents, test_case.path
+                        ).read_all()
+                    ),
                 )
