@@ -299,7 +299,7 @@ class Tokenizer(Unit):
     def _read_number(self) -> None:
         start_position = self._position()
         start_index = self._index
-        while self._peek().isdigit() or self._peek() == ".":
+        while self._peek().isdigit() or self._peek() in ("e", "E", "+", "-", "."):
             self._advance_non_whitespace()
         number = self._contents[start_index : self._index]
         try:
