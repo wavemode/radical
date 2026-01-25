@@ -13,17 +13,17 @@ def _parser_from_text(text: str, filename: str) -> FileParser:
 
 def fix_parser_tests():
     for test_case in collect_test_cases("test_cases/parser"):
-        parser = _parser_from_text(test_case.contents, filename=test_case.path)
-        module = parser.parse_module()
-        formatted = module.format()
-        test_case.update_expected_output(formatted)
+        with _parser_from_text(test_case.contents, filename=test_case.path) as parser:
+            module = parser.parse_module()
+            formatted = module.format()
+            test_case.update_expected_output(formatted)
 
 
 def fix_tokenizer_tests():
     for test_case in collect_test_cases("test_cases/tokenizer"):
-        tokenizer = Tokenizer(test_case.contents, filename=test_case.path)
-        formatted = "\n".join(str(token) for token in tokenizer.read_all())
-        test_case.update_expected_output(formatted)
+        with Tokenizer(test_case.contents, filename=test_case.path) as tokenizer:
+            formatted = "\n".join(str(token) for token in tokenizer.read_all())
+            test_case.update_expected_output(formatted)
 
 
 if __name__ == "__main__":

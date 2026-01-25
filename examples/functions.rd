@@ -1,4 +1,4 @@
-fun example1(x: Int, y: Int): Int =
+example1(x: Int, y: Int) -> Int =
     x + y
 
 -- alternative syntax
@@ -9,7 +9,7 @@ example2 = (x, y) -> x + y
 sumAll : (...Int) -> Int
 sumAll = (...nums) ->
     -- simpler would be nums.fold(0, _ + _)
-    let fun helper(index: Int, acc: Int): Int =
+    let helper(index, acc) =
         if index >= nums.length then
             acc
         else
@@ -19,8 +19,8 @@ sumAll = (...nums) ->
 
 -- generic function
 sumAllGeneric : [T]((T, T) -> T, ...T) -> T
-fun sumAllGeneric[T](combiner: fun(T, T) -> T, ...items: T): T =
-    let fun helper(index: Int, acc: T): T =
+sumAllGeneric[T](combiner: fun(T, T) -> T, ...items: T) -> T =
+    let helper(index: Int, acc: T): T =
         if index >= items.length then
             acc
         else
@@ -29,5 +29,5 @@ fun sumAllGeneric[T](combiner: fun(T, T) -> T, ...items: T): T =
         helper(1, items[0])
 
 sumAllGenericConstrained : [T : Numeric](...T) -> T
-fun sumAllGenericConstrained[T : Numeric](...items: T): T =
+sumAllGenericConstrained[T : Numeric](...items: T) -> T =
     sumAllGeneric[T](_ + _, ...items)

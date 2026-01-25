@@ -75,7 +75,6 @@ class FileParser(Unit):
     _filename: str
 
     def __init__(self, char_stream: CharStream, filename: str) -> None:
-        super().__init__()
         self._char_stream = self.add_child(char_stream)
         self._filename = filename
 

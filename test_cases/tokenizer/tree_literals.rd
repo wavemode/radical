@@ -36,16 +36,6 @@ tripleNestedTreeNoCommas = {
     }
 }
 
-treeComprehension = {
-    ["a"] {
-        b { 
-            c
-        }
-    }
-    for a in someSetA
-    for b in someSetB
-    for c in someSetC
-}
 
 (*
 Token(type=SYMBOL, value="singleEntryTree", position=(1, 1, 0))
@@ -121,30 +111,5 @@ Token(type=SYMBOL, value="grandchild6", position=(34, 21, 12))
 Token(type=OBJECT_END, value="}", position=(35, 9, 8))
 Token(type=OBJECT_END, value="}", position=(36, 5, 4))
 Token(type=OBJECT_END, value="}", position=(37, 1, 0))
-Token(type=SYMBOL, value="treeComprehension", position=(39, 1, 0))
-Token(type=ASSIGN, value="=", position=(39, 19, 0))
-Token(type=OBJECT_START, value="{", position=(39, 21, 0))
-Token(type=LIST_START, value="[", position=(40, 5, 4))
-Token(type=STRING_LITERAL, value="a", position=(40, 6, 4))
-Token(type=LIST_END, value="]", position=(40, 9, 4))
-Token(type=OBJECT_START, value="{", position=(40, 11, 4))
-Token(type=SYMBOL, value="b", position=(41, 9, 8))
-Token(type=OBJECT_START, value="{", position=(41, 11, 8))
-Token(type=SYMBOL, value="c", position=(42, 13, 12))
-Token(type=OBJECT_END, value="}", position=(43, 9, 8))
-Token(type=OBJECT_END, value="}", position=(44, 5, 4))
-Token(type=FOR, value="for", position=(45, 5, 4))
-Token(type=SYMBOL, value="a", position=(45, 9, 4))
-Token(type=IN, value="in", position=(45, 11, 4))
-Token(type=SYMBOL, value="someSetA", position=(45, 14, 4))
-Token(type=FOR, value="for", position=(46, 5, 4))
-Token(type=SYMBOL, value="b", position=(46, 9, 4))
-Token(type=IN, value="in", position=(46, 11, 4))
-Token(type=SYMBOL, value="someSetB", position=(46, 14, 4))
-Token(type=FOR, value="for", position=(47, 5, 4))
-Token(type=SYMBOL, value="c", position=(47, 9, 4))
-Token(type=IN, value="in", position=(47, 11, 4))
-Token(type=SYMBOL, value="someSetC", position=(47, 14, 4))
-Token(type=OBJECT_END, value="}", position=(48, 1, 0))
-Token(type=EOF, value="", position=(151, 1, 0))
+Token(type=EOF, value="", position=(116, 1, 0))
 *)

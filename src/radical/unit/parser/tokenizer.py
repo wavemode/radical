@@ -69,12 +69,12 @@ class Tokenizer(Unit):
             self._add_token(TokenType.ARROW, "->")
             self._advance_non_whitespace(2)
         elif char == "." and next_char == "." and self._peek_char(2) == ".":
-            self._add_token(TokenType.SPREAD, "...")
+            self._add_token(TokenType.ELLIPSIS, "...")
             self._advance_non_whitespace(3)
         elif char == "?":
             self._add_token(TokenType.QUESTION, char)
             self._advance_non_whitespace()
-        elif char == ".":
+        elif char == "." and self._previous_char_was_expression():
             self._add_token(TokenType.DOT, char)
             self._advance_non_whitespace()
         elif char == "*" and next_char == "*":
@@ -119,54 +119,51 @@ class Tokenizer(Unit):
         elif char == "=":
             self._add_token(TokenType.ASSIGN, char)
             self._advance_non_whitespace()
-        elif char == "&":
-            self._add_token(TokenType.AMPERSAND, char)
+        elif char == "@":
+            self._add_token(TokenType.AT, char)
             self._advance_non_whitespace()
-        else:
-            # Expressions
-            if (
-                char == "f"
-                and next_char == '"'
-                and self._peek_char(2) == '"'
-                and self._peek_char(3) == '"'
-            ):
-                self._read_multiline_format_string_literal()
-            elif char == "f" and next_char == '"':
-                self._read_format_string_literral()
-            elif (
-                char == "r"
-                and next_char == '"'
-                and self._peek_char(2) == '"'
-                and self._peek_char(3) == '"'
-            ):
-                self._read_raw_multiline_string_literal()
-            elif char == '"' and next_char == '"' and self._peek_char(2) == '"':
-                self._read_multiline_string_literal()
-            elif char == "r" and next_char == '"':
-                self._read_raw_string_literal()
-            elif char == '"':
-                self._read_string_literal()
-            elif char == "(":
-                self._read_parentheses_expression()
-            elif char == "[":
-                self._read_list_expression()
-            elif char == "{":
-                self._read_object_expression()
-            elif char == "`":
-                self._read_quoted_symbol()
-            elif char.isdigit():
-                self._read_number()
-            elif char.isalpha() or char == "_":
-                self._read_word()
-            else:
-                self._raise_parse_error(f"Unexpected character: '{char}'")
-
-            # special cases for when an expression is followed immediately by certain tokens
-            char = self._peek_char()
-            if char == "(":
+        elif (
+            char == "f"
+            and next_char == '"'
+            and self._peek_char(2) == '"'
+            and self._peek_char(3) == '"'
+        ):
+            self._read_multiline_format_string_literal()
+        elif char == "f" and next_char == '"':
+            self._read_format_string_literral()
+        elif (
+            char == "r"
+            and next_char == '"'
+            and self._peek_char(2) == '"'
+            and self._peek_char(3) == '"'
+        ):
+            self._read_raw_multiline_string_literal()
+        elif char == '"' and next_char == '"' and self._peek_char(2) == '"':
+            self._read_multiline_string_literal()
+        elif char == "r" and next_char == '"':
+            self._read_raw_string_literal()
+        elif char == '"':
+            self._read_string_literal()
+        elif char == "(":
+            if self._previous_char_was_expression():
                 self._read_function_call_expression()
-            elif char == "[":
+            else:
+                self._read_parentheses_expression()
+        elif char == "[":
+            if self._previous_char_was_expression():
                 self._read_indexing_expression()
+            else:
+                self._read_list_expression()
+        elif char == "{":
+            self._read_object_expression()
+        elif char == "`":
+            self._read_quoted_symbol()
+        elif char.isdigit():
+            self._read_number()
+        elif char.isalpha() or char == "_":
+            self._read_word()
+        else:
+            self._raise_parse_error(f"Unexpected character: '{char}'")
 
         if self._at_end():
             self._add_token(TokenType.EOF, "", self._position())
@@ -450,10 +447,13 @@ class Tokenizer(Unit):
                         int(number, 16)
                     except ValueError:
                         try:
-                            float(number)
+                            float(
+                                number,
+                            )
                         except ValueError:
                             self._raise_parse_error(
-                                f"Invalid number format: '{number}'"
+                                f"Invalid number format: '{number}'",
+                                start_position,
                             )
                         else:
                             if "e" in number or "E" in number:
@@ -474,8 +474,6 @@ class Tokenizer(Unit):
         "if",
         "then",
         "else",
-        "for",
-        "in",
         "and",
         "or",
         "not",
@@ -484,13 +482,10 @@ class Tokenizer(Unit):
         "null",
         "type",
         "typeof",
-        "fun",
+        "module",
+        "proc",
         "let",
-        "try",
-        "catch",
-        "finally",
-        "raise",
-        "assert",
+        "in",
         "data",
         "case",
         "of",
@@ -502,7 +497,11 @@ class Tokenizer(Unit):
     def _read_word(self) -> None:
         start_position = self._position()
         start_index = self._index
-        while self._peek_char().isalnum() or self._peek_char() == "_":
+        while (
+            self._peek_char().isalnum()
+            or self._peek_char() == "_"
+            or self._peek_char() == "'"
+        ):
             self._advance_non_whitespace()
         word = self._contents[start_index : self._index]
         if word in self._KEYWORDS:
@@ -541,10 +540,34 @@ class Tokenizer(Unit):
         while not self._at_end() and self._peek_char() != "\n":
             self._advance_whitespace()
 
+    def _previous_char_was_expression(self) -> bool:
+        if (
+            self._peek_char(-1).isspace()
+            or self._peek_char(-1) == ""
+            or not self._tokens
+        ):
+            return False
+        return self._tokens[-1].type in {
+            TokenType.TRUE,
+            TokenType.FALSE,
+            TokenType.NULL,
+            TokenType.STRING_LITERAL,
+            TokenType.MULTILINE_STRING_LITERAL,
+            TokenType.INTEGER_LITERAL,
+            TokenType.FLOAT_LITERAL,
+            TokenType.SCI_FLOAT_LITERAL,
+            TokenType.SYMBOL,
+            TokenType.PARENTHESES_END,
+            TokenType.FUNCTION_CALL_END,
+            TokenType.LIST_END,
+            TokenType.INDEXING_END,
+            TokenType.OBJECT_END,
+        }
+
     def _peek_char(self, n: int = 0) -> str:
         return (
             self._contents[self._index + n]
-            if self._index + n < len(self._contents)
+            if 0 <= self._index + n < len(self._contents)
             else ""
         )
 
