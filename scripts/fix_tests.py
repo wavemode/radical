@@ -20,9 +20,9 @@ def fix_parser_tests():
 
 
 def fix_lexer_tests():
-    for test_case in collect_test_cases("test_cases/tokenizer"):
-        with Lexer(test_case.contents, filename=test_case.path) as tokenizer:
-            formatted = "\n".join(str(token) for token in tokenizer.read_all())
+    for test_case in collect_test_cases("test_cases/lexer"):
+        with Lexer(test_case.contents, filename=test_case.path) as lexer:
+            formatted = "\n".join(str(token) for token in lexer.read_all())
             test_case.update_expected_output(formatted)
 
 

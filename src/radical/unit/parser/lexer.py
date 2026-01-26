@@ -6,7 +6,6 @@ from radical.util.core.unit import Unit
 
 
 class Lexer(Unit):
-
     def __init__(self, contents: str, filename: str) -> None:
         super().__init__()
         self._contents = contents
