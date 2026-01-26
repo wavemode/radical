@@ -5,10 +5,7 @@ from radical.data.parser.token import Token, TokenType
 from radical.util.core.unit import Unit
 
 
-class Tokenizer(Unit):
-    # TODO: single-quoted strings (+ eliminate Char type from test cases)
-    # TODO: byte literals in strings
-    # TODO: backslash line continuations
+class Lexer(Unit):
 
     def __init__(self, contents: str, filename: str) -> None:
         super().__init__()

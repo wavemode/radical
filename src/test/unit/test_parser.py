@@ -47,7 +47,7 @@ class TestParser(TestCase):
 
         for root, _, files in os.walk("test_cases/parser"):
             for file in files:
-                if not file.endswith(".rd"):
+                if not file.endswith(".rad"):
                     continue
                 file_path = os.path.join(root, file)
                 if enabled_files is not None and file_path not in enabled_files:

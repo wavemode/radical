@@ -39,13 +39,15 @@ class CompilerTestCase:
             f.write(new_text)
 
 
-def collect_test_cases(
-    directory: str, enabled_files: list[str] | None = None
-) -> list[CompilerTestCase]:
+def collect_test_cases(directory: str) -> list[CompilerTestCase]:
+    enabled_files_env = os.environ.get("RAD_TEST_FILES")
+    enabled_files: list[str] | None = None
+    if enabled_files_env:
+        enabled_files = enabled_files_env.split(",")
     result: list[CompilerTestCase] = []
     for root, _, files in os.walk(directory):
         for file in files:
-            if not file.endswith(".rd"):
+            if not file.endswith(".rad"):
                 continue
             file_path = os.path.join(root, file)
             if enabled_files is not None and file_path not in enabled_files:
