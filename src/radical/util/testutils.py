@@ -22,18 +22,14 @@ class CompilerTestCase:
         with open(self.path, "r") as f:
             text = f.read()
         test_case_start = text.rfind("(*")
-        test_case_end = text.rfind("*)")
+        test_case_end = text.rfind("*)") + 2
 
         if test_case_start == -1 or test_case_end == -1:
             test_case_start = len(text)
             test_case_end = len(text)
 
         new_text = (
-            text[:test_case_start]
-            + "(*\n"
-            + new_output
-            + "\n*)"
-            + text[test_case_end + 2 :]
+            text[:test_case_start] + "(*\n" + new_output + "\n*)" + text[test_case_end:]
         )
         with open(self.path, "w") as f:
             f.write(new_text)
