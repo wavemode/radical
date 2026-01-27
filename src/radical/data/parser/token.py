@@ -27,6 +27,7 @@ class TokenType(Enum):
     IMPORT = "import"
     AS = "as"
     CONST = "const"
+    LOCAL = "local"
 
     COMMA = ","
     COLON = ":"
@@ -50,7 +51,6 @@ class TokenType(Enum):
     LESS_THAN = "<"
     GREATER_THAN = ">"
     ASSIGN = "="
-    AT = "@"
 
     STRING_LITERAL = "STRING_LITERAL"
     RAW_STRING_LITERAL = "RAW_STRING_LITERAL"
@@ -90,6 +90,8 @@ class TokenType(Enum):
     INDEXING_END = "INDEXING_END"
     OBJECT_START = "OBJECT_START"
     OBJECT_END = "OBJECT_END"
+    TYPE_APPLICATION_START = "TYPE_APPLICATION_START"
+    TYPE_APPLICATION_END = "TYPE_APPLICATION_END"
 
     EOF = "EOF"
 

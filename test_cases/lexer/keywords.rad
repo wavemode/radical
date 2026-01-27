@@ -20,8 +20,9 @@
         import
         as
         const
+        local
     -- some symbols
-    notand
+    notand caseof
 
 (*
 Token(type=IF, value="if", position=(2, 11, 10))
@@ -45,9 +46,11 @@ Token(type=OF, value="of", position=(19, 9, 8))
 Token(type=IMPORT, value="import", position=(20, 9, 8))
 Token(type=AS, value="as", position=(21, 9, 8))
 Token(type=CONST, value="const", position=(22, 9, 8))
-Token(type=SYMBOL, value="notand", position=(24, 5, 4))
-Token(type=SYMBOL, value="ifthen", position=(53, 5, 4))
-Token(type=EOF, value="", position=(53, 11, 4))
+Token(type=LOCAL, value="local", position=(23, 9, 8))
+Token(type=SYMBOL, value="notand", position=(25, 5, 4))
+Token(type=SYMBOL, value="caseof", position=(25, 12, 4))
+Token(type=SYMBOL, value="ifthen", position=(56, 5, 4))
+Token(type=EOF, value="", position=(56, 11, 4))
 *)
 
     ifthen

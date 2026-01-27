@@ -115,9 +115,6 @@ class Lexer(Unit):
         elif char == "=":
             self._add_token(TokenType.ASSIGN, char)
             self._advance_non_whitespace()
-        elif char == "@":
-            self._add_token(TokenType.AT, char)
-            self._advance_non_whitespace()
         elif (
             char == "f"
             and next_char == '"'
@@ -145,6 +142,8 @@ class Lexer(Unit):
                 self._read_function_call_expression()
             else:
                 self._read_parentheses_expression()
+        elif char == "@" and next_char == "[" and self._previous_char_was_expression():
+            self._read_type_application_expression()
         elif char == "[":
             if self._previous_char_was_expression():
                 self._read_indexing_expression()
@@ -286,6 +285,19 @@ class Lexer(Unit):
                 )
             self._read_token()
         self._add_token(TokenType.OBJECT_END, "}")
+        self._advance_non_whitespace()
+
+    def _read_type_application_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.TYPE_APPLICATION_START, "@[")
+        self._advance_non_whitespace(2)
+        while self._peek_char() != "]":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated type application expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.TYPE_APPLICATION_END, "]")
         self._advance_non_whitespace()
 
     def _read_list_expression(self) -> None:
@@ -488,6 +500,7 @@ class Lexer(Unit):
         "import",
         "as",
         "const",
+        "local",
     }
 
     def _read_word(self) -> None:

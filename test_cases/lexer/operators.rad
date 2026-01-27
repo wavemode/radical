@@ -18,7 +18,6 @@
     < lessThan
     > greaterThan
     = assign
-    @ at
 
 (*
 Token(type=INTEGER_LITERAL, value="5", position=(1, 1, 0))
@@ -65,7 +64,5 @@ Token(type=GREATER_THAN, value=">", position=(19, 5, 4))
 Token(type=SYMBOL, value="greaterThan", position=(19, 7, 4))
 Token(type=ASSIGN, value="=", position=(20, 5, 4))
 Token(type=SYMBOL, value="assign", position=(20, 7, 4))
-Token(type=AT, value="@", position=(21, 5, 4))
-Token(type=SYMBOL, value="at", position=(21, 7, 4))
-Token(type=EOF, value="", position=(72, 1, 0))
+Token(type=EOF, value="", position=(69, 1, 0))
 *)
