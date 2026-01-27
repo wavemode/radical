@@ -63,6 +63,8 @@ class Node:
             parts.append(f"\n{indent}]")
         elif isinstance(value, Token):
             parts.append(json.dumps(value.value))
+        elif isinstance(value, Operator):
+            parts.append(f'"{value.value}"')
         else:
             parts.append(json.dumps(value))
         return "".join(parts)
@@ -80,11 +82,14 @@ class SymbolNode(Node):
 class StringLiteralNode(Node):
     contents: Token
 
+
 @dataclass(frozen=True)
 class NumberLiteralNode(Node):
     contents: Token
 
+
 # Operations
+
 
 class Operator(Enum):
     """
@@ -92,6 +97,7 @@ class Operator(Enum):
 
     Exponentiation is the only right-associative operator.
     """
+
     EXPONENTIATION = "**"
 
     POSITIVE = "+x"
@@ -120,14 +126,19 @@ class Operator(Enum):
 
     PIPE = "|>"
 
+
+@dataclass(frozen=True)
 class BinaryOperationNode(Node):
     left: "ValueExpressionNodeType"
     operator: Operator
     right: "ValueExpressionNodeType"
 
+
+@dataclass(frozen=True)
 class UnaryOperationNode(Node):
     operator: Operator
     operand: "ValueExpressionNodeType"
+
 
 # Declarations
 

@@ -1,4 +1,4 @@
-from typing import NoReturn
+from typing import Callable, NoReturn
 from radical.data.parser.ast import (
     AssignmentNode,
     ModuleNode,
@@ -9,6 +9,8 @@ from radical.data.parser.ast import (
     ValueExpressionNodeType,
     LocalAssignmentNode,
     AtomNodeType,
+    BinaryOperationNode,
+    Operator,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -26,6 +28,18 @@ class Parser(Unit):
             column=1,
             indent_level=0,
         )
+        self._atom_parsers: list[Callable[[], AtomNodeType | None]] = [
+            self.parse_number_literal,
+            self.parse_string_literal,
+            self.parse_symbol,
+        ]
+
+        self._top_level_declaration_parsers: list[
+            Callable[[], TopLevelDeclarationNodeType | None]
+        ] = [
+            self.parse_local_assignment,
+            self.parse_assignment,
+        ]
 
     def parse_module(self) -> ModuleNode:
         start_position = self._position
@@ -38,24 +52,18 @@ class Parser(Unit):
         )
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
-        if self.check_local_assignment():
-            return self.parse_local_assignment()
-        elif self.check_assignment():
-            return self.parse_assignment()
-        else:
-            next_token = self._peek()
-            self._raise_parse_error(
-                message=f"Expected top level declaration. Unexpected token '{next_token.value}'",
-                position=next_token.position,
-            )
+        for declaration_parser in self._top_level_declaration_parsers:
+            if declaration := declaration_parser():
+                return declaration
+        self._raise_parse_error(
+            message=f"Expected top level declaration. Unexpected token '{self._peek().value}'"
+        )
 
-    def check_local_assignment(self) -> bool:
-        return self._peek().type == TokenType.LOCAL
-
-    def parse_local_assignment(self) -> LocalAssignmentNode:
-        self.parse_token(TokenType.LOCAL)
-        target = self.parse_token(TokenType.SYMBOL)
-        self.parse_token(TokenType.ASSIGN)
+    def parse_local_assignment(self) -> LocalAssignmentNode | None:
+        if not self.parse_token(TokenType.LOCAL):
+            return None
+        target = self.require_token(TokenType.SYMBOL)
+        self.require_token(TokenType.ASSIGN)
         value = self.parse_value_expression()
         return LocalAssignmentNode(
             position=target.position,
@@ -66,88 +74,97 @@ class Parser(Unit):
             value=value,
         )
 
-    def check_assignment(self) -> bool:
-        return self._peek().type == TokenType.SYMBOL
-
-    def parse_assignment(self) -> AssignmentNode:
-        target = self.parse_token(TokenType.SYMBOL)
-        self.parse_token(TokenType.ASSIGN)
+    def parse_assignment(self) -> AssignmentNode | None:
+        if not (target := self.parse_symbol()):
+            return None
+        self.require_token(TokenType.ASSIGN)
         value = self.parse_value_expression()
         return AssignmentNode(
             position=target.position,
-            target=SymbolNode(
-                position=target.position,
-                name=target,
-            ),
+            target=target,
             value=value,
         )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
-        return self.parse_atom()
+        return self.parse_descend_expr_add()
 
-    def parse_atom(self) -> AtomNodeType:
-        if self.check_symbol():
-            return self.parse_symbol()
-        elif self.check_string_literal():
-            return self.parse_string_literal()
-        elif self.check_number_literal():
-            return self.parse_number_literal()
-        else:
-            self._raise_parse_error(
-                message=f"Expected atom. Unexpected token '{self._peek().value}'",
-                position=self._position,
+    def parse_descend_expr_add(self) -> ValueExpressionNodeType:
+        lhs = self.parse_descend_expr_mult()
+        while True:
+            if not self.parse_token(TokenType.PLUS):
+                return lhs
+            rhs = self.parse_descend_expr_mult()
+            lhs = BinaryOperationNode(
+                position=lhs.position,
+                left=lhs,
+                operator=Operator.PLUS,
+                right=rhs,
             )
 
-    def check_number_literal(self) -> bool:
-        return self._peek().type in {
-            TokenType.INTEGER_LITERAL,
-            TokenType.FLOAT_LITERAL,
-            TokenType.SCI_FLOAT_LITERAL,
-        }
+    def parse_descend_expr_mult(self) -> ValueExpressionNodeType:
+        lhs = self.parse_atom()
+        while True:
+            if not self.parse_token(TokenType.MULTIPLY):
+                return lhs
+            rhs = self.parse_atom()
+            lhs = BinaryOperationNode(
+                position=lhs.position,
+                left=lhs,
+                operator=Operator.MULTIPLY,
+                right=rhs,
+            )
 
-    def parse_number_literal(self) -> NumberLiteralNode:
-        token = self._read()
+    def parse_atom(self) -> AtomNodeType:
+        for atom_parser in self._atom_parsers:
+            if value := atom_parser():
+                return value
+        self._raise_parse_error(
+            message=f"Expected atom. Unexpected token '{self._peek().value}'"
+        )
+
+    def parse_number_literal(self) -> NumberLiteralNode | None:
+        token = self._peek()
         if token.type not in {
             TokenType.INTEGER_LITERAL,
             TokenType.FLOAT_LITERAL,
             TokenType.SCI_FLOAT_LITERAL,
         }:
-            self._raise_parse_error(
-                message=f"Expected number literal, but got '{token.value}'",
-                position=token.position,
-            )
+            return None
+        token = self._read()
         return NumberLiteralNode(
             position=token.position,
             contents=token,
         )
 
-    def check_string_literal(self) -> bool:
-        return self._peek().type == TokenType.STRING_LITERAL
-
-    def parse_string_literal(self) -> StringLiteralNode:
-        token = self.parse_token(TokenType.STRING_LITERAL)
+    def parse_string_literal(self) -> StringLiteralNode | None:
+        if not (token := self.parse_token(TokenType.STRING_LITERAL)):
+            return None
         return StringLiteralNode(
             position=token.position,
             contents=token,
         )
 
-    def check_symbol(self) -> bool:
-        return self._peek().type == TokenType.SYMBOL
-
-    def parse_symbol(self) -> SymbolNode:
-        token = self.parse_token(TokenType.SYMBOL)
+    def parse_symbol(self) -> SymbolNode | None:
+        if not (token := self.parse_token(TokenType.SYMBOL)):
+            return None
         return SymbolNode(
             position=token.position,
             name=token,
         )
 
-    def parse_token(self, expected_type: TokenType) -> Token:
-        token = self._read()
+    def parse_token(self, expected_type: TokenType) -> Token | None:
+        token = self._peek()
         if token.type != expected_type:
+            return None
+        return self._read()
+
+    def require_token(self, expected_type: TokenType) -> Token:
+        token = self.parse_token(expected_type)
+        if token is None:
             self._raise_parse_error(
-                message=f"Expected token of type {expected_type.name}, but got '{token.value}'",
-                position=token.position,
+                message=f"Expected token of type {expected_type.name}. Unexpected token '{self._peek().value}'"
             )
+            raise RuntimeError("unreachable")  # appease type checker
         return token
 
     def at_end(self) -> bool:
