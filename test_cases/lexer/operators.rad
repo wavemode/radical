@@ -19,6 +19,11 @@
     > greaterThan
     = assign
     ; semicolon
+    name@[Type] type pplication
+    name[index] indexing
+    [1, 2, 3] list
+    name(arg1, arg2) function call
+    (1, 2, 3) tuple
 
 (*
 Token(type=INTEGER_LITERAL, value="5", position=(1, 1, 0))
@@ -67,5 +72,40 @@ Token(type=ASSIGN, value="=", position=(20, 5, 4))
 Token(type=SYMBOL, value="assign", position=(20, 7, 4))
 Token(type=SEMICOLON, value=";", position=(21, 5, 4))
 Token(type=SYMBOL, value="semicolon", position=(21, 7, 4))
-Token(type=EOF, value="", position=(72, 1, 0))
+Token(type=SYMBOL, value="name", position=(22, 5, 4))
+Token(type=TYPE_APPLICATION_START, value="@[", position=(22, 9, 4))
+Token(type=SYMBOL, value="Type", position=(22, 11, 4))
+Token(type=TYPE_APPLICATION_END, value="]", position=(22, 15, 4))
+Token(type=TYPE, value="type", position=(22, 17, 4))
+Token(type=SYMBOL, value="pplication", position=(22, 22, 4))
+Token(type=SYMBOL, value="name", position=(23, 5, 4))
+Token(type=INDEXING_START, value="[", position=(23, 9, 4))
+Token(type=SYMBOL, value="index", position=(23, 10, 4))
+Token(type=INDEXING_END, value="]", position=(23, 15, 4))
+Token(type=SYMBOL, value="indexing", position=(23, 17, 4))
+Token(type=LIST_START, value="[", position=(24, 5, 4))
+Token(type=INTEGER_LITERAL, value="1", position=(24, 6, 4))
+Token(type=COMMA, value=",", position=(24, 7, 4))
+Token(type=INTEGER_LITERAL, value="2", position=(24, 9, 4))
+Token(type=COMMA, value=",", position=(24, 10, 4))
+Token(type=INTEGER_LITERAL, value="3", position=(24, 12, 4))
+Token(type=LIST_END, value="]", position=(24, 13, 4))
+Token(type=SYMBOL, value="list", position=(24, 15, 4))
+Token(type=SYMBOL, value="name", position=(25, 5, 4))
+Token(type=FUNCTION_CALL_START, value="(", position=(25, 9, 4))
+Token(type=SYMBOL, value="arg1", position=(25, 10, 4))
+Token(type=COMMA, value=",", position=(25, 14, 4))
+Token(type=SYMBOL, value="arg2", position=(25, 16, 4))
+Token(type=FUNCTION_CALL_END, value=")", position=(25, 20, 4))
+Token(type=SYMBOL, value="function", position=(25, 22, 4))
+Token(type=SYMBOL, value="call", position=(25, 31, 4))
+Token(type=PARENTHESES_START, value="(", position=(26, 5, 4))
+Token(type=INTEGER_LITERAL, value="1", position=(26, 6, 4))
+Token(type=COMMA, value=",", position=(26, 7, 4))
+Token(type=INTEGER_LITERAL, value="2", position=(26, 9, 4))
+Token(type=COMMA, value=",", position=(26, 10, 4))
+Token(type=INTEGER_LITERAL, value="3", position=(26, 12, 4))
+Token(type=PARENTHESES_END, value=")", position=(26, 13, 4))
+Token(type=SYMBOL, value="tuple", position=(26, 15, 4))
+Token(type=EOF, value="", position=(112, 1, 0))
 *)
