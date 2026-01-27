@@ -19,7 +19,7 @@
     > greaterThan
     = assign
     ; semicolon
-    name@[Type] type pplication
+    name@[Type] type application
     name[index] indexing
     [1, 2, 3] list
     name(arg1, arg2) function call
@@ -77,7 +77,7 @@ Token(type=TYPE_APPLICATION_START, value="@[", position=(22, 9, 4))
 Token(type=SYMBOL, value="Type", position=(22, 11, 4))
 Token(type=TYPE_APPLICATION_END, value="]", position=(22, 15, 4))
 Token(type=TYPE, value="type", position=(22, 17, 4))
-Token(type=SYMBOL, value="pplication", position=(22, 22, 4))
+Token(type=SYMBOL, value="application", position=(22, 22, 4))
 Token(type=SYMBOL, value="name", position=(23, 5, 4))
 Token(type=INDEXING_START, value="[", position=(23, 9, 4))
 Token(type=SYMBOL, value="index", position=(23, 10, 4))
