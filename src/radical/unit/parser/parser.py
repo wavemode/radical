@@ -2,6 +2,7 @@ from typing import NoReturn
 from radical.data.parser.ast import (
     AssignmentNode,
     ModuleNode,
+    NumberLiteralNode,
     StringLiteralNode,
     SymbolNode,
     TopLevelDeclarationNodeType,
@@ -85,29 +86,59 @@ class Parser(Unit):
         return self.parse_atom()
 
     def parse_atom(self) -> AtomNodeType:
-        next_token = self._peek()
-        if next_token.type == TokenType.SYMBOL:
+        if self.check_symbol():
             return self.parse_symbol()
-        elif next_token.type == TokenType.STRING_LITERAL:
+        elif self.check_string_literal():
             return self.parse_string_literal()
+        elif self.check_number_literal():
+            return self.parse_number_literal()
         else:
             self._raise_parse_error(
-                message=f"Expected atom. Unexpected token '{next_token.value}'",
-                position=next_token.position,
+                message=f"Expected atom. Unexpected token '{self._peek().value}'",
+                position=self._position,
             )
 
-    def parse_symbol(self) -> SymbolNode:
-        token = self.parse_token(TokenType.SYMBOL)
-        return SymbolNode(
+    def check_number_literal(self) -> bool:
+        return self._peek().type in {
+            TokenType.INTEGER_LITERAL,
+            TokenType.FLOAT_LITERAL,
+            TokenType.SCI_FLOAT_LITERAL,
+        }
+
+    def parse_number_literal(self) -> NumberLiteralNode:
+        token = self._read()
+        if token.type not in {
+            TokenType.INTEGER_LITERAL,
+            TokenType.FLOAT_LITERAL,
+            TokenType.SCI_FLOAT_LITERAL,
+        }:
+            self._raise_parse_error(
+                message=f"Expected number literal, but got '{token.value}'",
+                position=token.position,
+            )
+        return NumberLiteralNode(
             position=token.position,
-            name=token,
+            contents=token,
         )
+
+    def check_string_literal(self) -> bool:
+        return self._peek().type == TokenType.STRING_LITERAL
 
     def parse_string_literal(self) -> StringLiteralNode:
         token = self.parse_token(TokenType.STRING_LITERAL)
         return StringLiteralNode(
             position=token.position,
             contents=token,
+        )
+
+    def check_symbol(self) -> bool:
+        return self._peek().type == TokenType.SYMBOL
+
+    def parse_symbol(self) -> SymbolNode:
+        token = self.parse_token(TokenType.SYMBOL)
+        return SymbolNode(
+            position=token.position,
+            name=token,
         )
 
     def parse_token(self, expected_type: TokenType) -> Token:

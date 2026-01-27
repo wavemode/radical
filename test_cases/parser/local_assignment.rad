@@ -1,4 +1,4 @@
-local x = "hi"
+local x=10.5
 local y = x
 z = y
 
@@ -12,9 +12,9 @@ Module(
                 position=(1, 7, 0),
                 name="x"
             ),
-            value=StringLiteral(
-                position=(1, 11, 0),
-                contents="hi"
+            value=NumberLiteral(
+                position=(1, 9, 0),
+                contents="10.5"
             )
         ),
         LocalAssignment(

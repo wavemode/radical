@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from radical.data.parser.position import Position
 from typing import Any, cast
 from radical.data.parser.token import Token
+from enum import Enum
 import json
 
 
@@ -79,6 +80,54 @@ class SymbolNode(Node):
 class StringLiteralNode(Node):
     contents: Token
 
+@dataclass(frozen=True)
+class NumberLiteralNode(Node):
+    contents: Token
+
+# Operations
+
+class Operator(Enum):
+    """
+    Grouped by precedence level.
+
+    Exponentiation is the only right-associative operator.
+    """
+    EXPONENTIATION = "**"
+
+    POSITIVE = "+x"
+    NEGATIVE = "-x"
+
+    MULTIPLY = "*"
+    FLOOR_DIVIDE = "//"
+    DIVIDE = "/"
+    MODULO = "%"
+
+    PLUS = "+"
+    MINUS = "-"
+
+    EQUAL = "=="
+    NOT_EQUAL = "!="
+    LESS_THAN_EQUAL = "<="
+    GREATER_THAN_EQUAL = ">="
+    LESS_THAN = "<"
+    GREATER_THAN = ">"
+
+    NOT = "not"
+
+    AND = "and"
+
+    OR = "or"
+
+    PIPE = "|>"
+
+class BinaryOperationNode(Node):
+    left: "ValueExpressionNodeType"
+    operator: Operator
+    right: "ValueExpressionNodeType"
+
+class UnaryOperationNode(Node):
+    operator: Operator
+    operand: "ValueExpressionNodeType"
 
 # Declarations
 
@@ -105,6 +154,6 @@ class ModuleNode(Node):
 
 # Node Types
 
-AtomNodeType = SymbolNode | StringLiteralNode
-ValueExpressionNodeType = AtomNodeType
+AtomNodeType = SymbolNode | StringLiteralNode | NumberLiteralNode
+ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TopLevelDeclarationNodeType = AssignmentNode | LocalAssignmentNode
