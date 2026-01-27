@@ -166,91 +166,6 @@ class Lexer(Unit):
         if self._at_end():
             self._add_token(TokenType.EOF, "", self._position())
 
-    def _read_multiline_format_string_literal(self) -> None:
-        start_position = self._position()
-        self._advance_non_whitespace(4)  # Skip opening f"""
-        self._add_token(TokenType.MULTILINE_FORMAT_STRING_START, 'f"""', start_position)
-        while not (
-            self._peek_char() == '"'
-            and self._peek_char(1) == '"'
-            and self._peek_char(2) == '"'
-        ):
-            if self._at_end():
-                self._raise_parse_error(
-                    "Unterminated multiline format string", start_position
-                )
-            elif self._peek_char() == "{":
-                self._read_format_string_expression()
-            else:
-                self._read_multiline_format_string_section()
-        self._add_token(TokenType.MULTILINE_FORMAT_STRING_END, '"""')
-        self._advance_non_whitespace(3)  # Skip closing """
-
-    def _read_multiline_format_string_section(self) -> None:
-        start_position = self._position()
-        string_chars: list[str] = []
-        while self._peek_char() not in ("{", '"'):
-            if self._at_end():
-                self._raise_parse_error("Unterminated format string", start_position)
-            string_chars.append(self._read_format_string_char())
-        string_value = "".join(string_chars)
-        self._add_token(
-            TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
-        )
-
-    def _read_format_string_literral(self) -> None:
-        start_position = self._position()
-        self._add_token(TokenType.FORMAT_STRING_START, 'f"', start_position)
-        self._advance_non_whitespace(2)  # Skip opening f"
-        while not (self._peek_char() == '"'):
-            if self._at_end() or self._peek_char() == "\n":
-                self._raise_parse_error("Unterminated format string", start_position)
-            elif self._peek_char() == "{":
-                self._read_format_string_expression()
-            else:
-                self._read_format_string_section()
-        self._add_token(TokenType.FORMAT_STRING_END, '"')
-        self._advance_non_whitespace()  # Skip closing quote
-
-    def _read_format_string_expression(self) -> None:
-        start_position = self._position()
-        self._add_token(TokenType.FORMAT_STRING_EXPR_START, "{")
-        self._advance_non_whitespace()
-        while self._peek_char() != "}":
-            if self._at_end():
-                self._raise_parse_error(
-                    "Unterminated format string expression", start_position
-                )
-            self._read_token()
-        self._add_token(TokenType.FORMAT_STRING_EXPR_END, "}")
-        self._advance_non_whitespace()
-
-    def _read_format_string_section(self) -> None:
-        start_position = self._position()
-        string_chars: list[str] = []
-        while self._peek_char() not in ("{", '"'):
-            if self._at_end() or self._peek_char() == "\n":
-                self._raise_parse_error("Unterminated format string", start_position)
-            string_chars.append(self._read_format_string_char())
-        string_value = "".join(string_chars)
-        self._add_token(TokenType.FORMAT_STRING_SECTION, string_value, start_position)
-
-    def _read_format_string_char(self) -> str:
-        if self._peek_char() == "\\":
-            next_char = self._peek_char(1)
-            if next_char == "{":
-                self._advance_non_whitespace(2)
-                return "{"
-            elif next_char == "}":
-                self._advance_non_whitespace(2)
-                return "}"
-            else:
-                return self._read_string_literal_char()
-        else:
-            char = self._peek_char()
-            self._advance_non_whitespace()
-            return char
-
     def _read_indexing_expression(self) -> None:
         start_position = self._position()
         self._add_token(TokenType.INDEXING_START, "[")
@@ -330,6 +245,89 @@ class Lexer(Unit):
         self._add_token(TokenType.PARENTHESES_END, ")")
         self._advance_non_whitespace()
 
+    def _read_multiline_format_string_literal(self) -> None:
+        start_position = self._position()
+        self._advance_non_whitespace(4)  # Skip opening f"""
+        self._add_token(TokenType.MULTILINE_FORMAT_STRING_START, 'f"""', start_position)
+        while not (
+            self._peek_char() == '"'
+            and self._peek_char(1) == '"'
+            and self._peek_char(2) == '"'
+        ):
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated multiline format string", start_position
+                )
+            elif self._peek_char() == "{":
+                self._read_format_string_expression()
+            else:
+                self._read_multiline_format_string_section()
+        self._add_token(TokenType.MULTILINE_FORMAT_STRING_END, '"""')
+        self._advance_non_whitespace(3)  # Skip closing """
+
+    def _read_multiline_format_string_section(self) -> None:
+        start_position = self._position()
+        string_chars: list[str] = []
+        while self._peek_char() not in ("{", '"'):
+            if self._at_end():
+                self._raise_parse_error("Unterminated format string", start_position)
+            string_chars.append(self._read_format_string_char())
+        string_value = "".join(string_chars)
+        self._add_token(
+            TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
+        )
+
+    def _read_format_string_literral(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.FORMAT_STRING_START, 'f"', start_position)
+        self._advance_non_whitespace(2)  # Skip opening f"
+        while not (self._peek_char() == '"'):
+            if self._at_end() or self._peek_char() == "\n":
+                self._raise_parse_error("Unterminated format string", start_position)
+            elif self._peek_char() == "{":
+                self._read_format_string_expression()
+            else:
+                self._read_format_string_section()
+        self._add_token(TokenType.FORMAT_STRING_END, '"')
+        self._advance_non_whitespace()  # Skip closing quote
+
+    def _read_format_string_expression(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.FORMAT_STRING_EXPR_START, "{")
+        self._advance_non_whitespace()
+        while self._peek_char() != "}":
+            if self._at_end():
+                self._raise_parse_error(
+                    "Unterminated format string expression", start_position
+                )
+            self._read_token()
+        self._add_token(TokenType.FORMAT_STRING_EXPR_END, "}")
+        self._advance_non_whitespace()
+
+    def _read_format_string_section(self) -> None:
+        start_position = self._position()
+        string_chars: list[str] = []
+        while self._peek_char() not in ("{", '"'):
+            if self._at_end() or self._peek_char() == "\n":
+                self._raise_parse_error("Unterminated format string", start_position)
+            string_chars.append(self._read_format_string_char())
+        string_value = "".join(string_chars)
+        self._add_token(TokenType.FORMAT_STRING_SECTION, string_value, start_position)
+
+    def _read_format_string_char(self) -> str:
+        if self._peek_char() == "\\":
+            next_char = self._peek_char(1)
+            if next_char == "{":
+                self._advance_non_whitespace(2)
+                return "{"
+            elif next_char == "}":
+                self._advance_non_whitespace(2)
+                return "}"
+            else:
+                return self._read_nonraw_string_literal_character()
+        else:
+            return self._read_string_literal_character()
+
     def _read_raw_multiline_string_literal(self) -> None:
         start_position = self._position()
         self._advance_non_whitespace(4)  # Skip opening r"""
@@ -343,7 +341,7 @@ class Lexer(Unit):
                 self._raise_parse_error(
                     "Unterminated raw multiline string literal", start_position
                 )
-            self._advance_non_whitespace()
+            self._read_string_literal_character()
         string_value = self._contents[start_index : self._index]
         self._advance_non_whitespace(3)  # Skip closing """
         self._add_token(
@@ -359,7 +357,7 @@ class Lexer(Unit):
                 self._raise_parse_error(
                     "Unterminated raw string literal", start_position
                 )
-            self._advance_non_whitespace()
+            self._read_string_literal_character()
         string_value = self._contents[start_index : self._index]
         self._advance_non_whitespace()  # Skip closing quote
         self._add_token(TokenType.RAW_STRING_LITERAL, string_value, start_position)
@@ -377,7 +375,7 @@ class Lexer(Unit):
                 self._raise_parse_error(
                     "Unterminated multiline string literal", start_position
                 )
-            string_chars.append(self._read_string_literal_char())
+            string_chars.append(self._read_nonraw_string_literal_character())
         string_value = "".join(string_chars)
         self._advance_non_whitespace(3)  # Skip closing """
         self._add_token(
@@ -391,12 +389,12 @@ class Lexer(Unit):
         while self._peek_char() != '"':
             if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error("Unterminated string literal", start_position)
-            string_chars.append(self._read_string_literal_char())
+            string_chars.append(self._read_nonraw_string_literal_character())
         string_value = "".join(string_chars)
         self._advance_non_whitespace()  # Skip closing quote
         self._add_token(TokenType.STRING_LITERAL, string_value, start_position)
 
-    def _read_string_literal_char(self) -> str:
+    def _read_nonraw_string_literal_character(self) -> str:
         char = self._peek_char()
         if char == "\\":
             next_char = self._peek_char(1)
@@ -418,8 +416,15 @@ class Lexer(Unit):
             else:
                 self._raise_parse_error(f"Invalid escape sequence: '\\{next_char}'")
         else:
+            return self._read_string_literal_character()
+
+    def _read_string_literal_character(self) -> str:
+        char = self._peek_char()
+        if char == "\n":
+            self._advance_newline()
+        else:
             self._advance_non_whitespace()
-            return char
+        return char
 
     def _read_number(self) -> None:
         start_position = self._position()
