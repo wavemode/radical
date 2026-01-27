@@ -35,6 +35,9 @@
     [1, 2, 3] -- list literal
     (1, 2, 3) -- tuple literal
     { key: "value", anotherKey: 42 } -- dictionary literal
+    symbol -- symbol
+    `a b c` -- quoted symbol
+    symbol' -- symbol with tick
 
 (*
 Token(type=INTEGER_LITERAL, value="42", position=(1, 5, 4))
@@ -104,5 +107,8 @@ Token(type=SYMBOL, value="anotherKey", position=(25, 21, 4))
 Token(type=COLON, value=":", position=(25, 31, 4))
 Token(type=INTEGER_LITERAL, value="42", position=(25, 33, 4))
 Token(type=OBJECT_END, value="}", position=(25, 36, 4))
-Token(type=EOF, value="", position=(96, 3, 2))
+Token(type=SYMBOL, value="symbol", position=(26, 5, 4))
+Token(type=SYMBOL, value="a b c", position=(27, 5, 4))
+Token(type=SYMBOL, value="symbol'", position=(28, 5, 4))
+Token(type=EOF, value="", position=(102, 3, 2))
 *)
