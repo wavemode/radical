@@ -49,6 +49,16 @@
     `a b c` -- quoted symbol
     symbol' -- symbol with tick
 
+    f"string with {
+
+        f"nested {42} format string"
+
+    } inside" -- nested formatted string
+
+    r"""""
+five quotes surround this raw multi-line string literal
+    """"" -- raw multi-line string literal with five quotes
+
 (*
 Token(type=INTEGER_LITERAL, value="42", position=(1, 5, 4))
 Token(type=MINUS, value="-", position=(2, 5, 4))
@@ -72,7 +82,15 @@ Token(type=INTEGER_LITERAL, value="0xAF", position=(13, 5, 4))
 Token(type=STRING_LITERAL, value="hello \r\n\t\"", position=(14, 5, 4))
 Token(type=MULTILINE_STRING_LITERAL, value="\n    hello \r\n\t\"\n    ", position=(15, 5, 4))
 Token(type=RAW_STRING_LITERAL, value="raw string \\r\\n\\t\\", position=(18, 5, 4))
-Token(type=RAW_MULTILINE_STRING_LITERAL, value="\n    raw\n    multi-line\n    string\n    \\r\\n\\t\\\n    ", position=(19, 5, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_START, value="r\"\"\"", position=(19, 5, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_CONTENTS, value="\n    raw\n    multi-line\n    string\n    \\r\\n\\t\\\n    ", position=(19, 9, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="\"\"\"", position=(24, 5, 0))
+Token(type=SYMBOL, value="raw", position=(24, 12, 0))
+Token(type=SYMBOL, value="multi", position=(24, 16, 0))
+Token(type=MINUS, value="-", position=(24, 21, 0))
+Token(type=SYMBOL, value="line", position=(24, 22, 0))
+Token(type=SYMBOL, value="string", position=(24, 27, 0))
+Token(type=SYMBOL, value="literal", position=(24, 34, 0))
 Token(type=FORMAT_STRING_START, value="f\"", position=(25, 5, 4))
 Token(type=FORMAT_STRING_SECTION, value="formatted ", position=(25, 7, 4))
 Token(type=FORMAT_STRING_EXPR_START, value="{", position=(25, 17, 4))
@@ -120,5 +138,30 @@ Token(type=OBJECT_END, value="}", position=(47, 36, 4))
 Token(type=SYMBOL, value="symbol", position=(48, 5, 4))
 Token(type=SYMBOL, value="a b c", position=(49, 5, 4))
 Token(type=SYMBOL, value="symbol'", position=(50, 5, 4))
-Token(type=EOF, value="", position=(124, 3, 2))
+Token(type=FORMAT_STRING_START, value="f\"", position=(52, 5, 4))
+Token(type=FORMAT_STRING_SECTION, value="string with ", position=(52, 7, 4))
+Token(type=FORMAT_STRING_EXPR_START, value="{", position=(52, 19, 4))
+Token(type=FORMAT_STRING_START, value="f\"", position=(54, 9, 8))
+Token(type=FORMAT_STRING_SECTION, value="nested ", position=(54, 11, 8))
+Token(type=FORMAT_STRING_EXPR_START, value="{", position=(54, 18, 8))
+Token(type=INTEGER_LITERAL, value="42", position=(54, 19, 8))
+Token(type=FORMAT_STRING_EXPR_END, value="}", position=(54, 21, 8))
+Token(type=FORMAT_STRING_SECTION, value=" format string", position=(54, 22, 8))
+Token(type=FORMAT_STRING_END, value="\"", position=(54, 36, 8))
+Token(type=FORMAT_STRING_EXPR_END, value="}", position=(56, 5, 4))
+Token(type=FORMAT_STRING_SECTION, value=" inside", position=(56, 6, 4))
+Token(type=FORMAT_STRING_END, value="\"", position=(56, 13, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_START, value="r\"\"\"\"\"", position=(58, 5, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_CONTENTS, value="\nfive quotes surround this raw multi-line string literal\n    ", position=(58, 11, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="\"\"\"\"\"", position=(60, 5, 0))
+Token(type=SYMBOL, value="aw", position=(60, 15, 0))
+Token(type=SYMBOL, value="multi", position=(60, 18, 0))
+Token(type=MINUS, value="-", position=(60, 23, 0))
+Token(type=SYMBOL, value="line", position=(60, 24, 0))
+Token(type=SYMBOL, value="string", position=(60, 29, 0))
+Token(type=SYMBOL, value="literal", position=(60, 36, 0))
+Token(type=SYMBOL, value="with", position=(60, 44, 0))
+Token(type=SYMBOL, value="five", position=(60, 49, 0))
+Token(type=SYMBOL, value="quotes", position=(60, 54, 0))
+Token(type=EOF, value="", position=(167, 3, 2))
 *)

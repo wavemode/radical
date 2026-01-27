@@ -330,23 +330,53 @@ class Lexer(Unit):
 
     def _read_raw_multiline_string_literal(self) -> None:
         start_position = self._position()
-        self._advance_non_whitespace(4)  # Skip opening r"""
-        start_index = self._index
-        while not (
-            self._peek_char() == '"'
-            and self._peek_char(1) == '"'
-            and self._peek_char(2) == '"'
-        ):
+        self._advance_non_whitespace()  # Skip opening r
+
+        num_starting_quotes = 0
+        while self._peek_char() == '"':
+            num_starting_quotes += 1
+            self._advance_non_whitespace()
+        num_ending_quotes = 0
+
+        self._add_token(
+            TokenType.RAW_MULTILINE_STRING_LITERAL_START,
+            "r" + ('"' * num_starting_quotes),
+            start_position,
+        )
+
+        contents_position = self._position()
+        contents_start_index = self._index
+        contents_end_index = self._index
+        while True:
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated raw multiline string literal", start_position
                 )
-            self._read_string_literal_character()
-        string_value = self._contents[start_index : self._index]
-        self._advance_non_whitespace(3)  # Skip closing """
+            elif self._peek_char() == '"':
+                num_ending_quotes += 1
+                self._advance_non_whitespace()
+                if num_ending_quotes == num_starting_quotes:
+                    contents_end_index = self._index - num_ending_quotes
+                    break
+            else:
+                self._read_string_literal_character()
+        string_value = self._contents[contents_start_index:contents_end_index]
         self._add_token(
-            TokenType.RAW_MULTILINE_STRING_LITERAL, string_value, start_position
+            TokenType.RAW_MULTILINE_STRING_LITERAL_CONTENTS,
+            string_value,
+            contents_position,
         )
+        self._add_token(
+            TokenType.RAW_MULTILINE_STRING_LITERAL_END,
+            '"' * num_ending_quotes,
+            position=Position(
+                line=self._line,
+                column=self._column - num_ending_quotes,
+                indent_level=self._indent_level,
+                seen_non_whitespace=self._seen_non_whitespace,
+            ),
+        )
+        self._advance_non_whitespace(num_ending_quotes)
 
     def _read_raw_string_literal(self) -> None:
         start_position = self._position()
