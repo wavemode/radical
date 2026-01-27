@@ -88,6 +88,16 @@ class NumberLiteralNode(Node):
     contents: Token
 
 
+@dataclass(frozen=True)
+class BooleanLiteralNode(Node):
+    contents: Token
+
+
+@dataclass(frozen=True)
+class NullLiteralNode(Node):
+    contents: Token
+
+
 # Operations
 
 
@@ -140,6 +150,19 @@ class UnaryOperationNode(Node):
     operand: "ValueExpressionNodeType"
 
 
+# Compound Expressions
+
+
+@dataclass(frozen=True)
+class ParenthesizedExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class TupleLiteralNode(Node):
+    elements: list["ValueExpressionNodeType"]
+
+
 # Declarations
 
 
@@ -165,6 +188,18 @@ class ModuleNode(Node):
 
 # Node Types
 
-AtomNodeType = SymbolNode | StringLiteralNode | NumberLiteralNode
-ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
+AtomNodeType = (
+    SymbolNode
+    | StringLiteralNode
+    | NumberLiteralNode
+    | BooleanLiteralNode
+    | NullLiteralNode
+)
+ValueExpressionNodeType = (
+    AtomNodeType
+    | BinaryOperationNode
+    | UnaryOperationNode
+    | ParenthesizedExpressionNode
+    | TupleLiteralNode
+)
 TopLevelDeclarationNodeType = AssignmentNode | LocalAssignmentNode
