@@ -89,6 +89,12 @@ class AssignmentNode(Node):
     value: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class LocalAssignmentNode(Node):
+    target: SymbolNode
+    value: "ValueExpressionNodeType"
+
+
 # Top Level
 
 
@@ -99,6 +105,6 @@ class ModuleNode(Node):
 
 # Node Types
 
-ValueExpressionNodeType = SymbolNode | StringLiteralNode
-
-TopLevelDeclarationNodeType = AssignmentNode
+AtomNodeType = SymbolNode | StringLiteralNode
+ValueExpressionNodeType = AtomNodeType
+TopLevelDeclarationNodeType = AssignmentNode | LocalAssignmentNode

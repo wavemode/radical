@@ -6,6 +6,8 @@ from radical.data.parser.ast import (
     SymbolNode,
     TopLevelDeclarationNodeType,
     ValueExpressionNodeType,
+    LocalAssignmentNode,
+    AtomNodeType,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -35,7 +37,36 @@ class Parser(Unit):
         )
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
-        return self.parse_assignment()
+        if self.check_local_assignment():
+            return self.parse_local_assignment()
+        elif self.check_assignment():
+            return self.parse_assignment()
+        else:
+            next_token = self._peek()
+            self._raise_parse_error(
+                message=f"Expected top level declaration. Unexpected token '{next_token.value}'",
+                position=next_token.position,
+            )
+
+    def check_local_assignment(self) -> bool:
+        return self._peek().type == TokenType.LOCAL
+
+    def parse_local_assignment(self) -> LocalAssignmentNode:
+        self.parse_token(TokenType.LOCAL)
+        target = self.parse_token(TokenType.SYMBOL)
+        self.parse_token(TokenType.ASSIGN)
+        value = self.parse_value_expression()
+        return LocalAssignmentNode(
+            position=target.position,
+            target=SymbolNode(
+                position=target.position,
+                name=target,
+            ),
+            value=value,
+        )
+
+    def check_assignment(self) -> bool:
+        return self._peek().type == TokenType.SYMBOL
 
     def parse_assignment(self) -> AssignmentNode:
         target = self.parse_token(TokenType.SYMBOL)
@@ -51,6 +82,9 @@ class Parser(Unit):
         )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
+        return self.parse_atom()
+
+    def parse_atom(self) -> AtomNodeType:
         next_token = self._peek()
         if next_token.type == TokenType.SYMBOL:
             return self.parse_symbol()
@@ -58,7 +92,7 @@ class Parser(Unit):
             return self.parse_string_literal()
         else:
             self._raise_parse_error(
-                message=f"Expected value expression. Unexpected token '{next_token.value}'",
+                message=f"Expected atom. Unexpected token '{next_token.value}'",
                 position=next_token.position,
             )
 

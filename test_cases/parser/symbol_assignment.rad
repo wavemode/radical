@@ -1,5 +1,7 @@
 var1 = "value"
 var2 = var1
+`quoted symbol` = "another value"
+symbolWithTick' = "tick value"
 
 (*
 Module(
@@ -25,6 +27,28 @@ Module(
             value=Symbol(
                 position=(2, 8, 0),
                 name="var1"
+            )
+        ),
+        Assignment(
+            position=(3, 1, 0),
+            target=Symbol(
+                position=(3, 1, 0),
+                name="quoted symbol"
+            ),
+            value=StringLiteral(
+                position=(3, 19, 0),
+                contents="another value"
+            )
+        ),
+        Assignment(
+            position=(4, 1, 0),
+            target=Symbol(
+                position=(4, 1, 0),
+                name="symbolWithTick'"
+            ),
+            value=StringLiteral(
+                position=(4, 19, 0),
+                contents="tick value"
             )
         )
     ]
