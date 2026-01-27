@@ -275,7 +275,6 @@ class Lexer(Unit):
                 line=self._line,
                 column=self._column - num_starting_quotes,
                 indent_level=self._indent_level,
-                seen_non_whitespace=self._seen_non_whitespace,
             ),
         )
 
@@ -403,7 +402,6 @@ class Lexer(Unit):
                 line=self._line,
                 column=self._column - num_ending_quotes,
                 indent_level=self._indent_level,
-                seen_non_whitespace=self._seen_non_whitespace,
             ),
         )
 
@@ -464,7 +462,6 @@ class Lexer(Unit):
                 line=self._line,
                 column=self._column - num_ending_quotes,
                 indent_level=self._indent_level,
-                seen_non_whitespace=self._seen_non_whitespace,
             ),
         )
 
@@ -706,7 +703,6 @@ class Lexer(Unit):
             line=self._line,
             column=self._column,
             indent_level=self._indent_level,
-            seen_non_whitespace=self._seen_non_whitespace,
         )
 
     def _add_token(
@@ -720,7 +716,6 @@ class Lexer(Unit):
                     line=self._line,
                     column=self._column,
                     indent_level=self._indent_level,
-                    seen_non_whitespace=self._seen_non_whitespace,
                 )
             ),
             type=token_type,
@@ -741,7 +736,6 @@ class Lexer(Unit):
                     line=self._line,
                     column=self._column,
                     indent_level=self._indent_level,
-                    seen_non_whitespace=self._seen_non_whitespace,
                 )
             ),
         )
