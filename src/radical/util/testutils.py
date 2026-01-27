@@ -31,8 +31,10 @@ class CompilerTestCase:
         new_text = (
             text[:test_case_start] + "(*\n" + new_output + "\n*)" + text[test_case_end:]
         )
-        with open(self.path, "w") as f:
-            f.write(new_text)
+        if new_text != text:
+            print(f"Updating {self.path}")
+            with open(self.path, "w") as f:
+                f.write(new_text)
 
 
 def collect_test_cases(directory: str) -> list[CompilerTestCase]:

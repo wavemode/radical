@@ -34,6 +34,7 @@ class Parser(Unit):
             indent_level=0,
         )
         self._atom_parsers: list[Callable[[], AtomNodeType | None]] = [
+            self.parse_parenthesized_expression,
             self.parse_null_literal,
             self.parse_boolean_literal,
             self.parse_number_literal,
@@ -212,7 +213,7 @@ class Parser(Unit):
         return self.parse_descend_expr_pow()
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_descend_expr_paren()
+        lhs = self.parse_atom()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -223,21 +224,30 @@ class Parser(Unit):
             )
         return lhs
 
-    def parse_descend_expr_paren(self) -> ValueExpressionNodeType:
+    def parse_atom(self) -> AtomNodeType:
+        for atom_parser in self._atom_parsers:
+            if value := atom_parser():
+                return value
+        self._raise_parse_error(
+            message=f"Expected expression. Unexpected token '{self._peek().value}'"
+        )
+
+    def parse_parenthesized_expression(
+        self,
+    ) -> ParenthesizedExpressionNode | TupleLiteralNode | None:
         if not self.parse_token(TokenType.PARENTHESES_START):
-            return self.parse_atom()
+            return None
         expressions: list[ValueExpressionNodeType] = []
-        while True:
+        while not self.parse_token(TokenType.PARENTHESES_END):
             expr = self.parse_value_expression()
             expressions.append(expr)
 
             if self.parse_token(TokenType.PARENTHESES_END):
                 break
 
-            if self.parse_token(TokenType.COMMA):
-                if self.parse_token(TokenType.PARENTHESES_END):
-                    break
-            elif self._peek().position.line == expr.position.line:
+            if (not self.parse_token(TokenType.COMMA)) and (
+                self._peek().position.line == expr.position.line
+            ):
                 self._raise_parse_error(
                     message="Tuple elements must be separated by a comma and/or newline"
                 )
@@ -252,14 +262,6 @@ class Parser(Unit):
                 position=expressions[0].position,
                 elements=expressions,
             )
-
-    def parse_atom(self) -> AtomNodeType:
-        for atom_parser in self._atom_parsers:
-            if value := atom_parser():
-                return value
-        self._raise_parse_error(
-            message=f"Expected expression. Unexpected token '{self._peek().value}'"
-        )
 
     def parse_null_literal(self) -> NullLiteralNode | None:
         token = self._peek()

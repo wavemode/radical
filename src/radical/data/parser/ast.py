@@ -194,12 +194,8 @@ AtomNodeType = (
     | NumberLiteralNode
     | BooleanLiteralNode
     | NullLiteralNode
-)
-ValueExpressionNodeType = (
-    AtomNodeType
-    | BinaryOperationNode
-    | UnaryOperationNode
     | ParenthesizedExpressionNode
     | TupleLiteralNode
 )
+ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TopLevelDeclarationNodeType = AssignmentNode | LocalAssignmentNode
