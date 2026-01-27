@@ -359,6 +359,7 @@ class Lexer(Unit):
                     contents_end_index = self._index - num_ending_quotes
                     break
             else:
+                num_ending_quotes = 0
                 self._read_string_literal_character()
         string_value = self._contents[contents_start_index:contents_end_index]
         self._add_token(
@@ -376,7 +377,6 @@ class Lexer(Unit):
                 seen_non_whitespace=self._seen_non_whitespace,
             ),
         )
-        self._advance_non_whitespace(num_ending_quotes)
 
     def _read_raw_string_literal(self) -> None:
         start_position = self._position()
@@ -394,22 +394,49 @@ class Lexer(Unit):
 
     def _read_multiline_string_literal(self) -> None:
         start_position = self._position()
-        self._advance_non_whitespace(3)  # Skip opening """
-        string_chars: list[str] = []
-        while not (
-            self._peek_char() == '"'
-            and self._peek_char(1) == '"'
-            and self._peek_char(2) == '"'
-        ):
+
+        num_starting_quotes = 0
+        while self._peek_char() == '"':
+            num_starting_quotes += 1
+            self._advance_non_whitespace()
+        num_ending_quotes = 0
+
+        self._add_token(
+            TokenType.MULTILINE_STRING_LITERAL_START,
+            '"' * num_starting_quotes,
+            start_position,
+        )
+
+        contents_position = self._position()
+        contents: list[str] = []
+        while True:
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated multiline string literal", start_position
                 )
-            string_chars.append(self._read_nonraw_string_literal_character())
-        string_value = "".join(string_chars)
-        self._advance_non_whitespace(3)  # Skip closing """
+            elif self._peek_char() == '"':
+                num_ending_quotes += 1
+                self._advance_non_whitespace()
+                if num_ending_quotes == num_starting_quotes:
+                    break
+            else:
+                contents.append('"' * num_ending_quotes)
+                num_ending_quotes = 0
+                contents.append(self._read_nonraw_string_literal_character())
         self._add_token(
-            TokenType.MULTILINE_STRING_LITERAL, string_value, start_position
+            TokenType.MULTILINE_STRING_LITERAL_CONTENTS,
+            "".join(contents),
+            contents_position,
+        )
+        self._add_token(
+            TokenType.MULTILINE_STRING_LITERAL_END,
+            '"' * num_ending_quotes,
+            position=Position(
+                line=self._line,
+                column=self._column - num_ending_quotes,
+                indent_level=self._indent_level,
+                seen_non_whitespace=self._seen_non_whitespace,
+            ),
         )
 
     def _read_string_literal(self) -> None:
@@ -599,7 +626,10 @@ class Lexer(Unit):
             TokenType.FALSE,
             TokenType.NULL,
             TokenType.STRING_LITERAL,
-            TokenType.MULTILINE_STRING_LITERAL,
+            TokenType.RAW_MULTILINE_STRING_LITERAL_END,
+            TokenType.MULTILINE_STRING_LITERAL_END,
+            TokenType.FORMAT_STRING_END,
+            TokenType.MULTILINE_FORMAT_STRING_END,
             TokenType.INTEGER_LITERAL,
             TokenType.FLOAT_LITERAL,
             TokenType.SCI_FLOAT_LITERAL,
