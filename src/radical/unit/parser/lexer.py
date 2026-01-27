@@ -247,35 +247,64 @@ class Lexer(Unit):
 
     def _read_multiline_format_string_literal(self) -> None:
         start_position = self._position()
-        self._advance_non_whitespace(4)  # Skip opening f"""
-        self._add_token(TokenType.MULTILINE_FORMAT_STRING_START, 'f"""', start_position)
-        while not (
-            self._peek_char() == '"'
-            and self._peek_char(1) == '"'
-            and self._peek_char(2) == '"'
-        ):
+        self._advance_non_whitespace()  # Skip opening f
+
+        num_starting_quotes = 0
+        while self._peek_char() == '"':
+            num_starting_quotes += 1
+            self._advance_non_whitespace()
+
+        self._add_token(
+            TokenType.MULTILINE_FORMAT_STRING_START,
+            "f" + ('"' * num_starting_quotes),
+            start_position,
+        )
+        while True:
             if self._at_end():
                 self._raise_parse_error(
                     "Unterminated multiline format string", start_position
                 )
             elif self._peek_char() == "{":
                 self._read_format_string_expression()
-            else:
-                self._read_multiline_format_string_section()
-        self._add_token(TokenType.MULTILINE_FORMAT_STRING_END, '"""')
-        self._advance_non_whitespace(3)  # Skip closing """
+            elif self._read_multiline_format_string_section(num_starting_quotes):
+                break
+        self._add_token(
+            TokenType.MULTILINE_FORMAT_STRING_END,
+            '"' * num_starting_quotes,
+            position=Position(
+                line=self._line,
+                column=self._column - num_starting_quotes,
+                indent_level=self._indent_level,
+                seen_non_whitespace=self._seen_non_whitespace,
+            ),
+        )
 
-    def _read_multiline_format_string_section(self) -> None:
+    def _read_multiline_format_string_section(self, num_starting_quotes: int) -> bool:
         start_position = self._position()
-        string_chars: list[str] = []
-        while self._peek_char() not in ("{", '"'):
+        contents: list[str] = []
+        num_ending_quotes = 0
+        end_of_string = False
+        while True:
             if self._at_end():
                 self._raise_parse_error("Unterminated format string", start_position)
-            string_chars.append(self._read_format_string_char())
-        string_value = "".join(string_chars)
-        self._add_token(
-            TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
-        )
+            elif self._peek_char() == "{":
+                break
+            elif self._peek_char() == '"':
+                num_ending_quotes += 1
+                self._advance_non_whitespace()
+                if num_ending_quotes == num_starting_quotes:
+                    end_of_string = True
+                    break
+            else:
+                contents.extend('"' * num_ending_quotes)
+                num_ending_quotes = 0
+                contents.append(self._read_format_string_char())
+        if contents:
+            string_value = "".join(contents)
+            self._add_token(
+                TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
+            )
+        return end_of_string
 
     def _read_format_string_literral(self) -> None:
         start_position = self._position()
@@ -420,7 +449,7 @@ class Lexer(Unit):
                 if num_ending_quotes == num_starting_quotes:
                     break
             else:
-                contents.append('"' * num_ending_quotes)
+                contents.extend('"' * num_ending_quotes)
                 num_ending_quotes = 0
                 contents.append(self._read_nonraw_string_literal_character())
         self._add_token(

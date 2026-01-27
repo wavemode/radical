@@ -28,7 +28,7 @@
 
     } value \{" -- formatted string literal
     f"""
-    formatted
+    formatted "
     {3
     
     
@@ -62,6 +62,13 @@ five '"' characters surround this raw multi-line string literal
 """""
 five '"' characters surround this raw multi-line string literal
 """"" -- raw multi-line string literal with five '"' characters
+
+
+f"""""
+"""
+five '"' characters surround this raw multi-line string literal
+"""
+{15}""""" -- multi-line string literal with five '"' characters
 
 (*
 Token(type=INTEGER_LITERAL, value="42", position=(1, 5, 4))
@@ -101,7 +108,7 @@ Token(type=FORMAT_STRING_EXPR_END, value="}", position=(29, 5, 4))
 Token(type=FORMAT_STRING_SECTION, value=" value {", position=(29, 6, 4))
 Token(type=FORMAT_STRING_END, value="\"", position=(29, 15, 4))
 Token(type=MULTILINE_FORMAT_STRING_START, value="f\"\"\"", position=(30, 5, 4))
-Token(type=MULTILINE_FORMAT_STRING_SECTION, value="\n    formatted\n    ", position=(30, 9, 4))
+Token(type=MULTILINE_FORMAT_STRING_SECTION, value="\n    formatted \"\n    ", position=(30, 9, 4))
 Token(type=FORMAT_STRING_EXPR_START, value="{", position=(32, 5, 0))
 Token(type=INTEGER_LITERAL, value="3", position=(32, 6, 0))
 Token(type=MULTIPLY, value="*", position=(35, 5, 4))
@@ -157,5 +164,11 @@ Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="\"\"\"\"\"", position=(60, 5
 Token(type=MULTILINE_STRING_LITERAL_START, value="\"\"\"\"\"", position=(62, 1, 0))
 Token(type=MULTILINE_STRING_LITERAL_CONTENTS, value="\nfive '\"' characters surround this raw multi-line string literal\n", position=(62, 6, 0))
 Token(type=MULTILINE_STRING_LITERAL_END, value="\"\"\"\"\"", position=(64, 1, 0))
-Token(type=EOF, value="", position=(161, 3, 2))
+Token(type=MULTILINE_FORMAT_STRING_START, value="f\"\"\"\"\"", position=(67, 1, 0))
+Token(type=MULTILINE_FORMAT_STRING_SECTION, value="\n\"\"\"\nfive '\"' characters surround this raw multi-line string literal\n\"\"\"\n", position=(67, 7, 0))
+Token(type=FORMAT_STRING_EXPR_START, value="{", position=(71, 1, 0))
+Token(type=INTEGER_LITERAL, value="15", position=(71, 2, 0))
+Token(type=FORMAT_STRING_EXPR_END, value="}", position=(71, 4, 0))
+Token(type=MULTILINE_FORMAT_STRING_END, value="\"\"\"\"\"", position=(71, 5, 0))
+Token(type=EOF, value="", position=(174, 3, 2))
 *)
