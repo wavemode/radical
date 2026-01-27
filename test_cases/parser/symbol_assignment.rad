@@ -1,2 +1,32 @@
 var1 = "value"
 var2 = var1
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="var1"
+            ),
+            value=StringLiteral(
+                position=(1, 8, 0),
+                contents="value"
+            )
+        ),
+        Assignment(
+            position=(2, 1, 0),
+            target=Symbol(
+                position=(2, 1, 0),
+                name="var2"
+            ),
+            value=Symbol(
+                position=(2, 8, 0),
+                name="var1"
+            )
+        )
+    ]
+)
+*)

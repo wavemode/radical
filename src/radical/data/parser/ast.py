@@ -2,13 +2,16 @@ from dataclasses import dataclass
 
 from radical.data.parser.position import Position
 from typing import Any, cast
-from radical.data.parser.token import TokenType, Token
+from radical.data.parser.token import Token
 import json
 
 
 @dataclass(frozen=True)
 class Node:
     position: Position
+
+    def __str__(self) -> str:
+        return self.format()
 
     def format(self, name: str | None = None, indent_level: int = 0) -> str:
         indent = " " * 4 * indent_level
@@ -23,7 +26,7 @@ class Node:
                 continue
             if isinstance(field_value, Position):
                 field_lines.append(
-                    f"{indent}    {field_name}=({field_value.line}, {field_value.column})"
+                    f"{indent}    {field_name}=({field_value.line}, {field_value.column}, {field_value.indent_level})"
                 )
             elif isinstance(field_value, Node):
                 field_lines.append(
@@ -57,7 +60,45 @@ class Node:
                 )
             parts.append(",\n".join(element_lines))
             parts.append(f"\n{indent}]")
+        elif isinstance(value, Token):
+            parts.append(json.dumps(value.value))
         else:
             parts.append(json.dumps(value))
         return "".join(parts)
 
+
+# Literals
+
+
+@dataclass(frozen=True)
+class SymbolNode(Node):
+    name: Token
+
+
+@dataclass(frozen=True)
+class StringLiteralNode(Node):
+    contents: Token
+
+
+# Declarations
+
+
+@dataclass(frozen=True)
+class AssignmentNode(Node):
+    target: SymbolNode
+    value: "ValueExpressionNodeType"
+
+
+# Top Level
+
+
+@dataclass(frozen=True)
+class ModuleNode(Node):
+    declarations: list["TopLevelDeclarationNodeType"]
+
+
+# Node Types
+
+ValueExpressionNodeType = SymbolNode | StringLiteralNode
+
+TopLevelDeclarationNodeType = AssignmentNode

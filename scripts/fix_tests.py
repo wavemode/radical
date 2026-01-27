@@ -3,8 +3,18 @@
 from radical.unit.parser.lexer import Lexer
 from radical.util.testutils import collect_test_cases
 
+
+from radical.unit.parser.parser import Parser
+
+
 def fix_parser_tests():
-    pass
+    for test_case in collect_test_cases("test_cases/parser"):
+        with (
+            Lexer(test_case.contents, filename=test_case.path) as lexer,
+            Parser(lexer=lexer, filename=test_case.path) as parser,
+        ):
+            formatted = parser.parse_module().format()
+            test_case.update_expected_output(formatted)
 
 
 def fix_lexer_tests():
