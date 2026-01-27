@@ -163,9 +163,6 @@ class Lexer(Unit):
         else:
             self._raise_parse_error(f"Unexpected character: '{char}'")
 
-        if self._at_end():
-            self._add_token(TokenType.EOF, "", self._position())
-
     def _read_indexing_expression(self) -> None:
         start_position = self._position()
         self._add_token(TokenType.INDEXING_START, "[")
@@ -675,7 +672,10 @@ class Lexer(Unit):
         )
 
     def _at_end(self) -> bool:
-        return self._index >= len(self._contents)
+        at_end = self._index >= len(self._contents)
+        if at_end and ((not self._tokens) or self._tokens[-1].type != TokenType.EOF):
+            self._add_token(TokenType.EOF, "", self._position())
+        return at_end
 
     def _advance_non_whitespace(self, n: int = 1) -> None:
         self._index += n
