@@ -51,6 +51,7 @@ class TokenType(Enum):
     LESS_THAN = "<"
     GREATER_THAN = ">"
     ASSIGN = "="
+    SEMICOLON = ";"
 
     STRING_LITERAL = "STRING_LITERAL"
     RAW_STRING_LITERAL = "RAW_STRING_LITERAL"
