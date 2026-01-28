@@ -9,6 +9,7 @@ from radical.data.parser.ast import (
     NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
+    RecordTypeNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
@@ -59,6 +60,7 @@ class Parser(Unit):
             self.parse_typeof_expression,
             self.parse_const_expression,
             self.parse_spread_type_expression,
+            self.parse_record_type,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -249,6 +251,46 @@ class Parser(Unit):
         return SpreadTypeExpressionNode(
             position=start_position,
             type=type_expr,
+        )
+
+    def parse_record_type(self) -> RecordTypeNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.OBJECT_START):
+            return None
+
+        fields: list[TypeAnnotationNode | SpreadTypeExpressionNode] = []
+        while not self.parse_token(TokenType.OBJECT_END):
+            entry: TypeAnnotationNode | SpreadTypeExpressionNode
+            if spread_type := self.parse_spread_type_expression():
+                entry = spread_type
+            elif type_annotation := self.parse_assignment():
+                if not isinstance(type_annotation, TypeAnnotationNode):
+                    self._raise_parse_error(
+                        message="Each entry of a record type must be an annotation of the form 'name : Type'",
+                    )
+                    raise RuntimeError("unreachable")  # appease type checker
+                entry = type_annotation
+            else:
+                self._raise_parse_error(
+                    message="Expected type annotation or spread type expression in record type",
+                )
+            fields.append(entry)
+
+            if self.parse_token(TokenType.OBJECT_END):
+                break
+
+            if self.parse_token(TokenType.COMMA):
+                if self.parse_token(TokenType.OBJECT_END):
+                    break
+            else:
+                if self._peek().position.line == entry.position.line:
+                    self._raise_parse_error(
+                        message="Record type fields must be separated by a comma and/or newline"
+                    )
+
+        return RecordTypeNode(
+            position=start_position,
+            fields=fields,
         )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:

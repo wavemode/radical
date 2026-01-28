@@ -1,0 +1,47 @@
+a : { b
+    :
+        Int
+      c:String }
+
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeAnnotation(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            type=RecordType(
+                position=(1, 5, 0),
+                fields=[
+                    TypeAnnotation(
+                        position=(1, 7, 0),
+                        name=Symbol(
+                            position=(1, 7, 0),
+                            name="b"
+                        ),
+                        type=TypeName(
+                            position=(3, 9, 8),
+                            name="Int"
+                        )
+                    ),
+                    TypeAnnotation(
+                        position=(4, 7, 6),
+                        name=Symbol(
+                            position=(4, 7, 6),
+                            name="c"
+                        ),
+                        type=TypeName(
+                            position=(4, 9, 6),
+                            name="String"
+                        )
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)

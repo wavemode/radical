@@ -1,0 +1,32 @@
+a : { b : Int }
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeAnnotation(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            type=RecordType(
+                position=(1, 5, 0),
+                fields=[
+                    TypeAnnotation(
+                        position=(1, 7, 0),
+                        name=Symbol(
+                            position=(1, 7, 0),
+                            name="b"
+                        ),
+                        type=TypeName(
+                            position=(1, 11, 0),
+                            name="Int"
+                        )
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)
