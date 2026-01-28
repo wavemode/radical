@@ -14,6 +14,7 @@ from radical.data.parser.ast import (
     TupleLiteralNode,
     TupleTypeNode,
     TypeAnnotationNode,
+    TypeTypeExpressionNode,
     TypeExpressionNodeType,
     TypeNameNode,
     UnaryOperationNode,
@@ -51,6 +52,7 @@ class Parser(Unit):
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
             self.parse_type_name,
             self.parse_parenthesized_type_expression,
+            self.parse_type_type_expression,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -202,6 +204,16 @@ class Parser(Unit):
                 position=start_position,
                 elements=type_expressions,
             )
+
+    def parse_type_type_expression(self) -> TypeTypeExpressionNode | None:
+        start_position = self._position
+        if not (self.parse_token(TokenType.TYPE)):
+            return None
+        expression = self.parse_value_expression()
+        return TypeTypeExpressionNode(
+            position=start_position,
+            expression=expression,
+        )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
         return self.parse_descend_expr_pipe()

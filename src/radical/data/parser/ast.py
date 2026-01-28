@@ -88,6 +88,11 @@ class TupleTypeNode(Node):
     elements: list["TypeExpressionNodeType"]
 
 
+@dataclass(frozen=True)
+class TypeTypeExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
 # Literals
 
 
@@ -230,7 +235,12 @@ AtomNodeType = (
     | TupleLiteralNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
-TypeExpressionNodeType = TypeNameNode | ParenthesizedTypeExpressionNode | TupleTypeNode
+TypeExpressionNodeType = (
+    TypeNameNode
+    | ParenthesizedTypeExpressionNode
+    | TupleTypeNode
+    | TypeTypeExpressionNode
+)
 TopLevelDeclarationNodeType = (
     AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode
 )
