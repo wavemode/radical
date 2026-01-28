@@ -18,6 +18,7 @@ class TokenType(Enum):
     TYPE = "type"
     TYPEOF = "typeof"
     MODULE = "module"
+    FUN = "fun"
     PROC = "proc"
     LET = "let"
     IN = "in"

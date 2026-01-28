@@ -19,10 +19,13 @@ class TestLexer(TestCase):
         test_cases = collect_test_cases("test_cases/lexer")
         for test_case in test_cases:
             with self.subTest(test_case.path):
+                try:
+                    with Lexer(test_case.contents, filename=test_case.path) as lexer:
+                        tokens = lexer.read_all()
+                        expected_output = "\n".join(str(token) for token in tokens)
+                except Exception as e:
+                    expected_output = f"FAIL({str(e)})"
                 self.assertEqual(
                     test_case.expected_output,
-                    "\n".join(
-                        str(t)
-                        for t in Lexer(test_case.contents, test_case.path).read_all()
-                    ),
+                    expected_output,
                 )

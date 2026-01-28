@@ -579,6 +579,7 @@ class Lexer(Unit):
         "type",
         "typeof",
         "module",
+        "fun",
         "proc",
         "let",
         "in",

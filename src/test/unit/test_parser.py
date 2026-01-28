@@ -20,15 +20,15 @@ class TestParser(TestCase):
         test_cases = collect_test_cases("test_cases/parser")
         for test_case in test_cases:
             with self.subTest(test_case.path):
+                try:
+                    with (
+                        Lexer(test_case.contents, filename=test_case.path) as lexer,
+                        Parser(lexer=lexer, filename=test_case.path) as parser,
+                    ):
+                        expected_output = parser.parse_module().format()
+                except Exception as e:
+                    expected_output = f"FAIL({str(e)})"
                 self.assertEqual(
                     test_case.expected_output,
-                    Parser(
-                        lexer=Lexer(
-                            contents=test_case.contents,
-                            filename=test_case.path,
-                        ),
-                        filename=test_case.path,
-                    )
-                    .parse_module()
-                    .format(),
+                    expected_output,
                 )
