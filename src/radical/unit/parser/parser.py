@@ -26,6 +26,7 @@ from radical.data.parser.ast import (
     TupleLiteralNode,
     TupleTypeNode,
     TypeAnnotationNode,
+    TypeDeclarationNode,
     TypeOfExpressionNode,
     TypeTypeExpressionNode,
     TypeExpressionNodeType,
@@ -77,6 +78,7 @@ class Parser(Unit):
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
+            self.parse_type_declaration,
             self.parse_spread_assignment_statement,
             self.parse_import_statement,
             self.parse_assignment,
@@ -98,6 +100,66 @@ class Parser(Unit):
                 return declaration
         self._raise_parse_error(
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_type_declaration(self) -> TypeDeclarationNode | None:
+        start_position = self._position
+        if self._peek().type not in (TokenType.TYPE,) and not (
+            self._peek().type == TokenType.LOCAL
+            and self._peek(1).type == TokenType.TYPE
+        ):
+            return None
+
+        local = False
+        if self.parse_token(TokenType.LOCAL):
+            local = True
+
+        self._read()  # consume TYPE
+
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        parameters: list[GenericTypeParameterNode] | None = None
+
+        if self.parse_any_token([TokenType.LIST_START, TokenType.INDEXING_START]):
+            parameters = []
+            while not self.parse_any_token(
+                [TokenType.LIST_END, TokenType.INDEXING_END]
+            ):
+                parameter = self.parse_generic_type_parameter()
+                parameters.append(parameter)
+
+                if self.parse_any_token([TokenType.LIST_END, TokenType.INDEXING_END]):
+                    break
+
+                if self.parse_token(TokenType.COMMA):
+                    if self.parse_any_token(
+                        [TokenType.LIST_END, TokenType.INDEXING_END]
+                    ):
+                        break
+                else:
+                    if self._peek().position.line == parameter.position.line:
+                        self._raise_parse_error(
+                            message="Generic type parameters must be separated by a comma and/or newline"
+                        )
+
+        if parameters is not None and not parameters:
+            self._raise_parse_error(
+                message="Generic type declaration must have at least one parameter",
+                position=start_position,
+            )
+
+        self.require_token(TokenType.ASSIGN)
+        type_expr = self.parse_type_expression()
+        return TypeDeclarationNode(
+            position=start_position,
+            name=name,
+            type=type_expr,
+            local=local,
+            parameters=parameters,
         )
 
     def parse_spread_assignment_statement(self) -> SpreadAssignmentStatementNode | None:
@@ -259,8 +321,10 @@ class Parser(Unit):
         start_position = self._position
         if self._peek().type not in (
             TokenType.SYMBOL,
-            TokenType.LOCAL,
             TokenType.LIST_START,
+        ) and not (
+            self._peek().type == TokenType.LOCAL
+            and self._peek(1).type in (TokenType.SYMBOL, TokenType.LIST_START)
         ):
             return None
 

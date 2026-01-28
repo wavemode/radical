@@ -1,0 +1,39 @@
+type L[T] = List[T]
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 6, 0),
+                name="L"
+            ),
+            type=GenericTypeApplication(
+                position=(1, 13, 0),
+                generic_type=TypeName(
+                    position=(1, 13, 0),
+                    name="List"
+                ),
+                arguments=[
+                    TypeName(
+                        position=(1, 18, 0),
+                        name="T"
+                    )
+                ]
+            ),
+            parameters=[
+                GenericTypeParameter(
+                    position=(1, 8, 0),
+                    name=Symbol(
+                        position=(1, 8, 0),
+                        name="T"
+                    )
+                )
+            ],
+            local=false
+        )
+    ]
+)
+*)

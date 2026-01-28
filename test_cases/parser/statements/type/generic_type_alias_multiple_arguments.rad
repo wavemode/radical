@@ -1,0 +1,51 @@
+type M[K
+    V] = Map[K, V]
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 6, 0),
+                name="M"
+            ),
+            type=GenericTypeApplication(
+                position=(2, 10, 4),
+                generic_type=TypeName(
+                    position=(2, 10, 4),
+                    name="Map"
+                ),
+                arguments=[
+                    TypeName(
+                        position=(2, 14, 4),
+                        name="K"
+                    ),
+                    TypeName(
+                        position=(2, 17, 4),
+                        name="V"
+                    )
+                ]
+            ),
+            parameters=[
+                GenericTypeParameter(
+                    position=(1, 8, 0),
+                    name=Symbol(
+                        position=(1, 8, 0),
+                        name="K"
+                    )
+                ),
+                GenericTypeParameter(
+                    position=(2, 5, 4),
+                    name=Symbol(
+                        position=(2, 5, 4),
+                        name="V"
+                    )
+                )
+            ],
+            local=false
+        )
+    ]
+)
+*)

@@ -295,6 +295,14 @@ class ImportStatementNode(Node):
     alias: SymbolNode | None
 
 
+@dataclass(frozen=True)
+class TypeDeclarationNode(Node):
+    name: SymbolNode
+    type: "TypeExpressionNodeType"
+    parameters: list[GenericTypeParameterNode] | None
+    local: bool
+
+
 # Top Level
 
 
@@ -335,4 +343,5 @@ TopLevelDeclarationNodeType = (
     | TypeAnnotationNode
     | ImportStatementNode
     | SpreadAssignmentStatementNode
+    | TypeDeclarationNode
 )
