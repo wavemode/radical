@@ -1,0 +1,58 @@
+a  : fun([T]fun(T) -> T) -> Bool
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeAnnotation(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            type=FunctionType(
+                position=(1, 6, 0),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 10, 0),
+                        optional=false,
+                        type_annotation=GenericTypeExpression(
+                            position=(1, 10, 0),
+                            parameters=[
+                                GenericTypeParameter(
+                                    position=(1, 11, 0),
+                                    name=Symbol(
+                                        position=(1, 11, 0),
+                                        name="T"
+                                    )
+                                )
+                            ],
+                            expression=FunctionType(
+                                position=(1, 13, 0),
+                                parameters=[
+                                    FunctionParameter(
+                                        position=(1, 17, 0),
+                                        optional=false,
+                                        type_annotation=TypeName(
+                                            position=(1, 17, 0),
+                                            name="T"
+                                        )
+                                    )
+                                ],
+                                return_type=TypeName(
+                                    position=(1, 23, 0),
+                                    name="T"
+                                )
+                            )
+                        )
+                    )
+                ],
+                return_type=TypeName(
+                    position=(1, 29, 0),
+                    name="Bool"
+                )
+            )
+        )
+    ]
+)
+*)

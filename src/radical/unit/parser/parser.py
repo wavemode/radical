@@ -5,6 +5,8 @@ from radical.data.parser.ast import (
     ConstExpressionNode,
     FunctionParameterNode,
     FunctionTypeNode,
+    GenericTypeExpressionNode,
+    GenericTypeParameterNode,
     ListLiteralNode,
     LocalTypeAnnotationNode,
     ModuleNode,
@@ -181,7 +183,52 @@ class Parser(Unit):
                 )
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
-        return self.parse_type_atom()
+        return self.parse_descend_type_expr_generic()
+
+    def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
+        start_position = self._position
+        if not self.parse_token(TokenType.LIST_START):
+            return self.parse_type_atom()
+
+        parameters: list[GenericTypeParameterNode] = []
+        while not self.parse_token(TokenType.LIST_END):
+            parameter = self.parse_generic_type_parameter()
+            parameters.append(parameter)
+
+            if self.parse_token(TokenType.LIST_END):
+                break
+
+            if self.parse_token(TokenType.COMMA):
+                if self.parse_token(TokenType.LIST_END):
+                    break
+            else:
+                if self._peek().position.line == parameter.position.line:
+                    self._raise_parse_error(
+                        message="Generic type parameters must be separated by a comma and/or newline"
+                    )
+
+        expression = self.parse_descend_type_expr_generic()
+        return GenericTypeExpressionNode(
+            position=start_position,
+            expression=expression,
+            parameters=parameters,
+        )
+
+    def parse_generic_type_parameter(self) -> GenericTypeParameterNode:
+        start_position = self._position
+        name = SymbolNode(
+            position=start_position, name=self.require_token(TokenType.SYMBOL)
+        )
+        constraint: TypeExpressionNodeType | None = None
+
+        if self.parse_token(TokenType.COLON):
+            constraint = self.parse_type_expression()
+
+        return GenericTypeParameterNode(
+            position=start_position,
+            name=name,
+            constraint=constraint,
+        )
 
     def parse_type_atom(self) -> TypeExpressionNodeType:
         for type_atom_parser in self._type_atom_parsers:
@@ -203,15 +250,21 @@ class Parser(Unit):
         self,
     ) -> ParenthesizedTypeExpressionNode | TupleTypeNode | None:
         start_position = self._position
-        if not self.parse_token(TokenType.PARENTHESES_START):
+        if not self.parse_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        ):
             return None
 
         type_expressions: list[TypeExpressionNodeType] = []
-        while not self.parse_token(TokenType.PARENTHESES_END):
+        while not self.parse_any_token(
+            [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
+        ):
             type_expr = self.parse_type_expression()
             type_expressions.append(type_expr)
 
-            if self.parse_token(TokenType.PARENTHESES_END):
+            if self.parse_any_token(
+                [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
+            ):
                 break
 
             if (not self.parse_token(TokenType.COMMA)) and (
@@ -351,7 +404,6 @@ class Parser(Unit):
     def parse_function_parameter(self) -> FunctionParameterNode:
         start_position = self._position
         name: SymbolNode | None = None
-        name_expr: ValueExpressionNodeType | None = None
         optional = False
 
         if self._peek().type == TokenType.SYMBOL and self._peek(1).type in (
@@ -366,17 +418,10 @@ class Parser(Unit):
 
             if self.parse_token(TokenType.QUESTION):
                 optional = True
-        elif self._peek().type == TokenType.LIST_START:
-            self._read()
-            name_expr = self.parse_value_expression()
-            self.require_token(TokenType.LIST_END)
-
-            if self.parse_token(TokenType.QUESTION):
-                optional = True
 
         if self._peek().type == TokenType.COLON:
             self._read()  # consume COLON
-        elif name or name_expr:
+        elif name:
             self._raise_parse_error(
                 message="Expected ':' after parameter name in function type",
             )
@@ -385,7 +430,6 @@ class Parser(Unit):
         return FunctionParameterNode(
             position=start_position,
             name=name,
-            name_expr=name_expr,
             optional=optional,
             type_annotation=type_annotation,
         )

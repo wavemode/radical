@@ -116,7 +116,6 @@ class RecordTypeNode(Node):
 @dataclass(frozen=True)
 class FunctionParameterNode(Node):
     name: "SymbolNode | None"
-    name_expr: "ValueExpressionNodeType | None"
     optional: bool
     type_annotation: "TypeExpressionNodeType"
 
@@ -125,6 +124,18 @@ class FunctionParameterNode(Node):
 class FunctionTypeNode(Node):
     parameters: list["FunctionParameterNode"]
     return_type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class GenericTypeParameterNode(Node):
+    name: "SymbolNode"
+    constraint: "TypeExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
+class GenericTypeExpressionNode(Node):
+    parameters: list[GenericTypeParameterNode]
+    expression: "TypeExpressionNodeType"
 
 
 # Literals
@@ -291,6 +302,7 @@ TypeExpressionNodeType = (
     | SpreadTypeExpressionNode
     | RecordTypeNode
     | FunctionTypeNode
+    | GenericTypeExpressionNode
 )
 TopLevelDeclarationNodeType = (
     AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode
