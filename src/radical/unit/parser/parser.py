@@ -97,7 +97,11 @@ class Parser(Unit):
         | None
     ):
         start_position = self._position
-        if self._peek().type not in (TokenType.SYMBOL, TokenType.LOCAL):
+        if self._peek().type not in (
+            TokenType.SYMBOL,
+            TokenType.LOCAL,
+            TokenType.LIST_START,
+        ):
             return None
 
         local = False
@@ -108,11 +112,17 @@ class Parser(Unit):
             local = True
             self._read()  # consume LOCAL
 
-        target_token = self.require_token(TokenType.SYMBOL)
-        target = SymbolNode(
-            position=target_token.position,
-            name=target_token,
-        )
+        target: SymbolNode | None = None
+        expr_target: ValueExpressionNodeType | None = None
+        if target_token := self.parse_token(TokenType.SYMBOL):
+            target = SymbolNode(
+                position=target_token.position,
+                name=target_token,
+            )
+        elif self._peek().type == TokenType.LIST_START:
+            self._read()
+            expr_target = self.parse_value_expression()
+            self.require_token(TokenType.LIST_END)
 
         if self._peek().type == TokenType.COLON:
             self._read()  # consume COLON
@@ -127,12 +137,14 @@ class Parser(Unit):
                 return LocalTypeAnnotationNode(
                     position=start_position,
                     name=target,
+                    expr_name=expr_target,
                     type=type_annotation,
                 )
             elif value is not None:
                 return LocalAssignmentNode(
                     position=start_position,
                     target=target,
+                    expr_target=expr_target,
                     value=value,
                     type_annotation=type_annotation,
                 )
@@ -146,6 +158,7 @@ class Parser(Unit):
                 return AssignmentNode(
                     position=start_position,
                     target=target,
+                    expr_target=expr_target,
                     value=value,
                     type_annotation=type_annotation,
                 )
@@ -153,6 +166,7 @@ class Parser(Unit):
                 return TypeAnnotationNode(
                     position=start_position,
                     name=target,
+                    expr_name=expr_target,
                     type=type_annotation,
                 )
             else:

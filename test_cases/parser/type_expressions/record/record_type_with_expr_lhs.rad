@@ -1,0 +1,42 @@
+a : {
+    ["a" + "b"]: String
+}
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeAnnotation(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            type=RecordType(
+                position=(1, 5, 0),
+                fields=[
+                    TypeAnnotation(
+                        position=(2, 5, 4),
+                        expr_name=BinaryOperation(
+                            position=(2, 6, 4),
+                            left=StringLiteral(
+                                position=(2, 6, 4),
+                                contents="a"
+                            ),
+                            operator="+",
+                            right=StringLiteral(
+                                position=(2, 12, 4),
+                                contents="b"
+                            )
+                        ),
+                        type=TypeName(
+                            position=(2, 18, 4),
+                            name="String"
+                        )
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)

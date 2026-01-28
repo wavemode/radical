@@ -211,27 +211,31 @@ class TupleLiteralNode(Node):
 
 @dataclass(frozen=True)
 class AssignmentNode(Node):
-    target: SymbolNode
+    target: SymbolNode | None
+    expr_target: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
 class LocalAssignmentNode(Node):
-    target: SymbolNode
+    target: SymbolNode | None
+    expr_target: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
 class TypeAnnotationNode(Node):
-    name: SymbolNode
+    name: SymbolNode | None
+    expr_name: "ValueExpressionNodeType | None"
     type: "TypeExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class LocalTypeAnnotationNode(Node):
-    name: SymbolNode
+    name: SymbolNode | None
+    expr_name: "ValueExpressionNodeType | None"
     type: "TypeExpressionNodeType"
 
 
