@@ -93,6 +93,16 @@ class TypeTypeExpressionNode(Node):
     expression: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class TypeOfExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class ConstExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
 # Literals
 
 
@@ -240,6 +250,8 @@ TypeExpressionNodeType = (
     | ParenthesizedTypeExpressionNode
     | TupleTypeNode
     | TypeTypeExpressionNode
+    | TypeOfExpressionNode
+    | ConstExpressionNode
 )
 TopLevelDeclarationNodeType = (
     AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode

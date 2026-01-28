@@ -2,6 +2,7 @@ from typing import Callable, NoReturn
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
+    ConstExpressionNode,
     LocalTypeAnnotationNode,
     ModuleNode,
     NullLiteralNode,
@@ -14,6 +15,7 @@ from radical.data.parser.ast import (
     TupleLiteralNode,
     TupleTypeNode,
     TypeAnnotationNode,
+    TypeOfExpressionNode,
     TypeTypeExpressionNode,
     TypeExpressionNodeType,
     TypeNameNode,
@@ -53,6 +55,8 @@ class Parser(Unit):
             self.parse_type_name,
             self.parse_parenthesized_type_expression,
             self.parse_type_type_expression,
+            self.parse_typeof_expression,
+            self.parse_const_expression,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -211,6 +215,26 @@ class Parser(Unit):
             return None
         expression = self.parse_value_expression()
         return TypeTypeExpressionNode(
+            position=start_position,
+            expression=expression,
+        )
+
+    def parse_typeof_expression(self) -> TypeOfExpressionNode | None:
+        start_position = self._position
+        if not (self.parse_token(TokenType.TYPEOF)):
+            return None
+        expression = self.parse_value_expression()
+        return TypeOfExpressionNode(
+            position=start_position,
+            expression=expression,
+        )
+
+    def parse_const_expression(self) -> ConstExpressionNode | None:
+        start_position = self._position
+        if not (self.parse_token(TokenType.CONST)):
+            return None
+        expression = self.parse_value_expression()
+        return ConstExpressionNode(
             position=start_position,
             expression=expression,
         )
