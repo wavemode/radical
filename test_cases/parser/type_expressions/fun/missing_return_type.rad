@@ -1,0 +1,5 @@
+a : fun()
+
+(*
+FAIL(Expected '->' after function parameter list in function type at test_cases/parser/type_expressions/fun/missing_return_type.rad:1:5)
+*)

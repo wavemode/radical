@@ -3,6 +3,8 @@ from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
     ConstExpressionNode,
+    FunctionParameterNode,
+    FunctionTypeNode,
     ListLiteralNode,
     LocalTypeAnnotationNode,
     ModuleNode,
@@ -63,6 +65,7 @@ class Parser(Unit):
             self.parse_const_expression,
             self.parse_spread_type_expression,
             self.parse_record_type,
+            self.parse_function_type,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -307,6 +310,75 @@ class Parser(Unit):
         return RecordTypeNode(
             position=start_position,
             fields=fields,
+        )
+
+    def parse_function_type(self) -> FunctionTypeNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.FUN):
+            return None
+        self.require_token(TokenType.PARENTHESES_START)
+
+        parameters: list[FunctionParameterNode] = []
+        while not self.parse_token(TokenType.PARENTHESES_END):
+            parameter = self.parse_function_parameter()
+            parameters.append(parameter)
+
+            if self.parse_token(TokenType.PARENTHESES_END):
+                break
+
+            if self.parse_token(TokenType.COMMA):
+                if self.parse_token(TokenType.PARENTHESES_END):
+                    break
+            else:
+                if self._peek().position.line == parameter.position.line:
+                    self._raise_parse_error(
+                        message="Function parameters must be separated by a comma and/or newline"
+                    )
+
+        if not self.parse_token(TokenType.ARROW):
+            self._raise_parse_error(
+                message="Expected '->' after function parameter list in function type",
+                position=start_position,
+            )
+
+        return_type = self.parse_type_expression()
+        return FunctionTypeNode(
+            position=start_position,
+            parameters=parameters,
+            return_type=return_type,
+        )
+
+    def parse_function_parameter(self) -> FunctionParameterNode:
+        start_position = self._position
+        name: SymbolNode | None = None
+        optional = False
+
+        if self._peek().type == TokenType.SYMBOL and self._peek(1).type in (
+            TokenType.COLON,
+            TokenType.QUESTION,
+        ):
+            name_token = self._read()
+            name = SymbolNode(
+                position=name_token.position,
+                name=name_token,
+            )
+
+            if self.parse_token(TokenType.QUESTION):
+                optional = True
+
+        if self._peek().type == TokenType.COLON:
+            self._read()  # consume COLON
+        elif name:
+            self._raise_parse_error(
+                message="Expected ':' after parameter name in function type",
+            )
+
+        type_annotation = self.parse_type_expression()
+        return FunctionParameterNode(
+            position=start_position,
+            name=name,
+            optional=optional,
+            type_annotation=type_annotation,
         )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
