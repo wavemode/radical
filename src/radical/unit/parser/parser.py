@@ -26,6 +26,7 @@ from radical.data.parser.ast import (
     TypeTypeExpressionNode,
     TypeExpressionNodeType,
     TypeNameNode,
+    TypeUnionNode,
     UnaryOperationNode,
     ValueExpressionNodeType,
     LocalAssignmentNode,
@@ -183,7 +184,19 @@ class Parser(Unit):
                 )
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
-        return self.parse_descend_type_expr_generic()
+        return self.parse_descend_type_expr_union()
+
+    def parse_descend_type_expr_union(self) -> TypeExpressionNodeType:
+        lhs = self.parse_descend_type_expr_generic()
+        while self.parse_token(TokenType.VARIANT):
+            if not isinstance(lhs, TypeUnionNode):
+                lhs = TypeUnionNode(
+                    position=lhs.position,
+                    elements=[lhs],
+                )
+            rhs = self.parse_descend_type_expr_generic()
+            lhs.elements.append(rhs)
+        return lhs
 
     def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
         start_position = self._position
