@@ -2,6 +2,7 @@ from typing import Callable, NoReturn
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
+    LocalTypeAnnotationNode,
     ModuleNode,
     NullLiteralNode,
     NumberLiteralNode,
@@ -10,6 +11,9 @@ from radical.data.parser.ast import (
     SymbolNode,
     TopLevelDeclarationNodeType,
     TupleLiteralNode,
+    TypeAnnotationNode,
+    TypeExpressionNodeType,
+    TypeNameNode,
     UnaryOperationNode,
     ValueExpressionNodeType,
     LocalAssignmentNode,
@@ -42,10 +46,13 @@ class Parser(Unit):
             self.parse_symbol,
         ]
 
+        self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
+            self.parse_type_name,
+        ]
+
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
-            self.parse_local_assignment,
             self.parse_assignment,
         ]
 
@@ -67,31 +74,98 @@ class Parser(Unit):
             message=f"Expected top level declaration. Unexpected token '{self._peek().value}'"
         )
 
-    def parse_local_assignment(self) -> LocalAssignmentNode | None:
-        if not self.parse_token(TokenType.LOCAL):
+    def parse_assignment(
+        self,
+    ) -> (
+        AssignmentNode
+        | LocalAssignmentNode
+        | TypeAnnotationNode
+        | LocalTypeAnnotationNode
+        | None
+    ):
+        start_position = self._position
+        if self._peek().type not in (TokenType.SYMBOL, TokenType.LOCAL):
             return None
-        target = self.require_token(TokenType.SYMBOL)
-        self.require_token(TokenType.ASSIGN)
-        value = self.parse_value_expression()
-        return LocalAssignmentNode(
-            position=target.position,
-            target=SymbolNode(
-                position=target.position,
-                name=target,
-            ),
-            value=value,
+
+        local = False
+        type_annotation: TypeExpressionNodeType | None = None
+        value: ValueExpressionNodeType | None = None
+
+        if self._peek().type == TokenType.LOCAL:
+            local = True
+            self._read()  # consume LOCAL
+
+        target_token = self.require_token(TokenType.SYMBOL)
+        target = SymbolNode(
+            position=target_token.position,
+            name=target_token,
         )
 
-    def parse_assignment(self) -> AssignmentNode | None:
-        if not (target := self.parse_symbol()):
-            return None
-        self.require_token(TokenType.ASSIGN)
-        value = self.parse_value_expression()
-        return AssignmentNode(
-            position=target.position,
-            target=target,
-            value=value,
+        if self._peek().type == TokenType.COLON:
+            self._read()  # consume COLON
+            type_annotation = self.parse_type_expression()
+
+        if self._peek().type == TokenType.ASSIGN:
+            self._read()  # consume ASSIGN
+            value = self.parse_value_expression()
+
+        if local:
+            if type_annotation is not None and value is None:
+                return LocalTypeAnnotationNode(
+                    position=start_position,
+                    name=target,
+                    type=type_annotation,
+                )
+            elif value is not None:
+                return LocalAssignmentNode(
+                    position=start_position,
+                    target=target,
+                    value=value,
+                    type_annotation=type_annotation,
+                )
+            else:
+                self._raise_parse_error(
+                    message="Local declaration must have a type annotation and/or an assignment",
+                    position=start_position,
+                )
+        else:
+            if value is not None:
+                return AssignmentNode(
+                    position=start_position,
+                    target=target,
+                    value=value,
+                    type_annotation=type_annotation,
+                )
+            elif type_annotation is not None:
+                return TypeAnnotationNode(
+                    position=start_position,
+                    name=target,
+                    type=type_annotation,
+                )
+            else:
+                self._raise_parse_error(
+                    message="Assignment must have a value and/or a type annotation",
+                    position=start_position,
+                )
+
+    def parse_type_expression(self) -> TypeExpressionNodeType:
+        return self.parse_type_atom()
+
+    def parse_type_atom(self) -> TypeExpressionNodeType:
+        for type_atom_parser in self._type_atom_parsers:
+            if type_expr := type_atom_parser():
+                return type_expr
+        self._raise_parse_error(
+            message=f"Expected type expression. Unexpected token '{self._peek().value}'"
         )
+
+    def parse_type_name(self) -> TypeExpressionNodeType | None:
+        if token := self.parse_token(TokenType.SYMBOL):
+            return TypeNameNode(
+                position=token.position,
+                name=token,
+            )
+        return None
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
         return self.parse_descend_expr_pipe()

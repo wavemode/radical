@@ -70,6 +70,14 @@ class Node:
         return "".join(parts)
 
 
+# Type Expressions
+
+
+@dataclass(frozen=True)
+class TypeNameNode(Node):
+    name: Token
+
+
 # Literals
 
 
@@ -170,12 +178,26 @@ class TupleLiteralNode(Node):
 class AssignmentNode(Node):
     target: SymbolNode
     value: "ValueExpressionNodeType"
+    type_annotation: "TypeExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
 class LocalAssignmentNode(Node):
     target: SymbolNode
     value: "ValueExpressionNodeType"
+    type_annotation: "TypeExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
+class TypeAnnotationNode(Node):
+    name: SymbolNode
+    type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class LocalTypeAnnotationNode(Node):
+    name: SymbolNode
+    type: "TypeExpressionNodeType"
 
 
 # Top Level
@@ -198,4 +220,7 @@ AtomNodeType = (
     | TupleLiteralNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
-TopLevelDeclarationNodeType = AssignmentNode | LocalAssignmentNode
+TypeExpressionNodeType = TypeNameNode
+TopLevelDeclarationNodeType = (
+    AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode
+)

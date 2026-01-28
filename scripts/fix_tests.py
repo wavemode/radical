@@ -17,7 +17,7 @@ def fix_parser_tests():
                 formatted = parser.parse_module().format()
         except Exception as e:
             formatted = f"Error: {str(e)}"
-            test_case.update_expected_output(formatted)
+        test_case.update_expected_output(formatted)
 
 
 def fix_lexer_tests():
