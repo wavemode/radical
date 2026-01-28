@@ -118,7 +118,7 @@ class Parser(Unit):
             self._read()  # consume LOCAL
 
         target: SymbolNode | None = None
-        expr_target: ValueExpressionNodeType | None = None
+        target_expr: ValueExpressionNodeType | None = None
         if target_token := self.parse_token(TokenType.SYMBOL):
             target = SymbolNode(
                 position=target_token.position,
@@ -126,7 +126,7 @@ class Parser(Unit):
             )
         elif self._peek().type == TokenType.LIST_START:
             self._read()
-            expr_target = self.parse_value_expression()
+            target_expr = self.parse_value_expression()
             self.require_token(TokenType.LIST_END)
 
         if self._peek().type == TokenType.COLON:
@@ -142,14 +142,14 @@ class Parser(Unit):
                 return LocalTypeAnnotationNode(
                     position=start_position,
                     name=target,
-                    expr_name=expr_target,
+                    name_expr=target_expr,
                     type=type_annotation,
                 )
             elif value is not None:
                 return LocalAssignmentNode(
                     position=start_position,
                     target=target,
-                    expr_target=expr_target,
+                    target_expr=target_expr,
                     value=value,
                     type_annotation=type_annotation,
                 )
@@ -163,7 +163,7 @@ class Parser(Unit):
                 return AssignmentNode(
                     position=start_position,
                     target=target,
-                    expr_target=expr_target,
+                    target_expr=target_expr,
                     value=value,
                     type_annotation=type_annotation,
                 )
@@ -171,7 +171,7 @@ class Parser(Unit):
                 return TypeAnnotationNode(
                     position=start_position,
                     name=target,
-                    expr_name=expr_target,
+                    name_expr=target_expr,
                     type=type_annotation,
                 )
             else:
@@ -351,6 +351,7 @@ class Parser(Unit):
     def parse_function_parameter(self) -> FunctionParameterNode:
         start_position = self._position
         name: SymbolNode | None = None
+        name_expr: ValueExpressionNodeType | None = None
         optional = False
 
         if self._peek().type == TokenType.SYMBOL and self._peek(1).type in (
@@ -365,10 +366,17 @@ class Parser(Unit):
 
             if self.parse_token(TokenType.QUESTION):
                 optional = True
+        elif self._peek().type == TokenType.LIST_START:
+            self._read()
+            name_expr = self.parse_value_expression()
+            self.require_token(TokenType.LIST_END)
+
+            if self.parse_token(TokenType.QUESTION):
+                optional = True
 
         if self._peek().type == TokenType.COLON:
             self._read()  # consume COLON
-        elif name:
+        elif name or name_expr:
             self._raise_parse_error(
                 message="Expected ':' after parameter name in function type",
             )
@@ -377,6 +385,7 @@ class Parser(Unit):
         return FunctionParameterNode(
             position=start_position,
             name=name,
+            name_expr=name_expr,
             optional=optional,
             type_annotation=type_annotation,
         )

@@ -116,6 +116,7 @@ class RecordTypeNode(Node):
 @dataclass(frozen=True)
 class FunctionParameterNode(Node):
     name: "SymbolNode | None"
+    name_expr: "ValueExpressionNodeType | None"
     optional: bool
     type_annotation: "TypeExpressionNodeType"
 
@@ -232,7 +233,7 @@ class TupleLiteralNode(Node):
 @dataclass(frozen=True)
 class AssignmentNode(Node):
     target: SymbolNode | None
-    expr_target: "ValueExpressionNodeType | None"
+    target_expr: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
 
@@ -240,7 +241,7 @@ class AssignmentNode(Node):
 @dataclass(frozen=True)
 class LocalAssignmentNode(Node):
     target: SymbolNode | None
-    expr_target: "ValueExpressionNodeType | None"
+    target_expr: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
 
@@ -248,14 +249,14 @@ class LocalAssignmentNode(Node):
 @dataclass(frozen=True)
 class TypeAnnotationNode(Node):
     name: SymbolNode | None
-    expr_name: "ValueExpressionNodeType | None"
+    name_expr: "ValueExpressionNodeType | None"
     type: "TypeExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class LocalTypeAnnotationNode(Node):
     name: SymbolNode | None
-    expr_name: "ValueExpressionNodeType | None"
+    name_expr: "ValueExpressionNodeType | None"
     type: "TypeExpressionNodeType"
 
 

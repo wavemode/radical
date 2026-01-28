@@ -17,7 +17,7 @@ Module(
                 fields=[
                     TypeAnnotation(
                         position=(2, 5, 4),
-                        expr_name=BinaryOperation(
+                        name_expr=BinaryOperation(
                             position=(2, 6, 4),
                             left=StringLiteral(
                                 position=(2, 6, 4),

@@ -6,7 +6,7 @@ Module(
     declarations=[
         Assignment(
             position=(1, 1, 0),
-            expr_target=BinaryOperation(
+            target_expr=BinaryOperation(
                 position=(1, 2, 0),
                 left=StringLiteral(
                     position=(1, 2, 0),
