@@ -1,0 +1,32 @@
+a : (
+    Int
+    String
+)
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        TypeAnnotation(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            type=TupleType(
+                position=(1, 5, 0),
+                elements=[
+                    TypeName(
+                        position=(2, 5, 4),
+                        name="Int"
+                    ),
+                    TypeName(
+                        position=(3, 5, 4),
+                        name="String"
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)

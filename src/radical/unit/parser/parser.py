@@ -7,10 +7,12 @@ from radical.data.parser.ast import (
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
+    ParenthesizedTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
     TopLevelDeclarationNodeType,
     TupleLiteralNode,
+    TupleTypeNode,
     TypeAnnotationNode,
     TypeExpressionNodeType,
     TypeNameNode,
@@ -48,6 +50,7 @@ class Parser(Unit):
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
             self.parse_type_name,
+            self.parse_parenthesized_type_expression,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -166,6 +169,39 @@ class Parser(Unit):
                 name=token,
             )
         return None
+
+    def parse_parenthesized_type_expression(
+        self,
+    ) -> ParenthesizedTypeExpressionNode | TupleTypeNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.PARENTHESES_START):
+            return None
+
+        type_expressions: list[TypeExpressionNodeType] = []
+        while not self.parse_token(TokenType.PARENTHESES_END):
+            type_expr = self.parse_type_expression()
+            type_expressions.append(type_expr)
+
+            if self.parse_token(TokenType.PARENTHESES_END):
+                break
+
+            if (not self.parse_token(TokenType.COMMA)) and (
+                self._peek().position.line == type_expr.position.line
+            ):
+                self._raise_parse_error(
+                    message="Tuple type elements must be separated by a comma and/or newline"
+                )
+
+        if len(type_expressions) == 1:
+            return ParenthesizedTypeExpressionNode(
+                position=start_position,
+                expression=type_expressions[0],
+            )
+        else:
+            return TupleTypeNode(
+                position=start_position,
+                elements=type_expressions,
+            )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
         return self.parse_descend_expr_pipe()
@@ -309,6 +345,7 @@ class Parser(Unit):
     def parse_parenthesized_expression(
         self,
     ) -> ParenthesizedExpressionNode | TupleLiteralNode | None:
+        start_position = self._position
         if not self.parse_token(TokenType.PARENTHESES_START):
             return None
         expressions: list[ValueExpressionNodeType] = []
@@ -328,12 +365,12 @@ class Parser(Unit):
 
         if len(expressions) == 1:
             return ParenthesizedExpressionNode(
-                position=expressions[0].position,
+                position=start_position,
                 expression=expressions[0],
             )
         else:
             return TupleLiteralNode(
-                position=expressions[0].position,
+                position=start_position,
                 elements=expressions,
             )
 
