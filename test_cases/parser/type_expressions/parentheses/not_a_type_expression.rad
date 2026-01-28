@@ -1,5 +1,5 @@
 a : ("hi")
 
 (*
-FAIL(Expected type expression. Unexpected token 'hi' at test_cases/parser/type_expressions/parentheses/not_a_type_expression.rad:1:6)
+FAIL(Expected type expression. Unexpected token STRING_LITERAL("hi") at test_cases/parser/type_expressions/parentheses/not_a_type_expression.rad:1:6)
 *)

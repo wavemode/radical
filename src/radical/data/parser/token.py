@@ -112,3 +112,6 @@ class Token:
 
     def __str__(self) -> str:
         return f"Token(type={self.type.name}, value={json.dumps(self.value)}, position=({self.position.line}, {self.position.column}, {self.position.indent_level}))"
+
+    def pretty(self) -> str:
+        return f"{self.type.name}({json.dumps(self.value)})"

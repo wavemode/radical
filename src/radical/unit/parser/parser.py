@@ -82,7 +82,7 @@ class Parser(Unit):
             if declaration := declaration_parser():
                 return declaration
         self._raise_parse_error(
-            message=f"Expected top level declaration. Unexpected token '{self._peek().value}'"
+            message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
         )
 
     def parse_assignment(
@@ -167,7 +167,7 @@ class Parser(Unit):
             if type_expr := type_atom_parser():
                 return type_expr
         self._raise_parse_error(
-            message=f"Expected type expression. Unexpected token '{self._peek().value}'"
+            message=f"Expected type expression. Unexpected token {self._peek().pretty()}"
         )
 
     def parse_type_name(self) -> TypeExpressionNodeType | None:
@@ -387,7 +387,7 @@ class Parser(Unit):
             if value := atom_parser():
                 return value
         self._raise_parse_error(
-            message=f"Expected expression. Unexpected token '{self._peek().value}'"
+            message=f"Expected expression. Unexpected token {self._peek().pretty()}"
         )
 
     def parse_parenthesized_expression(
@@ -488,7 +488,7 @@ class Parser(Unit):
         token = self.parse_token(expected_type)
         if token is None:
             self._raise_parse_error(
-                message=f"Expected token of type {expected_type.name}. Unexpected token '{self._peek().value}'"
+                message=f"Expected token of type {expected_type.name}. Unexpected token {self._peek().pretty()}"
             )
             raise RuntimeError("unreachable")  # appease type checker
         return token
