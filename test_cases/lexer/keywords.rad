@@ -50,7 +50,7 @@ Token(type=LOCAL, value="local", position=(23, 9, 8))
 Token(type=SYMBOL, value="notand", position=(25, 5, 4))
 Token(type=SYMBOL, value="caseof", position=(25, 12, 4))
 Token(type=SYMBOL, value="ifthen", position=(56, 5, 4))
-Token(type=EOF, value="", position=(56, 11, 4))
+Token(type=EOF, value="", position=(57, 1, 0))
 *)
 
     ifthen

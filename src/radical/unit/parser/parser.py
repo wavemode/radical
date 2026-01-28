@@ -109,10 +109,11 @@ class Parser(Unit):
             raise RuntimeError("unreachable")  # appease type checker
 
         module_parts: list[SymbolNode] = [module_name]
-        while self.parse_token(TokenType.DOT):
+        while dot := self.parse_token(TokenType.DOT):
             if not (part := self.parse_symbol()):
                 self._raise_parse_error(
                     message="Expected module name part after '.' in import statement",
+                    position=dot.position,
                 )
                 raise RuntimeError("unreachable")  # appease type checker
             module_parts.append(part)

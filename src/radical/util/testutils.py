@@ -28,9 +28,19 @@ class CompilerTestCase:
             test_case_start = len(text)
             test_case_end = len(text)
 
-        new_text = (
-            text[:test_case_start] + "(*\n" + new_output + "\n*)" + text[test_case_end:]
-        )
+        new_text_parts = [
+            text[:test_case_start],
+            "(*\n",
+            new_output,
+            "\n*)",
+            text[test_case_end:],
+        ]
+
+        # add a newline if the file does not end with one
+        if (not new_text_parts[-1]) or (not new_text_parts[-1].endswith("\n")):
+            new_text_parts.append("\n")
+        new_text = "".join(new_text_parts)
+
         if new_text != text:
             print(f"Updating {self.path}")
             with open(self.path, "w") as f:
