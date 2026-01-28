@@ -5,6 +5,7 @@ import os
 from radical.unit.parser.lexer import Lexer
 from radical.unit.parser.parser import Parser
 from radical.util.testutils import collect_test_cases
+import json
 
 if os.environ.get("RAD_DEBUG"):
     import debugpy
@@ -27,7 +28,7 @@ class TestParser(TestCase):
                     ):
                         expected_output = parser.parse_module().format()
                 except Exception as e:
-                    expected_output = f"FAIL({str(e)})"
+                    expected_output = f"FAIL({json.dumps(str(e))})"
                 self.assertEqual(
                     test_case.expected_output,
                     expected_output,

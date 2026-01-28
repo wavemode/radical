@@ -3,5 +3,5 @@ a : Map[
 ]
 
 (*
-FAIL(Generic type arguments must be separated by a comma and/or newline at test_cases/parser/type_expressions/application/multiple_arguments_no_commas_no_newlines.rad:2:12)
+FAIL("Generic type arguments must be separated by a comma and/or newline at test_cases/parser/type_expressions/application/multiple_arguments_no_commas_no_newlines.rad:2:12")
 *)

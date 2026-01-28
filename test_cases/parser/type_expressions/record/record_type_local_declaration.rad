@@ -1,5 +1,5 @@
 a : { local b : Int }
 
 (*
-FAIL(Each entry of a record type must be an annotation of the form 'name : Type' at test_cases/parser/type_expressions/record/record_type_local_declaration.rad:1:21)
+FAIL("Each entry of a record type must be an annotation of the form 'name : Type' at test_cases/parser/type_expressions/record/record_type_local_declaration.rad:1:21")
 *)

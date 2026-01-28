@@ -1,5 +1,5 @@
 expr @[Type]
 
 (*
-FAIL(Unexpected character: '@' at test_cases/lexer/type_application_not_after_expression.rad:1:6)
+FAIL("Unexpected character: '@' at test_cases/lexer/type_application_not_after_expression.rad:1:6")
 *)

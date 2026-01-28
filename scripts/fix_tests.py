@@ -2,6 +2,7 @@
 
 from radical.unit.parser.lexer import Lexer
 from radical.util.testutils import collect_test_cases
+import json
 
 
 from radical.unit.parser.parser import Parser
@@ -16,7 +17,7 @@ def fix_parser_tests():
             ):
                 formatted = parser.parse_module().format()
         except Exception as e:
-            formatted = f"FAIL({str(e)})"
+            formatted = f"FAIL({json.dumps(str(e))})"
         test_case.update_expected_output(formatted)
 
 
@@ -26,7 +27,7 @@ def fix_lexer_tests():
             with Lexer(test_case.contents, filename=test_case.path) as lexer:
                 formatted = "\n".join(str(token) for token in lexer.read_all())
         except Exception as e:
-            formatted = f"FAIL({str(e)})"
+            formatted = f"FAIL({json.dumps(str(e))})"
         test_case.update_expected_output(formatted)
 
 
