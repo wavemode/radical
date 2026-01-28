@@ -8,6 +8,7 @@ from radical.data.parser.ast import (
     GenericTypeApplicationNode,
     GenericTypeExpressionNode,
     GenericTypeParameterNode,
+    ImportStatementNode,
     ListLiteralNode,
     LocalTypeAnnotationNode,
     ModuleNode,
@@ -75,6 +76,7 @@ class Parser(Unit):
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
+            self.parse_import_statement,
             self.parse_assignment,
         ]
 
@@ -94,6 +96,30 @@ class Parser(Unit):
                 return declaration
         self._raise_parse_error(
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_import_statement(self) -> ImportStatementNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.IMPORT):
+            return None
+        if not (module_name := self.parse_symbol()):
+            self._raise_parse_error(
+                message="Expected module name after 'import' statement",
+            )
+            raise RuntimeError("unreachable")  # appease type checker
+
+        module_parts: list[SymbolNode] = [module_name]
+        while self.parse_token(TokenType.DOT):
+            if not (part := self.parse_symbol()):
+                self._raise_parse_error(
+                    message="Expected module name part after '.' in import statement",
+                )
+                raise RuntimeError("unreachable")  # appease type checker
+            module_parts.append(part)
+
+        return ImportStatementNode(
+            position=start_position,
+            module_parts=module_parts,
         )
 
     def parse_assignment(

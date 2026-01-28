@@ -282,6 +282,11 @@ class LocalTypeAnnotationNode(Node):
     type: "TypeExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class ImportStatementNode(Node):
+    module_parts: list[SymbolNode]
+
+
 # Top Level
 
 
@@ -318,5 +323,9 @@ TypeExpressionNodeType = (
     | GenericTypeApplicationNode
 )
 TopLevelDeclarationNodeType = (
-    AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode
+    AssignmentNode
+    | LocalAssignmentNode
+    | TypeAnnotationNode
+    | LocalTypeAnnotationNode
+    | ImportStatementNode
 )

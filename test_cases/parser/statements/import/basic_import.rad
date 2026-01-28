@@ -1,0 +1,26 @@
+import A.B.C
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ImportStatement(
+            position=(1, 1, 0),
+            module_parts=[
+                Symbol(
+                    position=(1, 8, 0),
+                    name="A"
+                ),
+                Symbol(
+                    position=(1, 10, 0),
+                    name="B"
+                ),
+                Symbol(
+                    position=(1, 12, 0),
+                    name="C"
+                )
+            ]
+        )
+    ]
+)
+*)
