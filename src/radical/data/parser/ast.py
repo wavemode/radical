@@ -283,6 +283,11 @@ class LocalTypeAnnotationNode(Node):
 
 
 @dataclass(frozen=True)
+class SpreadAssignmentStatementNode(Node):
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class ImportStatementEllipsisNode(Node):
     pass
 
@@ -344,4 +349,5 @@ TopLevelDeclarationNodeType = (
     | TypeAnnotationNode
     | LocalTypeAnnotationNode
     | ImportStatementNode
+    | SpreadAssignmentStatementNode
 )

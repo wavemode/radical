@@ -19,6 +19,7 @@ from radical.data.parser.ast import (
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
     RecordTypeNode,
+    SpreadAssignmentStatementNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
@@ -78,6 +79,7 @@ class Parser(Unit):
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
+            self.parse_spread_assignment_statement,
             self.parse_import_statement,
             self.parse_assignment,
         ]
@@ -98,6 +100,16 @@ class Parser(Unit):
                 return declaration
         self._raise_parse_error(
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_spread_assignment_statement(self) -> SpreadAssignmentStatementNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.ELLIPSIS):
+            return None
+        value = self.parse_value_expression()
+        return SpreadAssignmentStatementNode(
+            position=start_position,
+            value=value,
         )
 
     def parse_import_statement(self) -> ImportStatementNode | None:
