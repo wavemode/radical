@@ -1,5 +1,10 @@
+all: check test
+
 test:
 	uv run python -m unittest discover -s src/test
+
+fix-tests:
+	uv run python scripts/fix_tests.py
 
 lint:
 	uv run ruff check --fix --unsafe-fixes src scripts

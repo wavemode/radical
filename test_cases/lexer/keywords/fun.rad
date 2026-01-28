@@ -1,0 +1,14 @@
+  fun
+
+    fun(a, b)
+
+(*
+Token(type=FUN, value="fun", position=(1, 3, 2))
+Token(type=FUN, value="fun", position=(3, 5, 4))
+Token(type=PARENTHESES_START, value="(", position=(3, 8, 4))
+Token(type=SYMBOL, value="a", position=(3, 9, 4))
+Token(type=COMMA, value=",", position=(3, 10, 4))
+Token(type=SYMBOL, value="b", position=(3, 12, 4))
+Token(type=PARENTHESES_END, value=")", position=(3, 13, 4))
+Token(type=EOF, value="", position=(15, 1, 0))
+*)
