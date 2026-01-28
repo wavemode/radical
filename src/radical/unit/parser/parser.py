@@ -9,6 +9,7 @@ from radical.data.parser.ast import (
     NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
+    SpreadTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
     TopLevelDeclarationNodeType,
@@ -57,6 +58,7 @@ class Parser(Unit):
             self.parse_type_type_expression,
             self.parse_typeof_expression,
             self.parse_const_expression,
+            self.parse_spread_type_expression,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -237,6 +239,16 @@ class Parser(Unit):
         return ConstExpressionNode(
             position=start_position,
             expression=expression,
+        )
+
+    def parse_spread_type_expression(self) -> SpreadTypeExpressionNode | None:
+        start_position = self._position
+        if not (self.parse_token(TokenType.ELLIPSIS)):
+            return None
+        type_expr = self.parse_type_expression()
+        return SpreadTypeExpressionNode(
+            position=start_position,
+            type=type_expr,
         )
 
     def parse_value_expression(self) -> ValueExpressionNodeType:

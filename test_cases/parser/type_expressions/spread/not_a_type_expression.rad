@@ -1,0 +1,5 @@
+a : ...10
+
+(*
+FAIL(Expected type expression. Unexpected token '10' at test_cases/parser/type_expressions/spread/not_a_type_expression.rad:1:8)
+*)

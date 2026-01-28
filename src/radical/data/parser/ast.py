@@ -103,6 +103,16 @@ class ConstExpressionNode(Node):
     expression: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class SpreadTypeExpressionNode(Node):
+    type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class RecordTypeNode(Node):
+    fields: list["TypeAnnotationNode | SpreadTypeExpressionNode"]
+
+
 # Literals
 
 
@@ -252,6 +262,8 @@ TypeExpressionNodeType = (
     | TypeTypeExpressionNode
     | TypeOfExpressionNode
     | ConstExpressionNode
+    | SpreadTypeExpressionNode
+    | RecordTypeNode
 )
 TopLevelDeclarationNodeType = (
     AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode
