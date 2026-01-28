@@ -283,8 +283,24 @@ class LocalTypeAnnotationNode(Node):
 
 
 @dataclass(frozen=True)
+class ImportStatementEllipsisNode(Node):
+    pass
+
+
+@dataclass(frozen=True)
+class ImportStatementFieldNode(Node):
+    name: SymbolNode
+    alias: SymbolNode | None
+
+
+@dataclass(frozen=True)
 class ImportStatementNode(Node):
-    module_parts: list[SymbolNode]
+    module_parts: list[SymbolNode] | None
+    module_expr: "ValueExpressionNodeType | None"
+    filename: StringLiteralNode | None
+    filename_expr: "ValueExpressionNodeType | None"
+    fields: list["ImportStatementFieldNode | ImportStatementEllipsisNode"] | None
+    alias: SymbolNode | None
 
 
 # Top Level

@@ -1,0 +1,20 @@
+import "filename.txt" as F
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ImportStatement(
+            position=(1, 1, 0),
+            filename=StringLiteral(
+                position=(1, 8, 0),
+                contents="filename.txt"
+            ),
+            alias=Symbol(
+                position=(1, 26, 0),
+                name="F"
+            )
+        )
+    ]
+)
+*)

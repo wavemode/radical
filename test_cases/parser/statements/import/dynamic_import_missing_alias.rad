@@ -1,0 +1,5 @@
+import module 1 + 2 * 3 (a, b)
+
+(*
+FAIL(Dynamic import statement must have an alias at test_cases/parser/statements/import/dynamic_import_missing_alias.rad:1:1)
+*)

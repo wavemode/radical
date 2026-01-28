@@ -1,0 +1,49 @@
+import Module.Name (
+    field1
+    field2 as alias2
+    ...
+)
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ImportStatement(
+            position=(1, 1, 0),
+            module_parts=[
+                Symbol(
+                    position=(1, 8, 0),
+                    name="Module"
+                ),
+                Symbol(
+                    position=(1, 15, 0),
+                    name="Name"
+                )
+            ],
+            fields=[
+                ImportStatementField(
+                    position=(2, 5, 4),
+                    name=Symbol(
+                        position=(2, 5, 4),
+                        name="field1"
+                    )
+                ),
+                ImportStatementField(
+                    position=(3, 5, 4),
+                    name=Symbol(
+                        position=(3, 5, 4),
+                        name="field2"
+                    ),
+                    alias=Symbol(
+                        position=(3, 15, 4),
+                        name="alias2"
+                    )
+                ),
+                ImportStatementEllipsis(
+                    position=(5, 1, 0)
+                )
+            ]
+        )
+    ]
+)
+*)

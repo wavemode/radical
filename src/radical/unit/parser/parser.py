@@ -8,6 +8,8 @@ from radical.data.parser.ast import (
     GenericTypeApplicationNode,
     GenericTypeExpressionNode,
     GenericTypeParameterNode,
+    ImportStatementEllipsisNode,
+    ImportStatementFieldNode,
     ImportStatementNode,
     ListLiteralNode,
     LocalTypeAnnotationNode,
@@ -102,26 +104,144 @@ class Parser(Unit):
         start_position = self._position
         if not self.parse_token(TokenType.IMPORT):
             return None
-        if not (module_name := self.parse_symbol()):
-            self._raise_parse_error(
-                message="Expected module name after 'import' statement",
-            )
-            raise RuntimeError("unreachable")  # appease type checker
 
-        module_parts: list[SymbolNode] = [module_name]
-        while dot := self.parse_token(TokenType.DOT):
-            if not (part := self.parse_symbol()):
-                self._raise_parse_error(
-                    message="Expected module name part after '.' in import statement",
-                    position=dot.position,
+        module_parts: list[SymbolNode] | None = None
+        module_expr: ValueExpressionNodeType | None = None
+        filename: StringLiteralNode | None = None
+        filename_expr: ValueExpressionNodeType | None = None
+        fields: list[ImportStatementFieldNode | ImportStatementEllipsisNode] | None = (
+            None
+        )
+        alias: SymbolNode | None = None
+
+        if self._peek().type == TokenType.SYMBOL:
+            module_parts = []
+            module_part_token = self._read()
+            module_parts.append(
+                SymbolNode(
+                    position=module_part_token.position,
+                    name=module_part_token,
                 )
-                raise RuntimeError("unreachable")  # appease type checker
-            module_parts.append(part)
+            )
+            while dot := self.parse_token(TokenType.DOT):
+                if self._peek().type == TokenType.SYMBOL:
+                    module_part_token = self._read()
+                    module_parts.append(
+                        SymbolNode(
+                            position=module_part_token.position,
+                            name=module_part_token,
+                        )
+                    )
+                else:
+                    self._raise_parse_error(
+                        message="Expected module name part after '.' in import statement",
+                        position=dot.position,
+                    )
+        elif self._peek().type == TokenType.STRING_LITERAL:
+            filename_token = self._read()
+            filename = StringLiteralNode(
+                position=filename_token.position,
+                contents=filename_token,
+            )
+        elif self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            self._read()  # consume LIST_START
+            filename_expr = self.parse_value_expression()
+            self.require_any_token([TokenType.LIST_END, TokenType.INDEXING_END])
+        elif self._peek().type == TokenType.MODULE:
+            self._read()  # consume MODULE
+            module_expr = self.parse_value_expression()
+        else:
+            self._raise_parse_error(
+                message=f"Expected module name or filename in import statement. Unexpected token {self._peek().pretty()}"
+            )
+
+        if self._peek().type in (
+            TokenType.PARENTHESES_START,
+            TokenType.FUNCTION_CALL_START,
+        ):
+            fields = self.parse_import_fields()
+
+        if self.parse_token(TokenType.AS):
+            alias_token = self.require_token(TokenType.SYMBOL)
+            alias = SymbolNode(
+                position=alias_token.position,
+                name=alias_token,
+            )
+        elif module_expr:
+            self._raise_parse_error(
+                message="Dynamic import statement must have an alias",
+                position=start_position,
+            )
+        elif filename or filename_expr:
+            self._raise_parse_error(
+                message="Import statement with filename must have an alias",
+                position=start_position,
+            )
 
         return ImportStatementNode(
             position=start_position,
             module_parts=module_parts,
+            module_expr=module_expr,
+            filename=filename,
+            filename_expr=filename_expr,
+            fields=fields,
+            alias=alias,
         )
+
+    def parse_import_fields(
+        self,
+    ) -> list[ImportStatementFieldNode | ImportStatementEllipsisNode]:
+        self.require_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
+
+        fields: list[ImportStatementFieldNode | ImportStatementEllipsisNode] = []
+        while not self.parse_any_token(
+            [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
+        ):
+            field: ImportStatementFieldNode | ImportStatementEllipsisNode
+            if self.parse_token(TokenType.ELLIPSIS):
+                field = ImportStatementEllipsisNode(
+                    position=self._position,
+                )
+            else:
+                name_token = self.require_token(TokenType.SYMBOL)
+                name = SymbolNode(
+                    position=name_token.position,
+                    name=name_token,
+                )
+                alias: SymbolNode | None = None
+                if self.parse_token(TokenType.AS):
+                    alias_token = self.require_token(TokenType.SYMBOL)
+                    alias = SymbolNode(
+                        position=alias_token.position,
+                        name=alias_token,
+                    )
+                field = ImportStatementFieldNode(
+                    position=name.position,
+                    name=name,
+                    alias=alias,
+                )
+
+            fields.append(field)
+
+            if self.parse_any_token(
+                [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
+            ):
+                break
+
+            if self.parse_token(TokenType.COMMA):
+                if self.parse_any_token(
+                    [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
+                ):
+                    break
+            else:
+                if self._peek().position.line == field.position.line:
+                    self._raise_parse_error(
+                        message="Import statement fields must be separated by a comma and/or newline"
+                    )
+
+        return fields
 
     def parse_assignment(
         self,
@@ -775,6 +895,16 @@ class Parser(Unit):
         if token.type != expected_type:
             return None
         return self._read()
+
+    def require_any_token(self, expected_types: list[TokenType]) -> Token:
+        token = self.parse_any_token(expected_types)
+        if token is None:
+            expected_names = ", ".join(t.name for t in expected_types)
+            self._raise_parse_error(
+                message=f"Expected token of type {expected_names}. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease type checker
+        return token
 
     def require_token(self, expected_type: TokenType) -> Token:
         token = self.parse_token(expected_type)

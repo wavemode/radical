@@ -1,0 +1,52 @@
+import module 1 + 2 * 3 (a, b) as M
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ImportStatement(
+            position=(1, 1, 0),
+            module_expr=BinaryOperation(
+                position=(1, 15, 0),
+                left=NumberLiteral(
+                    position=(1, 15, 0),
+                    contents="1"
+                ),
+                operator="+",
+                right=BinaryOperation(
+                    position=(1, 19, 0),
+                    left=NumberLiteral(
+                        position=(1, 19, 0),
+                        contents="2"
+                    ),
+                    operator="*",
+                    right=NumberLiteral(
+                        position=(1, 23, 0),
+                        contents="3"
+                    )
+                )
+            ),
+            fields=[
+                ImportStatementField(
+                    position=(1, 26, 0),
+                    name=Symbol(
+                        position=(1, 26, 0),
+                        name="a"
+                    )
+                ),
+                ImportStatementField(
+                    position=(1, 29, 0),
+                    name=Symbol(
+                        position=(1, 29, 0),
+                        name="b"
+                    )
+                )
+            ],
+            alias=Symbol(
+                position=(1, 35, 0),
+                name="M"
+            )
+        )
+    ]
+)
+*)
