@@ -21,7 +21,8 @@ Module(
             type=TypeName(
                 position=(1, 15, 0),
                 name="C"
-            )
+            ),
+            local=false
         )
     ]
 )

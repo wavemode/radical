@@ -13,7 +13,8 @@ Module(
             value=StringLiteral(
                 position=(1, 7, 0),
                 contents="value"
-            )
+            ),
+            local=false
         )
     ]
 )

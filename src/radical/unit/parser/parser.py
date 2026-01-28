@@ -12,7 +12,6 @@ from radical.data.parser.ast import (
     ImportStatementFieldNode,
     ImportStatementNode,
     ListLiteralNode,
-    LocalTypeAnnotationNode,
     ModuleNode,
     NullLiteralNode,
     NumberLiteralNode,
@@ -34,7 +33,6 @@ from radical.data.parser.ast import (
     TypeUnionNode,
     UnaryOperationNode,
     ValueExpressionNodeType,
-    LocalAssignmentNode,
     AtomNodeType,
     BinaryOperationNode,
     Operator,
@@ -257,13 +255,7 @@ class Parser(Unit):
 
     def parse_assignment(
         self,
-    ) -> (
-        AssignmentNode
-        | LocalAssignmentNode
-        | TypeAnnotationNode
-        | LocalTypeAnnotationNode
-        | None
-    ):
+    ) -> AssignmentNode | TypeAnnotationNode | None:
         start_position = self._position
         if self._peek().type not in (
             TokenType.SYMBOL,
@@ -300,48 +292,28 @@ class Parser(Unit):
             self._read()  # consume ASSIGN
             value = self.parse_value_expression()
 
-        if local:
-            if type_annotation is not None and value is None:
-                return LocalTypeAnnotationNode(
-                    position=start_position,
-                    name=target,
-                    name_expr=target_expr,
-                    type=type_annotation,
-                )
-            elif value is not None:
-                return LocalAssignmentNode(
-                    position=start_position,
-                    target=target,
-                    target_expr=target_expr,
-                    value=value,
-                    type_annotation=type_annotation,
-                )
-            else:
-                self._raise_parse_error(
-                    message="Local declaration must have a type annotation and/or an assignment",
-                    position=start_position,
-                )
+        if value is not None:
+            return AssignmentNode(
+                position=start_position,
+                target=target,
+                target_expr=target_expr,
+                value=value,
+                type_annotation=type_annotation,
+                local=local,
+            )
+        elif type_annotation is not None:
+            return TypeAnnotationNode(
+                position=start_position,
+                name=target,
+                name_expr=target_expr,
+                type=type_annotation,
+                local=local,
+            )
         else:
-            if value is not None:
-                return AssignmentNode(
-                    position=start_position,
-                    target=target,
-                    target_expr=target_expr,
-                    value=value,
-                    type_annotation=type_annotation,
-                )
-            elif type_annotation is not None:
-                return TypeAnnotationNode(
-                    position=start_position,
-                    name=target,
-                    name_expr=target_expr,
-                    type=type_annotation,
-                )
-            else:
-                self._raise_parse_error(
-                    message="Assignment must have a value and/or a type annotation",
-                    position=start_position,
-                )
+            self._raise_parse_error(
+                message="Assignment must have a value and/or a type annotation",
+                position=start_position,
+            )
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
         return self.parse_descend_type_expr_union()
@@ -542,7 +514,10 @@ class Parser(Unit):
             if spread_type := self.parse_spread_type_expression():
                 entry = spread_type
             elif type_annotation := self.parse_assignment():
-                if not isinstance(type_annotation, TypeAnnotationNode):
+                if (
+                    not isinstance(type_annotation, TypeAnnotationNode)
+                    or type_annotation.local
+                ):
                     self._raise_parse_error(
                         message="Each entry of a record type must be an annotation of the form 'name : Type'",
                     )

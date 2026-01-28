@@ -21,7 +21,8 @@ Module(
             value=StringLiteral(
                 position=(1, 15, 0),
                 contents="c"
-            )
+            ),
+            local=false
         )
     ]
 )

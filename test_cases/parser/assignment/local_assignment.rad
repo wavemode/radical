@@ -4,7 +4,7 @@ local x=10.5
 Module(
     position=(1, 1, 0),
     declarations=[
-        LocalAssignment(
+        Assignment(
             position=(1, 1, 0),
             target=Symbol(
                 position=(1, 7, 0),
@@ -13,7 +13,8 @@ Module(
             value=NumberLiteral(
                 position=(1, 9, 0),
                 contents="10.5"
-            )
+            ),
+            local=true
         )
     ]
 )

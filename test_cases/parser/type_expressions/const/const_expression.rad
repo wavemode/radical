@@ -16,7 +16,8 @@ Module(
                     position=(1, 11, 0),
                     contents="hello"
                 )
-            )
+            ),
+            local=false
         )
     ]
 )

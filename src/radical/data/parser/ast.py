@@ -258,14 +258,7 @@ class AssignmentNode(Node):
     target_expr: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
-
-
-@dataclass(frozen=True)
-class LocalAssignmentNode(Node):
-    target: SymbolNode | None
-    target_expr: "ValueExpressionNodeType | None"
-    value: "ValueExpressionNodeType"
-    type_annotation: "TypeExpressionNodeType | None"
+    local: bool
 
 
 @dataclass(frozen=True)
@@ -273,13 +266,7 @@ class TypeAnnotationNode(Node):
     name: SymbolNode | None
     name_expr: "ValueExpressionNodeType | None"
     type: "TypeExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class LocalTypeAnnotationNode(Node):
-    name: SymbolNode | None
-    name_expr: "ValueExpressionNodeType | None"
-    type: "TypeExpressionNodeType"
+    local: bool
 
 
 @dataclass(frozen=True)
@@ -345,9 +332,7 @@ TypeExpressionNodeType = (
 )
 TopLevelDeclarationNodeType = (
     AssignmentNode
-    | LocalAssignmentNode
     | TypeAnnotationNode
-    | LocalTypeAnnotationNode
     | ImportStatementNode
     | SpreadAssignmentStatementNode
 )

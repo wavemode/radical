@@ -13,7 +13,8 @@ Module(
             type=TypeName(
                 position=(1, 5, 0),
                 name="Int"
-            )
+            ),
+            local=false
         )
     ]
 )

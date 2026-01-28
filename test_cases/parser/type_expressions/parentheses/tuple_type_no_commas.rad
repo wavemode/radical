@@ -25,7 +25,8 @@ Module(
                         name="String"
                     )
                 ]
-            )
+            ),
+            local=false
         )
     ]
 )

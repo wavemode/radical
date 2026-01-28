@@ -28,7 +28,8 @@ Module(
                         name="Int"
                     )
                 ]
-            )
+            ),
+            local=false
         )
     ]
 )

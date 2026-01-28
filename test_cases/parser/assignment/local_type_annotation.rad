@@ -4,7 +4,7 @@ local a : Int
 Module(
     position=(1, 1, 0),
     declarations=[
-        LocalTypeAnnotation(
+        TypeAnnotation(
             position=(1, 1, 0),
             name=Symbol(
                 position=(1, 7, 0),
@@ -13,7 +13,8 @@ Module(
             type=TypeName(
                 position=(1, 11, 0),
                 name="Int"
-            )
+            ),
+            local=true
         )
     ]
 )

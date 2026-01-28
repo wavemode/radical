@@ -31,7 +31,8 @@ Module(
                         contents="3"
                     )
                 ]
-            )
+            ),
+            local=false
         )
     ]
 )

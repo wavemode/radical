@@ -51,7 +51,8 @@ Module(
                     position=(1, 29, 0),
                     name="Bool"
                 )
-            )
+            ),
+            local=false
         )
     ]
 )

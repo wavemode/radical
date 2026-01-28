@@ -16,7 +16,8 @@ Module(
                     position=(1, 10, 0),
                     name="typeObject"
                 )
-            )
+            ),
+            local=false
         )
     ]
 )

@@ -18,7 +18,8 @@ Module(
                         contents="5"
                     )
                 ]
-            )
+            ),
+            local=false
         )
     ]
 )

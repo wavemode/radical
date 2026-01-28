@@ -43,7 +43,8 @@ Module(
                     position=(1, 22, 0),
                     contents="false"
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(2, 1, 0),
@@ -70,7 +71,8 @@ Module(
                     position=(2, 33, 0),
                     contents="true"
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(3, 1, 0),
@@ -97,7 +99,8 @@ Module(
                         contents="false"
                     )
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(5, 1, 0),
@@ -124,7 +127,8 @@ Module(
                     position=(5, 21, 0),
                     contents="3"
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(6, 1, 0),
@@ -151,7 +155,8 @@ Module(
                     position=(6, 21, 0),
                     contents="6"
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(7, 1, 0),
@@ -234,7 +239,8 @@ Module(
                         )
                     )
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
             position=(9, 1, 0),
@@ -465,42 +471,44 @@ Module(
                         )
                     )
                 )
-            )
+            ),
+            local=false
         ),
         Assignment(
-            position=(509, 1, 0),
+            position=(517, 1, 0),
             target=Symbol(
-                position=(509, 1, 0),
+                position=(517, 1, 0),
                 name="plusMinusPlus"
             ),
             value=BinaryOperation(
-                position=(509, 17, 0),
+                position=(517, 17, 0),
                 left=BinaryOperation(
-                    position=(509, 17, 0),
+                    position=(517, 17, 0),
                     left=BinaryOperation(
-                        position=(509, 17, 0),
+                        position=(517, 17, 0),
                         left=NumberLiteral(
-                            position=(509, 17, 0),
+                            position=(517, 17, 0),
                             contents="1"
                         ),
                         operator="+",
                         right=NumberLiteral(
-                            position=(509, 21, 0),
+                            position=(517, 21, 0),
                             contents="2"
                         )
                     ),
                     operator="-",
                     right=NumberLiteral(
-                        position=(509, 25, 0),
+                        position=(517, 25, 0),
                         contents="3"
                     )
                 ),
                 operator="+",
                 right=NumberLiteral(
-                    position=(509, 29, 0),
+                    position=(517, 29, 0),
                     contents="4"
                 )
-            )
+            ),
+            local=false
         )
     ]
 )

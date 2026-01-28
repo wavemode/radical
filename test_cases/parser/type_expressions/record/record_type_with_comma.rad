@@ -23,7 +23,8 @@ Module(
                         type=TypeName(
                             position=(1, 11, 0),
                             name="Int"
-                        )
+                        ),
+                        local=false
                     ),
                     TypeAnnotation(
                         position=(1, 17, 0),
@@ -34,10 +35,12 @@ Module(
                         type=TypeName(
                             position=(1, 19, 0),
                             name="String"
-                        )
+                        ),
+                        local=false
                     )
                 ]
-            )
+            ),
+            local=false
         )
     ]
 )
