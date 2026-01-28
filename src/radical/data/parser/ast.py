@@ -151,6 +151,8 @@ class Operator(Enum):
     Exponentiation is the only right-associative operator.
     """
 
+    SPREAD = "..."
+
     EXPONENTIATION = "**"
 
     POSITIVE = "+x"
@@ -194,6 +196,11 @@ class UnaryOperationNode(Node):
 
 
 # Compound Expressions
+
+
+@dataclass(frozen=True)
+class ListLiteralNode(Node):
+    elements: list["ValueExpressionNodeType"]
 
 
 @dataclass(frozen=True)
@@ -257,6 +264,7 @@ AtomNodeType = (
     | NullLiteralNode
     | ParenthesizedExpressionNode
     | TupleLiteralNode
+    | ListLiteralNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TypeExpressionNodeType = (

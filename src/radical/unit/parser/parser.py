@@ -3,6 +3,7 @@ from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
     ConstExpressionNode,
+    ListLiteralNode,
     LocalTypeAnnotationNode,
     ModuleNode,
     NullLiteralNode,
@@ -51,6 +52,7 @@ class Parser(Unit):
             self.parse_number_literal,
             self.parse_string_literal,
             self.parse_symbol,
+            self.parse_list_literal,
         ]
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
@@ -427,7 +429,7 @@ class Parser(Unit):
         return self.parse_descend_expr_pow()
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_atom()
+        lhs = self.parse_descend_expr_spread()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -438,12 +440,47 @@ class Parser(Unit):
             )
         return lhs
 
+    def parse_descend_expr_spread(self) -> ValueExpressionNodeType:
+        if self.parse_token(TokenType.ELLIPSIS):
+            operand = self.parse_descend_expr_spread()
+            return UnaryOperationNode(
+                position=operand.position,
+                operator=Operator.SPREAD,
+                operand=operand,
+            )
+        return self.parse_atom()
+
     def parse_atom(self) -> AtomNodeType:
         for atom_parser in self._atom_parsers:
             if value := atom_parser():
                 return value
         self._raise_parse_error(
             message=f"Expected expression. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_list_literal(self) -> ListLiteralNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.LIST_START):
+            return None
+
+        elements: list[ValueExpressionNodeType] = []
+        while not self.parse_token(TokenType.LIST_END):
+            element = self.parse_value_expression()
+            elements.append(element)
+
+            if self.parse_token(TokenType.LIST_END):
+                break
+
+            if (not self.parse_token(TokenType.COMMA)) and (
+                self._peek().position.line == element.position.line
+            ):
+                self._raise_parse_error(
+                    message="List elements must be separated by a comma and/or newline"
+                )
+
+        return ListLiteralNode(
+            position=start_position,
+            elements=elements,
         )
 
     def parse_parenthesized_expression(

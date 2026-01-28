@@ -1,0 +1,38 @@
+a = [
+    1
+    , 2
+    , 3
+]
+
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            value=ListLiteral(
+                position=(1, 5, 0),
+                elements=[
+                    NumberLiteral(
+                        position=(2, 5, 4),
+                        contents="1"
+                    ),
+                    NumberLiteral(
+                        position=(3, 7, 4),
+                        contents="2"
+                    ),
+                    NumberLiteral(
+                        position=(4, 7, 4),
+                        contents="3"
+                    )
+                ]
+            )
+        )
+    ]
+)
+*)
