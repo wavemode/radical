@@ -143,6 +143,12 @@ class TypeUnionNode(Node):
     elements: list["TypeExpressionNodeType"]
 
 
+@dataclass(frozen=True)
+class GenericTypeApplicationNode(Node):
+    generic_type: "TypeExpressionNodeType"
+    arguments: list["TypeExpressionNodeType"]
+
+
 # Literals
 
 
@@ -309,6 +315,7 @@ TypeExpressionNodeType = (
     | FunctionTypeNode
     | GenericTypeExpressionNode
     | TypeUnionNode
+    | GenericTypeApplicationNode
 )
 TopLevelDeclarationNodeType = (
     AssignmentNode | LocalAssignmentNode | TypeAnnotationNode | LocalTypeAnnotationNode

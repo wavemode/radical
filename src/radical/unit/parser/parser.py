@@ -5,6 +5,7 @@ from radical.data.parser.ast import (
     ConstExpressionNode,
     FunctionParameterNode,
     FunctionTypeNode,
+    GenericTypeApplicationNode,
     GenericTypeExpressionNode,
     GenericTypeParameterNode,
     ListLiteralNode,
@@ -187,15 +188,48 @@ class Parser(Unit):
         return self.parse_descend_type_expr_union()
 
     def parse_descend_type_expr_union(self) -> TypeExpressionNodeType:
-        lhs = self.parse_descend_type_expr_generic()
+        lhs = self.parse_descend_type_expr_application()
         while self.parse_token(TokenType.VARIANT):
             if not isinstance(lhs, TypeUnionNode):
                 lhs = TypeUnionNode(
                     position=lhs.position,
                     elements=[lhs],
                 )
-            rhs = self.parse_descend_type_expr_generic()
+            rhs = self.parse_descend_type_expr_application()
             lhs.elements.append(rhs)
+        return lhs
+
+    def parse_descend_type_expr_application(self) -> TypeExpressionNodeType:
+        start_position = self._position
+        lhs = self.parse_descend_type_expr_generic()
+        while self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            self._read()  # consume LIST_START
+            arguments: list[TypeExpressionNodeType] = []
+            while not self.parse_any_token(
+                [TokenType.LIST_END, TokenType.INDEXING_END]
+            ):
+                argument = self.parse_type_expression()
+                arguments.append(argument)
+
+                if self.parse_any_token([TokenType.LIST_END, TokenType.INDEXING_END]):
+                    break
+
+                if self.parse_token(TokenType.COMMA):
+                    if self.parse_any_token(
+                        [TokenType.LIST_END, TokenType.INDEXING_END]
+                    ):
+                        break
+                else:
+                    if self._peek().position.line == argument.position.line:
+                        self._raise_parse_error(
+                            message="Generic type arguments must be separated by a comma and/or newline"
+                        )
+
+            lhs = GenericTypeApplicationNode(
+                position=start_position,
+                generic_type=lhs,
+                arguments=arguments,
+            )
         return lhs
 
     def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
