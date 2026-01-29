@@ -1,0 +1,8 @@
+a = {
+    b 10
+    c = 10
+}
+
+(*
+FAIL("Map entries (with an '=' sign) cannot be mixed with tree entries (without an '=' sign) within the same literal at test_cases/parser/literals/tree/mixed_map_tree_entries.rad:1:5")
+*)

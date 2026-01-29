@@ -308,6 +308,18 @@ class MapLiteralNode(Node):
 
 
 @dataclass(frozen=True)
+class TreeLiteralEntryNode(Node):
+    key: "ValueExpressionNodeType | None"
+    key_expr: "ValueExpressionNodeType | None"
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class TreeLiteralNode(Node):
+    entries: list["TreeLiteralEntryNode | SpreadOperationNode"]
+
+
+@dataclass(frozen=True)
 class ParenthesizedExpressionNode(Node):
     expression: "ValueExpressionNodeType"
 
@@ -443,6 +455,7 @@ AtomNodeType = (
     | TupleLiteralNode
     | ListLiteralNode
     | MapLiteralNode
+    | TreeLiteralNode
     | IfExpressionNode
     | LetExpressionNode
     | ModuleExpressionNode

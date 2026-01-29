@@ -42,6 +42,8 @@ from radical.data.parser.ast import (
     StringLiteralNode,
     SymbolNode,
     TopLevelDeclarationNodeType,
+    TreeLiteralEntryNode,
+    TreeLiteralNode,
     TupleLiteralNode,
     TupleTypeNode,
     TypeAnnotationNode,
@@ -81,7 +83,7 @@ class Parser(Unit):
             self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
-            self.parse_map_literal,
+            self.parse_map_or_tree_literal,
             self.parse_if_expression,
             self.parse_let_expression,
             self.parse_module_expression,
@@ -1186,37 +1188,64 @@ class Parser(Unit):
             return spread_operation
         return self.parse_value_expression()
 
-    def parse_map_literal(self) -> MapLiteralNode | None:
+    def parse_map_or_tree_literal(self) -> MapLiteralNode | TreeLiteralNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.OBJECT_START):
             return None
 
         entries = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_map_literal_entry,
+            element_parser=self.parse_map_or_tree_literal_entry,
             ending_token=TokenType.OBJECT_END,
         )
+        map_entries = [
+            entry
+            for entry in entries
+            if isinstance(entry, (MapLiteralEntryNode, SpreadOperationNode))
+        ]
+        if len(map_entries) == len(entries):
+            return MapLiteralNode(
+                position=start_position,
+                entries=map_entries,
+            )
 
-        return MapLiteralNode(
+        tree_entries = [
+            entry
+            for entry in entries
+            if isinstance(entry, (TreeLiteralEntryNode, SpreadOperationNode))
+        ]
+        if len(tree_entries) == len(entries):
+            return TreeLiteralNode(
+                position=start_position,
+                entries=tree_entries,
+            )
+
+        self._raise_parse_error(
+            message="Map entries (with an '=' sign) cannot be mixed with tree entries (without an '=' sign) within the same literal",
             position=start_position,
-            entries=entries,
         )
 
-    def parse_map_literal_entry(self) -> MapLiteralEntryNode | SpreadOperationNode:
+    def parse_map_or_tree_literal_entry(
+        self,
+    ) -> MapLiteralEntryNode | TreeLiteralEntryNode | SpreadOperationNode:
         if spread_operation := self.parse_spread_operation():
             return spread_operation
 
         start_position = self._position
+        key_line: int
         key: ValueExpressionNodeType | None = None
         key_expr: ValueExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
+        has_equal_sign = False
 
         if key_token := self.parse_token(TokenType.SYMBOL):
             key = SymbolNode(
                 position=key_token.position,
                 name=key_token,
             )
+            key_line = key_token.position.line
         elif self.parse_token(TokenType.LIST_START):
             key_expr = self.parse_value_expression()
+            key_line = key_expr.position.line
             self.require_token(TokenType.LIST_END)
         else:
             self._raise_parse_error(
@@ -1225,6 +1254,9 @@ class Parser(Unit):
             )
 
         if self.parse_token(TokenType.ASSIGN):
+            has_equal_sign = True
+
+        if has_equal_sign or self._peek().position.line == key_line:
             value = self.parse_value_expression()
 
         if key_expr and not value:
@@ -1233,12 +1265,26 @@ class Parser(Unit):
                 position=start_position,
             )
 
-        return MapLiteralEntryNode(
-            position=start_position,
-            key=key,
-            key_expr=key_expr,
-            value=value,
-        )
+        if has_equal_sign:
+            return MapLiteralEntryNode(
+                position=start_position,
+                key=key,
+                key_expr=key_expr,
+                value=value,
+            )
+        else:
+            if not value:
+                self._raise_parse_error(
+                    message="Tree literal entry must have a value",
+                    position=start_position,
+                )
+                raise RuntimeError("unreachable")  # appease type checker
+            return TreeLiteralEntryNode(
+                position=start_position,
+                key=key,
+                key_expr=key_expr,
+                value=value,
+            )
 
     def parse_spread_operation(self) -> SpreadOperationNode | None:
         start_position = self._position
