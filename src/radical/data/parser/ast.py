@@ -256,6 +256,12 @@ class IfExpressionNode(Node):
     else_branch: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class LetExpressionNode(Node):
+    assignments: list["LetExpressionDeclarationNodeType"]
+    body: "ValueExpressionNodeType"
+
+
 # Declarations
 
 
@@ -345,6 +351,7 @@ AtomNodeType = (
     | TupleLiteralNode
     | ListLiteralNode
     | IfExpressionNode
+    | LetExpressionNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TypeExpressionNodeType = (
@@ -361,11 +368,14 @@ TypeExpressionNodeType = (
     | TypeUnionNode
     | GenericTypeApplicationNode
 )
-TopLevelDeclarationNodeType = (
+LetExpressionDeclarationNodeType = (
     AssignmentNode
     | TypeAnnotationNode
     | ImportStatementNode
-    | SpreadAssignmentStatementNode
     | TypeDeclarationNode
     | DataDeclarationNode
+)
+
+TopLevelDeclarationNodeType = (
+    LetExpressionDeclarationNodeType | SpreadAssignmentStatementNode
 )

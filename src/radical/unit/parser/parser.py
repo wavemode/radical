@@ -14,6 +14,8 @@ from radical.data.parser.ast import (
     ImportStatementEllipsisNode,
     ImportStatementFieldNode,
     ImportStatementNode,
+    LetExpressionDeclarationNodeType,
+    LetExpressionNode,
     ListLiteralNode,
     ModuleNode,
     Node,
@@ -69,6 +71,7 @@ class Parser(Unit):
             self.parse_symbol,
             self.parse_list_literal,
             self.parse_if_expression,
+            self.parse_let_expression,
         ]
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
@@ -82,15 +85,59 @@ class Parser(Unit):
             self.parse_function_type,
         ]
 
-        self._top_level_declaration_parsers: list[
-            Callable[[], TopLevelDeclarationNodeType | None]
+        self._let_expression_declaration_parsers: list[
+            Callable[[], LetExpressionDeclarationNodeType | None]
         ] = [
             self.parse_data_declaration,
             self.parse_type_declaration,
-            self.parse_spread_assignment_statement,
             self.parse_import_statement,
             self.parse_assignment,
         ]
+
+        self._top_level_declaration_parsers: list[
+            Callable[[], TopLevelDeclarationNodeType | None]
+        ] = [
+            *self._let_expression_declaration_parsers,
+            self.parse_spread_assignment_statement,
+        ]
+
+    def parse_let_expression(self) -> LetExpressionNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.LET):
+            return None
+
+        assignments: list[LetExpressionDeclarationNodeType] = (
+            self.parse_comma_or_newline_separated(
+                element_parser=self.parse_let_expression_declaration,
+                ending_token=TokenType.IN,
+            )
+        )
+
+        body = self.parse_value_expression()
+
+        return LetExpressionNode(
+            position=start_position,
+            assignments=assignments,
+            body=body,
+        )
+
+    def parse_let_expression_declaration(self) -> LetExpressionDeclarationNodeType:
+        for declaration_parser in self._let_expression_declaration_parsers:
+            if declaration := declaration_parser():
+                self._check_illegal_local_in_let(declaration)
+                return declaration
+        self._raise_parse_error(
+            message=f"Expected let expression declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def _check_illegal_local_in_let(
+        self, declaration: LetExpressionDeclarationNodeType
+    ) -> None:
+        if getattr(declaration, "local", False):
+            self._raise_parse_error(
+                message="Local declarations are not allowed in let expressions",
+                position=declaration.position,
+            )
 
     def parse_module(self) -> ModuleNode:
         start_position = self._position
