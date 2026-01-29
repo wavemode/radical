@@ -165,6 +165,23 @@ class StringLiteralNode(Node):
 
 
 @dataclass(frozen=True)
+class FormatStringTextSectionNode(Node):
+    string_contents: Token
+
+
+@dataclass(frozen=True)
+class FormatStringExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class FormatStringLiteralNode(Node):
+    open_quote: Token
+    contents: list[FormatStringTextSectionNode | FormatStringExpressionNode]
+    close_quote: Token
+
+
+@dataclass(frozen=True)
 class NumberLiteralNode(Node):
     contents: Token
 
@@ -371,6 +388,7 @@ class ModuleNode(Node):
 AtomNodeType = (
     SymbolNode
     | StringLiteralNode
+    | FormatStringLiteralNode
     | NumberLiteralNode
     | BooleanLiteralNode
     | NullLiteralNode

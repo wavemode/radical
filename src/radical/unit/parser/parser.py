@@ -5,6 +5,9 @@ from radical.data.parser.ast import (
     ConstExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
+    FormatStringExpressionNode,
+    FormatStringLiteralNode,
+    FormatStringTextSectionNode,
     FunctionParameterNode,
     FunctionTypeNode,
     GenericTypeApplicationNode,
@@ -68,6 +71,7 @@ class Parser(Unit):
             self.parse_boolean_literal,
             self.parse_number_literal,
             self.parse_string_literal,
+            self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
             self.parse_if_expression,
@@ -1165,6 +1169,44 @@ class Parser(Unit):
             position=start_position,
             open_quote=open_quote,
             contents=token,
+            close_quote=close_quote,
+        )
+
+    def parse_format_string_literal(self) -> FormatStringLiteralNode | None:
+        start_position = self._position
+        if not (
+            open_quote := self.parse_any_token(
+                [TokenType.FORMAT_STRING_START, TokenType.MULTILINE_FORMAT_STRING_START]
+            )
+        ):
+            return None
+
+        contents: list[FormatStringTextSectionNode | FormatStringExpressionNode] = []
+        while not (
+            close_quote := self.parse_any_token(
+                [TokenType.FORMAT_STRING_END, TokenType.MULTILINE_FORMAT_STRING_END]
+            )
+        ):
+            if content_token := self.parse_token(TokenType.STRING_CONTENTS):
+                contents.append(
+                    FormatStringTextSectionNode(
+                        position=content_token.position,
+                        string_contents=content_token,
+                    )
+                )
+            elif self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
+                expr = self.parse_value_expression()
+                self._read()  # consume FORMAT_STRING_EXPR_END
+                contents.append(
+                    FormatStringExpressionNode(
+                        position=expr.position,
+                        expression=expr,
+                    )
+                )
+        return FormatStringLiteralNode(
+            position=start_position,
+            open_quote=open_quote,
+            contents=contents,
             close_quote=close_quote,
         )
 
