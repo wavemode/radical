@@ -88,7 +88,6 @@ class Parser(Unit):
             self.parse_type_type_expression,
             self.parse_typeof_type_expression,
             self.parse_const_type_expression,
-            self.parse_spread_type_expression,
             self.parse_record_type,
             self.parse_function_type,
         ]
@@ -894,7 +893,11 @@ class Parser(Unit):
                 message=f"Expected ':' after parameter name in function type. Unexpected token {self._peek().pretty()}",
             )
 
-        type_annotation = self.parse_type_expression()
+        type_annotation: TypeExpressionNodeType | SpreadTypeExpressionNode
+        if spread := self.parse_spread_type_expression():
+            type_annotation = spread
+        else:
+            type_annotation = self.parse_type_expression()
         return FunctionParameterNode(
             position=start_position,
             name=name,
