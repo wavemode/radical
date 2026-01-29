@@ -17,6 +17,7 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
     Node,
@@ -58,11 +59,7 @@ class Parser(Unit):
     def __init__(self, lexer: Lexer, filename: str):
         self._lexer = lexer
         self._filename = filename
-        self._position = Position(
-            line=1,
-            column=1,
-            indent_level=0,
-        )
+        self._position = self._lexer.peek().position
         self._atom_parsers: list[Callable[[], AtomNodeType | None]] = [
             self.parse_parenthesized_expression,
             self.parse_null_literal,
@@ -73,6 +70,7 @@ class Parser(Unit):
             self.parse_list_literal,
             self.parse_if_expression,
             self.parse_let_expression,
+            self.parse_module_expression,
         ]
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
@@ -157,6 +155,11 @@ class Parser(Unit):
         seen_nonlocal_declaration = False
         while not self.at_end():
             decl = self.parse_top_level_declaration()
+            if decl.position.indent_level != 0:
+                self._raise_parse_error(
+                    message="Top level declarations must not be indented",
+                    position=decl.position,
+                )
             if not self._is_local_toplevel_declaration(decl):
                 seen_nonlocal_declaration = True
             elif isinstance(decl, ModuleNameNode):
@@ -187,6 +190,49 @@ class Parser(Unit):
     ) -> bool:
         return getattr(declaration, "local", False) or (
             isinstance(declaration, (ImportStatementNode, ModuleNameNode))
+        )
+
+    def parse_module_expression(self) -> ModuleExpressionNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.MODULE and self._peek(1).type == TokenType.OF
+        ):
+            return None
+
+        self._read()  # consume MODULE
+        self._read()  # consume OF
+
+        declarations: list[TopLevelDeclarationNodeType] = []
+        seen_nonlocal_declaration = False
+        indent_level = -1
+        while not self.at_end():
+            if self._position.indent_level == start_position.indent_level:
+                break
+            elif indent_level == -1:
+                indent_level = self._position.indent_level
+            elif self._position.indent_level != indent_level:
+                self._raise_parse_error(
+                    message="All declarations in module expression must have the same indent level",
+                    position=self._position,
+                )
+
+            decl = self.parse_top_level_declaration()
+            if not self._is_local_toplevel_declaration(decl):
+                seen_nonlocal_declaration = True
+            elif isinstance(decl, ModuleNameNode):
+                self._raise_parse_error(
+                    message="Module name declarations are not allowed in module expressions",
+                    position=decl.position,
+                )
+            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
+                self._raise_parse_error(
+                    message="Import statements must appear before any nonlocal declarations",
+                    position=decl.position,
+                )
+            declarations.append(decl)
+        return ModuleExpressionNode(
+            position=start_position,
+            declarations=declarations,
         )
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
@@ -915,8 +961,11 @@ class Parser(Unit):
 
     def parse_descend_expr_module(self) -> ValueExpressionNodeType:
         start_position = self._position
-        if not self.parse_token(TokenType.MODULE):
+        if not (
+            self._peek().type == TokenType.MODULE and self._peek(1).type != TokenType.OF
+        ):
             return self.parse_atom()
+        self._read()  # consume MODULE
         expression = self.parse_descend_expr_module()
         return UnaryOperationNode(
             position=start_position,

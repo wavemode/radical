@@ -9,10 +9,10 @@ a : A|B[C]|[D]E[F]
 
 (*
 Module(
-    position=(1, 1, 0),
+    position=(8, 1, 0),
     declarations=[
         TypeAnnotation(
-            position=(1, 1, 0),
+            position=(8, 1, 0),
             name=Symbol(
                 position=(8, 1, 0),
                 name="a"

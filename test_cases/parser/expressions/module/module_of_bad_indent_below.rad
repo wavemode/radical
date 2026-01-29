@@ -1,0 +1,8 @@
+x = module of
+    a = 5
+
+  b = 5
+
+(*
+FAIL("All declarations in module expression must have the same indent level at test_cases/parser/expressions/module/module_of_bad_indent_below.rad:4:3")
+*)

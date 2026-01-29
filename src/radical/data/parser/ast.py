@@ -264,6 +264,11 @@ class LetExpressionNode(Node):
     body: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class ModuleExpressionNode(Node):
+    declarations: list["TopLevelDeclarationNodeType"]
+
+
 # Declarations
 
 
@@ -360,6 +365,7 @@ AtomNodeType = (
     | ListLiteralNode
     | IfExpressionNode
     | LetExpressionNode
+    | ModuleExpressionNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TypeExpressionNodeType = (
