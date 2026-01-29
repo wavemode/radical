@@ -5,6 +5,7 @@ from radical.data.parser.ast import (
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
+    FieldAccessExpressionNode,
     FormatStringExpressionNode,
     FormatStringLiteralNode,
     FormatStringTextSectionNode,
@@ -17,6 +18,7 @@ from radical.data.parser.ast import (
     ImportStatementEllipsisNode,
     ImportStatementFieldNode,
     ImportStatementNode,
+    IndexingExpressionNode,
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
@@ -25,7 +27,6 @@ from radical.data.parser.ast import (
     ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
-    Node,
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
@@ -40,6 +41,7 @@ from radical.data.parser.ast import (
     TupleLiteralNode,
     TupleTypeNode,
     TypeAnnotationNode,
+    TypeApplicationExpressionNode,
     TypeDeclarationNode,
     TypeOfTypeExpressionNode,
     TypeTypeExpressionNode,
@@ -1034,7 +1036,7 @@ class Parser(Unit):
         if not (
             self._peek().type == TokenType.MODULE and self._peek(1).type != TokenType.OF
         ):
-            return self.parse_atom()
+            return self.parse_descend_expr_postfix()
         self._read()  # consume MODULE
         expression = self.parse_descend_expr_module()
         return UnaryOperationNode(
@@ -1042,6 +1044,56 @@ class Parser(Unit):
             operator=Operator.MODULE,
             operand=expression,
         )
+
+    def parse_descend_expr_postfix(self) -> ValueExpressionNodeType:
+        lhs = self.parse_atom()
+        while True:
+            if self.parse_token(TokenType.TYPE_APPLICATION_START):
+                type_arguments = self.parse_comma_or_newline_separated(
+                    element_parser=self.parse_type_expression,
+                    ending_token=TokenType.TYPE_APPLICATION_END,
+                )
+                if not type_arguments:
+                    self._raise_parse_error(
+                        message="Type application must have at least one type argument",
+                        position=self._position,
+                    )
+                lhs = TypeApplicationExpressionNode(
+                    position=lhs.position,
+                    value_expression=lhs,
+                    type_arguments=type_arguments,
+                )
+            elif self.parse_token(TokenType.INDEXING_START):
+                index_expression = self.parse_value_expression()
+                self.require_token(TokenType.INDEXING_END)
+                lhs = IndexingExpressionNode(
+                    position=lhs.position,
+                    object_expression=lhs,
+                    index_expression=index_expression,
+                )
+            elif self.parse_token(TokenType.DOT):
+                if property_token := self.parse_token(TokenType.SYMBOL):
+                    field_name = SymbolNode(
+                        position=property_token.position,
+                        name=property_token,
+                    )
+                elif property_token := self.parse_token(TokenType.INTEGER_LITERAL):
+                    field_name = SymbolNode(
+                        position=property_token.position,
+                        name=property_token,
+                    )
+                else:
+                    self._raise_parse_error(
+                        message=f"Expected field name after '.' in field access expression. Unexpected token {self._peek().pretty()}",
+                    )
+                lhs = FieldAccessExpressionNode(
+                    position=lhs.position,
+                    object_expression=lhs,
+                    field=field_name,
+                )
+            else:
+                break
+        return lhs
 
     def parse_atom(self) -> AtomNodeType:
         for atom_parser in self._atom_parsers:
@@ -1255,8 +1307,11 @@ class Parser(Unit):
                 if reached_end():
                     break
             else:
-                assert isinstance(element, Node)
-                if self._peek().position.line == element.position.line:
+                position = getattr(element, "position", None)
+                if (
+                    isinstance(position, Position)
+                    and self._peek().position.line == position.line
+                ):
                     self._raise_parse_error(
                         message="Elements must be separated by a comma and/or newline",
                         position=self._peek().position,

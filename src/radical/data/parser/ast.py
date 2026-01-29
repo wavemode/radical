@@ -283,6 +283,24 @@ class IfExpressionNode(Node):
 
 
 @dataclass(frozen=True)
+class TypeApplicationExpressionNode(Node):
+    value_expression: "ValueExpressionNodeType"
+    type_arguments: list["TypeExpressionNodeType"]
+
+
+@dataclass(frozen=True)
+class FieldAccessExpressionNode(Node):
+    object_expression: "ValueExpressionNodeType"
+    field: SymbolNode
+
+
+@dataclass(frozen=True)
+class IndexingExpressionNode(Node):
+    object_expression: "ValueExpressionNodeType"
+    index_expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class LetExpressionNode(Node):
     declarations: list["LetExpressionDeclarationNodeType"]
     body: "ValueExpressionNodeType"
@@ -404,7 +422,14 @@ AtomNodeType = (
     | LetExpressionNode
     | ModuleExpressionNode
 )
-ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
+ValueExpressionNodeType = (
+    AtomNodeType
+    | BinaryOperationNode
+    | UnaryOperationNode
+    | TypeApplicationExpressionNode
+    | FieldAccessExpressionNode
+    | IndexingExpressionNode
+)
 TypeExpressionNodeType = (
     TypeNameNode
     | ParenthesizedTypeExpressionNode

@@ -1,0 +1,12 @@
+a = b.3.5
+
+(*
+    TODO: This is a known bug. The lexer reads this as (b.(3.5))
+    rather than the intended ((b.3).5)
+
+    As a workaround, you must be explicit: (b.3).5
+*)
+
+(*
+FAIL("Expected field name after '.' in field access expression. Unexpected token FLOAT_LITERAL('3.5') at test_cases/parser/expressions/field_access/field_access_floating_point_number.rad:1:7")
+*)
