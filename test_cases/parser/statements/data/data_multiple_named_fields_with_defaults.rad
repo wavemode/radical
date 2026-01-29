@@ -42,7 +42,9 @@ Module(
                     ),
                     default_value=StringLiteral(
                         position=(3, 17, 4),
-                        contents="default"
+                        open_quote="\"",
+                        contents="default",
+                        close_quote="\""
                     )
                 ),
                 DataField(
@@ -69,11 +71,15 @@ Module(
                         elements=[
                             StringLiteral(
                                 position=(4, 24, 4),
-                                contents="one"
+                                open_quote="\"",
+                                contents="one",
+                                close_quote="\""
                             ),
                             StringLiteral(
                                 position=(4, 31, 4),
-                                contents="two"
+                                open_quote="\"",
+                                contents="two",
+                                close_quote="\""
                             )
                         ]
                     )

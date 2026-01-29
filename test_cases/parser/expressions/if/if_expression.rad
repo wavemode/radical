@@ -26,11 +26,15 @@ Module(
                 ),
                 then_branch=StringLiteral(
                     position=(1, 19, 0),
-                    contents="yes"
+                    open_quote="\"",
+                    contents="yes",
+                    close_quote="\""
                 ),
                 else_branch=StringLiteral(
                     position=(1, 30, 0),
-                    contents="no"
+                    open_quote="\"",
+                    contents="no",
+                    close_quote="\""
                 )
             ),
             local=false

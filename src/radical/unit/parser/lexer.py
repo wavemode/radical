@@ -416,7 +416,7 @@ class Lexer(Unit):
         self._add_token(
             TokenType.STRING_CONTENTS, string_value, contents_start_position
         )
-        self._add_token(TokenType.RAW_MULTILINE_STRING_LITERAL_END, string_value)
+        self._add_token(TokenType.RAW_MULTILINE_STRING_LITERAL_END, '"')
         self._advance_non_whitespace()  # Skip closing quote
 
     def _read_multiline_string_literal(self) -> None:

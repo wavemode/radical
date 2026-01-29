@@ -8,7 +8,9 @@ Module(
             position=(1, 1, 0),
             filename=StringLiteral(
                 position=(1, 8, 0),
-                contents="filename.txt"
+                open_quote="\"",
+                contents="filename.txt",
+                close_quote="\""
             ),
             alias=Symbol(
                 position=(1, 26, 0),

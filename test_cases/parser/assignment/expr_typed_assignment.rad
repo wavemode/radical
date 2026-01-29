@@ -10,12 +10,16 @@ Module(
                 position=(1, 2, 0),
                 left=StringLiteral(
                     position=(1, 2, 0),
-                    contents="a"
+                    open_quote="\"",
+                    contents="a",
+                    close_quote="\""
                 ),
                 operator="+",
                 right=StringLiteral(
                     position=(1, 8, 0),
-                    contents="b"
+                    open_quote="\"",
+                    contents="b",
+                    close_quote="\""
                 )
             ),
             value=Symbol(

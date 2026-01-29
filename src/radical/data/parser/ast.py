@@ -159,7 +159,9 @@ class SymbolNode(Node):
 
 @dataclass(frozen=True)
 class StringLiteralNode(Node):
+    open_quote: Token
     contents: Token
+    close_quote: Token
 
 
 @dataclass(frozen=True)

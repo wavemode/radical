@@ -98,7 +98,7 @@ Token(type=STRING_CONTENTS, value="\n    hello \r\n\t\"\n    ", position=(15, 8,
 Token(type=MULTILINE_STRING_LITERAL_END, value="\"\"\"", position=(17, 5, 0))
 Token(type=RAW_STRING_LITERAL_START, value="r\"", position=(18, 5, 4))
 Token(type=STRING_CONTENTS, value="raw string \\r\\n\\t\\", position=(18, 7, 4))
-Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="raw string \\r\\n\\t\\", position=(18, 25, 4))
+Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="\"", position=(18, 25, 4))
 Token(type=RAW_MULTILINE_STRING_LITERAL_START, value="r\"\"\"", position=(19, 5, 4))
 Token(type=STRING_CONTENTS, value="\n    raw\n    multi-line\n    string\n    \\r\\n\\t\\\n    ", position=(19, 9, 4))
 Token(type=RAW_MULTILINE_STRING_LITERAL_END, value="\"\"\"", position=(24, 5, 0))

@@ -1,4 +1,4 @@
-var = "value"
+x = "hello"
 
 (*
 Module(
@@ -8,12 +8,12 @@ Module(
             position=(1, 1, 0),
             target=Symbol(
                 position=(1, 1, 0),
-                name="var"
+                name="x"
             ),
             value=StringLiteral(
-                position=(1, 7, 0),
+                position=(1, 5, 0),
                 open_quote="\"",
-                contents="value",
+                contents="hello",
                 close_quote="\""
             ),
             local=false

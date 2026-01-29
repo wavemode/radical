@@ -54,7 +54,9 @@ Module(
                 ],
                 body=StringLiteral(
                     position=(6, 5, 4),
-                    contents="hi"
+                    open_quote="\"",
+                    contents="hi",
+                    close_quote="\""
                 )
             ),
             local=false

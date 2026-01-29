@@ -10,12 +10,16 @@ Module(
                 position=(1, 9, 0),
                 left=StringLiteral(
                     position=(1, 9, 0),
-                    contents="filename"
+                    open_quote="\"",
+                    contents="filename",
+                    close_quote="\""
                 ),
                 operator="+",
                 right=StringLiteral(
                     position=(1, 22, 0),
-                    contents=".txt"
+                    open_quote="\"",
+                    contents=".txt",
+                    close_quote="\""
                 )
             ),
             alias=Symbol(

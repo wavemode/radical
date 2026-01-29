@@ -10,17 +10,23 @@ Module(
                 position=(1, 2, 0),
                 left=StringLiteral(
                     position=(1, 2, 0),
-                    contents="a"
+                    open_quote="\"",
+                    contents="a",
+                    close_quote="\""
                 ),
                 operator="+",
                 right=StringLiteral(
                     position=(1, 8, 0),
-                    contents="b"
+                    open_quote="\"",
+                    contents="b",
+                    close_quote="\""
                 )
             ),
             value=StringLiteral(
                 position=(1, 15, 0),
-                contents="c"
+                open_quote="\"",
+                contents="c",
+                close_quote="\""
             ),
             local=false
         )

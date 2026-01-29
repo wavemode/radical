@@ -14,7 +14,9 @@ Module(
                 position=(1, 5, 0),
                 expression=StringLiteral(
                     position=(1, 11, 0),
-                    contents="hello"
+                    open_quote="\"",
+                    contents="hello",
+                    close_quote="\""
                 )
             ),
             local=false

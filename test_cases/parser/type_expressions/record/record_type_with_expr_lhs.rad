@@ -21,12 +21,16 @@ Module(
                             position=(2, 6, 4),
                             left=StringLiteral(
                                 position=(2, 6, 4),
-                                contents="a"
+                                open_quote="\"",
+                                contents="a",
+                                close_quote="\""
                             ),
                             operator="+",
                             right=StringLiteral(
                                 position=(2, 12, 4),
-                                contents="b"
+                                open_quote="\"",
+                                contents="b",
+                                close_quote="\""
                             )
                         ),
                         type_annotation=TypeName(

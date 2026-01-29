@@ -496,14 +496,8 @@ class Parser(Unit):
                         message="Expected module name part after '.' in import statement",
                         position=dot.position,
                     )
-        elif self._peek().type == TokenType.STRING_LITERAL_START:
-            quote = self._read()  # consume STRING_LITERAL_START
-            filename_token = self._read()
-            self._read()  # consume STRING_LITERAL_END
-            filename = StringLiteralNode(
-                position=quote.position,
-                contents=filename_token,
-            )
+        elif filename := self.parse_string_literal():
+            pass
         elif self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             self._read()  # consume LIST_START
             filename_expr = self.parse_value_expression()
@@ -1154,13 +1148,24 @@ class Parser(Unit):
 
     def parse_string_literal(self) -> StringLiteralNode | None:
         start_position = self._position
-        if not self.parse_token(TokenType.STRING_LITERAL_START):
+        if not (
+            open_quote := self.parse_any_token(
+                [
+                    TokenType.STRING_LITERAL_START,
+                    TokenType.RAW_STRING_LITERAL_START,
+                    TokenType.MULTILINE_STRING_LITERAL_START,
+                    TokenType.RAW_MULTILINE_STRING_LITERAL_START,
+                ]
+            )
+        ):
             return None
         token = self.require_token(TokenType.STRING_CONTENTS)
-        self._read()  # consume STRING_LITERAL_END
+        close_quote = self._read()
         return StringLiteralNode(
             position=start_position,
+            open_quote=open_quote,
             contents=token,
+            close_quote=close_quote,
         )
 
     def parse_symbol(self) -> SymbolNode | None:
