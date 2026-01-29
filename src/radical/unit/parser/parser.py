@@ -500,7 +500,7 @@ class Parser(Unit):
                     )
                 else:
                     self._raise_parse_error(
-                        message="Expected module name part after '.' in import statement",
+                        message=f"Expected module name after '.' in import statement. Unexpected token {self._peek().pretty()}",
                         position=dot.position,
                     )
         elif filename := self.parse_string_literal():
@@ -841,7 +841,7 @@ class Parser(Unit):
             entry = type_annotation
         else:
             self._raise_parse_error(
-                message="Expected type annotation or spread type expression in record type",
+                message=f"Expected record type entry. Unexpected token {self._peek().pretty()}"
             )
         return entry
 
@@ -858,7 +858,7 @@ class Parser(Unit):
 
         if not self.parse_token(TokenType.ARROW):
             self._raise_parse_error(
-                message="Expected '->' after function parameter list in function type",
+                message=f"Expected '->' after function parameter list in function type. Unexpected token {self._peek().pretty()}",
                 position=start_position,
             )
 
@@ -891,7 +891,7 @@ class Parser(Unit):
             self._read()  # consume COLON
         elif name:
             self._raise_parse_error(
-                message="Expected ':' after parameter name in function type",
+                message=f"Expected ':' after parameter name in function type. Unexpected token {self._peek().pretty()}",
             )
 
         type_annotation = self.parse_type_expression()
