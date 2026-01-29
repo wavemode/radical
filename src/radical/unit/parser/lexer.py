@@ -297,9 +297,7 @@ class Lexer(Unit):
                 contents.append(self._read_format_string_char())
         if contents:
             string_value = "".join(contents)
-            self._add_token(
-                TokenType.MULTILINE_FORMAT_STRING_SECTION, string_value, start_position
-            )
+            self._add_token(TokenType.STRING_CONTENTS, string_value, start_position)
         return end_of_string
 
     def _read_format_string_literral(self) -> None:
@@ -337,7 +335,7 @@ class Lexer(Unit):
                 self._raise_parse_error("Unterminated format string", start_position)
             string_chars.append(self._read_format_string_char())
         string_value = "".join(string_chars)
-        self._add_token(TokenType.FORMAT_STRING_SECTION, string_value, start_position)
+        self._add_token(TokenType.STRING_CONTENTS, string_value, start_position)
 
     def _read_format_string_char(self) -> str:
         if self._peek_char() == "\\":
@@ -388,7 +386,7 @@ class Lexer(Unit):
                 self._read_string_literal_character()
         string_value = self._contents[contents_start_index:contents_end_index]
         self._add_token(
-            TokenType.RAW_MULTILINE_STRING_LITERAL_CONTENTS,
+            TokenType.STRING_CONTENTS,
             string_value,
             contents_position,
         )
@@ -404,8 +402,10 @@ class Lexer(Unit):
 
     def _read_raw_string_literal(self) -> None:
         start_position = self._position()
+        self._add_token(TokenType.RAW_STRING_LITERAL_START, 'r"')
         self._advance_non_whitespace(2)  # Skip opening r"
         start_index = self._index
+        contents_start_position = self._position()
         while self._peek_char() != '"':
             if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error(
@@ -413,8 +413,11 @@ class Lexer(Unit):
                 )
             self._read_string_literal_character()
         string_value = self._contents[start_index : self._index]
+        self._add_token(
+            TokenType.STRING_CONTENTS, string_value, contents_start_position
+        )
+        self._add_token(TokenType.RAW_MULTILINE_STRING_LITERAL_END, string_value)
         self._advance_non_whitespace()  # Skip closing quote
-        self._add_token(TokenType.RAW_STRING_LITERAL, string_value, start_position)
 
     def _read_multiline_string_literal(self) -> None:
         start_position = self._position()
@@ -448,7 +451,7 @@ class Lexer(Unit):
                 num_ending_quotes = 0
                 contents.append(self._read_nonraw_string_literal_character())
         self._add_token(
-            TokenType.MULTILINE_STRING_LITERAL_CONTENTS,
+            TokenType.STRING_CONTENTS,
             "".join(contents),
             contents_position,
         )
@@ -464,15 +467,20 @@ class Lexer(Unit):
 
     def _read_string_literal(self) -> None:
         start_position = self._position()
+        self._add_token(TokenType.STRING_LITERAL_START, '"')
         self._advance_non_whitespace()  # Skip opening quote
         string_chars: list[str] = []
+        contents_start_position = self._position()
         while self._peek_char() != '"':
             if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error("Unterminated string literal", start_position)
             string_chars.append(self._read_nonraw_string_literal_character())
         string_value = "".join(string_chars)
+        self._add_token(
+            TokenType.STRING_CONTENTS, string_value, contents_start_position
+        )
+        self._add_token(TokenType.STRING_LITERAL_END, '"')
         self._advance_non_whitespace()  # Skip closing quote
-        self._add_token(TokenType.STRING_LITERAL, string_value, start_position)
 
     def _read_nonraw_string_literal_character(self) -> str:
         char = self._peek_char()
@@ -649,7 +657,8 @@ class Lexer(Unit):
             TokenType.TRUE,
             TokenType.FALSE,
             TokenType.NULL,
-            TokenType.STRING_LITERAL,
+            TokenType.STRING_LITERAL_END,
+            TokenType.RAW_STRING_LITERAL_END,
             TokenType.RAW_MULTILINE_STRING_LITERAL_END,
             TokenType.MULTILINE_STRING_LITERAL_END,
             TokenType.FORMAT_STRING_END,
