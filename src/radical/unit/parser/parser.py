@@ -2,7 +2,7 @@ from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
-    ConstExpressionNode,
+    ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
     FormatStringExpressionNode,
@@ -40,7 +40,7 @@ from radical.data.parser.ast import (
     TupleTypeNode,
     TypeAnnotationNode,
     TypeDeclarationNode,
-    TypeOfExpressionNode,
+    TypeOfTypeExpressionNode,
     TypeTypeExpressionNode,
     TypeExpressionNodeType,
     TypeNameNode,
@@ -83,8 +83,8 @@ class Parser(Unit):
             self.parse_type_name,
             self.parse_parenthesized_type_expression,
             self.parse_type_type_expression,
-            self.parse_typeof_expression,
-            self.parse_const_expression,
+            self.parse_typeof_type_expression,
+            self.parse_const_type_expression,
             self.parse_spread_type_expression,
             self.parse_record_type,
             self.parse_function_type,
@@ -777,22 +777,22 @@ class Parser(Unit):
             expression=expression,
         )
 
-    def parse_typeof_expression(self) -> TypeOfExpressionNode | None:
+    def parse_typeof_type_expression(self) -> TypeOfTypeExpressionNode | None:
         start_position = self._position
         if not (self.parse_token(TokenType.TYPEOF)):
             return None
         expression = self.parse_value_expression()
-        return TypeOfExpressionNode(
+        return TypeOfTypeExpressionNode(
             position=start_position,
             expression=expression,
         )
 
-    def parse_const_expression(self) -> ConstExpressionNode | None:
+    def parse_const_type_expression(self) -> ConstTypeExpressionNode | None:
         start_position = self._position
         if not (self.parse_token(TokenType.CONST)):
             return None
         expression = self.parse_value_expression()
-        return ConstExpressionNode(
+        return ConstTypeExpressionNode(
             position=start_position,
             expression=expression,
         )

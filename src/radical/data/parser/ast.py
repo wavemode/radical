@@ -94,12 +94,12 @@ class TypeTypeExpressionNode(Node):
 
 
 @dataclass(frozen=True)
-class TypeOfExpressionNode(Node):
+class TypeOfTypeExpressionNode(Node):
     expression: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
-class ConstExpressionNode(Node):
+class ConstTypeExpressionNode(Node):
     expression: "ValueExpressionNodeType"
 
 
@@ -405,8 +405,8 @@ TypeExpressionNodeType = (
     | ParenthesizedTypeExpressionNode
     | TupleTypeNode
     | TypeTypeExpressionNode
-    | TypeOfExpressionNode
-    | ConstExpressionNode
+    | TypeOfTypeExpressionNode
+    | ConstTypeExpressionNode
     | SpreadTypeExpressionNode
     | RecordTypeNode
     | FunctionTypeNode

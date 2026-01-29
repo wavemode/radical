@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name="a"
             ),
-            type_annotation=TypeOfExpression(
+            type_annotation=TypeOfTypeExpression(
                 position=(1, 5, 0),
                 expression=ParenthesizedExpression(
                     position=(1, 12, 0),
