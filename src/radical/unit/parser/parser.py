@@ -814,10 +814,11 @@ class Parser(Unit):
         return lhs
 
     def parse_descend_expr_not(self) -> ValueExpressionNodeType:
+        start_position = self._position
         if self.parse_token(TokenType.NOT):
             operand = self.parse_descend_expr_not()
             return UnaryOperationNode(
-                position=operand.position,
+                position=start_position,
                 operator=Operator.NOT,
                 operand=operand,
             )
@@ -879,19 +880,16 @@ class Parser(Unit):
         return lhs
 
     def parse_descend_expr_pos_neg(self) -> ValueExpressionNodeType:
-        if op_token := self.parse_any_token([TokenType.PLUS, TokenType.MINUS]):
-            operand = self.parse_descend_expr_pos_neg()
-            op = (
-                Operator.POSITIVE
-                if op_token.type == TokenType.PLUS
-                else Operator.NEGATIVE
-            )
-            return UnaryOperationNode(
-                position=operand.position,
-                operator=op,
-                operand=operand,
-            )
-        return self.parse_descend_expr_pow()
+        if not (op_token := self.parse_any_token([TokenType.PLUS, TokenType.MINUS])):
+            return self.parse_descend_expr_pow()
+
+        operand = self.parse_descend_expr_pos_neg()
+        op = Operator.POSITIVE if op_token.type == TokenType.PLUS else Operator.NEGATIVE
+        return UnaryOperationNode(
+            position=op_token.position,
+            operator=op,
+            operand=operand,
+        )
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
         lhs = self.parse_descend_expr_spread()
@@ -913,7 +911,18 @@ class Parser(Unit):
                 operator=Operator.SPREAD,
                 operand=operand,
             )
-        return self.parse_atom()
+        return self.parse_descend_expr_module()
+
+    def parse_descend_expr_module(self) -> ValueExpressionNodeType:
+        start_position = self._position
+        if not self.parse_token(TokenType.MODULE):
+            return self.parse_atom()
+        expression = self.parse_descend_expr_module()
+        return UnaryOperationNode(
+            position=start_position,
+            operator=Operator.MODULE,
+            operand=expression,
+        )
 
     def parse_atom(self) -> AtomNodeType:
         for atom_parser in self._atom_parsers:

@@ -1,0 +1,25 @@
+x = module moduleObject
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="x"
+            ),
+            value=UnaryOperation(
+                position=(1, 5, 0),
+                operator="module",
+                operand=Symbol(
+                    position=(1, 12, 0),
+                    name="moduleObject"
+                )
+            ),
+            local=false
+        )
+    ]
+)
+*)

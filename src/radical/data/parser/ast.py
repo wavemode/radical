@@ -184,8 +184,10 @@ class Operator(Enum):
     """
     Grouped by precedence level.
 
-    Exponentiation is the only right-associative operator.
+    Exponentiation is the only right-associative binary operator.
     """
+
+    MODULE = "module"
 
     SPREAD = "..."
 

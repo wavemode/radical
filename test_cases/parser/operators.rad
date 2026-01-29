@@ -399,15 +399,15 @@ Module(
                     ),
                     operator="or",
                     right=BinaryOperation(
-                        position=(13, 9, 4),
+                        position=(12, 5, 4),
                         left=UnaryOperation(
-                            position=(13, 9, 4),
+                            position=(12, 5, 4),
                             operator="not",
                             operand=UnaryOperation(
-                                position=(13, 9, 4),
+                                position=(12, 9, 4),
                                 operator="not",
                                 operand=UnaryOperation(
-                                    position=(13, 9, 4),
+                                    position=(13, 5, 4),
                                     operator="not",
                                     operand=Symbol(
                                         position=(13, 9, 4),
@@ -418,14 +418,14 @@ Module(
                         ),
                         operator="and",
                         right=UnaryOperation(
-                            position=(14, 11, 4),
+                            position=(14, 5, 4),
                             operator="not",
                             operand=BinaryOperation(
-                                position=(14, 11, 4),
+                                position=(14, 9, 4),
                                 left=BinaryOperation(
-                                    position=(14, 11, 4),
+                                    position=(14, 9, 4),
                                     left=UnaryOperation(
-                                        position=(14, 11, 4),
+                                        position=(14, 9, 4),
                                         operator="-x",
                                         operand=NumberLiteral(
                                             position=(14, 11, 4),
@@ -434,7 +434,7 @@ Module(
                                     ),
                                     operator="-",
                                     right=UnaryOperation(
-                                        position=(14, 17, 4),
+                                        position=(14, 16, 4),
                                         operator="-x",
                                         operand=NumberLiteral(
                                             position=(14, 17, 4),
@@ -444,19 +444,19 @@ Module(
                                 ),
                                 operator="+",
                                 right=UnaryOperation(
-                                    position=(14, 26, 4),
+                                    position=(14, 21, 4),
                                     operator="-x",
                                     operand=UnaryOperation(
-                                        position=(14, 26, 4),
+                                        position=(14, 22, 4),
                                         operator="+x",
                                         operand=UnaryOperation(
-                                            position=(14, 26, 4),
+                                            position=(14, 23, 4),
                                             operator="-x",
                                             operand=UnaryOperation(
-                                                position=(14, 26, 4),
+                                                position=(14, 24, 4),
                                                 operator="+x",
                                                 operand=UnaryOperation(
-                                                    position=(14, 26, 4),
+                                                    position=(14, 25, 4),
                                                     operator="-x",
                                                     operand=NumberLiteral(
                                                         position=(14, 26, 4),
