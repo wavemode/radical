@@ -3,39 +3,44 @@ a = [1, 2, 3][0]
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=IndexingExpression(
-                position=(1, 5, 0),
-                object_expression=ListLiteral(
-                    position=(1, 5, 0),
-                    elements=[
-                        NumberLiteral(
-                            position=(1, 6, 0),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(1, 9, 0),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(1, 12, 0),
-                            contents="3"
-                        )
-                    ]
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
                 ),
-                index_expression=NumberLiteral(
-                    position=(1, 15, 0),
-                    contents="0"
-                )
-            ),
-            local=false
-        )
-    ]
+                value=IndexingExpression(
+                    position=(1, 5, 0),
+                    object_expression=ListLiteral(
+                        position=(1, 5, 0),
+                        elements=[
+                            NumberLiteral(
+                                position=(1, 6, 0),
+                                contents="1"
+                            ),
+                            NumberLiteral(
+                                position=(1, 9, 0),
+                                contents="2"
+                            ),
+                            NumberLiteral(
+                                position=(1, 12, 0),
+                                contents="3"
+                            )
+                        ]
+                    ),
+                    index_expression=NumberLiteral(
+                        position=(1, 15, 0),
+                        contents="0"
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

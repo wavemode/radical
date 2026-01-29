@@ -1,0 +1,5 @@
+["a" + "b"] : C c
+
+(*
+FAIL("Assignment with type annotation must use '=' to separate target and value at test_cases/parser/statements/tree_assignment/expr_typed_assignment.rad:1:17")
+*)

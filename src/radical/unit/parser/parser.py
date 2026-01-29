@@ -28,6 +28,7 @@ from radical.data.parser.ast import (
     MapLiteralNode,
     ModuleAssignmentDeclarationNode,
     ModuleBodyDeclarationNode,
+    ModuleBodyNode,
     ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
@@ -62,7 +63,7 @@ from radical.data.parser.ast import (
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
-from radical.data.parser.token import Token, TokenType
+from radical.data.parser.token import EXPR_START_TOKENS, Token, TokenType
 from radical.unit.parser.lexer import Lexer
 from radical.util.core.unit import Unit
 
@@ -167,10 +168,10 @@ class Parser(Unit):
 
     def parse_module(self) -> ModuleNode:
         start_position = self._position
-        declarations: list[TopLevelDeclarationNodeType] = self.parse_module_body()
+        body = self.parse_module_body()
         return ModuleNode(
             position=start_position,
-            declarations=declarations,
+            body=body,
         )
 
     def _is_local_toplevel_declaration(
@@ -190,26 +191,26 @@ class Parser(Unit):
         self._read()  # consume MODULE
         self._read()  # consume OF
 
-        declarations: list[TopLevelDeclarationNodeType] = []
-        for decl in self.parse_module_body(start_position):
+        body = self.parse_module_body(start_position)
+        for decl in body.declarations:
             if isinstance(decl, ModuleNameNode):
                 self._raise_parse_error(
                     message="Module name declaration is not allowed in module expression",
                     position=decl.position,
                 )
-            declarations.append(decl)
         return ModuleExpressionNode(
             position=start_position,
-            declarations=declarations,
+            body=body,
         )
 
     def parse_module_body(
         self, start_position: Position | None = None
-    ) -> list[TopLevelDeclarationNodeType]:
+    ) -> ModuleBodyNode:
         declarations: list[TopLevelDeclarationNodeType] = []
         seen_nonlocal_declaration = False
         indent_level = -1
-        name: ModuleNameNode | None = None
+        name: SymbolNode | None = None
+        tree_syntax: bool | None = None
 
         def end_of_block() -> bool:
             return self.at_end() or (
@@ -253,7 +254,17 @@ class Parser(Unit):
                         message="Module name must be the first nonlocal declaration",
                         position=decl.position,
                     )
-                name = decl
+                name = decl.name
+            elif isinstance(decl, AssignmentNode):
+                if tree_syntax is not None:
+                    if decl.tree_syntax != tree_syntax:
+                        self._raise_parse_error(
+                            message="All assignments in module body must use the same syntax - map synax ('k = v') or tree syntax ('k v')",
+                            position=decl.position,
+                        )
+                    else:
+                        tree_syntax = decl.tree_syntax
+
             declarations.append(decl)
 
             if end_of_block():
@@ -267,7 +278,16 @@ class Parser(Unit):
                     message="Declarations must be separated by semicolons or newlines",
                 )
 
-        return declarations
+        return ModuleBodyNode(
+            position=(
+                start_position
+                if start_position is not None
+                else (declarations[0].position if declarations else self._position)
+            ),
+            name=name,
+            tree_syntax=tree_syntax or False,
+            declarations=declarations,
+        )
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
         for declaration_parser in self._top_level_declaration_parsers:
@@ -296,14 +316,12 @@ class Parser(Unit):
 
         self._read()  # consume OF
 
-        declarations: list[TopLevelDeclarationNodeType] = self.parse_module_body(
-            start_position=start_position
-        )
+        body = self.parse_module_body(start_position=start_position)
 
         return ModuleBodyDeclarationNode(
             position=start_position,
             name=name,
-            declarations=declarations,
+            body=body,
         )
 
     def parse_module_assignment_declaration(
@@ -604,11 +622,13 @@ class Parser(Unit):
         local = False
         type_annotation: TypeExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
+        tree_syntax = False
 
         if self._peek().type == TokenType.LOCAL:
             local = True
             self._read()  # consume LOCAL
 
+        target_line: int
         target: SymbolNode | None = None
         target_expr: ValueExpressionNodeType | None = None
         if target_token := self.parse_token(TokenType.SYMBOL):
@@ -616,10 +636,15 @@ class Parser(Unit):
                 position=target_token.position,
                 name=target_token,
             )
+            target_line = target_token.position.line
         elif self._peek().type == TokenType.LIST_START:
             self._read()
             target_expr = self.parse_value_expression()
+            target_line = target_expr.position.line
             self.require_token(TokenType.LIST_END)
+        else:
+            # just to appease type checker - we already checked the token type
+            raise RuntimeError("unreachable")
 
         if self._peek().type == TokenType.COLON:
             self._read()  # consume COLON
@@ -628,6 +653,23 @@ class Parser(Unit):
         if self._peek().type == TokenType.ASSIGN:
             self._read()  # consume ASSIGN
             value = self.parse_value_expression()
+        else:
+            upcoming_token = self._peek()
+            if upcoming_token.type in EXPR_START_TOKENS and (
+                upcoming_token.position.line == target_line
+            ):
+                if type_annotation:
+                    self._raise_parse_error(
+                        message="Assignment with type annotation must use '=' to separate target and value",
+                        position=upcoming_token.position,
+                    )
+                elif local:
+                    self._raise_parse_error(
+                        message="Local assignment must use '=' to separate target and value",
+                        position=upcoming_token.position,
+                    )
+                value = self.parse_value_expression()
+                tree_syntax = True
 
         if value is not None:
             return AssignmentNode(
@@ -637,6 +679,7 @@ class Parser(Unit):
                 value=value,
                 type_annotation=type_annotation,
                 local=local,
+                tree_syntax=tree_syntax,
             )
         elif type_annotation is not None:
             return TypeAnnotationNode(

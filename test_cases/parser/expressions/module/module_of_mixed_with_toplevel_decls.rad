@@ -6,44 +6,55 @@ b = 5
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="x"
-            ),
-            value=ModuleExpression(
-                position=(1, 5, 0),
-                declarations=[
-                    Assignment(
-                        position=(2, 5, 4),
-                        target=Symbol(
-                            position=(2, 5, 4),
-                            name="a"
-                        ),
-                        value=NumberLiteral(
-                            position=(2, 9, 4),
-                            contents="5"
-                        ),
-                        local=false
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                value=ModuleExpression(
+                    position=(1, 5, 0),
+                    body=ModuleBody(
+                        position=(1, 5, 0),
+                        tree_syntax=false,
+                        declarations=[
+                            Assignment(
+                                position=(2, 5, 4),
+                                target=Symbol(
+                                    position=(2, 5, 4),
+                                    name="a"
+                                ),
+                                value=NumberLiteral(
+                                    position=(2, 9, 4),
+                                    contents="5"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            )
+                        ]
                     )
-                ]
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(4, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(4, 1, 0),
-                name="b"
-            ),
-            value=NumberLiteral(
-                position=(4, 5, 0),
-                contents="5"
-            ),
-            local=false
-        )
-    ]
+                target=Symbol(
+                    position=(4, 1, 0),
+                    name="b"
+                ),
+                value=NumberLiteral(
+                    position=(4, 5, 0),
+                    contents="5"
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

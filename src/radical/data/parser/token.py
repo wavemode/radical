@@ -105,6 +105,57 @@ class TokenType(Enum):
     EOF = "EOF"
 
 
+EXPR_START_TOKENS = {
+    TokenType.IF,
+    TokenType.NOT,
+    TokenType.TRUE,
+    TokenType.FALSE,
+    TokenType.NULL,
+    TokenType.MODULE,
+    TokenType.FUN,
+    TokenType.PROC,
+    TokenType.LET,
+    TokenType.CASE,
+    TokenType.PLUS,
+    TokenType.MINUS,
+    TokenType.STRING_LITERAL_START,
+    TokenType.RAW_STRING_LITERAL_START,
+    TokenType.MULTILINE_STRING_LITERAL_START,
+    TokenType.RAW_MULTILINE_STRING_LITERAL_START,
+    TokenType.FORMAT_STRING_START,
+    TokenType.MULTILINE_FORMAT_STRING_START,
+    TokenType.INTEGER_LITERAL,
+    TokenType.FLOAT_LITERAL,
+    TokenType.SCI_FLOAT_LITERAL,
+    TokenType.SYMBOL,
+    TokenType.PARENTHESES_START,
+    TokenType.LIST_START,
+    TokenType.OBJECT_START,
+}
+
+EXPR_END_TOKENS = {
+    TokenType.TRUE,
+    TokenType.FALSE,
+    TokenType.NULL,
+    TokenType.STRING_LITERAL_END,
+    TokenType.RAW_STRING_LITERAL_END,
+    TokenType.MULTILINE_STRING_LITERAL_END,
+    TokenType.RAW_MULTILINE_STRING_LITERAL_END,
+    TokenType.FORMAT_STRING_END,
+    TokenType.MULTILINE_FORMAT_STRING_END,
+    TokenType.INTEGER_LITERAL,
+    TokenType.FLOAT_LITERAL,
+    TokenType.SCI_FLOAT_LITERAL,
+    TokenType.SYMBOL,
+    TokenType.PARENTHESES_END,
+    TokenType.FUNCTION_CALL_END,
+    TokenType.LIST_END,
+    TokenType.INDEXING_END,
+    TokenType.OBJECT_END,
+    TokenType.TYPE_APPLICATION_END,
+}
+
+
 @dataclass(frozen=True)
 class Token:
     position: Position

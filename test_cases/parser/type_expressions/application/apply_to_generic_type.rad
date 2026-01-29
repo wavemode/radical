@@ -3,49 +3,53 @@ a : [T](T, T)[Int] -- should parse as ([T](T, T))[Int]
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=GenericTypeApplication(
-                position=(1, 5, 0),
-                generic_type=GenericTypeExpression(
-                    position=(1, 5, 0),
-                    parameters=[
-                        GenericTypeParameter(
-                            position=(1, 6, 0),
-                            name=Symbol(
-                                position=(1, 6, 0),
-                                name="T"
-                            )
-                        )
-                    ],
-                    expression=TupleType(
-                        position=(1, 8, 0),
-                        elements=[
-                            TypeName(
-                                position=(1, 9, 0),
-                                name="T"
-                            ),
-                            TypeName(
-                                position=(1, 12, 0),
-                                name="T"
-                            )
-                        ]
-                    )
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
                 ),
-                arguments=[
-                    TypeName(
-                        position=(1, 15, 0),
-                        name="Int"
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                type_annotation=GenericTypeApplication(
+                    position=(1, 5, 0),
+                    generic_type=GenericTypeExpression(
+                        position=(1, 5, 0),
+                        parameters=[
+                            GenericTypeParameter(
+                                position=(1, 6, 0),
+                                name=Symbol(
+                                    position=(1, 6, 0),
+                                    name="T"
+                                )
+                            )
+                        ],
+                        expression=TupleType(
+                            position=(1, 8, 0),
+                            elements=[
+                                TypeName(
+                                    position=(1, 9, 0),
+                                    name="T"
+                                ),
+                                TypeName(
+                                    position=(1, 12, 0),
+                                    name="T"
+                                )
+                            ]
+                        )
+                    ),
+                    arguments=[
+                        TypeName(
+                            position=(1, 15, 0),
+                            name="Int"
+                        )
+                    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

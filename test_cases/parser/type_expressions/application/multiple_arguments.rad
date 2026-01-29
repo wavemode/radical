@@ -5,32 +5,36 @@ a : Map [
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=GenericTypeApplication(
-                position=(1, 5, 0),
-                generic_type=TypeName(
-                    position=(1, 5, 0),
-                    name="Map"
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
                 ),
-                arguments=[
-                    TypeName(
-                        position=(2, 5, 4),
-                        name="String"
+                type_annotation=GenericTypeApplication(
+                    position=(1, 5, 0),
+                    generic_type=TypeName(
+                        position=(1, 5, 0),
+                        name="Map"
                     ),
-                    TypeName(
-                        position=(2, 17, 4),
-                        name="Int"
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                    arguments=[
+                        TypeName(
+                            position=(2, 5, 4),
+                            name="String"
+                        ),
+                        TypeName(
+                            position=(2, 17, 4),
+                            name="Int"
+                        )
+                    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

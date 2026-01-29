@@ -10,62 +10,66 @@ a : A|B[C]|[D]E[F]
 (*
 Module(
     position=(8, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(8, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(8, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(8, 1, 0),
-                name="a"
-            ),
-            type_annotation=TypeUnion(
-                position=(8, 5, 0),
-                elements=[
-                    TypeName(
-                        position=(8, 5, 0),
-                        name="A"
-                    ),
-                    GenericTypeApplication(
-                        position=(8, 7, 0),
-                        generic_type=TypeName(
+                name=Symbol(
+                    position=(8, 1, 0),
+                    name="a"
+                ),
+                type_annotation=TypeUnion(
+                    position=(8, 5, 0),
+                    elements=[
+                        TypeName(
+                            position=(8, 5, 0),
+                            name="A"
+                        ),
+                        GenericTypeApplication(
                             position=(8, 7, 0),
-                            name="B"
-                        ),
-                        arguments=[
-                            TypeName(
-                                position=(8, 9, 0),
-                                name="C"
-                            )
-                        ]
-                    ),
-                    GenericTypeApplication(
-                        position=(8, 12, 0),
-                        generic_type=GenericTypeExpression(
-                            position=(8, 12, 0),
-                            parameters=[
-                                GenericTypeParameter(
-                                    position=(8, 13, 0),
-                                    name=Symbol(
-                                        position=(8, 13, 0),
-                                        name="D"
-                                    )
+                            generic_type=TypeName(
+                                position=(8, 7, 0),
+                                name="B"
+                            ),
+                            arguments=[
+                                TypeName(
+                                    position=(8, 9, 0),
+                                    name="C"
                                 )
-                            ],
-                            expression=TypeName(
-                                position=(8, 15, 0),
-                                name="E"
-                            )
+                            ]
                         ),
-                        arguments=[
-                            TypeName(
-                                position=(8, 17, 0),
-                                name="F"
-                            )
-                        ]
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                        GenericTypeApplication(
+                            position=(8, 12, 0),
+                            generic_type=GenericTypeExpression(
+                                position=(8, 12, 0),
+                                parameters=[
+                                    GenericTypeParameter(
+                                        position=(8, 13, 0),
+                                        name=Symbol(
+                                            position=(8, 13, 0),
+                                            name="D"
+                                        )
+                                    )
+                                ],
+                                expression=TypeName(
+                                    position=(8, 15, 0),
+                                    name="E"
+                                )
+                            ),
+                            arguments=[
+                                TypeName(
+                                    position=(8, 17, 0),
+                                    name="F"
+                                )
+                            ]
+                        )
+                    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

@@ -25,232 +25,239 @@ allOperators =
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="binaryAnd"
-            ),
-            value=BinaryOperation(
-                position=(1, 13, 0),
-                left=BooleanLiteral(
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="binaryAnd"
+                ),
+                value=BinaryOperation(
                     position=(1, 13, 0),
-                    contents="true"
+                    left=BooleanLiteral(
+                        position=(1, 13, 0),
+                        contents="true"
+                    ),
+                    operator="and",
+                    right=BooleanLiteral(
+                        position=(1, 22, 0),
+                        contents="false"
+                    )
                 ),
-                operator="and",
-                right=BooleanLiteral(
-                    position=(1, 22, 0),
-                    contents="false"
-                )
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(2, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(2, 1, 0),
-                name="binaryAndOr"
-            ),
-            value=BinaryOperation(
-                position=(2, 15, 0),
-                left=BinaryOperation(
+                target=Symbol(
+                    position=(2, 1, 0),
+                    name="binaryAndOr"
+                ),
+                value=BinaryOperation(
                     position=(2, 15, 0),
-                    left=BooleanLiteral(
-                        position=(2, 15, 0),
-                        contents="true"
-                    ),
-                    operator="and",
-                    right=BooleanLiteral(
-                        position=(2, 24, 0),
-                        contents="false"
-                    )
-                ),
-                operator="or",
-                right=BooleanLiteral(
-                    position=(2, 33, 0),
-                    contents="true"
-                )
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(3, 1, 0),
-            target=Symbol(
-                position=(3, 1, 0),
-                name="binaryOrAnd"
-            ),
-            value=BinaryOperation(
-                position=(3, 15, 0),
-                left=BooleanLiteral(
-                    position=(3, 15, 0),
-                    contents="false"
-                ),
-                operator="or",
-                right=BinaryOperation(
-                    position=(3, 24, 0),
-                    left=BooleanLiteral(
-                        position=(3, 24, 0),
-                        contents="true"
-                    ),
-                    operator="and",
-                    right=BooleanLiteral(
-                        position=(3, 33, 0),
-                        contents="false"
-                    )
-                )
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(5, 1, 0),
-            target=Symbol(
-                position=(5, 1, 0),
-                name="plusMinus"
-            ),
-            value=BinaryOperation(
-                position=(5, 13, 0),
-                left=BinaryOperation(
-                    position=(5, 13, 0),
-                    left=NumberLiteral(
-                        position=(5, 13, 0),
-                        contents="1"
-                    ),
-                    operator="+",
-                    right=NumberLiteral(
-                        position=(5, 17, 0),
-                        contents="2"
-                    )
-                ),
-                operator="-",
-                right=NumberLiteral(
-                    position=(5, 21, 0),
-                    contents="3"
-                )
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(6, 1, 0),
-            target=Symbol(
-                position=(6, 1, 0),
-                name="minusPlus"
-            ),
-            value=BinaryOperation(
-                position=(6, 13, 0),
-                left=BinaryOperation(
-                    position=(6, 13, 0),
-                    left=NumberLiteral(
-                        position=(6, 13, 0),
-                        contents="4"
-                    ),
-                    operator="-",
-                    right=NumberLiteral(
-                        position=(6, 17, 0),
-                        contents="5"
-                    )
-                ),
-                operator="+",
-                right=NumberLiteral(
-                    position=(6, 21, 0),
-                    contents="6"
-                )
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(7, 1, 0),
-            target=Symbol(
-                position=(7, 1, 0),
-                name="mixedArithmetic"
-            ),
-            value=BinaryOperation(
-                position=(7, 19, 0),
-                left=BinaryOperation(
-                    position=(7, 19, 0),
                     left=BinaryOperation(
-                        position=(7, 19, 0),
+                        position=(2, 15, 0),
+                        left=BooleanLiteral(
+                            position=(2, 15, 0),
+                            contents="true"
+                        ),
+                        operator="and",
+                        right=BooleanLiteral(
+                            position=(2, 24, 0),
+                            contents="false"
+                        )
+                    ),
+                    operator="or",
+                    right=BooleanLiteral(
+                        position=(2, 33, 0),
+                        contents="true"
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            ),
+            Assignment(
+                position=(3, 1, 0),
+                target=Symbol(
+                    position=(3, 1, 0),
+                    name="binaryOrAnd"
+                ),
+                value=BinaryOperation(
+                    position=(3, 15, 0),
+                    left=BooleanLiteral(
+                        position=(3, 15, 0),
+                        contents="false"
+                    ),
+                    operator="or",
+                    right=BinaryOperation(
+                        position=(3, 24, 0),
+                        left=BooleanLiteral(
+                            position=(3, 24, 0),
+                            contents="true"
+                        ),
+                        operator="and",
+                        right=BooleanLiteral(
+                            position=(3, 33, 0),
+                            contents="false"
+                        )
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            ),
+            Assignment(
+                position=(5, 1, 0),
+                target=Symbol(
+                    position=(5, 1, 0),
+                    name="plusMinus"
+                ),
+                value=BinaryOperation(
+                    position=(5, 13, 0),
+                    left=BinaryOperation(
+                        position=(5, 13, 0),
                         left=NumberLiteral(
-                            position=(7, 19, 0),
-                            contents="7"
+                            position=(5, 13, 0),
+                            contents="1"
                         ),
                         operator="+",
                         right=NumberLiteral(
-                            position=(7, 23, 0),
-                            contents="8"
+                            position=(5, 17, 0),
+                            contents="2"
                         )
                     ),
                     operator="-",
-                    right=BinaryOperation(
-                        position=(7, 27, 0),
+                    right=NumberLiteral(
+                        position=(5, 21, 0),
+                        contents="3"
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            ),
+            Assignment(
+                position=(6, 1, 0),
+                target=Symbol(
+                    position=(6, 1, 0),
+                    name="minusPlus"
+                ),
+                value=BinaryOperation(
+                    position=(6, 13, 0),
+                    left=BinaryOperation(
+                        position=(6, 13, 0),
+                        left=NumberLiteral(
+                            position=(6, 13, 0),
+                            contents="4"
+                        ),
+                        operator="-",
+                        right=NumberLiteral(
+                            position=(6, 17, 0),
+                            contents="5"
+                        )
+                    ),
+                    operator="+",
+                    right=NumberLiteral(
+                        position=(6, 21, 0),
+                        contents="6"
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            ),
+            Assignment(
+                position=(7, 1, 0),
+                target=Symbol(
+                    position=(7, 1, 0),
+                    name="mixedArithmetic"
+                ),
+                value=BinaryOperation(
+                    position=(7, 19, 0),
+                    left=BinaryOperation(
+                        position=(7, 19, 0),
                         left=BinaryOperation(
-                            position=(7, 27, 0),
+                            position=(7, 19, 0),
                             left=NumberLiteral(
-                                position=(7, 27, 0),
-                                contents="9"
+                                position=(7, 19, 0),
+                                contents="7"
                             ),
-                            operator="*",
+                            operator="+",
                             right=NumberLiteral(
-                                position=(7, 31, 0),
-                                contents="10"
+                                position=(7, 23, 0),
+                                contents="8"
                             )
                         ),
-                        operator="/",
-                        right=NumberLiteral(
-                            position=(7, 36, 0),
-                            contents="11"
+                        operator="-",
+                        right=BinaryOperation(
+                            position=(7, 27, 0),
+                            left=BinaryOperation(
+                                position=(7, 27, 0),
+                                left=NumberLiteral(
+                                    position=(7, 27, 0),
+                                    contents="9"
+                                ),
+                                operator="*",
+                                right=NumberLiteral(
+                                    position=(7, 31, 0),
+                                    contents="10"
+                                )
+                            ),
+                            operator="/",
+                            right=NumberLiteral(
+                                position=(7, 36, 0),
+                                contents="11"
+                            )
+                        )
+                    ),
+                    operator="+",
+                    right=BinaryOperation(
+                        position=(7, 41, 0),
+                        left=BinaryOperation(
+                            position=(7, 41, 0),
+                            left=NumberLiteral(
+                                position=(7, 41, 0),
+                                contents="12"
+                            ),
+                            operator="//",
+                            right=NumberLiteral(
+                                position=(7, 47, 0),
+                                contents="13"
+                            )
+                        ),
+                        operator="%",
+                        right=BinaryOperation(
+                            position=(7, 52, 0),
+                            left=NumberLiteral(
+                                position=(7, 52, 0),
+                                contents="14"
+                            ),
+                            operator="**",
+                            right=BinaryOperation(
+                                position=(7, 58, 0),
+                                left=NumberLiteral(
+                                    position=(7, 58, 0),
+                                    contents="15"
+                                ),
+                                operator="**",
+                                right=NumberLiteral(
+                                    position=(7, 64, 0),
+                                    contents="16"
+                                )
+                            )
                         )
                     )
                 ),
-                operator="+",
-                right=BinaryOperation(
-                    position=(7, 41, 0),
-                    left=BinaryOperation(
-                        position=(7, 41, 0),
-                        left=NumberLiteral(
-                            position=(7, 41, 0),
-                            contents="12"
-                        ),
-                        operator="//",
-                        right=NumberLiteral(
-                            position=(7, 47, 0),
-                            contents="13"
-                        )
-                    ),
-                    operator="%",
-                    right=BinaryOperation(
-                        position=(7, 52, 0),
-                        left=NumberLiteral(
-                            position=(7, 52, 0),
-                            contents="14"
-                        ),
-                        operator="**",
-                        right=BinaryOperation(
-                            position=(7, 58, 0),
-                            left=NumberLiteral(
-                                position=(7, 58, 0),
-                                contents="15"
-                            ),
-                            operator="**",
-                            right=NumberLiteral(
-                                position=(7, 64, 0),
-                                contents="16"
-                            )
-                        )
-                    )
-                )
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(9, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(9, 1, 0),
-                name="allOperators"
-            ),
-            value=BinaryOperation(
-                position=(10, 5, 4),
-                left=BinaryOperation(
+                target=Symbol(
+                    position=(9, 1, 0),
+                    name="allOperators"
+                ),
+                value=BinaryOperation(
                     position=(10, 5, 4),
                     left=BinaryOperation(
                         position=(10, 5, 4),
@@ -272,195 +279,198 @@ Module(
                                                         position=(10, 5, 4),
                                                         left=BinaryOperation(
                                                             position=(10, 5, 4),
-                                                            left=NumberLiteral(
+                                                            left=BinaryOperation(
                                                                 position=(10, 5, 4),
-                                                                contents="1"
+                                                                left=NumberLiteral(
+                                                                    position=(10, 5, 4),
+                                                                    contents="1"
+                                                                ),
+                                                                operator="*",
+                                                                right=NumberLiteral(
+                                                                    position=(10, 9, 4),
+                                                                    contents="2"
+                                                                )
                                                             ),
-                                                            operator="*",
+                                                            operator="+",
                                                             right=NumberLiteral(
-                                                                position=(10, 9, 4),
-                                                                contents="2"
+                                                                position=(10, 13, 4),
+                                                                contents="3"
                                                             )
                                                         ),
-                                                        operator="+",
-                                                        right=NumberLiteral(
-                                                            position=(10, 13, 4),
-                                                            contents="3"
+                                                        operator="-",
+                                                        right=BinaryOperation(
+                                                            position=(10, 17, 4),
+                                                            left=NumberLiteral(
+                                                                position=(10, 17, 4),
+                                                                contents="4"
+                                                            ),
+                                                            operator="/",
+                                                            right=NumberLiteral(
+                                                                position=(10, 21, 4),
+                                                                contents="5"
+                                                            )
                                                         )
                                                     ),
-                                                    operator="-",
-                                                    right=BinaryOperation(
-                                                        position=(10, 17, 4),
-                                                        left=NumberLiteral(
-                                                            position=(10, 17, 4),
-                                                            contents="4"
-                                                        ),
-                                                        operator="/",
-                                                        right=NumberLiteral(
-                                                            position=(10, 21, 4),
-                                                            contents="5"
-                                                        )
+                                                    operator="==",
+                                                    right=NumberLiteral(
+                                                        position=(10, 26, 4),
+                                                        contents="6"
                                                     )
                                                 ),
-                                                operator="==",
+                                                operator="!=",
                                                 right=NumberLiteral(
-                                                    position=(10, 26, 4),
-                                                    contents="6"
+                                                    position=(10, 31, 4),
+                                                    contents="7"
                                                 )
                                             ),
-                                            operator="!=",
+                                            operator="<",
                                             right=NumberLiteral(
-                                                position=(10, 31, 4),
-                                                contents="7"
+                                                position=(10, 35, 4),
+                                                contents="8"
                                             )
                                         ),
-                                        operator="<",
+                                        operator="<=",
                                         right=NumberLiteral(
-                                            position=(10, 35, 4),
-                                            contents="8"
+                                            position=(10, 40, 4),
+                                            contents="9"
                                         )
                                     ),
-                                    operator="<=",
+                                    operator=">",
                                     right=NumberLiteral(
-                                        position=(10, 40, 4),
-                                        contents="9"
+                                        position=(10, 44, 4),
+                                        contents="10"
                                     )
                                 ),
-                                operator=">",
+                                operator="and",
                                 right=NumberLiteral(
-                                    position=(10, 44, 4),
-                                    contents="10"
+                                    position=(11, 5, 4),
+                                    contents="11"
                                 )
                             ),
-                            operator="and",
+                            operator="or",
                             right=NumberLiteral(
-                                position=(11, 5, 4),
-                                contents="11"
+                                position=(11, 11, 4),
+                                contents="12"
                             )
                         ),
-                        operator="or",
+                        operator="|>",
                         right=NumberLiteral(
-                            position=(11, 11, 4),
-                            contents="12"
+                            position=(11, 17, 4),
+                            contents="13"
                         )
                     ),
                     operator="|>",
-                    right=NumberLiteral(
-                        position=(11, 17, 4),
-                        contents="13"
-                    )
-                ),
-                operator="|>",
-                right=BinaryOperation(
-                    position=(11, 23, 4),
-                    left=BinaryOperation(
+                    right=BinaryOperation(
                         position=(11, 23, 4),
                         left=BinaryOperation(
                             position=(11, 23, 4),
                             left=BinaryOperation(
                                 position=(11, 23, 4),
-                                left=NumberLiteral(
+                                left=BinaryOperation(
                                     position=(11, 23, 4),
-                                    contents="15"
-                                ),
-                                operator="//",
-                                right=NumberLiteral(
-                                    position=(11, 29, 4),
-                                    contents="16"
-                                )
-                            ),
-                            operator="%",
-                            right=BinaryOperation(
-                                position=(11, 34, 4),
-                                left=NumberLiteral(
-                                    position=(11, 34, 4),
-                                    contents="17"
-                                ),
-                                operator="**",
-                                right=BinaryOperation(
-                                    position=(11, 40, 4),
                                     left=NumberLiteral(
-                                        position=(11, 40, 4),
-                                        contents="18"
+                                        position=(11, 23, 4),
+                                        contents="15"
+                                    ),
+                                    operator="//",
+                                    right=NumberLiteral(
+                                        position=(11, 29, 4),
+                                        contents="16"
+                                    )
+                                ),
+                                operator="%",
+                                right=BinaryOperation(
+                                    position=(11, 34, 4),
+                                    left=NumberLiteral(
+                                        position=(11, 34, 4),
+                                        contents="17"
                                     ),
                                     operator="**",
-                                    right=NumberLiteral(
-                                        position=(11, 47, 4),
-                                        contents="19"
+                                    right=BinaryOperation(
+                                        position=(11, 40, 4),
+                                        left=NumberLiteral(
+                                            position=(11, 40, 4),
+                                            contents="18"
+                                        ),
+                                        operator="**",
+                                        right=NumberLiteral(
+                                            position=(11, 47, 4),
+                                            contents="19"
+                                        )
                                     )
                                 )
+                            ),
+                            operator=">=",
+                            right=NumberLiteral(
+                                position=(11, 53, 4),
+                                contents="20"
                             )
                         ),
-                        operator=">=",
-                        right=NumberLiteral(
-                            position=(11, 53, 4),
-                            contents="20"
-                        )
-                    ),
-                    operator="or",
-                    right=BinaryOperation(
-                        position=(12, 5, 4),
-                        left=UnaryOperation(
+                        operator="or",
+                        right=BinaryOperation(
                             position=(12, 5, 4),
-                            operator="not",
-                            operand=UnaryOperation(
-                                position=(12, 9, 4),
+                            left=UnaryOperation(
+                                position=(12, 5, 4),
                                 operator="not",
                                 operand=UnaryOperation(
-                                    position=(13, 5, 4),
+                                    position=(12, 9, 4),
                                     operator="not",
-                                    operand=Symbol(
-                                        position=(13, 9, 4),
-                                        name="notand"
+                                    operand=UnaryOperation(
+                                        position=(13, 5, 4),
+                                        operator="not",
+                                        operand=Symbol(
+                                            position=(13, 9, 4),
+                                            name="notand"
+                                        )
                                     )
                                 )
-                            )
-                        ),
-                        operator="and",
-                        right=UnaryOperation(
-                            position=(14, 5, 4),
-                            operator="not",
-                            operand=BinaryOperation(
-                                position=(14, 9, 4),
-                                left=BinaryOperation(
+                            ),
+                            operator="and",
+                            right=UnaryOperation(
+                                position=(14, 5, 4),
+                                operator="not",
+                                operand=BinaryOperation(
                                     position=(14, 9, 4),
-                                    left=UnaryOperation(
+                                    left=BinaryOperation(
                                         position=(14, 9, 4),
-                                        operator="-x",
-                                        operand=NumberLiteral(
-                                            position=(14, 11, 4),
-                                            contents="22"
+                                        left=UnaryOperation(
+                                            position=(14, 9, 4),
+                                            operator="-x",
+                                            operand=NumberLiteral(
+                                                position=(14, 11, 4),
+                                                contents="22"
+                                            )
+                                        ),
+                                        operator="-",
+                                        right=UnaryOperation(
+                                            position=(14, 16, 4),
+                                            operator="-x",
+                                            operand=NumberLiteral(
+                                                position=(14, 17, 4),
+                                                contents="23"
+                                            )
                                         )
                                     ),
-                                    operator="-",
+                                    operator="+",
                                     right=UnaryOperation(
-                                        position=(14, 16, 4),
+                                        position=(14, 21, 4),
                                         operator="-x",
-                                        operand=NumberLiteral(
-                                            position=(14, 17, 4),
-                                            contents="23"
-                                        )
-                                    )
-                                ),
-                                operator="+",
-                                right=UnaryOperation(
-                                    position=(14, 21, 4),
-                                    operator="-x",
-                                    operand=UnaryOperation(
-                                        position=(14, 22, 4),
-                                        operator="+x",
                                         operand=UnaryOperation(
-                                            position=(14, 23, 4),
-                                            operator="-x",
+                                            position=(14, 22, 4),
+                                            operator="+x",
                                             operand=UnaryOperation(
-                                                position=(14, 24, 4),
-                                                operator="+x",
+                                                position=(14, 23, 4),
+                                                operator="-x",
                                                 operand=UnaryOperation(
-                                                    position=(14, 25, 4),
-                                                    operator="-x",
-                                                    operand=NumberLiteral(
-                                                        position=(14, 26, 4),
-                                                        contents="24"
+                                                    position=(14, 24, 4),
+                                                    operator="+x",
+                                                    operand=UnaryOperation(
+                                                        position=(14, 25, 4),
+                                                        operator="-x",
+                                                        operand=NumberLiteral(
+                                                            position=(14, 26, 4),
+                                                            contents="24"
+                                                        )
                                                     )
                                                 )
                                             )
@@ -470,47 +480,49 @@ Module(
                             )
                         )
                     )
-                )
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(517, 1, 0),
-            target=Symbol(
-                position=(517, 1, 0),
-                name="plusMinusPlus"
-            ),
-            value=BinaryOperation(
-                position=(517, 17, 0),
-                left=BinaryOperation(
-                    position=(517, 17, 0),
+            Assignment(
+                position=(529, 1, 0),
+                target=Symbol(
+                    position=(529, 1, 0),
+                    name="plusMinusPlus"
+                ),
+                value=BinaryOperation(
+                    position=(529, 17, 0),
                     left=BinaryOperation(
-                        position=(517, 17, 0),
-                        left=NumberLiteral(
-                            position=(517, 17, 0),
-                            contents="1"
+                        position=(529, 17, 0),
+                        left=BinaryOperation(
+                            position=(529, 17, 0),
+                            left=NumberLiteral(
+                                position=(529, 17, 0),
+                                contents="1"
+                            ),
+                            operator="+",
+                            right=NumberLiteral(
+                                position=(529, 21, 0),
+                                contents="2"
+                            )
                         ),
-                        operator="+",
+                        operator="-",
                         right=NumberLiteral(
-                            position=(517, 21, 0),
-                            contents="2"
+                            position=(529, 25, 0),
+                            contents="3"
                         )
                     ),
-                    operator="-",
+                    operator="+",
                     right=NumberLiteral(
-                        position=(517, 25, 0),
-                        contents="3"
+                        position=(529, 29, 0),
+                        contents="4"
                     )
                 ),
-                operator="+",
-                right=NumberLiteral(
-                    position=(517, 29, 0),
-                    contents="4"
-                )
-            ),
-            local=false
-        )
-    ]
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)
 

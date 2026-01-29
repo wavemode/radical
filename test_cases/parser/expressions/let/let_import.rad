@@ -6,58 +6,64 @@ in x
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=LetExpression(
-                position=(1, 5, 0),
-                declarations=[
-                    ImportStatement(
-                        position=(2, 5, 4),
-                        module_parts=[
-                            Symbol(
-                                position=(2, 12, 4),
-                                name="Module"
-                            ),
-                            Symbol(
-                                position=(2, 19, 4),
-                                name="Name"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=LetExpression(
+                    position=(1, 5, 0),
+                    declarations=[
+                        ImportStatement(
+                            position=(2, 5, 4),
+                            module_parts=[
+                                Symbol(
+                                    position=(2, 12, 4),
+                                    name="Module"
+                                ),
+                                Symbol(
+                                    position=(2, 19, 4),
+                                    name="Name"
+                                )
+                            ],
+                            fields=[
+                                ImportStatementEllipsis(
+                                    position=(2, 28, 4)
+                                )
+                            ],
+                            alias=Symbol(
+                                position=(2, 33, 4),
+                                name="M"
                             )
-                        ],
-                        fields=[
-                            ImportStatementEllipsis(
-                                position=(2, 28, 4)
-                            )
-                        ],
-                        alias=Symbol(
-                            position=(2, 33, 4),
-                            name="M"
-                        )
-                    ),
-                    Assignment(
-                        position=(3, 5, 4),
-                        target=Symbol(
+                        ),
+                        Assignment(
                             position=(3, 5, 4),
-                            name="x"
-                        ),
-                        value=NumberLiteral(
-                            position=(3, 9, 4),
-                            contents="5"
-                        ),
-                        local=false
+                            target=Symbol(
+                                position=(3, 5, 4),
+                                name="x"
+                            ),
+                            value=NumberLiteral(
+                                position=(3, 9, 4),
+                                contents="5"
+                            ),
+                            local=false,
+                            tree_syntax=false
+                        )
+                    ],
+                    body=Symbol(
+                        position=(4, 4, 0),
+                        name="x"
                     )
-                ],
-                body=Symbol(
-                    position=(4, 4, 0),
-                    name="x"
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

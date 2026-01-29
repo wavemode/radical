@@ -5,49 +5,54 @@ in 5 + 4
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=LetExpression(
-                position=(1, 5, 0),
-                declarations=[
-                    DataDeclaration(
-                        position=(2, 5, 4),
-                        name=Symbol(
-                            position=(2, 10, 4),
-                            name="A"
-                        ),
-                        fields=[
-                            DataField(
-                                position=(2, 12, 4),
-                                type_annotation=TypeName(
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=LetExpression(
+                    position=(1, 5, 0),
+                    declarations=[
+                        DataDeclaration(
+                            position=(2, 5, 4),
+                            name=Symbol(
+                                position=(2, 10, 4),
+                                name="A"
+                            ),
+                            fields=[
+                                DataField(
                                     position=(2, 12, 4),
-                                    name="Int"
+                                    type_annotation=TypeName(
+                                        position=(2, 12, 4),
+                                        name="Int"
+                                    )
                                 )
-                            )
-                        ],
-                        local=false
-                    )
-                ],
-                body=BinaryOperation(
-                    position=(3, 4, 0),
-                    left=NumberLiteral(
+                            ],
+                            local=false
+                        )
+                    ],
+                    body=BinaryOperation(
                         position=(3, 4, 0),
-                        contents="5"
-                    ),
-                    operator="+",
-                    right=NumberLiteral(
-                        position=(3, 8, 0),
-                        contents="4"
+                        left=NumberLiteral(
+                            position=(3, 4, 0),
+                            contents="5"
+                        ),
+                        operator="+",
+                        right=NumberLiteral(
+                            position=(3, 8, 0),
+                            contents="4"
+                        )
                     )
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

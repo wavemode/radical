@@ -6,51 +6,57 @@ x = f"""
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="name"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="name"
+                ),
+                value=StringLiteral(
+                    position=(1, 8, 0),
+                    open_quote="\"",
+                    contents="world",
+                    close_quote="\""
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            value=StringLiteral(
-                position=(1, 8, 0),
-                open_quote="\"",
-                contents="world",
-                close_quote="\""
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(2, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(2, 1, 0),
-                name="x"
-            ),
-            value=FormatStringLiteral(
-                position=(2, 5, 0),
-                open_quote="f\"\"\"",
-                contents=[
-                    FormatStringTextSection(
-                        position=(2, 9, 0),
-                        string_contents="\n    hello "
-                    ),
-                    FormatStringExpression(
-                        position=(3, 12, 0),
-                        expression=Symbol(
+                target=Symbol(
+                    position=(2, 1, 0),
+                    name="x"
+                ),
+                value=FormatStringLiteral(
+                    position=(2, 5, 0),
+                    open_quote="f\"\"\"",
+                    contents=[
+                        FormatStringTextSection(
+                            position=(2, 9, 0),
+                            string_contents="\n    hello "
+                        ),
+                        FormatStringExpression(
                             position=(3, 12, 0),
-                            name="name"
+                            expression=Symbol(
+                                position=(3, 12, 0),
+                                name="name"
+                            )
+                        ),
+                        FormatStringTextSection(
+                            position=(3, 17, 0),
+                            string_contents="!\n"
                         )
-                    ),
-                    FormatStringTextSection(
-                        position=(3, 17, 0),
-                        string_contents="!\n"
-                    )
-                ],
-                close_quote="\"\"\""
-            ),
-            local=false
-        )
-    ]
+                    ],
+                    close_quote="\"\"\""
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

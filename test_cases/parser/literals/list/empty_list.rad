@@ -3,21 +3,26 @@ a = []
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=ListLiteral(
-                position=(1, 5, 0),
-                elements=[
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=ListLiteral(
+                    position=(1, 5, 0),
+                    elements=[
 
-                ]
-            ),
-            local=false
-        )
-    ]
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

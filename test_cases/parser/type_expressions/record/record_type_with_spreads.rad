@@ -7,51 +7,55 @@ a : {
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=RecordType(
-                position=(1, 5, 0),
-                fields=[
-                    TypeAnnotation(
-                        position=(2, 5, 4),
-                        name=Symbol(
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=RecordType(
+                    position=(1, 5, 0),
+                    fields=[
+                        TypeAnnotation(
                             position=(2, 5, 4),
-                            name="b"
+                            name=Symbol(
+                                position=(2, 5, 4),
+                                name="b"
+                            ),
+                            type_annotation=TypeName(
+                                position=(2, 9, 4),
+                                name="Int"
+                            ),
+                            local=false
                         ),
-                        type_annotation=TypeName(
-                            position=(2, 9, 4),
-                            name="Int"
-                        ),
-                        local=false
-                    ),
-                    TypeAnnotation(
-                        position=(3, 5, 4),
-                        name=Symbol(
+                        TypeAnnotation(
                             position=(3, 5, 4),
-                            name="c"
+                            name=Symbol(
+                                position=(3, 5, 4),
+                                name="c"
+                            ),
+                            type_annotation=TypeName(
+                                position=(3, 9, 4),
+                                name="String"
+                            ),
+                            local=false
                         ),
-                        type_annotation=TypeName(
-                            position=(3, 9, 4),
-                            name="String"
-                        ),
-                        local=false
-                    ),
-                    SpreadTypeExpression(
-                        position=(4, 5, 4),
-                        expression=TypeName(
-                            position=(4, 8, 4),
-                            name="OtherType"
+                        SpreadTypeExpression(
+                            position=(4, 5, 4),
+                            expression=TypeName(
+                                position=(4, 8, 4),
+                                name="OtherType"
+                            )
                         )
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

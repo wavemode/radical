@@ -3,24 +3,28 @@ data A(Int)
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        DataDeclaration(
-            position=(1, 1, 0),
-            name=Symbol(
-                position=(1, 6, 0),
-                name="A"
-            ),
-            fields=[
-                DataField(
-                    position=(1, 8, 0),
-                    type_annotation=TypeName(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            DataDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="A"
+                ),
+                fields=[
+                    DataField(
                         position=(1, 8, 0),
-                        name="Int"
+                        type_annotation=TypeName(
+                            position=(1, 8, 0),
+                            name="Int"
+                        )
                     )
-                )
-            ],
-            local=false
-        )
-    ]
+                ],
+                local=false
+            )
+        ]
+    )
 )
 *)

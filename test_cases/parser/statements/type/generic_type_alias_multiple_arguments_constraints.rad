@@ -5,52 +5,56 @@ type M[
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeDeclaration(
-            position=(1, 1, 0),
-            name=Symbol(
-                position=(1, 6, 0),
-                name="M"
-            ),
-            type_expression=GenericTypeApplication(
-                position=(3, 10, 4),
-                generic_type=TypeName(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="M"
+                ),
+                type_expression=GenericTypeApplication(
                     position=(3, 10, 4),
-                    name="Map"
-                ),
-                arguments=[
-                    TypeName(
-                        position=(3, 14, 4),
-                        name="K"
+                    generic_type=TypeName(
+                        position=(3, 10, 4),
+                        name="Map"
                     ),
-                    TypeName(
-                        position=(3, 17, 4),
-                        name="V"
-                    )
-                ]
-            ),
-            parameters=[
-                GenericTypeParameter(
-                    position=(2, 5, 4),
-                    name=Symbol(
+                    arguments=[
+                        TypeName(
+                            position=(3, 14, 4),
+                            name="K"
+                        ),
+                        TypeName(
+                            position=(3, 17, 4),
+                            name="V"
+                        )
+                    ]
+                ),
+                parameters=[
+                    GenericTypeParameter(
                         position=(2, 5, 4),
-                        name="K"
+                        name=Symbol(
+                            position=(2, 5, 4),
+                            name="K"
+                        ),
+                        constraint=TypeName(
+                            position=(2, 9, 4),
+                            name="Hashable"
+                        )
                     ),
-                    constraint=TypeName(
-                        position=(2, 9, 4),
-                        name="Hashable"
-                    )
-                ),
-                GenericTypeParameter(
-                    position=(3, 5, 4),
-                    name=Symbol(
+                    GenericTypeParameter(
                         position=(3, 5, 4),
-                        name="V"
+                        name=Symbol(
+                            position=(3, 5, 4),
+                            name="V"
+                        )
                     )
-                )
-            ],
-            local=false
-        )
-    ]
+                ],
+                local=false
+            )
+        ]
+    )
 )
 *)

@@ -3,35 +3,40 @@ a = f(b=10)
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=FunctionCallExpression(
-                position=(1, 5, 0),
-                function_expression=Symbol(
-                    position=(1, 5, 0),
-                    name="f"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
                 ),
-                arguments=[
-                    FunctionCallArgument(
-                        position=(1, 9, 0),
-                        name=Symbol(
-                            position=(1, 7, 0),
-                            name="b"
-                        ),
-                        value=NumberLiteral(
+                value=FunctionCallExpression(
+                    position=(1, 5, 0),
+                    function_expression=Symbol(
+                        position=(1, 5, 0),
+                        name="f"
+                    ),
+                    arguments=[
+                        FunctionCallArgument(
                             position=(1, 9, 0),
-                            contents="10"
+                            name=Symbol(
+                                position=(1, 7, 0),
+                                name="b"
+                            ),
+                            value=NumberLiteral(
+                                position=(1, 9, 0),
+                                contents="10"
+                            )
                         )
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

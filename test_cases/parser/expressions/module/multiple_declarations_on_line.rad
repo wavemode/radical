@@ -7,80 +7,94 @@ t = 30
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="x"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                value=NumberLiteral(
+                    position=(1, 5, 0),
+                    contents="5"
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            value=NumberLiteral(
-                position=(1, 5, 0),
-                contents="5"
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(1, 8, 0),
-            target=Symbol(
+            Assignment(
                 position=(1, 8, 0),
-                name="y"
+                target=Symbol(
+                    position=(1, 8, 0),
+                    name="y"
+                ),
+                value=NumberLiteral(
+                    position=(1, 12, 0),
+                    contents="10"
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            value=NumberLiteral(
-                position=(1, 12, 0),
-                contents="10"
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(3, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(3, 1, 0),
-                name="z"
-            ),
-            value=ModuleExpression(
-                position=(3, 5, 0),
-                declarations=[
-                    Assignment(
-                        position=(3, 15, 0),
-                        target=Symbol(
-                            position=(3, 15, 0),
-                            name="a"
-                        ),
-                        value=NumberLiteral(
-                            position=(3, 19, 0),
-                            contents="15"
-                        ),
-                        local=false
-                    ),
-                    Assignment(
-                        position=(3, 23, 0),
-                        target=Symbol(
-                            position=(3, 23, 0),
-                            name="b"
-                        ),
-                        value=NumberLiteral(
-                            position=(3, 27, 0),
-                            contents="20"
-                        ),
-                        local=false
+                target=Symbol(
+                    position=(3, 1, 0),
+                    name="z"
+                ),
+                value=ModuleExpression(
+                    position=(3, 5, 0),
+                    body=ModuleBody(
+                        position=(3, 5, 0),
+                        tree_syntax=false,
+                        declarations=[
+                            Assignment(
+                                position=(3, 15, 0),
+                                target=Symbol(
+                                    position=(3, 15, 0),
+                                    name="a"
+                                ),
+                                value=NumberLiteral(
+                                    position=(3, 19, 0),
+                                    contents="15"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            ),
+                            Assignment(
+                                position=(3, 23, 0),
+                                target=Symbol(
+                                    position=(3, 23, 0),
+                                    name="b"
+                                ),
+                                value=NumberLiteral(
+                                    position=(3, 27, 0),
+                                    contents="20"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            )
+                        ]
                     )
-                ]
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(5, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(5, 1, 0),
-                name="t"
-            ),
-            value=NumberLiteral(
-                position=(5, 5, 0),
-                contents="30"
-            ),
-            local=false
-        )
-    ]
+                target=Symbol(
+                    position=(5, 1, 0),
+                    name="t"
+                ),
+                value=NumberLiteral(
+                    position=(5, 5, 0),
+                    contents="30"
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

@@ -3,33 +3,37 @@ a : typeof (5 + 6)
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=TypeOfTypeExpression(
-                position=(1, 5, 0),
-                expression=ParenthesizedExpression(
-                    position=(1, 12, 0),
-                    expression=BinaryOperation(
-                        position=(1, 13, 0),
-                        left=NumberLiteral(
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=TypeOfTypeExpression(
+                    position=(1, 5, 0),
+                    expression=ParenthesizedExpression(
+                        position=(1, 12, 0),
+                        expression=BinaryOperation(
                             position=(1, 13, 0),
-                            contents="5"
-                        ),
-                        operator="+",
-                        right=NumberLiteral(
-                            position=(1, 17, 0),
-                            contents="6"
+                            left=NumberLiteral(
+                                position=(1, 13, 0),
+                                contents="5"
+                            ),
+                            operator="+",
+                            right=NumberLiteral(
+                                position=(1, 17, 0),
+                                contents="6"
+                            )
                         )
                     )
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

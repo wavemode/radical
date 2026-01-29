@@ -13,116 +13,124 @@ tupleExprNoCommas = (
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="parenthesizedExpr"
-            ),
-            value=ParenthesizedExpression(
-                position=(1, 21, 0),
-                expression=BinaryOperation(
-                    position=(1, 22, 0),
-                    left=NumberLiteral(
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="parenthesizedExpr"
+                ),
+                value=ParenthesizedExpression(
+                    position=(1, 21, 0),
+                    expression=BinaryOperation(
                         position=(1, 22, 0),
-                        contents="1"
-                    ),
-                    operator="*",
-                    right=ParenthesizedExpression(
-                        position=(1, 26, 0),
-                        expression=BinaryOperation(
-                            position=(1, 27, 0),
-                            left=NumberLiteral(
+                        left=NumberLiteral(
+                            position=(1, 22, 0),
+                            contents="1"
+                        ),
+                        operator="*",
+                        right=ParenthesizedExpression(
+                            position=(1, 26, 0),
+                            expression=BinaryOperation(
                                 position=(1, 27, 0),
-                                contents="2"
-                            ),
-                            operator="+",
-                            right=NumberLiteral(
-                                position=(1, 31, 0),
-                                contents="3"
+                                left=NumberLiteral(
+                                    position=(1, 27, 0),
+                                    contents="2"
+                                ),
+                                operator="+",
+                                right=NumberLiteral(
+                                    position=(1, 31, 0),
+                                    contents="3"
+                                )
                             )
                         )
                     )
-                )
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            local=false
-        ),
-        Assignment(
-            position=(3, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(3, 1, 0),
-                name="tupleExpr"
+                target=Symbol(
+                    position=(3, 1, 0),
+                    name="tupleExpr"
+                ),
+                value=TupleLiteral(
+                    position=(3, 13, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(3, 14, 0),
+                            contents="1"
+                        ),
+                        NumberLiteral(
+                            position=(3, 17, 0),
+                            contents="2"
+                        ),
+                        NumberLiteral(
+                            position=(3, 20, 0),
+                            contents="3"
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            value=TupleLiteral(
-                position=(3, 13, 0),
-                elements=[
-                    NumberLiteral(
-                        position=(3, 14, 0),
-                        contents="1"
-                    ),
-                    NumberLiteral(
-                        position=(3, 17, 0),
-                        contents="2"
-                    ),
-                    NumberLiteral(
-                        position=(3, 20, 0),
-                        contents="3"
-                    )
-                ]
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(4, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(4, 1, 0),
-                name="tupleExpr2"
+                target=Symbol(
+                    position=(4, 1, 0),
+                    name="tupleExpr2"
+                ),
+                value=TupleLiteral(
+                    position=(4, 14, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(4, 15, 0),
+                            contents="1"
+                        ),
+                        NumberLiteral(
+                            position=(5, 1, 0),
+                            contents="2"
+                        ),
+                        NumberLiteral(
+                            position=(6, 1, 0),
+                            contents="3"
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
             ),
-            value=TupleLiteral(
-                position=(4, 14, 0),
-                elements=[
-                    NumberLiteral(
-                        position=(4, 15, 0),
-                        contents="1"
-                    ),
-                    NumberLiteral(
-                        position=(5, 1, 0),
-                        contents="2"
-                    ),
-                    NumberLiteral(
-                        position=(6, 1, 0),
-                        contents="3"
-                    )
-                ]
-            ),
-            local=false
-        ),
-        Assignment(
-            position=(7, 1, 0),
-            target=Symbol(
+            Assignment(
                 position=(7, 1, 0),
-                name="tupleExprNoCommas"
-            ),
-            value=TupleLiteral(
-                position=(7, 21, 0),
-                elements=[
-                    NumberLiteral(
-                        position=(8, 5, 4),
-                        contents="4"
-                    ),
-                    NumberLiteral(
-                        position=(9, 5, 4),
-                        contents="5"
-                    ),
-                    NumberLiteral(
-                        position=(10, 5, 4),
-                        contents="6"
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                target=Symbol(
+                    position=(7, 1, 0),
+                    name="tupleExprNoCommas"
+                ),
+                value=TupleLiteral(
+                    position=(7, 21, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(8, 5, 4),
+                            contents="4"
+                        ),
+                        NumberLiteral(
+                            position=(9, 5, 4),
+                            contents="5"
+                        ),
+                        NumberLiteral(
+                            position=(10, 5, 4),
+                            contents="6"
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

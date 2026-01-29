@@ -3,24 +3,28 @@ a : const "hello"
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=ConstTypeExpression(
-                position=(1, 5, 0),
-                expression=StringLiteral(
-                    position=(1, 11, 0),
-                    open_quote="\"",
-                    contents="hello",
-                    close_quote="\""
-                )
-            ),
-            local=false
-        )
-    ]
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=ConstTypeExpression(
+                    position=(1, 5, 0),
+                    expression=StringLiteral(
+                        position=(1, 11, 0),
+                        open_quote="\"",
+                        contents="hello",
+                        close_quote="\""
+                    )
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

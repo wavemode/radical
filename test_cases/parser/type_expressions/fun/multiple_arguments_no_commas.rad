@@ -8,68 +8,72 @@ a : fun(
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=FunctionType(
-                position=(1, 5, 0),
-                parameters=[
-                    FunctionParameter(
-                        position=(2, 5, 4),
-                        name=Symbol(
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=FunctionType(
+                    position=(1, 5, 0),
+                    parameters=[
+                        FunctionParameter(
                             position=(2, 5, 4),
-                            name="a"
+                            name=Symbol(
+                                position=(2, 5, 4),
+                                name="a"
+                            ),
+                            optional=false,
+                            type_annotation=TypeName(
+                                position=(2, 8, 4),
+                                name="Int"
+                            )
                         ),
-                        optional=false,
-                        type_annotation=TypeName(
-                            position=(2, 8, 4),
-                            name="Int"
-                        )
-                    ),
-                    FunctionParameter(
-                        position=(3, 5, 4),
-                        name=Symbol(
+                        FunctionParameter(
                             position=(3, 5, 4),
-                            name="b"
+                            name=Symbol(
+                                position=(3, 5, 4),
+                                name="b"
+                            ),
+                            optional=true,
+                            type_annotation=TypeName(
+                                position=(3, 9, 4),
+                                name="String"
+                            )
                         ),
-                        optional=true,
-                        type_annotation=TypeName(
-                            position=(3, 9, 4),
-                            name="String"
-                        )
-                    ),
-                    FunctionParameter(
-                        position=(4, 5, 4),
-                        name=Symbol(
+                        FunctionParameter(
                             position=(4, 5, 4),
-                            name="c"
+                            name=Symbol(
+                                position=(4, 5, 4),
+                                name="c"
+                            ),
+                            optional=false,
+                            type_annotation=TypeName(
+                                position=(4, 8, 4),
+                                name="Bool"
+                            )
                         ),
-                        optional=false,
-                        type_annotation=TypeName(
-                            position=(4, 8, 4),
-                            name="Bool"
-                        )
-                    ),
-                    FunctionParameter(
-                        position=(5, 5, 4),
-                        optional=false,
-                        type_annotation=TypeName(
+                        FunctionParameter(
                             position=(5, 5, 4),
-                            name="Float"
+                            optional=false,
+                            type_annotation=TypeName(
+                                position=(5, 5, 4),
+                                name="Float"
+                            )
                         )
+                    ],
+                    return_type=TypeName(
+                        position=(6, 6, 0),
+                        name="Float"
                     )
-                ],
-                return_type=TypeName(
-                    position=(6, 6, 0),
-                    name="Float"
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

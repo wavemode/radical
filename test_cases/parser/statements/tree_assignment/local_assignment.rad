@@ -1,0 +1,5 @@
+local x 10.5
+
+(*
+FAIL("Local assignment must use '=' to separate target and value at test_cases/parser/statements/tree_assignment/local_assignment.rad:1:9")
+*)

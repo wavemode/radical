@@ -4,43 +4,52 @@ a = 5
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        ModuleName(
-            position=(1, 1, 0),
-            name=Symbol(
-                position=(1, 8, 0),
-                name="A"
-            ),
-            type_annotation=RecordType(
-                position=(1, 12, 0),
-                fields=[
-                    TypeAnnotation(
-                        position=(1, 14, 0),
-                        name=Symbol(
-                            position=(1, 14, 0),
-                            name="a"
-                        ),
-                        type_annotation=TypeName(
-                            position=(1, 18, 0),
-                            name="Int"
-                        ),
-                        local=false
-                    )
-                ]
-            )
+    body=ModuleBody(
+        position=(1, 1, 0),
+        name=Symbol(
+            position=(1, 8, 0),
+            name="A"
         ),
-        Assignment(
-            position=(2, 1, 0),
-            target=Symbol(
+        tree_syntax=false,
+        declarations=[
+            ModuleName(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 8, 0),
+                    name="A"
+                ),
+                type_annotation=RecordType(
+                    position=(1, 12, 0),
+                    fields=[
+                        TypeAnnotation(
+                            position=(1, 14, 0),
+                            name=Symbol(
+                                position=(1, 14, 0),
+                                name="a"
+                            ),
+                            type_annotation=TypeName(
+                                position=(1, 18, 0),
+                                name="Int"
+                            ),
+                            local=false
+                        )
+                    ]
+                )
+            ),
+            Assignment(
                 position=(2, 1, 0),
-                name="a"
-            ),
-            value=NumberLiteral(
-                position=(2, 5, 0),
-                contents="5"
-            ),
-            local=false
-        )
-    ]
+                target=Symbol(
+                    position=(2, 1, 0),
+                    name="a"
+                ),
+                value=NumberLiteral(
+                    position=(2, 5, 0),
+                    contents="5"
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

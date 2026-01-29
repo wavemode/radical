@@ -3,19 +3,23 @@ type A = Int
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeDeclaration(
-            position=(1, 1, 0),
-            name=Symbol(
-                position=(1, 6, 0),
-                name="A"
-            ),
-            type_expression=TypeName(
-                position=(1, 10, 0),
-                name="Int"
-            ),
-            local=false
-        )
-    ]
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="A"
+                ),
+                type_expression=TypeName(
+                    position=(1, 10, 0),
+                    name="Int"
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

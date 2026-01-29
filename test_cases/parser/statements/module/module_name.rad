@@ -3,14 +3,22 @@ module A
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        ModuleName(
-            position=(1, 1, 0),
-            name=Symbol(
-                position=(1, 8, 0),
-                name="A"
+    body=ModuleBody(
+        position=(1, 1, 0),
+        name=Symbol(
+            position=(1, 8, 0),
+            name="A"
+        ),
+        tree_syntax=false,
+        declarations=[
+            ModuleName(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 8, 0),
+                    name="A"
+                )
             )
-        )
-    ]
+        ]
+    )
 )
 *)

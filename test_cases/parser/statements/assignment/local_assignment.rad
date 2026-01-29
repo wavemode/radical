@@ -1,0 +1,26 @@
+local x=10.5
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 7, 0),
+                    name="x"
+                ),
+                value=NumberLiteral(
+                    position=(1, 9, 0),
+                    contents="10.5"
+                ),
+                local=true,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

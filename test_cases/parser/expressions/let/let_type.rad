@@ -5,36 +5,41 @@ in 10
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=LetExpression(
-                position=(1, 5, 0),
-                declarations=[
-                    TypeDeclaration(
-                        position=(2, 5, 4),
-                        name=Symbol(
-                            position=(2, 10, 4),
-                            name="A"
-                        ),
-                        type_expression=TypeName(
-                            position=(2, 14, 4),
-                            name="Int"
-                        ),
-                        local=false
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=LetExpression(
+                    position=(1, 5, 0),
+                    declarations=[
+                        TypeDeclaration(
+                            position=(2, 5, 4),
+                            name=Symbol(
+                                position=(2, 10, 4),
+                                name="A"
+                            ),
+                            type_expression=TypeName(
+                                position=(2, 14, 4),
+                                name="Int"
+                            ),
+                            local=false
+                        )
+                    ],
+                    body=NumberLiteral(
+                        position=(3, 4, 0),
+                        contents="10"
                     )
-                ],
-                body=NumberLiteral(
-                    position=(3, 4, 0),
-                    contents="10"
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

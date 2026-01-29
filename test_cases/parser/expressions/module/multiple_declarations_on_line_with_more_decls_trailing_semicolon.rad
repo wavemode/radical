@@ -4,56 +4,68 @@ z = module of a = 15; b = 20;
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="z"
-            ),
-            value=ModuleExpression(
-                position=(1, 5, 0),
-                declarations=[
-                    Assignment(
-                        position=(1, 15, 0),
-                        target=Symbol(
-                            position=(1, 15, 0),
-                            name="a"
-                        ),
-                        value=NumberLiteral(
-                            position=(1, 19, 0),
-                            contents="15"
-                        ),
-                        local=false
-                    ),
-                    Assignment(
-                        position=(1, 23, 0),
-                        target=Symbol(
-                            position=(1, 23, 0),
-                            name="b"
-                        ),
-                        value=NumberLiteral(
-                            position=(1, 27, 0),
-                            contents="20"
-                        ),
-                        local=false
-                    ),
-                    Assignment(
-                        position=(2, 5, 4),
-                        target=Symbol(
-                            position=(2, 5, 4),
-                            name="c"
-                        ),
-                        value=NumberLiteral(
-                            position=(2, 9, 4),
-                            contents="25"
-                        ),
-                        local=false
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="z"
+                ),
+                value=ModuleExpression(
+                    position=(1, 5, 0),
+                    body=ModuleBody(
+                        position=(1, 5, 0),
+                        tree_syntax=false,
+                        declarations=[
+                            Assignment(
+                                position=(1, 15, 0),
+                                target=Symbol(
+                                    position=(1, 15, 0),
+                                    name="a"
+                                ),
+                                value=NumberLiteral(
+                                    position=(1, 19, 0),
+                                    contents="15"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            ),
+                            Assignment(
+                                position=(1, 23, 0),
+                                target=Symbol(
+                                    position=(1, 23, 0),
+                                    name="b"
+                                ),
+                                value=NumberLiteral(
+                                    position=(1, 27, 0),
+                                    contents="20"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            ),
+                            Assignment(
+                                position=(2, 5, 4),
+                                target=Symbol(
+                                    position=(2, 5, 4),
+                                    name="c"
+                                ),
+                                value=NumberLiteral(
+                                    position=(2, 9, 4),
+                                    contents="25"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            )
+                        ]
                     )
-                ]
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

@@ -3,43 +3,48 @@ x = not module module module m ** 5
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="x"
-            ),
-            value=UnaryOperation(
-                position=(1, 5, 0),
-                operator="not",
-                operand=BinaryOperation(
-                    position=(1, 9, 0),
-                    left=UnaryOperation(
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                value=UnaryOperation(
+                    position=(1, 5, 0),
+                    operator="not",
+                    operand=BinaryOperation(
                         position=(1, 9, 0),
-                        operator="module",
-                        operand=UnaryOperation(
-                            position=(1, 16, 0),
+                        left=UnaryOperation(
+                            position=(1, 9, 0),
                             operator="module",
                             operand=UnaryOperation(
-                                position=(1, 23, 0),
+                                position=(1, 16, 0),
                                 operator="module",
-                                operand=Symbol(
-                                    position=(1, 30, 0),
-                                    name="m"
+                                operand=UnaryOperation(
+                                    position=(1, 23, 0),
+                                    operator="module",
+                                    operand=Symbol(
+                                        position=(1, 30, 0),
+                                        name="m"
+                                    )
                                 )
                             )
+                        ),
+                        operator="**",
+                        right=NumberLiteral(
+                            position=(1, 35, 0),
+                            contents="5"
                         )
-                    ),
-                    operator="**",
-                    right=NumberLiteral(
-                        position=(1, 35, 0),
-                        contents="5"
                     )
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

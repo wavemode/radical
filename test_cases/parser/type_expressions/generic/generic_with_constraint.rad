@@ -4,51 +4,55 @@ a : [T : Comparable]fun(...T) -> T
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=GenericTypeExpression(
-                position=(1, 5, 0),
-                parameters=[
-                    GenericTypeParameter(
-                        position=(1, 6, 0),
-                        name=Symbol(
-                            position=(1, 6, 0),
-                            name="T"
-                        ),
-                        constraint=TypeName(
-                            position=(1, 10, 0),
-                            name="Comparable"
-                        )
-                    )
-                ],
-                expression=FunctionType(
-                    position=(1, 21, 0),
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=GenericTypeExpression(
+                    position=(1, 5, 0),
                     parameters=[
-                        FunctionParameter(
-                            position=(1, 25, 0),
-                            optional=false,
-                            type_annotation=SpreadTypeExpression(
-                                position=(1, 25, 0),
-                                expression=TypeName(
-                                    position=(1, 28, 0),
-                                    name="T"
-                                )
+                        GenericTypeParameter(
+                            position=(1, 6, 0),
+                            name=Symbol(
+                                position=(1, 6, 0),
+                                name="T"
+                            ),
+                            constraint=TypeName(
+                                position=(1, 10, 0),
+                                name="Comparable"
                             )
                         )
                     ],
-                    return_type=TypeName(
-                        position=(1, 34, 0),
-                        name="T"
+                    expression=FunctionType(
+                        position=(1, 21, 0),
+                        parameters=[
+                            FunctionParameter(
+                                position=(1, 25, 0),
+                                optional=false,
+                                type_annotation=SpreadTypeExpression(
+                                    position=(1, 25, 0),
+                                    expression=TypeName(
+                                        position=(1, 28, 0),
+                                        name="T"
+                                    )
+                                )
+                            )
+                        ],
+                        return_type=TypeName(
+                            position=(1, 34, 0),
+                            name="T"
+                        )
                     )
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

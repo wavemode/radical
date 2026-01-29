@@ -3,36 +3,40 @@ a : fun(a: Int) -> Int
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=FunctionType(
-                position=(1, 5, 0),
-                parameters=[
-                    FunctionParameter(
-                        position=(1, 9, 0),
-                        name=Symbol(
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=FunctionType(
+                    position=(1, 5, 0),
+                    parameters=[
+                        FunctionParameter(
                             position=(1, 9, 0),
-                            name="a"
-                        ),
-                        optional=false,
-                        type_annotation=TypeName(
-                            position=(1, 12, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 9, 0),
+                                name="a"
+                            ),
+                            optional=false,
+                            type_annotation=TypeName(
+                                position=(1, 12, 0),
+                                name="Int"
+                            )
                         )
+                    ],
+                    return_type=TypeName(
+                        position=(1, 20, 0),
+                        name="Int"
                     )
-                ],
-                return_type=TypeName(
-                    position=(1, 20, 0),
-                    name="Int"
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

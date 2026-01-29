@@ -3,24 +3,28 @@ import Module.Name as Alias
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        ImportStatement(
-            position=(1, 1, 0),
-            module_parts=[
-                Symbol(
-                    position=(1, 8, 0),
-                    name="Module"
-                ),
-                Symbol(
-                    position=(1, 15, 0),
-                    name="Name"
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            ImportStatement(
+                position=(1, 1, 0),
+                module_parts=[
+                    Symbol(
+                        position=(1, 8, 0),
+                        name="Module"
+                    ),
+                    Symbol(
+                        position=(1, 15, 0),
+                        name="Name"
+                    )
+                ],
+                alias=Symbol(
+                    position=(1, 23, 0),
+                    name="Alias"
                 )
-            ],
-            alias=Symbol(
-                position=(1, 23, 0),
-                name="Alias"
             )
-        )
-    ]
+        ]
+    )
 )
 *)

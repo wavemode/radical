@@ -1,8 +1,12 @@
 (*
 Module(
-    position=(9, 1, 0),
-    declarations=[
+    position=(13, 1, 0),
+    body=ModuleBody(
+        position=(13, 1, 0),
+        tree_syntax=false,
+        declarations=[
 
-    ]
+        ]
+    )
 )
 *)

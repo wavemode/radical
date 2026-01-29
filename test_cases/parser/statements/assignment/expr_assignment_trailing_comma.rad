@@ -1,0 +1,5 @@
+["a" + "b",] = "c"
+
+(*
+FAIL("Expected token of type LIST_END. Unexpected token COMMA(',') at test_cases/parser/statements/assignment/expr_assignment_trailing_comma.rad:1:11")
+*)

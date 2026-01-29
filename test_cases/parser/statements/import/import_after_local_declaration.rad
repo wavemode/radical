@@ -5,36 +5,41 @@ import A.B.C
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
-                position=(1, 7, 0),
-                name="x"
-            ),
-            value=NumberLiteral(
-                position=(1, 11, 0),
-                contents="5"
-            ),
-            local=true
-        ),
-        ImportStatement(
-            position=(3, 1, 0),
-            module_parts=[
-                Symbol(
-                    position=(3, 8, 0),
-                    name="A"
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 7, 0),
+                    name="x"
                 ),
-                Symbol(
-                    position=(3, 10, 0),
-                    name="B"
+                value=NumberLiteral(
+                    position=(1, 11, 0),
+                    contents="5"
                 ),
-                Symbol(
-                    position=(3, 12, 0),
-                    name="C"
-                )
-            ]
-        )
-    ]
+                local=true,
+                tree_syntax=false
+            ),
+            ImportStatement(
+                position=(3, 1, 0),
+                module_parts=[
+                    Symbol(
+                        position=(3, 8, 0),
+                        name="A"
+                    ),
+                    Symbol(
+                        position=(3, 10, 0),
+                        name="B"
+                    ),
+                    Symbol(
+                        position=(3, 12, 0),
+                        name="C"
+                    )
+                ]
+            )
+        ]
+    )
 )
 *)

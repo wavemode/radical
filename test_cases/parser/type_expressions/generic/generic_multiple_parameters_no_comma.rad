@@ -6,66 +6,70 @@ a : [A
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=GenericTypeExpression(
-                position=(1, 5, 0),
-                parameters=[
-                    GenericTypeParameter(
-                        position=(1, 6, 0),
-                        name=Symbol(
-                            position=(1, 6, 0),
-                            name="A"
-                        )
-                    ),
-                    GenericTypeParameter(
-                        position=(2, 5, 4),
-                        name=Symbol(
-                            position=(2, 5, 4),
-                            name="B"
-                        )
-                    ),
-                    GenericTypeParameter(
-                        position=(3, 5, 4),
-                        name=Symbol(
-                            position=(3, 5, 4),
-                            name="C"
-                        )
-                    )
-                ],
-                expression=FunctionType(
-                    position=(4, 3, 0),
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=GenericTypeExpression(
+                    position=(1, 5, 0),
                     parameters=[
-                        FunctionParameter(
-                            position=(4, 7, 0),
-                            optional=false,
-                            type_annotation=TypeName(
-                                position=(4, 7, 0),
+                        GenericTypeParameter(
+                            position=(1, 6, 0),
+                            name=Symbol(
+                                position=(1, 6, 0),
                                 name="A"
                             )
                         ),
-                        FunctionParameter(
-                            position=(4, 10, 0),
-                            optional=false,
-                            type_annotation=TypeName(
-                                position=(4, 10, 0),
+                        GenericTypeParameter(
+                            position=(2, 5, 4),
+                            name=Symbol(
+                                position=(2, 5, 4),
                                 name="B"
+                            )
+                        ),
+                        GenericTypeParameter(
+                            position=(3, 5, 4),
+                            name=Symbol(
+                                position=(3, 5, 4),
+                                name="C"
                             )
                         )
                     ],
-                    return_type=TypeName(
-                        position=(4, 16, 0),
-                        name="C"
+                    expression=FunctionType(
+                        position=(4, 3, 0),
+                        parameters=[
+                            FunctionParameter(
+                                position=(4, 7, 0),
+                                optional=false,
+                                type_annotation=TypeName(
+                                    position=(4, 7, 0),
+                                    name="A"
+                                )
+                            ),
+                            FunctionParameter(
+                                position=(4, 10, 0),
+                                optional=false,
+                                type_annotation=TypeName(
+                                    position=(4, 10, 0),
+                                    name="B"
+                                )
+                            )
+                        ],
+                        return_type=TypeName(
+                            position=(4, 16, 0),
+                            name="C"
+                        )
                     )
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

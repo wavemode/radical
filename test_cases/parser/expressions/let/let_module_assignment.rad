@@ -7,37 +7,42 @@ x =
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="x"
-            ),
-            value=LetExpression(
-                position=(2, 5, 4),
-                declarations=[
-                    ModuleAssignmentDeclaration(
-                        position=(3, 9, 8),
-                        name=Symbol(
-                            position=(3, 16, 8),
-                            name="A"
-                        ),
-                        value=Symbol(
-                            position=(3, 20, 8),
-                            name="expr"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                value=LetExpression(
+                    position=(2, 5, 4),
+                    declarations=[
+                        ModuleAssignmentDeclaration(
+                            position=(3, 9, 8),
+                            name=Symbol(
+                                position=(3, 16, 8),
+                                name="A"
+                            ),
+                            value=Symbol(
+                                position=(3, 20, 8),
+                                name="expr"
+                            )
                         )
+                    ],
+                    body=StringLiteral(
+                        position=(5, 9, 8),
+                        open_quote="\"",
+                        contents="hi",
+                        close_quote="\""
                     )
-                ],
-                body=StringLiteral(
-                    position=(5, 9, 8),
-                    open_quote="\"",
-                    contents="hi",
-                    close_quote="\""
-                )
-            ),
-            local=false
-        )
-    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

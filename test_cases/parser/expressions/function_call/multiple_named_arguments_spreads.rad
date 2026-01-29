@@ -9,71 +9,76 @@ a = f(
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        Assignment(
-            position=(1, 1, 0),
-            target=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            value=FunctionCallExpression(
-                position=(1, 5, 0),
-                function_expression=Symbol(
-                    position=(1, 5, 0),
-                    name="f"
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
                 ),
-                arguments=[
-                    SpreadOperation(
-                        position=(2, 5, 4),
-                        operand=Symbol(
-                            position=(2, 8, 4),
-                            name="e"
-                        )
+                value=FunctionCallExpression(
+                    position=(1, 5, 0),
+                    function_expression=Symbol(
+                        position=(1, 5, 0),
+                        name="f"
                     ),
-                    FunctionCallArgument(
-                        position=(3, 7, 4),
-                        name=Symbol(
-                            position=(3, 5, 4),
-                            name="b"
+                    arguments=[
+                        SpreadOperation(
+                            position=(2, 5, 4),
+                            operand=Symbol(
+                                position=(2, 8, 4),
+                                name="e"
+                            )
                         ),
-                        value=NumberLiteral(
+                        FunctionCallArgument(
                             position=(3, 7, 4),
-                            contents="10"
-                        )
-                    ),
-                    FunctionCallArgument(
-                        position=(4, 7, 4),
-                        name=Symbol(
-                            position=(4, 5, 4),
-                            name="c"
+                            name=Symbol(
+                                position=(3, 5, 4),
+                                name="b"
+                            ),
+                            value=NumberLiteral(
+                                position=(3, 7, 4),
+                                contents="10"
+                            )
                         ),
-                        value=NumberLiteral(
+                        FunctionCallArgument(
                             position=(4, 7, 4),
-                            contents="20"
-                        )
-                    ),
-                    FunctionCallArgument(
-                        position=(5, 7, 4),
-                        name=Symbol(
-                            position=(5, 5, 4),
-                            name="d"
+                            name=Symbol(
+                                position=(4, 5, 4),
+                                name="c"
+                            ),
+                            value=NumberLiteral(
+                                position=(4, 7, 4),
+                                contents="20"
+                            )
                         ),
-                        value=NumberLiteral(
+                        FunctionCallArgument(
                             position=(5, 7, 4),
-                            contents="30"
+                            name=Symbol(
+                                position=(5, 5, 4),
+                                name="d"
+                            ),
+                            value=NumberLiteral(
+                                position=(5, 7, 4),
+                                contents="30"
+                            )
+                        ),
+                        SpreadOperation(
+                            position=(6, 5, 4),
+                            operand=Symbol(
+                                position=(6, 8, 4),
+                                name="f"
+                            )
                         )
-                    ),
-                    SpreadOperation(
-                        position=(6, 5, 4),
-                        operand=Symbol(
-                            position=(6, 8, 4),
-                            name="f"
-                        )
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
 )
 *)

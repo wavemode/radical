@@ -7,44 +7,48 @@ a : { b
 (*
 Module(
     position=(1, 1, 0),
-    declarations=[
-        TypeAnnotation(
-            position=(1, 1, 0),
-            name=Symbol(
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
                 position=(1, 1, 0),
-                name="a"
-            ),
-            type_annotation=RecordType(
-                position=(1, 5, 0),
-                fields=[
-                    TypeAnnotation(
-                        position=(1, 7, 0),
-                        name=Symbol(
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=RecordType(
+                    position=(1, 5, 0),
+                    fields=[
+                        TypeAnnotation(
                             position=(1, 7, 0),
-                            name="b"
+                            name=Symbol(
+                                position=(1, 7, 0),
+                                name="b"
+                            ),
+                            type_annotation=TypeName(
+                                position=(3, 9, 8),
+                                name="Int"
+                            ),
+                            local=false
                         ),
-                        type_annotation=TypeName(
-                            position=(3, 9, 8),
-                            name="Int"
-                        ),
-                        local=false
-                    ),
-                    TypeAnnotation(
-                        position=(4, 7, 6),
-                        name=Symbol(
+                        TypeAnnotation(
                             position=(4, 7, 6),
-                            name="c"
-                        ),
-                        type_annotation=TypeName(
-                            position=(4, 9, 6),
-                            name="String"
-                        ),
-                        local=false
-                    )
-                ]
-            ),
-            local=false
-        )
-    ]
+                            name=Symbol(
+                                position=(4, 7, 6),
+                                name="c"
+                            ),
+                            type_annotation=TypeName(
+                                position=(4, 9, 6),
+                                name="String"
+                            ),
+                            local=false
+                        )
+                    ]
+                ),
+                local=false
+            )
+        ]
+    )
 )
 *)

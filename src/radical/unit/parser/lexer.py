@@ -1,7 +1,7 @@
 from typing import NoReturn
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
-from radical.data.parser.token import Token, TokenType
+from radical.data.parser.token import EXPR_END_TOKENS, Token, TokenType
 from radical.util.core.unit import Unit
 
 
@@ -653,26 +653,7 @@ class Lexer(Unit):
             or not self._tokens
         ):
             return False
-        return self._tokens[-1].type in {
-            TokenType.TRUE,
-            TokenType.FALSE,
-            TokenType.NULL,
-            TokenType.STRING_LITERAL_END,
-            TokenType.RAW_STRING_LITERAL_END,
-            TokenType.RAW_MULTILINE_STRING_LITERAL_END,
-            TokenType.MULTILINE_STRING_LITERAL_END,
-            TokenType.FORMAT_STRING_END,
-            TokenType.MULTILINE_FORMAT_STRING_END,
-            TokenType.INTEGER_LITERAL,
-            TokenType.FLOAT_LITERAL,
-            TokenType.SCI_FLOAT_LITERAL,
-            TokenType.SYMBOL,
-            TokenType.PARENTHESES_END,
-            TokenType.FUNCTION_CALL_END,
-            TokenType.LIST_END,
-            TokenType.INDEXING_END,
-            TokenType.OBJECT_END,
-        }
+        return self._tokens[-1].type in EXPR_END_TOKENS
 
     def _peek_char(self, n: int = 0) -> str:
         return (

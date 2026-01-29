@@ -196,6 +196,13 @@ class NullLiteralNode(Node):
     contents: Token
 
 
+@dataclass(frozen=True)
+class ModuleBodyNode(Node):
+    name: SymbolNode | None
+    tree_syntax: bool
+    declarations: list["TopLevelDeclarationNodeType"]
+
+
 # Operations
 
 
@@ -344,7 +351,7 @@ class LetExpressionNode(Node):
 
 @dataclass(frozen=True)
 class ModuleExpressionNode(Node):
-    declarations: list["TopLevelDeclarationNodeType"]
+    body: ModuleBodyNode
 
 
 # Declarations
@@ -357,6 +364,7 @@ class AssignmentNode(Node):
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
     local: bool
+    tree_syntax: bool
 
 
 @dataclass(frozen=True)
@@ -414,7 +422,7 @@ class DataDeclarationNode(Node):
 @dataclass(frozen=True)
 class ModuleBodyDeclarationNode(Node):
     name: SymbolNode
-    declarations: list["TopLevelDeclarationNodeType"]
+    body: ModuleBodyNode
 
 
 @dataclass(frozen=True)
@@ -439,7 +447,7 @@ class ModuleNameNode(Node):
 
 @dataclass(frozen=True)
 class ModuleNode(Node):
-    declarations: list["TopLevelDeclarationNodeType"]
+    body: ModuleBodyNode
 
 
 # Node Types
