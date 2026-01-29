@@ -283,11 +283,6 @@ class TypeAnnotationNode(Node):
 
 
 @dataclass(frozen=True)
-class SpreadAssignmentStatementNode(Node):
-    value: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
 class ImportStatementEllipsisNode(Node):
     pass
 
@@ -335,6 +330,17 @@ class DataDeclarationNode(Node):
 
 
 @dataclass(frozen=True)
+class SpreadAssignmentStatementNode(Node):
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class ModuleNameNode(Node):
+    name: SymbolNode
+    type_annotation: "TypeExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
 class ModuleNode(Node):
     declarations: list["TopLevelDeclarationNodeType"]
 
@@ -377,5 +383,5 @@ LetExpressionDeclarationNodeType = (
 )
 
 TopLevelDeclarationNodeType = (
-    LetExpressionDeclarationNodeType | SpreadAssignmentStatementNode
+    LetExpressionDeclarationNodeType | SpreadAssignmentStatementNode | ModuleNameNode
 )

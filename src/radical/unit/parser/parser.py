@@ -17,6 +17,7 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    ModuleNameNode,
     ModuleNode,
     Node,
     NullLiteralNode,
@@ -99,6 +100,7 @@ class Parser(Unit):
         ] = [
             *self._let_expression_declaration_parsers,
             self.parse_spread_assignment_statement,
+            self.parse_module_declaration,
         ]
 
     def parse_let_expression(self) -> LetExpressionNode | None:
@@ -106,12 +108,21 @@ class Parser(Unit):
         if not self.parse_token(TokenType.LET):
             return None
 
-        assignments: list[LetExpressionDeclarationNodeType] = (
-            self.parse_comma_or_newline_separated(
-                element_parser=self.parse_let_expression_declaration,
-                ending_token=TokenType.IN,
-            )
-        )
+        assignments: list[LetExpressionDeclarationNodeType] = []
+        seen_non_import_declaration = False
+        for decl in self.parse_comma_or_newline_separated(
+            element_parser=self.parse_let_expression_declaration,
+            ending_token=TokenType.IN,
+        ):
+            if isinstance(decl, ImportStatementNode):
+                if seen_non_import_declaration:
+                    self._raise_parse_error(
+                        message="Import statements must appear before any other declarations",
+                        position=decl.position,
+                    )
+            else:
+                seen_non_import_declaration = True
+            assignments.append(decl)
 
         body = self.parse_value_expression()
 
@@ -142,11 +153,40 @@ class Parser(Unit):
     def parse_module(self) -> ModuleNode:
         start_position = self._position
         declarations: list[TopLevelDeclarationNodeType] = []
+        module_name: ModuleNameNode | None = None
+        seen_nonlocal_declaration = False
         while not self.at_end():
-            declarations.append(self.parse_top_level_declaration())
+            decl = self.parse_top_level_declaration()
+            if not self._is_local_toplevel_declaration(decl):
+                seen_nonlocal_declaration = True
+            elif isinstance(decl, ModuleNameNode):
+                if module_name is not None:
+                    self._raise_parse_error(
+                        message="Multiple module name declarations are not allowed",
+                        position=decl.position,
+                    )
+                elif seen_nonlocal_declaration:
+                    self._raise_parse_error(
+                        message="Module name must be the first nonlocal declaration",
+                        position=decl.position,
+                    )
+                module_name = decl
+            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
+                self._raise_parse_error(
+                    message="Import statements must appear before any nonlocal declarations",
+                    position=decl.position,
+                )
+            declarations.append(decl)
         return ModuleNode(
             position=start_position,
             declarations=declarations,
+        )
+
+    def _is_local_toplevel_declaration(
+        self, declaration: TopLevelDeclarationNodeType
+    ) -> bool:
+        return getattr(declaration, "local", False) or (
+            isinstance(declaration, (ImportStatementNode, ModuleNameNode))
         )
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
@@ -155,6 +195,27 @@ class Parser(Unit):
                 return declaration
         self._raise_parse_error(
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_module_declaration(self) -> ModuleNameNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.MODULE):
+            return None
+
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        type_annotation: TypeExpressionNodeType | None = None
+        if self.parse_token(TokenType.COLON):
+            type_annotation = self.parse_type_expression()
+
+        return ModuleNameNode(
+            position=start_position,
+            name=name,
+            type_annotation=type_annotation,
         )
 
     def parse_data_declaration(self) -> DataDeclarationNode | None:

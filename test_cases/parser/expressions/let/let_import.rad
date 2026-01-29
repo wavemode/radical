@@ -1,6 +1,7 @@
 a = let
     import Module.Name (...) as M
-in 42
+    x = 5
+in x
 
 (*
 Module(
@@ -36,11 +37,23 @@ Module(
                             position=(2, 33, 4),
                             name="M"
                         )
+                    ),
+                    Assignment(
+                        position=(3, 5, 4),
+                        target=Symbol(
+                            position=(3, 5, 4),
+                            name="x"
+                        ),
+                        value=NumberLiteral(
+                            position=(3, 9, 4),
+                            contents="5"
+                        ),
+                        local=false
                     )
                 ],
-                body=NumberLiteral(
-                    position=(3, 4, 0),
-                    contents="42"
+                body=Symbol(
+                    position=(4, 4, 0),
+                    name="x"
                 )
             ),
             local=false

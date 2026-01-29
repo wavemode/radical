@@ -1,0 +1,7 @@
+x = 5
+
+import A.B.C
+
+(*
+FAIL("Import statements must appear before any nonlocal declarations at test_cases/parser/statements/import/import_after_declaration.rad:3:1")
+*)

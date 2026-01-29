@@ -1,0 +1,8 @@
+a = let
+    x = 5
+    import Module.Name (...) as M
+in 42
+
+(*
+FAIL("Import statements must appear before any other declarations at test_cases/parser/expressions/let/let_import_after_binding.rad:3:5")
+*)
