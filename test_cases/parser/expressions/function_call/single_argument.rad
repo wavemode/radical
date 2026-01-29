@@ -1,0 +1,33 @@
+a = f(10)
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            value=FunctionCallExpression(
+                position=(1, 5, 0),
+                function_expression=Symbol(
+                    position=(1, 5, 0),
+                    name="f"
+                ),
+                arguments=[
+                    FunctionCallArgument(
+                        position=(1, 7, 0),
+                        value=NumberLiteral(
+                            position=(1, 7, 0),
+                            contents="10"
+                        )
+                    )
+                ]
+            ),
+            local=false
+        )
+    ]
+)
+*)

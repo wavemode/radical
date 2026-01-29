@@ -253,8 +253,38 @@ class UnaryOperationNode(Node):
 
 
 @dataclass(frozen=True)
+class TypeApplicationExpressionNode(Node):
+    value_expression: "ValueExpressionNodeType"
+    type_arguments: list["TypeExpressionNodeType"]
+
+
+@dataclass(frozen=True)
+class FieldAccessExpressionNode(Node):
+    object_expression: "ValueExpressionNodeType"
+    field: SymbolNode
+
+
+@dataclass(frozen=True)
+class IndexingExpressionNode(Node):
+    object_expression: "ValueExpressionNodeType"
+    index_expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class SpreadOperationNode(Node):
     operand: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class FunctionCallArgumentNode(Node):
+    name: SymbolNode | None
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class FunctionCallExpressionNode(Node):
+    function_expression: "ValueExpressionNodeType"
+    arguments: list["FunctionCallArgumentNode | SpreadOperationNode"]
 
 
 # Compound Expressions
@@ -280,24 +310,6 @@ class IfExpressionNode(Node):
     condition: "ValueExpressionNodeType"
     then_branch: "ValueExpressionNodeType"
     else_branch: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class TypeApplicationExpressionNode(Node):
-    value_expression: "ValueExpressionNodeType"
-    type_arguments: list["TypeExpressionNodeType"]
-
-
-@dataclass(frozen=True)
-class FieldAccessExpressionNode(Node):
-    object_expression: "ValueExpressionNodeType"
-    field: SymbolNode
-
-
-@dataclass(frozen=True)
-class IndexingExpressionNode(Node):
-    object_expression: "ValueExpressionNodeType"
-    index_expression: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
@@ -429,6 +441,7 @@ ValueExpressionNodeType = (
     | TypeApplicationExpressionNode
     | FieldAccessExpressionNode
     | IndexingExpressionNode
+    | FunctionCallExpressionNode
 )
 TypeExpressionNodeType = (
     TypeNameNode

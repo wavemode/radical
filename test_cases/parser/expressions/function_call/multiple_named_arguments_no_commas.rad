@@ -1,0 +1,63 @@
+a = f(
+    b=10
+    c=20
+    d=30
+    )
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            value=FunctionCallExpression(
+                position=(1, 5, 0),
+                function_expression=Symbol(
+                    position=(1, 5, 0),
+                    name="f"
+                ),
+                arguments=[
+                    FunctionCallArgument(
+                        position=(2, 7, 4),
+                        name=Symbol(
+                            position=(2, 5, 4),
+                            name="b"
+                        ),
+                        value=NumberLiteral(
+                            position=(2, 7, 4),
+                            contents="10"
+                        )
+                    ),
+                    FunctionCallArgument(
+                        position=(3, 7, 4),
+                        name=Symbol(
+                            position=(3, 5, 4),
+                            name="c"
+                        ),
+                        value=NumberLiteral(
+                            position=(3, 7, 4),
+                            contents="20"
+                        )
+                    ),
+                    FunctionCallArgument(
+                        position=(4, 7, 4),
+                        name=Symbol(
+                            position=(4, 5, 4),
+                            name="d"
+                        ),
+                        value=NumberLiteral(
+                            position=(4, 7, 4),
+                            contents="30"
+                        )
+                    )
+                ]
+            ),
+            local=false
+        )
+    ]
+)
+*)

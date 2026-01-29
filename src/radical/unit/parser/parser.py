@@ -9,6 +9,8 @@ from radical.data.parser.ast import (
     FormatStringExpressionNode,
     FormatStringLiteralNode,
     FormatStringTextSectionNode,
+    FunctionCallArgumentNode,
+    FunctionCallExpressionNode,
     FunctionParameterNode,
     FunctionTypeNode,
     GenericTypeApplicationNode,
@@ -1094,9 +1096,44 @@ class Parser(Unit):
                     object_expression=lhs,
                     field=field_name,
                 )
+            elif self.parse_token(TokenType.FUNCTION_CALL_START):
+                arguments = self.parse_comma_or_newline_separated(
+                    element_parser=self.parse_function_call_argument,
+                    ending_token=TokenType.FUNCTION_CALL_END,
+                )
+                lhs = FunctionCallExpressionNode(
+                    position=lhs.position,
+                    function_expression=lhs,
+                    arguments=arguments,
+                )
             else:
                 break
         return lhs
+
+    def parse_function_call_argument(
+        self,
+    ) -> FunctionCallArgumentNode | SpreadOperationNode:
+        if spread_operation := self.parse_spread_operation():
+            return spread_operation
+
+        name: SymbolNode | None = None
+        if (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.ASSIGN
+        ):
+            name_token = self._read()
+            name = SymbolNode(
+                position=name_token.position,
+                name=name_token,
+            )
+            self._read()  # consume ASSIGN
+
+        value = self.parse_value_expression()
+        return FunctionCallArgumentNode(
+            position=value.position,
+            name=name,
+            value=value,
+        )
 
     def parse_atom(self) -> AtomNodeType:
         for atom_parser in self._atom_parsers:
