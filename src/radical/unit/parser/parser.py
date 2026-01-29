@@ -10,6 +10,7 @@ from radical.data.parser.ast import (
     GenericTypeApplicationNode,
     GenericTypeExpressionNode,
     GenericTypeParameterNode,
+    IfExpressionNode,
     ImportStatementEllipsisNode,
     ImportStatementFieldNode,
     ImportStatementNode,
@@ -67,6 +68,7 @@ class Parser(Unit):
             self.parse_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
+            self.parse_if_expression,
         ]
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
@@ -813,6 +815,24 @@ class Parser(Unit):
             message=f"Expected expression. Unexpected token {self._peek().pretty()}"
         )
 
+    def parse_if_expression(self) -> IfExpressionNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.IF):
+            return None
+
+        condition = self.parse_value_expression()
+        self.require_token(TokenType.THEN)
+        then_branch = self.parse_value_expression()
+        self.require_token(TokenType.ELSE)
+        else_branch = self.parse_value_expression()
+
+        return IfExpressionNode(
+            position=start_position,
+            condition=condition,
+            then_branch=then_branch,
+            else_branch=else_branch,
+        )
+
     def parse_list_literal(self) -> ListLiteralNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.LIST_START):
@@ -955,18 +975,24 @@ class Parser(Unit):
         token = self.parse_any_token(expected_types)
         if token is None:
             expected_names = ", ".join(t.name for t in expected_types)
-            self._raise_parse_error(
-                message=f"Expected token of type {expected_names}. Unexpected token {self._peek().pretty()}"
+            message = (
+                f"Expected token of type {expected_names}. Unexpected token {self._peek().pretty()}"
+                if self._peek().type != TokenType.EOF
+                else f"Expected token of type {expected_names}. Unexpected end of file"
             )
+            self._raise_parse_error(message=message)
             raise RuntimeError("unreachable")  # appease type checker
         return token
 
     def require_token(self, expected_type: TokenType) -> Token:
         token = self.parse_token(expected_type)
         if token is None:
-            self._raise_parse_error(
-                message=f"Expected token of type {expected_type.name}. Unexpected token {self._peek().pretty()}"
+            message = (
+                f"Expected token of type {expected_type.name}. Unexpected token {self._peek().pretty()}"
+                if self._peek().type != TokenType.EOF
+                else f"Expected token of type {expected_type.name}. Unexpected end of file"
             )
+            self._raise_parse_error(message=message)
             raise RuntimeError("unreachable")  # appease type checker
         return token
 

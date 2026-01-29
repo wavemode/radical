@@ -249,6 +249,13 @@ class TupleLiteralNode(Node):
     elements: list["ValueExpressionNodeType"]
 
 
+@dataclass(frozen=True)
+class IfExpressionNode(Node):
+    condition: "ValueExpressionNodeType"
+    then_branch: "ValueExpressionNodeType"
+    else_branch: "ValueExpressionNodeType"
+
+
 # Declarations
 
 
@@ -337,6 +344,7 @@ AtomNodeType = (
     | ParenthesizedExpressionNode
     | TupleLiteralNode
     | ListLiteralNode
+    | IfExpressionNode
 )
 ValueExpressionNodeType = AtomNodeType | BinaryOperationNode | UnaryOperationNode
 TypeExpressionNodeType = (
