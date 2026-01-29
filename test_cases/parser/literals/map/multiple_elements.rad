@@ -1,0 +1,44 @@
+a = { b = 10, c = 20 }
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        Assignment(
+            position=(1, 1, 0),
+            target=Symbol(
+                position=(1, 1, 0),
+                name="a"
+            ),
+            value=MapLiteral(
+                position=(1, 5, 0),
+                entries=[
+                    MapLiteralEntry(
+                        position=(1, 7, 0),
+                        key=Symbol(
+                            position=(1, 7, 0),
+                            name="b"
+                        ),
+                        value=NumberLiteral(
+                            position=(1, 11, 0),
+                            contents="10"
+                        )
+                    ),
+                    MapLiteralEntry(
+                        position=(1, 15, 0),
+                        key=Symbol(
+                            position=(1, 15, 0),
+                            name="c"
+                        ),
+                        value=NumberLiteral(
+                            position=(1, 19, 0),
+                            contents="20"
+                        )
+                    )
+                ]
+            ),
+            local=false
+        )
+    ]
+)
+*)

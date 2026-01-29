@@ -24,6 +24,8 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    MapLiteralEntryNode,
+    MapLiteralNode,
     ModuleAssignmentDeclarationNode,
     ModuleBodyDeclarationNode,
     ModuleExpressionNode,
@@ -79,6 +81,7 @@ class Parser(Unit):
             self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
+            self.parse_map_literal,
             self.parse_if_expression,
             self.parse_let_expression,
             self.parse_module_expression,
@@ -1182,6 +1185,60 @@ class Parser(Unit):
         if spread_operation := self.parse_spread_operation():
             return spread_operation
         return self.parse_value_expression()
+
+    def parse_map_literal(self) -> MapLiteralNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.OBJECT_START):
+            return None
+
+        entries = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_map_literal_entry,
+            ending_token=TokenType.OBJECT_END,
+        )
+
+        return MapLiteralNode(
+            position=start_position,
+            entries=entries,
+        )
+
+    def parse_map_literal_entry(self) -> MapLiteralEntryNode | SpreadOperationNode:
+        if spread_operation := self.parse_spread_operation():
+            return spread_operation
+
+        start_position = self._position
+        key: ValueExpressionNodeType | None = None
+        key_expr: ValueExpressionNodeType | None = None
+        value: ValueExpressionNodeType | None = None
+
+        if key_token := self.parse_token(TokenType.SYMBOL):
+            key = SymbolNode(
+                position=key_token.position,
+                name=key_token,
+            )
+        elif self.parse_token(TokenType.LIST_START):
+            key_expr = self.parse_value_expression()
+            self.require_token(TokenType.LIST_END)
+        else:
+            self._raise_parse_error(
+                message=f"Expected map literal key. Unexpected token {self._peek().pretty()}",
+                position=self._position,
+            )
+
+        if self.parse_token(TokenType.ASSIGN):
+            value = self.parse_value_expression()
+
+        if key_expr and not value:
+            self._raise_parse_error(
+                message="Map literal entry with computed key must have a value",
+                position=start_position,
+            )
+
+        return MapLiteralEntryNode(
+            position=start_position,
+            key=key,
+            key_expr=key_expr,
+            value=value,
+        )
 
     def parse_spread_operation(self) -> SpreadOperationNode | None:
         start_position = self._position
