@@ -15,7 +15,7 @@ Module(
             ),
             value=LetExpression(
                 position=(1, 5, 0),
-                assignments=[
+                declarations=[
                     ImportStatement(
                         position=(2, 5, 4),
                         module_parts=[

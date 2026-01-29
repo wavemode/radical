@@ -1,0 +1,44 @@
+module A of
+    a = 5
+    b = 10
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ModuleBodyDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 8, 0),
+                name="A"
+            ),
+            declarations=[
+                Assignment(
+                    position=(2, 5, 4),
+                    target=Symbol(
+                        position=(2, 5, 4),
+                        name="a"
+                    ),
+                    value=NumberLiteral(
+                        position=(2, 9, 4),
+                        contents="5"
+                    ),
+                    local=false
+                ),
+                Assignment(
+                    position=(3, 5, 4),
+                    target=Symbol(
+                        position=(3, 5, 4),
+                        name="b"
+                    ),
+                    value=NumberLiteral(
+                        position=(3, 9, 4),
+                        contents="10"
+                    ),
+                    local=false
+                )
+            ]
+        )
+    ]
+)
+*)

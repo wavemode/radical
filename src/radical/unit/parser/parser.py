@@ -17,6 +17,8 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    ModuleAssignmentDeclarationNode,
+    ModuleBodyDeclarationNode,
     ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
@@ -91,6 +93,8 @@ class Parser(Unit):
             self.parse_type_declaration,
             self.parse_import_statement,
             self.parse_assignment,
+            self.parse_module_assignment_declaration,
+            self.parse_module_body_declaration,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -98,7 +102,7 @@ class Parser(Unit):
         ] = [
             *self._let_expression_declaration_parsers,
             self.parse_spread_assignment_statement,
-            self.parse_module_declaration,
+            self.parse_module_name_declaration,
         ]
 
     def parse_let_expression(self) -> LetExpressionNode | None:
@@ -126,7 +130,7 @@ class Parser(Unit):
 
         return LetExpressionNode(
             position=start_position,
-            assignments=assignments,
+            declarations=assignments,
             body=body,
         )
 
@@ -260,7 +264,65 @@ class Parser(Unit):
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
         )
 
-    def parse_module_declaration(self) -> ModuleNameNode | None:
+    def parse_module_body_declaration(self) -> ModuleBodyDeclarationNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.MODULE
+            and self._peek(1).type == TokenType.SYMBOL
+            and self._peek(2).type == TokenType.OF
+        ):
+            return None
+
+        self._read()  # consume MODULE
+
+        name_token = self._read()
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        self._read()  # consume OF
+
+        declarations: list[TopLevelDeclarationNodeType] = self.parse_module_body(
+            start_position=start_position
+        )
+
+        return ModuleBodyDeclarationNode(
+            position=start_position,
+            name=name,
+            declarations=declarations,
+        )
+
+    def parse_module_assignment_declaration(
+        self,
+    ) -> ModuleAssignmentDeclarationNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.MODULE
+            and self._peek(1).type == TokenType.SYMBOL
+            and self._peek(2).type == TokenType.ASSIGN
+        ):
+            return None
+
+        self._read()  # consume MODULE
+
+        name_token = self._read()
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        self._read()  # consume ASSIGN
+
+        value = self.parse_value_expression()
+
+        return ModuleAssignmentDeclarationNode(
+            position=start_position,
+            name=name,
+            value=value,
+        )
+
+    def parse_module_name_declaration(self) -> ModuleNameNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.MODULE):
             return None

@@ -1,0 +1,13 @@
+x = let
+    module A
+  in
+    "hi"
+
+(*
+    TODO: This error message incorrectly implies that module declarations are disallowed at the
+    let level. What's actually disallowed is "module A" without being followed by "of" and a body,
+    or "=" and an expression.
+*)
+(*
+FAIL("Expected let expression declaration. Unexpected token MODULE('module') at test_cases/parser/expressions/let/let_module_name.rad:2:5")
+*)

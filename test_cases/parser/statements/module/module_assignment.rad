@@ -1,0 +1,20 @@
+module A = expr
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        ModuleAssignmentDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 8, 0),
+                name="A"
+            ),
+            value=Symbol(
+                position=(1, 12, 0),
+                name="expr"
+            )
+        )
+    ]
+)
+*)

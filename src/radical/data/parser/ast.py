@@ -260,7 +260,7 @@ class IfExpressionNode(Node):
 
 @dataclass(frozen=True)
 class LetExpressionNode(Node):
-    assignments: list["LetExpressionDeclarationNodeType"]
+    declarations: list["LetExpressionDeclarationNodeType"]
     body: "ValueExpressionNodeType"
 
 
@@ -333,6 +333,18 @@ class DataDeclarationNode(Node):
     local: bool
 
 
+@dataclass(frozen=True)
+class ModuleBodyDeclarationNode(Node):
+    name: SymbolNode
+    declarations: list["TopLevelDeclarationNodeType"]
+
+
+@dataclass(frozen=True)
+class ModuleAssignmentDeclarationNode(Node):
+    name: SymbolNode
+    value: "ValueExpressionNodeType"
+
+
 # Top Level
 
 
@@ -388,6 +400,8 @@ LetExpressionDeclarationNodeType = (
     | ImportStatementNode
     | TypeDeclarationNode
     | DataDeclarationNode
+    | ModuleBodyDeclarationNode
+    | ModuleAssignmentDeclarationNode
 )
 
 TopLevelDeclarationNodeType = (

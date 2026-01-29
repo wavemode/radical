@@ -14,7 +14,7 @@ Module(
             ),
             value=LetExpression(
                 position=(1, 5, 0),
-                assignments=[
+                declarations=[
                     DataDeclaration(
                         position=(2, 5, 4),
                         name=Symbol(
