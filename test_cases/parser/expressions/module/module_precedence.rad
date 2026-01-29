@@ -1,4 +1,4 @@
-x = ... module module module m ** 5
+x = not module module module m ** 5
 
 (*
 Module(
@@ -10,12 +10,12 @@ Module(
                 position=(1, 1, 0),
                 name="x"
             ),
-            value=BinaryOperation(
-                position=(1, 9, 0),
-                left=UnaryOperation(
+            value=UnaryOperation(
+                position=(1, 5, 0),
+                operator="not",
+                operand=BinaryOperation(
                     position=(1, 9, 0),
-                    operator="...",
-                    operand=UnaryOperation(
+                    left=UnaryOperation(
                         position=(1, 9, 0),
                         operator="module",
                         operand=UnaryOperation(
@@ -30,12 +30,12 @@ Module(
                                 )
                             )
                         )
+                    ),
+                    operator="**",
+                    right=NumberLiteral(
+                        position=(1, 35, 0),
+                        contents="5"
                     )
-                ),
-                operator="**",
-                right=NumberLiteral(
-                    position=(1, 35, 0),
-                    contents="5"
                 )
             ),
             local=false

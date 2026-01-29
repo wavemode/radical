@@ -252,12 +252,17 @@ class UnaryOperationNode(Node):
     operand: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class SpreadOperationNode(Node):
+    operand: "ValueExpressionNodeType"
+
+
 # Compound Expressions
 
 
 @dataclass(frozen=True)
 class ListLiteralNode(Node):
-    elements: list["ValueExpressionNodeType"]
+    elements: list["ValueExpressionNodeType | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)

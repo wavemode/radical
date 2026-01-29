@@ -32,6 +32,7 @@ from radical.data.parser.ast import (
     ParenthesizedTypeExpressionNode,
     RecordTypeNode,
     SpreadAssignmentStatementNode,
+    SpreadOperationNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
@@ -1017,7 +1018,7 @@ class Parser(Unit):
         )
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_descend_expr_spread()
+        lhs = self.parse_descend_expr_module()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -1027,16 +1028,6 @@ class Parser(Unit):
                 right=rhs,
             )
         return lhs
-
-    def parse_descend_expr_spread(self) -> ValueExpressionNodeType:
-        if self.parse_token(TokenType.ELLIPSIS):
-            operand = self.parse_descend_expr_spread()
-            return UnaryOperationNode(
-                position=operand.position,
-                operator=Operator.SPREAD,
-                operand=operand,
-            )
-        return self.parse_descend_expr_module()
 
     def parse_descend_expr_module(self) -> ValueExpressionNodeType:
         start_position = self._position
@@ -1084,7 +1075,7 @@ class Parser(Unit):
             return None
 
         elements = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_value_expression,
+            element_parser=self.parse_list_literal_element,
             ending_token=TokenType.LIST_END,
         )
 
@@ -1092,6 +1083,23 @@ class Parser(Unit):
             position=start_position,
             elements=elements,
         )
+
+    def parse_list_literal_element(
+        self,
+    ) -> ValueExpressionNodeType | SpreadOperationNode:
+        if spread_operation := self.parse_spread_operation():
+            return spread_operation
+        return self.parse_value_expression()
+
+    def parse_spread_operation(self) -> SpreadOperationNode | None:
+        start_position = self._position
+        if self.parse_token(TokenType.ELLIPSIS):
+            operand = self.parse_value_expression()
+            return SpreadOperationNode(
+                position=start_position,
+                operand=operand,
+            )
+        return None
 
     def parse_parenthesized_expression(
         self,

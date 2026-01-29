@@ -17,17 +17,15 @@ Module(
             value=ListLiteral(
                 position=(1, 5, 0),
                 elements=[
-                    UnaryOperation(
-                        position=(2, 8, 4),
-                        operator="...",
+                    SpreadOperation(
+                        position=(2, 5, 4),
                         operand=Symbol(
                             position=(2, 8, 4),
                             name="b"
                         )
                     ),
-                    UnaryOperation(
-                        position=(3, 8, 4),
-                        operator="...",
+                    SpreadOperation(
+                        position=(3, 5, 4),
                         operand=Symbol(
                             position=(3, 8, 4),
                             name="c"
