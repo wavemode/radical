@@ -1,0 +1,86 @@
+data A(
+    a: Int = 10,
+    b: String = "default",
+    c: List[String] = ["one", "two"],
+)
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        DataDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 6, 0),
+                name="A"
+            ),
+            fields=[
+                DataField(
+                    position=(2, 5, 4),
+                    name=Symbol(
+                        position=(2, 5, 4),
+                        name="a"
+                    ),
+                    type_annotation=TypeName(
+                        position=(2, 8, 4),
+                        name="Int"
+                    ),
+                    default_value=NumberLiteral(
+                        position=(2, 14, 4),
+                        contents="10"
+                    )
+                ),
+                DataField(
+                    position=(3, 5, 4),
+                    name=Symbol(
+                        position=(3, 5, 4),
+                        name="b"
+                    ),
+                    type_annotation=TypeName(
+                        position=(3, 8, 4),
+                        name="String"
+                    ),
+                    default_value=StringLiteral(
+                        position=(3, 17, 4),
+                        contents="default"
+                    )
+                ),
+                DataField(
+                    position=(4, 5, 4),
+                    name=Symbol(
+                        position=(4, 5, 4),
+                        name="c"
+                    ),
+                    type_annotation=GenericTypeApplication(
+                        position=(4, 8, 4),
+                        generic_type=TypeName(
+                            position=(4, 8, 4),
+                            name="List"
+                        ),
+                        arguments=[
+                            TypeName(
+                                position=(4, 13, 4),
+                                name="String"
+                            )
+                        ]
+                    ),
+                    default_value=ListLiteral(
+                        position=(4, 23, 4),
+                        elements=[
+                            StringLiteral(
+                                position=(4, 24, 4),
+                                contents="one"
+                            ),
+                            StringLiteral(
+                                position=(4, 31, 4),
+                                contents="two"
+                            )
+                        ]
+                    )
+                )
+            ],
+            local=false
+        )
+    ]
+)
+*)

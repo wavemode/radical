@@ -1,5 +1,5 @@
 a : const if
 
 (*
-FAIL("Expected expression. Unexpected token IF(\"if\") at test_cases/parser/type_expressions/const/not_a_value_expression.rad:1:11")
+FAIL("Expected expression. Unexpected token IF('if') at test_cases/parser/type_expressions/const/not_a_value_expression.rad:1:11")
 *)

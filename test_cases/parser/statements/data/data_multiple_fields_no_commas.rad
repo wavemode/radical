@@ -1,0 +1,69 @@
+data A(
+    Int
+    String
+    Map[
+        Int
+        List[String]
+    ]
+)
+
+(*
+Module(
+    position=(1, 1, 0),
+    declarations=[
+        DataDeclaration(
+            position=(1, 1, 0),
+            name=Symbol(
+                position=(1, 6, 0),
+                name="A"
+            ),
+            fields=[
+                DataField(
+                    position=(2, 5, 4),
+                    type_annotation=TypeName(
+                        position=(2, 5, 4),
+                        name="Int"
+                    )
+                ),
+                DataField(
+                    position=(3, 5, 4),
+                    type_annotation=TypeName(
+                        position=(3, 5, 4),
+                        name="String"
+                    )
+                ),
+                DataField(
+                    position=(4, 5, 4),
+                    type_annotation=GenericTypeApplication(
+                        position=(4, 5, 4),
+                        generic_type=TypeName(
+                            position=(4, 5, 4),
+                            name="Map"
+                        ),
+                        arguments=[
+                            TypeName(
+                                position=(5, 9, 8),
+                                name="Int"
+                            ),
+                            GenericTypeApplication(
+                                position=(6, 9, 8),
+                                generic_type=TypeName(
+                                    position=(6, 9, 8),
+                                    name="List"
+                                ),
+                                arguments=[
+                                    TypeName(
+                                        position=(6, 14, 8),
+                                        name="String"
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                )
+            ],
+            local=false
+        )
+    ]
+)
+*)

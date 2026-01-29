@@ -18,7 +18,7 @@ Module(
                     contents="b"
                 )
             ),
-            type=TypeName(
+            type_annotation=TypeName(
                 position=(1, 15, 0),
                 name="C"
             ),

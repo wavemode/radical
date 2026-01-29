@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name="a"
             ),
-            type=TypeUnion(
+            type_annotation=TypeUnion(
                 position=(1, 5, 0),
                 elements=[
                     TypeName(

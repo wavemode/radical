@@ -1,19 +1,18 @@
-type A = Int
+data A()
 
 (*
 Module(
     position=(1, 1, 0),
     declarations=[
-        TypeDeclaration(
+        DataDeclaration(
             position=(1, 1, 0),
             name=Symbol(
                 position=(1, 6, 0),
                 name="A"
             ),
-            type_expression=TypeName(
-                position=(1, 10, 0),
-                name="Int"
-            ),
+            fields=[
+
+            ],
             local=false
         )
     ]

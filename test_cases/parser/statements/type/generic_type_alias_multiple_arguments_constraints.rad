@@ -12,7 +12,7 @@ Module(
                 position=(1, 6, 0),
                 name="M"
             ),
-            type=GenericTypeApplication(
+            type_expression=GenericTypeApplication(
                 position=(3, 10, 4),
                 generic_type=TypeName(
                     position=(3, 10, 4),

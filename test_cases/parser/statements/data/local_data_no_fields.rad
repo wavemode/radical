@@ -1,18 +1,14 @@
-local type A = Int
+local data A
 
 (*
 Module(
     position=(1, 1, 0),
     declarations=[
-        TypeDeclaration(
+        DataDeclaration(
             position=(1, 1, 0),
             name=Symbol(
                 position=(1, 12, 0),
                 name="A"
-            ),
-            type_expression=TypeName(
-                position=(1, 16, 0),
-                name="Int"
             ),
             local=true
         )

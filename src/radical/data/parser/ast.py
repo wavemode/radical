@@ -105,7 +105,7 @@ class ConstExpressionNode(Node):
 
 @dataclass(frozen=True)
 class SpreadTypeExpressionNode(Node):
-    type: "TypeExpressionNodeType"
+    expression: "TypeExpressionNodeType"
 
 
 @dataclass(frozen=True)
@@ -265,7 +265,7 @@ class AssignmentNode(Node):
 class TypeAnnotationNode(Node):
     name: SymbolNode | None
     name_expr: "ValueExpressionNodeType | None"
-    type: "TypeExpressionNodeType"
+    type_annotation: "TypeExpressionNodeType"
     local: bool
 
 
@@ -298,8 +298,23 @@ class ImportStatementNode(Node):
 @dataclass(frozen=True)
 class TypeDeclarationNode(Node):
     name: SymbolNode
-    type: "TypeExpressionNodeType"
+    type_expression: "TypeExpressionNodeType"
     parameters: list[GenericTypeParameterNode] | None
+    local: bool
+
+
+@dataclass(frozen=True)
+class DataFieldNode(Node):
+    name: SymbolNode | None
+    type_annotation: "TypeExpressionNodeType"
+    default_value: "ValueExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
+class DataDeclarationNode(Node):
+    name: SymbolNode
+    parameters: list[GenericTypeParameterNode] | None
+    fields: list[DataFieldNode] | None
     local: bool
 
 
@@ -344,4 +359,5 @@ TopLevelDeclarationNodeType = (
     | ImportStatementNode
     | SpreadAssignmentStatementNode
     | TypeDeclarationNode
+    | DataDeclarationNode
 )

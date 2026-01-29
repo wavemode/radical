@@ -1,8 +1,10 @@
-from typing import Callable, NoReturn
+from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
     ConstExpressionNode,
+    DataDeclarationNode,
+    DataFieldNode,
     FunctionParameterNode,
     FunctionTypeNode,
     GenericTypeApplicationNode,
@@ -13,6 +15,7 @@ from radical.data.parser.ast import (
     ImportStatementNode,
     ListLiteralNode,
     ModuleNode,
+    Node,
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
@@ -43,6 +46,8 @@ from radical.data.parser.position import Position
 from radical.data.parser.token import Token, TokenType
 from radical.unit.parser.lexer import Lexer
 from radical.util.core.unit import Unit
+
+T = TypeVar("T")
 
 
 class Parser(Unit):
@@ -78,6 +83,7 @@ class Parser(Unit):
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
+            self.parse_data_declaration,
             self.parse_type_declaration,
             self.parse_spread_assignment_statement,
             self.parse_import_statement,
@@ -102,6 +108,78 @@ class Parser(Unit):
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
         )
 
+    def parse_data_declaration(self) -> DataDeclarationNode | None:
+        start_position = self._position
+        if self._peek().type != TokenType.DATA and not (
+            self._peek().type == TokenType.LOCAL
+            and self._peek(1).type == TokenType.DATA
+        ):
+            return None
+
+        local = False
+        if self.parse_token(TokenType.LOCAL):
+            local = True
+
+        self._read()  # consume DATA
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+        parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            parameters = self.parse_generic_type_parameter_list()
+
+        fields: list[DataFieldNode] | None = None
+        if self._peek().type in (
+            TokenType.PARENTHESES_START,
+            TokenType.FUNCTION_CALL_START,
+        ):
+            self._read()
+            fields = self.parse_comma_or_newline_separated(
+                element_parser=self.parse_data_field,
+                ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+            )
+
+        return DataDeclarationNode(
+            position=start_position,
+            name=name,
+            parameters=parameters,
+            fields=fields,
+            local=local,
+        )
+
+    def parse_data_field(self) -> DataFieldNode:
+        field_start_position = self._position
+        field_name: SymbolNode | None = None
+        if (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.COLON
+        ):
+            name_token = self._read()
+            field_name = SymbolNode(
+                position=name_token.position,
+                name=name_token,
+            )
+            self._read()  # consume COLON
+        type_annotation = self.parse_type_expression()
+        default_value: ValueExpressionNodeType | None = None
+        if self.parse_token(TokenType.ASSIGN):
+            default_value = self.parse_value_expression()
+
+        if default_value and not field_name:
+            self._raise_parse_error(
+                message="Data field with default value must have a name",
+                position=default_value.position,
+            )
+
+        return DataFieldNode(
+            position=field_start_position,
+            name=field_name,
+            type_annotation=type_annotation,
+            default_value=default_value,
+        )
+
     def parse_type_declaration(self) -> TypeDeclarationNode | None:
         start_position = self._position
         if self._peek().type not in (TokenType.TYPE,) and not (
@@ -123,41 +201,15 @@ class Parser(Unit):
         )
 
         parameters: list[GenericTypeParameterNode] | None = None
-
-        if self.parse_any_token([TokenType.LIST_START, TokenType.INDEXING_START]):
-            parameters = []
-            while not self.parse_any_token(
-                [TokenType.LIST_END, TokenType.INDEXING_END]
-            ):
-                parameter = self.parse_generic_type_parameter()
-                parameters.append(parameter)
-
-                if self.parse_any_token([TokenType.LIST_END, TokenType.INDEXING_END]):
-                    break
-
-                if self.parse_token(TokenType.COMMA):
-                    if self.parse_any_token(
-                        [TokenType.LIST_END, TokenType.INDEXING_END]
-                    ):
-                        break
-                else:
-                    if self._peek().position.line == parameter.position.line:
-                        self._raise_parse_error(
-                            message="Generic type parameters must be separated by a comma and/or newline"
-                        )
-
-        if parameters is not None and not parameters:
-            self._raise_parse_error(
-                message="Generic type declaration must have at least one parameter",
-                position=start_position,
-            )
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            parameters = self.parse_generic_type_parameter_list()
 
         self.require_token(TokenType.ASSIGN)
         type_expr = self.parse_type_expression()
         return TypeDeclarationNode(
             position=start_position,
             name=name,
-            type=type_expr,
+            type_expression=type_expr,
             local=local,
             parameters=parameters,
         )
@@ -231,7 +283,11 @@ class Parser(Unit):
             TokenType.PARENTHESES_START,
             TokenType.FUNCTION_CALL_START,
         ):
-            fields = self.parse_import_fields()
+            self._read()
+            fields = self.parse_comma_or_newline_separated(
+                element_parser=self.parse_import_field,
+                ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+            )
 
         if self.parse_token(TokenType.AS):
             alias_token = self.require_token(TokenType.SYMBOL)
@@ -260,60 +316,33 @@ class Parser(Unit):
             alias=alias,
         )
 
-    def parse_import_fields(
+    def parse_import_field(
         self,
-    ) -> list[ImportStatementFieldNode | ImportStatementEllipsisNode]:
-        self.require_any_token(
-            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
-        )
-
-        fields: list[ImportStatementFieldNode | ImportStatementEllipsisNode] = []
-        while not self.parse_any_token(
-            [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
-        ):
-            field: ImportStatementFieldNode | ImportStatementEllipsisNode
-            if self.parse_token(TokenType.ELLIPSIS):
-                field = ImportStatementEllipsisNode(
-                    position=self._position,
+    ) -> ImportStatementFieldNode | ImportStatementEllipsisNode:
+        field: ImportStatementFieldNode | ImportStatementEllipsisNode
+        if self.parse_token(TokenType.ELLIPSIS):
+            field = ImportStatementEllipsisNode(
+                position=self._position,
+            )
+        else:
+            name_token = self.require_token(TokenType.SYMBOL)
+            name = SymbolNode(
+                position=name_token.position,
+                name=name_token,
+            )
+            alias: SymbolNode | None = None
+            if self.parse_token(TokenType.AS):
+                alias_token = self.require_token(TokenType.SYMBOL)
+                alias = SymbolNode(
+                    position=alias_token.position,
+                    name=alias_token,
                 )
-            else:
-                name_token = self.require_token(TokenType.SYMBOL)
-                name = SymbolNode(
-                    position=name_token.position,
-                    name=name_token,
-                )
-                alias: SymbolNode | None = None
-                if self.parse_token(TokenType.AS):
-                    alias_token = self.require_token(TokenType.SYMBOL)
-                    alias = SymbolNode(
-                        position=alias_token.position,
-                        name=alias_token,
-                    )
-                field = ImportStatementFieldNode(
-                    position=name.position,
-                    name=name,
-                    alias=alias,
-                )
-
-            fields.append(field)
-
-            if self.parse_any_token(
-                [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
-            ):
-                break
-
-            if self.parse_token(TokenType.COMMA):
-                if self.parse_any_token(
-                    [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
-                ):
-                    break
-            else:
-                if self._peek().position.line == field.position.line:
-                    self._raise_parse_error(
-                        message="Import statement fields must be separated by a comma and/or newline"
-                    )
-
-        return fields
+            field = ImportStatementFieldNode(
+                position=name.position,
+                name=name,
+                alias=alias,
+            )
+        return field
 
     def parse_assignment(
         self,
@@ -370,7 +399,7 @@ class Parser(Unit):
                 position=start_position,
                 name=target,
                 name_expr=target_expr,
-                type=type_annotation,
+                type_annotation=type_annotation,
                 local=local,
             )
         else:
@@ -399,26 +428,15 @@ class Parser(Unit):
         lhs = self.parse_descend_type_expr_generic()
         while self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             self._read()  # consume LIST_START
-            arguments: list[TypeExpressionNodeType] = []
-            while not self.parse_any_token(
-                [TokenType.LIST_END, TokenType.INDEXING_END]
-            ):
-                argument = self.parse_type_expression()
-                arguments.append(argument)
-
-                if self.parse_any_token([TokenType.LIST_END, TokenType.INDEXING_END]):
-                    break
-
-                if self.parse_token(TokenType.COMMA):
-                    if self.parse_any_token(
-                        [TokenType.LIST_END, TokenType.INDEXING_END]
-                    ):
-                        break
-                else:
-                    if self._peek().position.line == argument.position.line:
-                        self._raise_parse_error(
-                            message="Generic type arguments must be separated by a comma and/or newline"
-                        )
+            arguments = self.parse_comma_or_newline_separated(
+                element_parser=self.parse_type_expression,
+                ending_tokens=[TokenType.LIST_END, TokenType.INDEXING_END],
+            )
+            if not arguments:
+                self._raise_parse_error(
+                    message="Generic type application must have at least one argument",
+                    position=start_position,
+                )
 
             lhs = GenericTypeApplicationNode(
                 position=start_position,
@@ -429,32 +447,33 @@ class Parser(Unit):
 
     def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
         start_position = self._position
-        if not self.parse_token(TokenType.LIST_START):
+        if self._peek().type not in (TokenType.LIST_START, TokenType.INDEXING_START):
             return self.parse_type_atom()
 
-        parameters: list[GenericTypeParameterNode] = []
-        while not self.parse_token(TokenType.LIST_END):
-            parameter = self.parse_generic_type_parameter()
-            parameters.append(parameter)
-
-            if self.parse_token(TokenType.LIST_END):
-                break
-
-            if self.parse_token(TokenType.COMMA):
-                if self.parse_token(TokenType.LIST_END):
-                    break
-            else:
-                if self._peek().position.line == parameter.position.line:
-                    self._raise_parse_error(
-                        message="Generic type parameters must be separated by a comma and/or newline"
-                    )
-
+        parameters = self.parse_generic_type_parameter_list()
         expression = self.parse_descend_type_expr_generic()
         return GenericTypeExpressionNode(
             position=start_position,
             expression=expression,
             parameters=parameters,
         )
+
+    def parse_generic_type_parameter_list(self) -> list[GenericTypeParameterNode]:
+        start_position = self._position
+        self.require_any_token([TokenType.LIST_START, TokenType.INDEXING_START])
+        parameters: list[GenericTypeParameterNode] = []
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_generic_type_parameter,
+            ending_tokens=[TokenType.LIST_END, TokenType.INDEXING_END],
+        )
+
+        if not parameters:
+            self._raise_parse_error(
+                message="Generic type declaration must have at least one parameter",
+                position=start_position,
+            )
+
+        return parameters
 
     def parse_generic_type_parameter(self) -> GenericTypeParameterNode:
         start_position = self._position
@@ -497,24 +516,10 @@ class Parser(Unit):
         ):
             return None
 
-        type_expressions: list[TypeExpressionNodeType] = []
-        while not self.parse_any_token(
-            [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
-        ):
-            type_expr = self.parse_type_expression()
-            type_expressions.append(type_expr)
-
-            if self.parse_any_token(
-                [TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END]
-            ):
-                break
-
-            if (not self.parse_token(TokenType.COMMA)) and (
-                self._peek().position.line == type_expr.position.line
-            ):
-                self._raise_parse_error(
-                    message="Tuple type elements must be separated by a comma and/or newline"
-                )
+        type_expressions = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_type_expression,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
 
         if len(type_expressions) == 1:
             return ParenthesizedTypeExpressionNode(
@@ -564,7 +569,7 @@ class Parser(Unit):
         type_expr = self.parse_type_expression()
         return SpreadTypeExpressionNode(
             position=start_position,
-            type=type_expr,
+            expression=type_expr,
         )
 
     def parse_record_type(self) -> RecordTypeNode | None:
@@ -572,43 +577,35 @@ class Parser(Unit):
         if not self.parse_token(TokenType.OBJECT_START):
             return None
 
-        fields: list[TypeAnnotationNode | SpreadTypeExpressionNode] = []
-        while not self.parse_token(TokenType.OBJECT_END):
-            entry: TypeAnnotationNode | SpreadTypeExpressionNode
-            if spread_type := self.parse_spread_type_expression():
-                entry = spread_type
-            elif type_annotation := self.parse_assignment():
-                if (
-                    not isinstance(type_annotation, TypeAnnotationNode)
-                    or type_annotation.local
-                ):
-                    self._raise_parse_error(
-                        message="Each entry of a record type must be an annotation of the form 'name : Type'",
-                    )
-                    raise RuntimeError("unreachable")  # appease type checker
-                entry = type_annotation
-            else:
-                self._raise_parse_error(
-                    message="Expected type annotation or spread type expression in record type",
-                )
-            fields.append(entry)
-
-            if self.parse_token(TokenType.OBJECT_END):
-                break
-
-            if self.parse_token(TokenType.COMMA):
-                if self.parse_token(TokenType.OBJECT_END):
-                    break
-            else:
-                if self._peek().position.line == entry.position.line:
-                    self._raise_parse_error(
-                        message="Record type fields must be separated by a comma and/or newline"
-                    )
+        fields = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_record_entry,
+            ending_token=TokenType.OBJECT_END,
+        )
 
         return RecordTypeNode(
             position=start_position,
             fields=fields,
         )
+
+    def parse_record_entry(self) -> TypeAnnotationNode | SpreadTypeExpressionNode:
+        entry: TypeAnnotationNode | SpreadTypeExpressionNode
+        if spread_type := self.parse_spread_type_expression():
+            entry = spread_type
+        elif type_annotation := self.parse_assignment():
+            if (
+                not isinstance(type_annotation, TypeAnnotationNode)
+                or type_annotation.local
+            ):
+                self._raise_parse_error(
+                    message="Each entry of a record type must be an annotation of the form 'name : Type'",
+                )
+                raise RuntimeError("unreachable")  # appease type checker
+            entry = type_annotation
+        else:
+            self._raise_parse_error(
+                message="Expected type annotation or spread type expression in record type",
+            )
+        return entry
 
     def parse_function_type(self) -> FunctionTypeNode | None:
         start_position = self._position
@@ -616,22 +613,10 @@ class Parser(Unit):
             return None
         self.require_token(TokenType.PARENTHESES_START)
 
-        parameters: list[FunctionParameterNode] = []
-        while not self.parse_token(TokenType.PARENTHESES_END):
-            parameter = self.parse_function_parameter()
-            parameters.append(parameter)
-
-            if self.parse_token(TokenType.PARENTHESES_END):
-                break
-
-            if self.parse_token(TokenType.COMMA):
-                if self.parse_token(TokenType.PARENTHESES_END):
-                    break
-            else:
-                if self._peek().position.line == parameter.position.line:
-                    self._raise_parse_error(
-                        message="Function parameters must be separated by a comma and/or newline"
-                    )
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_parameter,
+            ending_token=TokenType.PARENTHESES_END,
+        )
 
         if not self.parse_token(TokenType.ARROW):
             self._raise_parse_error(
@@ -833,20 +818,10 @@ class Parser(Unit):
         if not self.parse_token(TokenType.LIST_START):
             return None
 
-        elements: list[ValueExpressionNodeType] = []
-        while not self.parse_token(TokenType.LIST_END):
-            element = self.parse_value_expression()
-            elements.append(element)
-
-            if self.parse_token(TokenType.LIST_END):
-                break
-
-            if (not self.parse_token(TokenType.COMMA)) and (
-                self._peek().position.line == element.position.line
-            ):
-                self._raise_parse_error(
-                    message="List elements must be separated by a comma and/or newline"
-                )
+        elements = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_value_expression,
+            ending_token=TokenType.LIST_END,
+        )
 
         return ListLiteralNode(
             position=start_position,
@@ -859,20 +834,11 @@ class Parser(Unit):
         start_position = self._position
         if not self.parse_token(TokenType.PARENTHESES_START):
             return None
-        expressions: list[ValueExpressionNodeType] = []
-        while not self.parse_token(TokenType.PARENTHESES_END):
-            expr = self.parse_value_expression()
-            expressions.append(expr)
 
-            if self.parse_token(TokenType.PARENTHESES_END):
-                break
-
-            if (not self.parse_token(TokenType.COMMA)) and (
-                self._peek().position.line == expr.position.line
-            ):
-                self._raise_parse_error(
-                    message="Tuple elements must be separated by a comma and/or newline"
-                )
+        expressions = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_value_expression,
+            ending_token=TokenType.PARENTHESES_END,
+        )
 
         if len(expressions) == 1:
             return ParenthesizedExpressionNode(
@@ -934,6 +900,44 @@ class Parser(Unit):
             position=token.position,
             name=token,
         )
+
+    def parse_comma_or_newline_separated(
+        self,
+        element_parser: Callable[[], T],
+        ending_token: TokenType | None = None,
+        ending_tokens: list[TokenType] | None = None,
+        ending_parser: Callable[[], Token | None] | None = None,
+    ) -> list[T]:
+        elements: list[T] = []
+
+        def reached_end() -> bool:
+            if ending_token:
+                return self.parse_token(ending_token) is not None
+            elif ending_tokens:
+                return self.parse_any_token(ending_tokens) is not None
+            elif ending_parser:
+                return ending_parser() is not None
+            return False
+
+        while not reached_end():
+            element = element_parser()
+            elements.append(element)
+
+            if reached_end():
+                break
+
+            if self.parse_token(TokenType.COMMA):
+                if reached_end():
+                    break
+            else:
+                assert isinstance(element, Node)
+                if self._peek().position.line == element.position.line:
+                    self._raise_parse_error(
+                        message="Elements must be separated by a comma and/or newline",
+                        position=self._peek().position,
+                    )
+
+        return elements
 
     def parse_any_token(self, expected_types: list[TokenType]) -> Token | None:
         token = self._peek()

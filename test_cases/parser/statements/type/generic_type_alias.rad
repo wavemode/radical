@@ -10,7 +10,7 @@ Module(
                 position=(1, 6, 0),
                 name="L"
             ),
-            type=GenericTypeApplication(
+            type_expression=GenericTypeApplication(
                 position=(1, 13, 0),
                 generic_type=TypeName(
                     position=(1, 13, 0),

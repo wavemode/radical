@@ -14,7 +14,7 @@ Module(
                 position=(1, 1, 0),
                 name="a"
             ),
-            type=RecordType(
+            type_annotation=RecordType(
                 position=(1, 5, 0),
                 fields=[
                     TypeAnnotation(
@@ -23,7 +23,7 @@ Module(
                             position=(1, 7, 0),
                             name="b"
                         ),
-                        type=TypeName(
+                        type_annotation=TypeName(
                             position=(3, 9, 8),
                             name="Int"
                         ),
@@ -35,7 +35,7 @@ Module(
                             position=(4, 7, 6),
                             name="c"
                         ),
-                        type=TypeName(
+                        type_annotation=TypeName(
                             position=(4, 9, 6),
                             name="String"
                         ),
