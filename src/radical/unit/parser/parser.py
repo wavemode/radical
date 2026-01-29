@@ -1220,7 +1220,10 @@ class Parser(Unit):
             )
 
         self._raise_parse_error(
-            message="Map entries (with an '=' sign) cannot be mixed with tree entries (without an '=' sign) within the same literal",
+            message=(
+                "Tree entries ('k v' without an '=' sign) cannot be mixed with map entries"
+                "('k = v' syntax, or shorthand 'k' syntax) within the same literal"
+            ),
             position=start_position,
         )
 
@@ -1256,7 +1259,10 @@ class Parser(Unit):
         if self.parse_token(TokenType.ASSIGN):
             has_equal_sign = True
 
-        if has_equal_sign or self._peek().position.line == key_line:
+        if has_equal_sign or (
+            self._peek().position.line == key_line
+            and (self._peek().type not in (TokenType.COMMA, TokenType.OBJECT_END))
+        ):
             value = self.parse_value_expression()
 
         if key_expr and not value:
@@ -1265,7 +1271,7 @@ class Parser(Unit):
                 position=start_position,
             )
 
-        if has_equal_sign:
+        if has_equal_sign or not value:
             return MapLiteralEntryNode(
                 position=start_position,
                 key=key,
@@ -1273,12 +1279,6 @@ class Parser(Unit):
                 value=value,
             )
         else:
-            if not value:
-                self._raise_parse_error(
-                    message="Tree literal entry must have a value",
-                    position=start_position,
-                )
-                raise RuntimeError("unreachable")  # appease type checker
             return TreeLiteralEntryNode(
                 position=start_position,
                 key=key,

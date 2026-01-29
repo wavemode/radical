@@ -4,5 +4,5 @@ a = {
 }
 
 (*
-FAIL("Map entries (with an '=' sign) cannot be mixed with tree entries (without an '=' sign) within the same literal at test_cases/parser/literals/tree/mixed_map_tree_entries.rad:1:5")
+FAIL("Tree entries ('k v' without an '=' sign) cannot be mixed with map entries('k = v' syntax, or shorthand 'k' syntax) within the same literal at test_cases/parser/literals/tree/mixed_map_tree_entries.rad:1:5")
 *)
