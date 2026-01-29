@@ -150,36 +150,7 @@ class Parser(Unit):
 
     def parse_module(self) -> ModuleNode:
         start_position = self._position
-        declarations: list[TopLevelDeclarationNodeType] = []
-        module_name: ModuleNameNode | None = None
-        seen_nonlocal_declaration = False
-        while not self.at_end():
-            decl = self.parse_top_level_declaration()
-            if decl.position.indent_level != 0:
-                self._raise_parse_error(
-                    message="Top level declarations must not be indented",
-                    position=decl.position,
-                )
-            if not self._is_local_toplevel_declaration(decl):
-                seen_nonlocal_declaration = True
-            elif isinstance(decl, ModuleNameNode):
-                if module_name is not None:
-                    self._raise_parse_error(
-                        message="Multiple module name declarations are not allowed",
-                        position=decl.position,
-                    )
-                elif seen_nonlocal_declaration:
-                    self._raise_parse_error(
-                        message="Module name must be the first nonlocal declaration",
-                        position=decl.position,
-                    )
-                module_name = decl
-            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
-                self._raise_parse_error(
-                    message="Import statements must appear before any nonlocal declarations",
-                    position=decl.position,
-                )
-            declarations.append(decl)
+        declarations: list[TopLevelDeclarationNodeType] = self.parse_module_body()
         return ModuleNode(
             position=start_position,
             declarations=declarations,
@@ -203,30 +174,10 @@ class Parser(Unit):
         self._read()  # consume OF
 
         declarations: list[TopLevelDeclarationNodeType] = []
-        seen_nonlocal_declaration = False
-        indent_level = -1
-        while not self.at_end():
-            if self._position.indent_level == start_position.indent_level:
-                break
-            elif indent_level == -1:
-                indent_level = self._position.indent_level
-            elif self._position.indent_level != indent_level:
+        for decl in self.parse_module_body(start_position):
+            if isinstance(decl, ModuleNameNode):
                 self._raise_parse_error(
-                    message="All declarations in module expression must have the same indent level",
-                    position=self._position,
-                )
-
-            decl = self.parse_top_level_declaration()
-            if not self._is_local_toplevel_declaration(decl):
-                seen_nonlocal_declaration = True
-            elif isinstance(decl, ModuleNameNode):
-                self._raise_parse_error(
-                    message="Module name declarations are not allowed in module expressions",
-                    position=decl.position,
-                )
-            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
-                self._raise_parse_error(
-                    message="Import statements must appear before any nonlocal declarations",
+                    message="Module name declaration is not allowed in module expression",
                     position=decl.position,
                 )
             declarations.append(decl)
@@ -234,6 +185,72 @@ class Parser(Unit):
             position=start_position,
             declarations=declarations,
         )
+
+    def parse_module_body(
+        self, start_position: Position | None = None
+    ) -> list[TopLevelDeclarationNodeType]:
+        declarations: list[TopLevelDeclarationNodeType] = []
+        seen_nonlocal_declaration = False
+        indent_level = -1
+        name: ModuleNameNode | None = None
+
+        def end_of_block() -> bool:
+            return self.at_end() or (
+                start_position is not None
+                and self._position.indent_level <= start_position.indent_level
+                and self._position.line != start_position.line
+            )
+
+        while not end_of_block():
+            if start_position is None and self._position.indent_level != 0:
+                self._raise_parse_error(
+                    message="Top level declarations must not be indented"
+                )
+            elif (
+                start_position is not None
+                and self._position.line != start_position.line
+            ):
+                if indent_level == -1:
+                    indent_level = self._position.indent_level
+                elif self._position.indent_level != indent_level:
+                    self._raise_parse_error(
+                        message="All declarations in module body must have the same indent level",
+                    )
+
+            decl = self.parse_top_level_declaration()
+            if not self._is_local_toplevel_declaration(decl):
+                seen_nonlocal_declaration = True
+            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
+                self._raise_parse_error(
+                    message="Import statements must appear before any nonlocal declarations",
+                    position=decl.position,
+                )
+            elif isinstance(decl, ModuleNameNode):
+                if name is not None:
+                    self._raise_parse_error(
+                        message="Multiple module name declarations are not allowed",
+                        position=decl.position,
+                    )
+                elif seen_nonlocal_declaration:
+                    self._raise_parse_error(
+                        message="Module name must be the first nonlocal declaration",
+                        position=decl.position,
+                    )
+                name = decl
+            declarations.append(decl)
+
+            if end_of_block():
+                break
+
+            if self.parse_token(TokenType.SEMICOLON):
+                if end_of_block():
+                    break
+            elif self._position.line == decl.position.line:
+                self._raise_parse_error(
+                    message="Declarations must be separated by semicolons or newlines",
+                )
+
+        return declarations
 
     def parse_top_level_declaration(self) -> TopLevelDeclarationNodeType:
         for declaration_parser in self._top_level_declaration_parsers:
