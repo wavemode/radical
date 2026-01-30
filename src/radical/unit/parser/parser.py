@@ -42,7 +42,9 @@ from radical.data.parser.ast import (
     ParenthesizedExpressionNode,
     ParenthesizedPatternNode,
     ParenthesizedTypeExpressionNode,
-    PatternNode,
+    PatternAtomNodeType,
+    PatternGuardNode,
+    PatternNodeType,
     PlaceholderExpressionNode,
     PlaceholderTypeNode,
     ProcedureBodyStatementNode,
@@ -108,7 +110,7 @@ class Parser(Unit):
             self.parse_module_expression,
         ]
 
-        self._pattern_parsers: list[Callable[[], PatternNode | None]] = [
+        self._pattern_atom_parsers: list[Callable[[], PatternAtomNodeType | None]] = [
             self.parse_parenthesized_pattern,
             self.parse_rest_pattern,
             self.parse_const_pattern,
@@ -804,7 +806,7 @@ class Parser(Unit):
         target_line: int
         target: SymbolNode | None = None
         target_expr: ValueExpressionNodeType | None = None
-        target_pattern: ParenthesizedPatternNode | None = None
+        target_pattern: PatternNodeType | None = None
         if target_token := self.parse_token(TokenType.SYMBOL):
             target = SymbolNode(
                 position=target_token.position,
@@ -820,8 +822,7 @@ class Parser(Unit):
             TokenType.PARENTHESES_START,
             TokenType.FUNCTION_CALL_START,
         ):
-            target_pattern = self.parse_parenthesized_pattern()
-            assert target_pattern is not None
+            target_pattern = self.parse_pattern()
             target_line = target_pattern.position.line
         else:
             # just to appease type checker - we already checked the token type
@@ -1220,8 +1221,19 @@ class Parser(Unit):
             type_annotation=type_annotation,
         )
 
-    def parse_pattern(self) -> PatternNode:
-        for pattern_parser in self._pattern_parsers:
+    def parse_pattern(self) -> PatternNodeType:
+        lhs = self.parse_pattern_atom()
+        while self.parse_token(TokenType.IF):
+            condition = self.parse_value_expression()
+            lhs = PatternGuardNode(
+                position=lhs.position,
+                pattern=lhs,
+                condition=condition,
+            )
+        return lhs
+
+    def parse_pattern_atom(self) -> PatternAtomNodeType:
+        for pattern_parser in self._pattern_atom_parsers:
             if pattern := pattern_parser():
                 return pattern
         self._raise_parse_error(

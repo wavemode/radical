@@ -385,28 +385,29 @@ class ModuleExpressionNode(Node):
 
 
 @dataclass(frozen=True)
-class PatternNode(Node):
-    pass
-
-
-@dataclass(frozen=True)
-class SymbolPatternNode(PatternNode):
+class SymbolPatternNode(Node):
     symbol: SymbolNode
 
 
 @dataclass(frozen=True)
-class ConstPatternNode(PatternNode):
+class ConstPatternNode(Node):
     expression: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
-class RestPatternNode(PatternNode):
+class RestPatternNode(Node):
     name: SymbolNode | None
 
 
 @dataclass(frozen=True)
-class ParenthesizedPatternNode(PatternNode):
-    elements: list[PatternNode]
+class ParenthesizedPatternNode(Node):
+    elements: list["PatternNodeType"]
+
+
+@dataclass(frozen=True)
+class PatternGuardNode(Node):
+    pattern: "PatternNodeType"
+    condition: "ValueExpressionNodeType"
 
 
 # Declarations
@@ -416,7 +417,7 @@ class ParenthesizedPatternNode(PatternNode):
 class AssignmentNode(Node):
     target: SymbolNode | None
     target_expr: "ValueExpressionNodeType | None"
-    target_pattern: ParenthesizedPatternNode | None
+    target_pattern: "PatternNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
     local: bool
@@ -570,6 +571,10 @@ ValueExpressionNodeType = (
     | IndexingExpressionNode
     | FunctionCallExpressionNode
 )
+PatternAtomNodeType = (
+    SymbolPatternNode | ConstPatternNode | RestPatternNode | ParenthesizedPatternNode
+)
+PatternNodeType = PatternAtomNodeType | PatternGuardNode
 TypeExpressionNodeType = (
     TypeNameNode
     | ParenthesizedTypeExpressionNode
