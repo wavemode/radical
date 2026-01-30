@@ -1,0 +1,101 @@
+a = proc(
+        b : Int
+        c : List[Int]
+) of local d = c[0]; b + d
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=ProcExpression(
+                    position=(1, 5, 0),
+                    parameters=[
+                        FunctionParameter(
+                            position=(2, 9, 8),
+                            name=Symbol(
+                                position=(2, 9, 8),
+                                name="b"
+                            ),
+                            type_annotation=TypeName(
+                                position=(2, 13, 8),
+                                name="Int"
+                            )
+                        ),
+                        FunctionParameter(
+                            position=(3, 9, 8),
+                            name=Symbol(
+                                position=(3, 9, 8),
+                                name="c"
+                            ),
+                            type_annotation=GenericTypeApplication(
+                                position=(3, 13, 8),
+                                generic_type=TypeName(
+                                    position=(3, 13, 8),
+                                    name="List"
+                                ),
+                                arguments=[
+                                    TypeName(
+                                        position=(3, 18, 8),
+                                        name="Int"
+                                    )
+                                ]
+                            )
+                        )
+                    ],
+                    body=[
+                        ProcBodyStatement(
+                            position=(4, 6, 0),
+                            declaration=Assignment(
+                                position=(4, 6, 0),
+                                target=Symbol(
+                                    position=(4, 12, 0),
+                                    name="d"
+                                ),
+                                value=IndexingExpression(
+                                    position=(4, 16, 0),
+                                    object_expression=Symbol(
+                                        position=(4, 16, 0),
+                                        name="c"
+                                    ),
+                                    index_expression=NumberLiteral(
+                                        position=(4, 18, 0),
+                                        contents="0"
+                                    )
+                                ),
+                                local=true,
+                                tree_syntax=false
+                            )
+                        ),
+                        ProcBodyStatement(
+                            position=(4, 22, 0),
+                            expression=BinaryOperation(
+                                position=(4, 22, 0),
+                                left=Symbol(
+                                    position=(4, 22, 0),
+                                    name="b"
+                                ),
+                                operator="+",
+                                right=Symbol(
+                                    position=(4, 26, 0),
+                                    name="d"
+                                )
+                            )
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

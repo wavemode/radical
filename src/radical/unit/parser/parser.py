@@ -42,6 +42,7 @@ from radical.data.parser.ast import (
     ParenthesizedTypeExpressionNode,
     ProcBodyStatementNode,
     ProcDeclarationNode,
+    ProcExpressionNode,
     RecordTypeNode,
     SpreadAssignmentStatementNode,
     SpreadOperationNode,
@@ -94,6 +95,7 @@ class Parser(Unit):
             self.parse_if_expression,
             self.parse_let_expression,
             self.parse_function_expression,
+            self.parse_proc_expression,
             self.parse_module_expression,
         ]
 
@@ -363,6 +365,24 @@ class Parser(Unit):
             return_type = self.parse_type_expression()
 
         of_position = self.require_token(TokenType.OF).position
+        body = self.parse_proc_body(
+            start_position=start_position,
+            of_position=of_position,
+        )
+
+        return ProcDeclarationNode(
+            position=start_position,
+            name=name,
+            parameters=parameters,
+            generic_parameters=generic_parameters,
+            return_type=return_type,
+            body=body,
+            local=local,
+        )
+
+    def parse_proc_body(
+        self, start_position: Position, of_position: Position
+    ) -> list[ProcBodyStatementNode]:
         body = self.parse_block_body(
             start_position=of_position,
             item_parser=self.parse_proc_body_statement,
@@ -378,16 +398,7 @@ class Parser(Unit):
                 message="Last statement in procedure body must be an expression",
                 position=body[-1].position,
             )
-
-        return ProcDeclarationNode(
-            position=start_position,
-            name=name,
-            parameters=parameters,
-            generic_parameters=generic_parameters,
-            return_type=return_type,
-            body=body,
-            local=local,
-        )
+        return body
 
     def parse_proc_body_statement(self) -> ProcBodyStatementNode:
         start_position = self._position
@@ -1342,6 +1353,35 @@ class Parser(Unit):
         self.require_token(TokenType.ARROW)
         body = self.parse_value_expression()
         return FunctionExpressionNode(
+            position=start_position,
+            parameters=parameters,
+            generic_parameters=generic_parameters,
+            body=body,
+        )
+
+    def parse_proc_expression(self) -> ProcExpressionNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.PROC):
+            return None
+
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type == TokenType.LIST_START:
+            generic_parameters = self.parse_generic_type_parameter_list()
+
+        self.parse_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_parameter,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
+
+        of_position = self.require_token(TokenType.OF).position
+        body = self.parse_proc_body(
+            start_position=start_position,
+            of_position=of_position,
+        )
+        return ProcExpressionNode(
             position=start_position,
             parameters=parameters,
             generic_parameters=generic_parameters,

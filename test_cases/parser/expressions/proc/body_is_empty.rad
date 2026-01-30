@@ -1,0 +1,6 @@
+a = proc (b : Int, c : List[Int] ) of
+local x = 5
+
+(*
+FAIL("Procedure body must have at least one statement at test_cases/parser/expressions/proc/body_is_empty.rad:1:5")
+*)
