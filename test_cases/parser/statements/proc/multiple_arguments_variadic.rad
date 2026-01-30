@@ -1,4 +1,4 @@
-proc a(b : Int, c: ...Int ) -> Int of
+proc a(b : Int, ...c: Int ) -> Int of
     local d = c[0]
     b + d
 
@@ -22,6 +22,7 @@ Module(
                             position=(1, 8, 0),
                             name="b"
                         ),
+                        variadic=false,
                         type_annotation=TypeName(
                             position=(1, 12, 0),
                             name="Int"
@@ -30,15 +31,13 @@ Module(
                     FunctionParameter(
                         position=(1, 17, 0),
                         name=Symbol(
-                            position=(1, 17, 0),
+                            position=(1, 20, 0),
                             name="c"
                         ),
-                        type_annotation=SpreadTypeExpression(
-                            position=(1, 20, 0),
-                            expression=TypeName(
-                                position=(1, 23, 0),
-                                name="Int"
-                            )
+                        variadic=true,
+                        type_annotation=TypeName(
+                            position=(1, 23, 0),
+                            name="Int"
                         )
                     )
                 ],

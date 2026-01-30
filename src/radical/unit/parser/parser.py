@@ -423,23 +423,21 @@ class Parser(Unit):
 
     def parse_function_parameter(self) -> FunctionParameterNode:
         start_position = self._position
+
+        variadic = False
+        if self.parse_token(TokenType.ELLIPSIS):
+            variadic = True
+
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
             position=name_token.position,
             name=name_token,
         )
-        type_annotation: (
-            TypeExpressionNodeType
-            | SpreadTypeExpressionNode
-            | PlaceholderTypeNode
-            | None
-        ) = None
+        type_annotation: TypeExpressionNodeType | PlaceholderTypeNode | None = None
         default_value: ValueExpressionNodeType | None = None
 
         if self.parse_token(TokenType.COLON):
-            if not (type_annotation := self.parse_spread_type_expression()) and not (
-                type_annotation := self.parse_placeholder_type()
-            ):
+            if not (type_annotation := self.parse_placeholder_type()):
                 type_annotation = self.parse_type_expression()
 
         if self.parse_token(TokenType.ASSIGN):
@@ -448,6 +446,7 @@ class Parser(Unit):
         return FunctionParameterNode(
             position=start_position,
             name=name,
+            variadic=variadic,
             type_annotation=type_annotation,
             default_value=default_value,
         )

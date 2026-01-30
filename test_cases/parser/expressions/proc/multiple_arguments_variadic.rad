@@ -1,4 +1,4 @@
-a = proc(b : Int, c: ...Int )of
+a = proc(b : Int, ...c: Int )of
     local d = c[0]
     b + d
 
@@ -24,6 +24,7 @@ Module(
                                 position=(1, 10, 0),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 14, 0),
                                 name="Int"
@@ -32,15 +33,13 @@ Module(
                         FunctionParameter(
                             position=(1, 19, 0),
                             name=Symbol(
-                                position=(1, 19, 0),
+                                position=(1, 22, 0),
                                 name="c"
                             ),
-                            type_annotation=SpreadTypeExpression(
-                                position=(1, 22, 0),
-                                expression=TypeName(
-                                    position=(1, 25, 0),
-                                    name="Int"
-                                )
+                            variadic=true,
+                            type_annotation=TypeName(
+                                position=(1, 25, 0),
+                                name="Int"
                             )
                         )
                     ],

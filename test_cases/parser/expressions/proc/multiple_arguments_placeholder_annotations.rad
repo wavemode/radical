@@ -25,6 +25,7 @@ Module(
                                 position=(2, 9, 8),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=PlaceholderType(
                                 position=(2, 12, 8)
                             )
@@ -35,6 +36,7 @@ Module(
                                 position=(3, 9, 8),
                                 name="c"
                             ),
+                            variadic=false,
                             type_annotation=PlaceholderType(
                                 position=(3, 12, 8)
                             )

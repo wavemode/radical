@@ -1,4 +1,4 @@
-a = fun(b : Int, c: ...Int ) ->
+a = fun(b : Int, ...c: Int ) ->
     b + c[0]
 
 (*
@@ -23,6 +23,7 @@ Module(
                                 position=(1, 9, 0),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 13, 0),
                                 name="Int"
@@ -31,15 +32,13 @@ Module(
                         FunctionParameter(
                             position=(1, 18, 0),
                             name=Symbol(
-                                position=(1, 18, 0),
+                                position=(1, 21, 0),
                                 name="c"
                             ),
-                            type_annotation=SpreadTypeExpression(
-                                position=(1, 21, 0),
-                                expression=TypeName(
-                                    position=(1, 24, 0),
-                                    name="Int"
-                                )
+                            variadic=true,
+                            type_annotation=TypeName(
+                                position=(1, 24, 0),
+                                name="Int"
                             )
                         )
                     ],

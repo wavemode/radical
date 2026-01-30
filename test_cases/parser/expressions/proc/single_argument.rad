@@ -24,6 +24,7 @@ Module(
                                 position=(1, 10, 0),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 14, 0),
                                 name="Int"

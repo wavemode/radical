@@ -24,6 +24,7 @@ Module(
                                 position=(1, 11, 0),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 15, 0),
                                 name="Int"
@@ -39,6 +40,7 @@ Module(
                                 position=(1, 24, 0),
                                 name="c"
                             ),
+                            variadic=false,
                             default_value=ListLiteral(
                                 position=(1, 28, 0),
                                 elements=[

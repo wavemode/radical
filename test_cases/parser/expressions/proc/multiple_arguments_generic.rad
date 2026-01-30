@@ -23,6 +23,7 @@ Module(
                                 position=(1, 14, 0),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 18, 0),
                                 name="T"
@@ -34,6 +35,7 @@ Module(
                                 position=(1, 21, 0),
                                 name="f"
                             ),
+                            variadic=false,
                             type_annotation=FunctionType(
                                 position=(1, 25, 0),
                                 parameters=[

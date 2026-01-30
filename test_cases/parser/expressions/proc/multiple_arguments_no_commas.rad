@@ -25,6 +25,7 @@ Module(
                                 position=(2, 9, 8),
                                 name="b"
                             ),
+                            variadic=false,
                             type_annotation=TypeName(
                                 position=(2, 13, 8),
                                 name="Int"
@@ -36,6 +37,7 @@ Module(
                                 position=(3, 9, 8),
                                 name="c"
                             ),
+                            variadic=false,
                             type_annotation=GenericTypeApplication(
                                 position=(3, 13, 8),
                                 generic_type=TypeName(

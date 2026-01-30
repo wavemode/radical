@@ -22,14 +22,16 @@ Module(
                         name=Symbol(
                             position=(2, 9, 8),
                             name="b"
-                        )
+                        ),
+                        variadic=false
                     ),
                     FunctionParameter(
                         position=(3, 9, 8),
                         name=Symbol(
                             position=(3, 9, 8),
                             name="c"
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=[
