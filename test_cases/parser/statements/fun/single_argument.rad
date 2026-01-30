@@ -1,0 +1,51 @@
+fun a(b : Int) -> Int =
+    b + 3
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            FunctionDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 5, 0),
+                    name="a"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 7, 0),
+                        name=Symbol(
+                            position=(1, 7, 0),
+                            name="b"
+                        ),
+                        type_annotation=TypeName(
+                            position=(1, 11, 0),
+                            name="Int"
+                        )
+                    )
+                ],
+                return_type=TypeName(
+                    position=(1, 19, 0),
+                    name="Int"
+                ),
+                body=BinaryOperation(
+                    position=(2, 5, 4),
+                    left=Symbol(
+                        position=(2, 5, 4),
+                        name="b"
+                    ),
+                    operator="+",
+                    right=NumberLiteral(
+                        position=(2, 9, 4),
+                        contents="3"
+                    )
+                ),
+                local=false
+            )
+        ]
+    )
+)
+*)

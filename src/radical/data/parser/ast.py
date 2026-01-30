@@ -114,7 +114,7 @@ class RecordTypeNode(Node):
 
 
 @dataclass(frozen=True)
-class FunctionParameterNode(Node):
+class FunctionTypeParameterNode(Node):
     name: "SymbolNode | None"
     optional: bool
     type_annotation: "TypeExpressionNodeType | SpreadTypeExpressionNode"
@@ -122,7 +122,7 @@ class FunctionParameterNode(Node):
 
 @dataclass(frozen=True)
 class FunctionTypeNode(Node):
-    parameters: list["FunctionParameterNode"]
+    parameters: list["FunctionTypeParameterNode"]
     return_type: "TypeExpressionNodeType"
 
 
@@ -431,6 +431,22 @@ class ModuleAssignmentDeclarationNode(Node):
     value: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class FunctionParameterNode(Node):
+    name: SymbolNode
+    type_annotation: "TypeExpressionNodeType | SpreadTypeExpressionNode | None"
+    default_value: "ValueExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
+class FunctionDeclarationNode(Node):
+    name: SymbolNode
+    parameters: list["FunctionParameterNode"]
+    return_type: "TypeExpressionNodeType | None"
+    body: "ValueExpressionNodeType"
+    local: bool
+
+
 # Top Level
 
 
@@ -498,6 +514,7 @@ LetExpressionDeclarationNodeType = (
     | DataDeclarationNode
     | ModuleBodyDeclarationNode
     | ModuleAssignmentDeclarationNode
+    | FunctionDeclarationNode
 )
 
 TopLevelDeclarationNodeType = (

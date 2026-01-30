@@ -16,7 +16,7 @@ Module(
                 type_annotation=FunctionType(
                     position=(1, 6, 0),
                     parameters=[
-                        FunctionParameter(
+                        FunctionTypeParameter(
                             position=(1, 10, 0),
                             optional=false,
                             type_annotation=GenericTypeExpression(
@@ -33,7 +33,7 @@ Module(
                                 expression=FunctionType(
                                     position=(1, 13, 0),
                                     parameters=[
-                                        FunctionParameter(
+                                        FunctionTypeParameter(
                                             position=(1, 17, 0),
                                             optional=false,
                                             type_annotation=TypeName(

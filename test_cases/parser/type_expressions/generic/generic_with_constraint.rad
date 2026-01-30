@@ -32,7 +32,7 @@ Module(
                     expression=FunctionType(
                         position=(1, 21, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionTypeParameter(
                                 position=(1, 25, 0),
                                 optional=false,
                                 type_annotation=SpreadTypeExpression(

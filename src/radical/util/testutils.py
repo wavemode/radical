@@ -41,10 +41,8 @@ class CompilerTestCase:
             new_text_parts.append("\n")
         new_text = "".join(new_text_parts)
 
-        if new_text != text:
-            print(f"Updating {self.path}")
-            with open(self.path, "w") as f:
-                f.write(new_text)
+        with open(self.path, "w") as f:
+            f.write(new_text)
 
 
 def collect_test_cases(directory: str) -> list[CompilerTestCase]:

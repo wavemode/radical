@@ -45,7 +45,7 @@ Module(
                     expression=FunctionType(
                         position=(5, 3, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionTypeParameter(
                                 position=(5, 7, 0),
                                 optional=false,
                                 type_annotation=TypeName(
@@ -53,7 +53,7 @@ Module(
                                     name="A"
                                 )
                             ),
-                            FunctionParameter(
+                            FunctionTypeParameter(
                                 position=(5, 10, 0),
                                 optional=false,
                                 type_annotation=TypeName(

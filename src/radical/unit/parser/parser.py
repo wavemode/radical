@@ -11,7 +11,9 @@ from radical.data.parser.ast import (
     FormatStringTextSectionNode,
     FunctionCallArgumentNode,
     FunctionCallExpressionNode,
+    FunctionDeclarationNode,
     FunctionParameterNode,
+    FunctionTypeParameterNode,
     FunctionTypeNode,
     GenericTypeApplicationNode,
     GenericTypeExpressionNode,
@@ -103,6 +105,7 @@ class Parser(Unit):
         self._let_expression_declaration_parsers: list[
             Callable[[], LetExpressionDeclarationNodeType | None]
         ] = [
+            self.parse_function_declaration,
             self.parse_data_declaration,
             self.parse_type_declaration,
             self.parse_import_statement,
@@ -295,6 +298,74 @@ class Parser(Unit):
                 return declaration
         self._raise_parse_error(
             message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_function_declaration(self) -> FunctionDeclarationNode | None:
+        start_position = self._position
+        if self._peek().type != TokenType.FUN and not (
+            self._peek().type == TokenType.LOCAL and self._peek(1).type == TokenType.FUN
+        ):
+            return None
+
+        local = False
+        if self.parse_token(TokenType.LOCAL):
+            local = True
+
+        self._read()  # consume FUN
+
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        parameters: list[FunctionParameterNode] = []
+        self.require_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_parameter,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
+
+        return_type: TypeExpressionNodeType | None = None
+        if self.parse_token(TokenType.ARROW):
+            return_type = self.parse_type_expression()
+
+        self.require_token(TokenType.ASSIGN)
+        body = self.parse_value_expression()
+
+        return FunctionDeclarationNode(
+            position=start_position,
+            name=name,
+            parameters=parameters,
+            return_type=return_type,
+            body=body,
+            local=local,
+        )
+
+    def parse_function_parameter(self) -> FunctionParameterNode:
+        start_position = self._position
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+        type_annotation: TypeExpressionNodeType | SpreadTypeExpressionNode | None = None
+        default_value: ValueExpressionNodeType | None = None
+
+        if self.parse_token(TokenType.COLON):
+            if not (type_annotation := self.parse_spread_type_expression()):
+                type_annotation = self.parse_type_expression()
+
+        if self.parse_token(TokenType.ASSIGN):
+            default_value = self.parse_value_expression()
+
+        return FunctionParameterNode(
+            position=start_position,
+            name=name,
+            type_annotation=type_annotation,
+            default_value=default_value,
         )
 
     def parse_module_body_declaration(self) -> ModuleBodyDeclarationNode | None:
@@ -901,7 +972,7 @@ class Parser(Unit):
         self.require_token(TokenType.PARENTHESES_START)
 
         parameters = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_function_parameter,
+            element_parser=self.parse_function_type_parameter,
             ending_token=TokenType.PARENTHESES_END,
         )
 
@@ -918,7 +989,7 @@ class Parser(Unit):
             return_type=return_type,
         )
 
-    def parse_function_parameter(self) -> FunctionParameterNode:
+    def parse_function_type_parameter(self) -> FunctionTypeParameterNode:
         start_position = self._position
         name: SymbolNode | None = None
         optional = False
@@ -948,7 +1019,7 @@ class Parser(Unit):
             type_annotation = spread
         else:
             type_annotation = self.parse_type_expression()
-        return FunctionParameterNode(
+        return FunctionTypeParameterNode(
             position=start_position,
             name=name,
             optional=optional,
