@@ -1038,15 +1038,24 @@ class Parser(Unit):
             )
         return entry
 
-    def parse_function_type(self) -> FunctionTypeNode | None:
+    def parse_function_type(
+        self,
+    ) -> FunctionTypeNode | GenericTypeExpressionNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.FUN):
             return None
-        self.require_token(TokenType.PARENTHESES_START)
+
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            generic_parameters = self.parse_generic_type_parameter_list()
+
+        self.require_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
 
         parameters = self.parse_comma_or_newline_separated(
             element_parser=self.parse_function_type_parameter,
-            ending_token=TokenType.PARENTHESES_END,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
         if not self.parse_token(TokenType.ARROW):
@@ -1056,21 +1065,37 @@ class Parser(Unit):
             )
 
         return_type = self.parse_type_expression()
-        return FunctionTypeNode(
+        function_type = FunctionTypeNode(
             position=start_position,
             parameters=parameters,
             return_type=return_type,
         )
+        if generic_parameters:
+            return GenericTypeExpressionNode(
+                position=start_position,
+                parameters=generic_parameters,
+                expression=function_type,
+            )
+        return function_type
 
-    def parse_procedure_type(self) -> ProcedureTypeNode | None:
+    def parse_procedure_type(
+        self,
+    ) -> ProcedureTypeNode | GenericTypeExpressionNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.PROC):
             return None
-        self.require_token(TokenType.PARENTHESES_START)
+
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            generic_parameters = self.parse_generic_type_parameter_list()
+
+        self.require_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
 
         parameters = self.parse_comma_or_newline_separated(
             element_parser=self.parse_function_type_parameter,
-            ending_token=TokenType.PARENTHESES_END,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
         if not self.parse_token(TokenType.ARROW):
@@ -1080,11 +1105,19 @@ class Parser(Unit):
             )
 
         return_type = self.parse_type_expression()
-        return ProcedureTypeNode(
+
+        procedure_type = ProcedureTypeNode(
             position=start_position,
             parameters=parameters,
             return_type=return_type,
         )
+        if generic_parameters:
+            return GenericTypeExpressionNode(
+                position=start_position,
+                parameters=generic_parameters,
+                expression=procedure_type,
+            )
+        return procedure_type
 
     def parse_function_type_parameter(self) -> FunctionTypeParameterNode:
         start_position = self._position

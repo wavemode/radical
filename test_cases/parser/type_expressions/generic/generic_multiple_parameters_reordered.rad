@@ -1,0 +1,76 @@
+a :fun  [A
+    , B
+    , C
+    ,
+] (A, B)-> C
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=GenericTypeExpression(
+                    position=(1, 4, 0),
+                    parameters=[
+                        GenericTypeParameter(
+                            position=(1, 10, 0),
+                            name=Symbol(
+                                position=(1, 10, 0),
+                                name="A"
+                            )
+                        ),
+                        GenericTypeParameter(
+                            position=(2, 7, 4),
+                            name=Symbol(
+                                position=(2, 7, 4),
+                                name="B"
+                            )
+                        ),
+                        GenericTypeParameter(
+                            position=(3, 7, 4),
+                            name=Symbol(
+                                position=(3, 7, 4),
+                                name="C"
+                            )
+                        )
+                    ],
+                    expression=FunctionType(
+                        position=(1, 4, 0),
+                        parameters=[
+                            FunctionTypeParameter(
+                                position=(5, 4, 0),
+                                optional=false,
+                                type_annotation=TypeName(
+                                    position=(5, 4, 0),
+                                    name="A"
+                                )
+                            ),
+                            FunctionTypeParameter(
+                                position=(5, 7, 0),
+                                optional=false,
+                                type_annotation=TypeName(
+                                    position=(5, 7, 0),
+                                    name="B"
+                                )
+                            )
+                        ],
+                        return_type=TypeName(
+                            position=(5, 12, 0),
+                            name="C"
+                        )
+                    )
+                ),
+                local=false
+            )
+        ]
+    )
+)
+*)
