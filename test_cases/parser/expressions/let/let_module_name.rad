@@ -9,5 +9,5 @@ x = let
     or "=" and an expression.
 *)
 (*
-FAIL("Expected let expression declaration. Unexpected token MODULE('module') at test_cases/parser/expressions/let/let_module_name.rad:2:5")
+FAIL("Expected declaration. Unexpected token MODULE('module') at test_cases/parser/expressions/let/let_module_name.rad:2:5")
 *)

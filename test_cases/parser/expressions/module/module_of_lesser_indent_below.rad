@@ -4,5 +4,5 @@ x = module of
   b = 5
 
 (*
-FAIL("All declarations in module body must have the same indent level at test_cases/parser/expressions/module/module_of_lesser_indent_below.rad:4:3")
+FAIL("All items in block must have the same indent level at test_cases/parser/expressions/module/module_of_lesser_indent_below.rad:4:3")
 *)

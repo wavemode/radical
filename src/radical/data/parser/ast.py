@@ -196,13 +196,6 @@ class NullLiteralNode(Node):
     contents: Token
 
 
-@dataclass(frozen=True)
-class ModuleBodyNode(Node):
-    name: SymbolNode | None
-    tree_syntax: bool
-    declarations: list["TopLevelDeclarationNodeType"]
-
-
 # Operations
 
 
@@ -357,6 +350,13 @@ class FunctionExpressionNode(Node):
 
 
 @dataclass(frozen=True)
+class ModuleBodyNode(Node):
+    name: SymbolNode | None
+    tree_syntax: bool
+    declarations: list["TopLevelDeclarationNodeType"]
+
+
+@dataclass(frozen=True)
 class ModuleExpressionNode(Node):
     body: ModuleBodyNode
 
@@ -455,6 +455,22 @@ class FunctionDeclarationNode(Node):
     local: bool
 
 
+@dataclass(frozen=True)
+class ProcBodyStatementNode(Node):
+    declaration: "LetExpressionDeclarationNodeType | None"
+    expression: "ValueExpressionNodeType | None"
+
+
+@dataclass(frozen=True)
+class ProcDeclarationNode(Node):
+    name: SymbolNode
+    parameters: list["FunctionParameterNode"]
+    generic_parameters: list["GenericTypeParameterNode"] | None
+    return_type: "TypeExpressionNodeType | None"
+    body: list[ProcBodyStatementNode]
+    local: bool
+
+
 # Top Level
 
 
@@ -524,6 +540,7 @@ LetExpressionDeclarationNodeType = (
     | ModuleBodyDeclarationNode
     | ModuleAssignmentDeclarationNode
     | FunctionDeclarationNode
+    | ProcDeclarationNode
 )
 
 TopLevelDeclarationNodeType = (

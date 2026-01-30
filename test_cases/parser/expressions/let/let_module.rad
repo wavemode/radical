@@ -28,7 +28,7 @@ Module(
                                 name="A"
                             ),
                             body=ModuleBody(
-                                position=(2, 3, 2),
+                                position=(2, 12, 2),
                                 tree_syntax=false,
                                 declarations=[
                                     Assignment(

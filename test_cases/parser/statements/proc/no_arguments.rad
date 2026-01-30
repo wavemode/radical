@@ -1,0 +1,38 @@
+proc a() -> Int of
+    42
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            ProcDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="a"
+                ),
+                parameters=[
+
+                ],
+                return_type=TypeName(
+                    position=(1, 13, 0),
+                    name="Int"
+                ),
+                body=[
+                    ProcBodyStatement(
+                        position=(2, 5, 4),
+                        expression=NumberLiteral(
+                            position=(2, 5, 4),
+                            contents="42"
+                        )
+                    )
+                ],
+                local=false
+            )
+        ]
+    )
+)
+*)

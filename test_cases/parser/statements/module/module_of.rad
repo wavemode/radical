@@ -16,7 +16,7 @@ Module(
                     name="A"
                 ),
                 body=ModuleBody(
-                    position=(1, 1, 0),
+                    position=(1, 10, 0),
                     tree_syntax=false,
                     declarations=[
                         Assignment(

@@ -1,0 +1,73 @@
+proc a(b : Int) -> Int of
+    local c = 3
+    b + c
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            ProcDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="a"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 8, 0),
+                        name=Symbol(
+                            position=(1, 8, 0),
+                            name="b"
+                        ),
+                        type_annotation=TypeName(
+                            position=(1, 12, 0),
+                            name="Int"
+                        )
+                    )
+                ],
+                return_type=TypeName(
+                    position=(1, 20, 0),
+                    name="Int"
+                ),
+                body=[
+                    ProcBodyStatement(
+                        position=(2, 5, 4),
+                        declaration=Assignment(
+                            position=(2, 5, 4),
+                            target=Symbol(
+                                position=(2, 11, 4),
+                                name="c"
+                            ),
+                            value=NumberLiteral(
+                                position=(2, 15, 4),
+                                contents="3"
+                            ),
+                            local=true,
+                            tree_syntax=false
+                        )
+                    ),
+                    ProcBodyStatement(
+                        position=(3, 5, 4),
+                        expression=BinaryOperation(
+                            position=(3, 5, 4),
+                            left=Symbol(
+                                position=(3, 5, 4),
+                                name="b"
+                            ),
+                            operator="+",
+                            right=Symbol(
+                                position=(3, 9, 4),
+                                name="c"
+                            )
+                        )
+                    )
+                ],
+                local=false
+            )
+        ]
+    )
+)
+*)

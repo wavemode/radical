@@ -46,7 +46,7 @@ Module(
                 value=ModuleExpression(
                     position=(3, 5, 0),
                     body=ModuleBody(
-                        position=(3, 5, 0),
+                        position=(3, 12, 0),
                         tree_syntax=false,
                         declarations=[
                             Assignment(

@@ -35,10 +35,13 @@ from radical.data.parser.ast import (
     ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
+    Node,
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
+    ProcBodyStatementNode,
+    ProcDeclarationNode,
     RecordTypeNode,
     SpreadAssignmentStatementNode,
     SpreadOperationNode,
@@ -108,6 +111,7 @@ class Parser(Unit):
             Callable[[], LetExpressionDeclarationNodeType | None]
         ] = [
             self.parse_function_declaration,
+            self.parse_proc_declaration,
             self.parse_data_declaration,
             self.parse_type_declaration,
             self.parse_import_statement,
@@ -153,14 +157,18 @@ class Parser(Unit):
             body=body,
         )
 
-    def parse_let_expression_declaration(self) -> LetExpressionDeclarationNodeType:
+    def parse_scoped_declaration(self) -> LetExpressionDeclarationNodeType:
         for declaration_parser in self._let_expression_declaration_parsers:
             if declaration := declaration_parser():
-                self._check_illegal_local_in_let(declaration)
                 return declaration
         self._raise_parse_error(
-            message=f"Expected let expression declaration. Unexpected token {self._peek().pretty()}"
+            message=f"Expected declaration. Unexpected token {self._peek().pretty()}"
         )
+
+    def parse_let_expression_declaration(self) -> LetExpressionDeclarationNodeType:
+        declaration = self.parse_scoped_declaration()
+        self._check_illegal_local_in_let(declaration)
+        return declaration
 
     def _check_illegal_local_in_let(
         self, declaration: LetExpressionDeclarationNodeType
@@ -194,9 +202,9 @@ class Parser(Unit):
             return None
 
         self._read()  # consume MODULE
-        self._read()  # consume OF
+        of_position = self._read().position  # consume OF
 
-        body = self.parse_module_body(start_position)
+        body = self.parse_module_body(of_position)
         for decl in body.declarations:
             if isinstance(decl, ModuleNameNode):
                 self._raise_parse_error(
@@ -211,36 +219,15 @@ class Parser(Unit):
     def parse_module_body(
         self, start_position: Position | None = None
     ) -> ModuleBodyNode:
-        declarations: list[TopLevelDeclarationNodeType] = []
+        declarations = self.parse_block_body(
+            start_position=start_position,
+            item_parser=self.parse_top_level_declaration,
+        )
         seen_nonlocal_declaration = False
-        indent_level = -1
         name: SymbolNode | None = None
         tree_syntax: bool | None = None
 
-        def end_of_block() -> bool:
-            return self.at_end() or (
-                start_position is not None
-                and self._position.indent_level <= start_position.indent_level
-                and self._position.line != start_position.line
-            )
-
-        while not end_of_block():
-            if start_position is None and self._position.indent_level != 0:
-                self._raise_parse_error(
-                    message="Top level declarations must not be indented"
-                )
-            elif (
-                start_position is not None
-                and self._position.line != start_position.line
-            ):
-                if indent_level == -1:
-                    indent_level = self._position.indent_level
-                elif self._position.indent_level != indent_level:
-                    self._raise_parse_error(
-                        message="All declarations in module body must have the same indent level",
-                    )
-
-            decl = self.parse_top_level_declaration()
+        for decl in declarations:
             if not self._is_local_toplevel_declaration(decl):
                 seen_nonlocal_declaration = True
             elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
@@ -269,19 +256,6 @@ class Parser(Unit):
                         )
                     else:
                         tree_syntax = decl.tree_syntax
-
-            declarations.append(decl)
-
-            if end_of_block():
-                break
-
-            if self.parse_token(TokenType.SEMICOLON):
-                if end_of_block():
-                    break
-            elif self._position.line == decl.position.line:
-                self._raise_parse_error(
-                    message="Declarations must be separated by semicolons or newlines",
-                )
 
         return ModuleBodyNode(
             position=(
@@ -351,6 +325,85 @@ class Parser(Unit):
             local=local,
         )
 
+    def parse_proc_declaration(self) -> ProcDeclarationNode | None:
+        start_position = self._position
+        if self._peek().type != TokenType.PROC and not (
+            self._peek().type == TokenType.LOCAL
+            and self._peek(1).type == TokenType.PROC
+        ):
+            return None
+
+        local = False
+        if self.parse_token(TokenType.LOCAL):
+            local = True
+
+        self._read()  # consume PROC
+
+        name_token = self.require_token(TokenType.SYMBOL)
+        name = SymbolNode(
+            position=name_token.position,
+            name=name_token,
+        )
+
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            generic_parameters = self.parse_generic_type_parameter_list()
+
+        parameters: list[FunctionParameterNode] = []
+        self.require_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_parameter,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
+
+        return_type: TypeExpressionNodeType | None = None
+        if self.parse_token(TokenType.ARROW):
+            return_type = self.parse_type_expression()
+
+        of_position = self.require_token(TokenType.OF).position
+        body = self.parse_block_body(
+            start_position=of_position,
+            item_parser=self.parse_proc_body_statement,
+        )
+
+        if not body:
+            self._raise_parse_error(
+                message="Procedure body must have at least one statement",
+                position=start_position,
+            )
+        elif not body[-1].expression:
+            self._raise_parse_error(
+                message="Last statement in procedure body must be an expression",
+                position=body[-1].position,
+            )
+
+        return ProcDeclarationNode(
+            position=start_position,
+            name=name,
+            parameters=parameters,
+            generic_parameters=generic_parameters,
+            return_type=return_type,
+            body=body,
+            local=local,
+        )
+
+    def parse_proc_body_statement(self) -> ProcBodyStatementNode:
+        start_position = self._position
+        declaration: LetExpressionDeclarationNodeType | None = None
+        expression: ValueExpressionNodeType | None = None
+        if self._peek().type == TokenType.LOCAL:
+            declaration = self.parse_scoped_declaration()
+        else:
+            expression = self.parse_value_expression()
+
+        return ProcBodyStatementNode(
+            position=start_position,
+            declaration=declaration,
+            expression=expression,
+        )
+
     def parse_function_parameter(self) -> FunctionParameterNode:
         start_position = self._position
         name_token = self.require_token(TokenType.SYMBOL)
@@ -392,9 +445,9 @@ class Parser(Unit):
             name=name_token,
         )
 
-        self._read()  # consume OF
+        of_position = self._read().position
 
-        body = self.parse_module_body(start_position=start_position)
+        body = self.parse_module_body(of_position)
 
         return ModuleBodyDeclarationNode(
             position=start_position,
@@ -1567,6 +1620,51 @@ class Parser(Unit):
             position=token.position,
             name=token,
         )
+
+    def parse_block_body(
+        self,
+        start_position: Position | None,
+        item_parser: Callable[[], T],
+    ) -> list[T]:
+        items: list[T] = []
+        indent_level = -1
+
+        def end_of_block() -> bool:
+            return self.at_end() or (
+                start_position is not None
+                and self._position.indent_level <= start_position.indent_level
+                and self._position.line != start_position.line
+            )
+
+        while not end_of_block():
+            if start_position is None and self._position.indent_level != 0:
+                self._raise_parse_error(message="Top-level items must not be indented")
+            elif (
+                start_position is not None
+                and self._position.line != start_position.line
+            ):
+                if indent_level == -1:
+                    indent_level = self._position.indent_level
+                elif self._position.indent_level != indent_level:
+                    self._raise_parse_error(
+                        message="All items in block must have the same indent level",
+                    )
+
+            item = item_parser()
+            items.append(item)
+
+            if end_of_block():
+                break
+
+            if self.parse_token(TokenType.SEMICOLON):
+                if end_of_block():
+                    break
+            elif isinstance(item, Node) and self._position.line == item.position.line:
+                self._raise_parse_error(
+                    message="Block items must be separated by semicolons or newlines",
+                )
+
+        return items
 
     def parse_comma_or_newline_separated(
         self,

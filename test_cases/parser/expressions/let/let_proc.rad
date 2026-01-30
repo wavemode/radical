@@ -1,0 +1,105 @@
+x = let
+    proc a(b: Int) -> Int of
+        local c = 2; b + c
+    in
+        a(3)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                value=LetExpression(
+                    position=(1, 5, 0),
+                    declarations=[
+                        ProcDeclaration(
+                            position=(2, 5, 4),
+                            name=Symbol(
+                                position=(2, 10, 4),
+                                name="a"
+                            ),
+                            parameters=[
+                                FunctionParameter(
+                                    position=(2, 12, 4),
+                                    name=Symbol(
+                                        position=(2, 12, 4),
+                                        name="b"
+                                    ),
+                                    type_annotation=TypeName(
+                                        position=(2, 15, 4),
+                                        name="Int"
+                                    )
+                                )
+                            ],
+                            return_type=TypeName(
+                                position=(2, 23, 4),
+                                name="Int"
+                            ),
+                            body=[
+                                ProcBodyStatement(
+                                    position=(3, 9, 8),
+                                    declaration=Assignment(
+                                        position=(3, 9, 8),
+                                        target=Symbol(
+                                            position=(3, 15, 8),
+                                            name="c"
+                                        ),
+                                        value=NumberLiteral(
+                                            position=(3, 19, 8),
+                                            contents="2"
+                                        ),
+                                        local=true,
+                                        tree_syntax=false
+                                    )
+                                ),
+                                ProcBodyStatement(
+                                    position=(3, 22, 8),
+                                    expression=BinaryOperation(
+                                        position=(3, 22, 8),
+                                        left=Symbol(
+                                            position=(3, 22, 8),
+                                            name="b"
+                                        ),
+                                        operator="+",
+                                        right=Symbol(
+                                            position=(3, 26, 8),
+                                            name="c"
+                                        )
+                                    )
+                                )
+                            ],
+                            local=false
+                        )
+                    ],
+                    body=FunctionCallExpression(
+                        position=(5, 9, 8),
+                        function_expression=Symbol(
+                            position=(5, 9, 8),
+                            name="a"
+                        ),
+                        arguments=[
+                            FunctionCallArgument(
+                                position=(5, 11, 8),
+                                value=NumberLiteral(
+                                    position=(5, 11, 8),
+                                    contents="3"
+                                )
+                            )
+                        ]
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

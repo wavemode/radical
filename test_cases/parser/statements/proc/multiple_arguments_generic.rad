@@ -1,0 +1,93 @@
+proc a[T,](b : T, f : fun(T) -> T ) -> T of
+    f(b)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            ProcDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 6, 0),
+                    name="a"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 12, 0),
+                        name=Symbol(
+                            position=(1, 12, 0),
+                            name="b"
+                        ),
+                        type_annotation=TypeName(
+                            position=(1, 16, 0),
+                            name="T"
+                        )
+                    ),
+                    FunctionParameter(
+                        position=(1, 19, 0),
+                        name=Symbol(
+                            position=(1, 19, 0),
+                            name="f"
+                        ),
+                        type_annotation=FunctionType(
+                            position=(1, 23, 0),
+                            parameters=[
+                                FunctionTypeParameter(
+                                    position=(1, 27, 0),
+                                    optional=false,
+                                    type_annotation=TypeName(
+                                        position=(1, 27, 0),
+                                        name="T"
+                                    )
+                                )
+                            ],
+                            return_type=TypeName(
+                                position=(1, 33, 0),
+                                name="T"
+                            )
+                        )
+                    )
+                ],
+                generic_parameters=[
+                    GenericTypeParameter(
+                        position=(1, 8, 0),
+                        name=Symbol(
+                            position=(1, 8, 0),
+                            name="T"
+                        )
+                    )
+                ],
+                return_type=TypeName(
+                    position=(1, 40, 0),
+                    name="T"
+                ),
+                body=[
+                    ProcBodyStatement(
+                        position=(2, 5, 4),
+                        expression=FunctionCallExpression(
+                            position=(2, 5, 4),
+                            function_expression=Symbol(
+                                position=(2, 5, 4),
+                                name="f"
+                            ),
+                            arguments=[
+                                FunctionCallArgument(
+                                    position=(2, 7, 4),
+                                    value=Symbol(
+                                        position=(2, 7, 4),
+                                        name="b"
+                                    )
+                                )
+                            ]
+                        )
+                    )
+                ],
+                local=false
+            )
+        ]
+    )
+)
+*)

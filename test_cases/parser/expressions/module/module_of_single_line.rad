@@ -1,4 +1,5 @@
-x = module of y = 10
+x = module
+    of y = 10; z = 30
 z = module of t = 20
 
 (*
@@ -17,18 +18,31 @@ Module(
                 value=ModuleExpression(
                     position=(1, 5, 0),
                     body=ModuleBody(
-                        position=(1, 5, 0),
+                        position=(2, 5, 4),
                         tree_syntax=false,
                         declarations=[
                             Assignment(
-                                position=(1, 15, 0),
+                                position=(2, 8, 4),
                                 target=Symbol(
-                                    position=(1, 15, 0),
+                                    position=(2, 8, 4),
                                     name="y"
                                 ),
                                 value=NumberLiteral(
-                                    position=(1, 19, 0),
+                                    position=(2, 12, 4),
                                     contents="10"
+                                ),
+                                local=false,
+                                tree_syntax=false
+                            ),
+                            Assignment(
+                                position=(2, 16, 4),
+                                target=Symbol(
+                                    position=(2, 16, 4),
+                                    name="z"
+                                ),
+                                value=NumberLiteral(
+                                    position=(2, 20, 4),
+                                    contents="30"
                                 ),
                                 local=false,
                                 tree_syntax=false
@@ -40,25 +54,25 @@ Module(
                 tree_syntax=false
             ),
             Assignment(
-                position=(2, 1, 0),
+                position=(3, 1, 0),
                 target=Symbol(
-                    position=(2, 1, 0),
+                    position=(3, 1, 0),
                     name="z"
                 ),
                 value=ModuleExpression(
-                    position=(2, 5, 0),
+                    position=(3, 5, 0),
                     body=ModuleBody(
-                        position=(2, 5, 0),
+                        position=(3, 12, 0),
                         tree_syntax=false,
                         declarations=[
                             Assignment(
-                                position=(2, 15, 0),
+                                position=(3, 15, 0),
                                 target=Symbol(
-                                    position=(2, 15, 0),
+                                    position=(3, 15, 0),
                                     name="t"
                                 ),
                                 value=NumberLiteral(
-                                    position=(2, 19, 0),
+                                    position=(3, 19, 0),
                                     contents="20"
                                 ),
                                 local=false,
