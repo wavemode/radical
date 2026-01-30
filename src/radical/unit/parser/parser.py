@@ -319,6 +319,10 @@ class Parser(Unit):
             name=name_token,
         )
 
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
+            generic_parameters = self.parse_generic_type_parameter_list()
+
         parameters: list[FunctionParameterNode] = []
         self.require_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
@@ -339,6 +343,7 @@ class Parser(Unit):
             position=start_position,
             name=name,
             parameters=parameters,
+            generic_parameters=generic_parameters,
             return_type=return_type,
             body=body,
             local=local,

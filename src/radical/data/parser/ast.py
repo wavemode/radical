@@ -442,6 +442,7 @@ class FunctionParameterNode(Node):
 class FunctionDeclarationNode(Node):
     name: SymbolNode
     parameters: list["FunctionParameterNode"]
+    generic_parameters: list["GenericTypeParameterNode"] | None
     return_type: "TypeExpressionNodeType | None"
     body: "ValueExpressionNodeType"
     local: bool
