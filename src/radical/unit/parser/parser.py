@@ -41,6 +41,7 @@ from radical.data.parser.ast import (
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
     PlaceholderExpressionNode,
+    PlaceholderTypeNode,
     ProcedureBodyStatementNode,
     ProcedureDeclarationNode,
     ProcedureExpressionNode,
@@ -313,9 +314,10 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        return_type: TypeExpressionNodeType | None = None
+        return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
         if self.parse_token(TokenType.ARROW):
-            return_type = self.parse_type_expression()
+            if not (return_type := self.parse_placeholder_type()):
+                return_type = self.parse_type_expression()
 
         self.require_token(TokenType.ASSIGN)
         body = self.parse_value_expression()
@@ -363,9 +365,10 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        return_type: TypeExpressionNodeType | None = None
+        return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
         if self.parse_token(TokenType.ARROW):
-            return_type = self.parse_type_expression()
+            if not (return_type := self.parse_placeholder_type()):
+                return_type = self.parse_type_expression()
 
         of_position = self.require_token(TokenType.OF).position
         body = self.parse_procedure_body(
@@ -425,11 +428,18 @@ class Parser(Unit):
             position=name_token.position,
             name=name_token,
         )
-        type_annotation: TypeExpressionNodeType | SpreadTypeExpressionNode | None = None
+        type_annotation: (
+            TypeExpressionNodeType
+            | SpreadTypeExpressionNode
+            | PlaceholderTypeNode
+            | None
+        ) = None
         default_value: ValueExpressionNodeType | None = None
 
         if self.parse_token(TokenType.COLON):
-            if not (type_annotation := self.parse_spread_type_expression()):
+            if not (type_annotation := self.parse_spread_type_expression()) and not (
+                type_annotation := self.parse_placeholder_type()
+            ):
                 type_annotation = self.parse_type_expression()
 
         if self.parse_token(TokenType.ASSIGN):
@@ -938,6 +948,14 @@ class Parser(Unit):
                 name=token,
             )
         return None
+
+    def parse_placeholder_type(self) -> PlaceholderTypeNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.TILDE):
+            return None
+        return PlaceholderTypeNode(
+            position=start_position,
+        )
 
     def parse_parenthesized_type_expression(
         self,

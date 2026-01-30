@@ -79,6 +79,11 @@ class TypeNameNode(Node):
 
 
 @dataclass(frozen=True)
+class PlaceholderTypeNode(Node):
+    pass
+
+
+@dataclass(frozen=True)
 class ParenthesizedTypeExpressionNode(Node):
     expression: "TypeExpressionNodeType"
 
@@ -459,7 +464,9 @@ class ModuleAssignmentDeclarationNode(Node):
 @dataclass(frozen=True)
 class FunctionParameterNode(Node):
     name: SymbolNode
-    type_annotation: "TypeExpressionNodeType | SpreadTypeExpressionNode | None"
+    type_annotation: (
+        "TypeExpressionNodeType | SpreadTypeExpressionNode | PlaceholderTypeNode | None"
+    )
     default_value: "ValueExpressionNodeType | None"
 
 
@@ -468,7 +475,7 @@ class FunctionDeclarationNode(Node):
     name: SymbolNode
     parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
-    return_type: "TypeExpressionNodeType | None"
+    return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: "ValueExpressionNodeType"
     local: bool
 
@@ -484,7 +491,7 @@ class ProcedureDeclarationNode(Node):
     name: SymbolNode
     parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
-    return_type: "TypeExpressionNodeType | None"
+    return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: list[ProcedureBodyStatementNode]
     local: bool
 
