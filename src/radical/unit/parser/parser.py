@@ -1052,7 +1052,7 @@ class Parser(Unit):
                 or type_annotation.local
             ):
                 self._raise_parse_error(
-                    message="Each entry of a record type must be an annotation of the form 'name : Type'",
+                    message="Each entry of a record type must be an annotation of the form 'name : Type', or a spread type expression '...Type'",
                 )
                 raise RuntimeError("unreachable")  # appease type checker
             entry = type_annotation
@@ -1170,6 +1170,10 @@ class Parser(Unit):
 
         type_annotation: TypeExpressionNodeType | SpreadTypeExpressionNode
         if spread := self.parse_spread_type_expression():
+            if name:
+                self._raise_parse_error(
+                    message="Spread type expression cannot have a name in function type parameter",
+                )
             type_annotation = spread
         else:
             type_annotation = self.parse_type_expression()

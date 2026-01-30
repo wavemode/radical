@@ -1,5 +1,4 @@
-a : fun [T : Comparable] (List[T])  -> T
-
+a : fun[...T](...T) -> T
 
 (*
 Module(
@@ -18,41 +17,31 @@ Module(
                     position=(1, 5, 0),
                     parameters=[
                         GenericTypeParameter(
-                            position=(1, 10, 0),
+                            position=(1, 9, 0),
                             name=Symbol(
-                                position=(1, 10, 0),
+                                position=(1, 9, 0),
                                 name="T"
                             ),
-                            variadic=false,
-                            constraint=TypeName(
-                                position=(1, 14, 0),
-                                name="Comparable"
-                            )
+                            variadic=true
                         )
                     ],
                     expression=FunctionType(
                         position=(1, 5, 0),
                         parameters=[
                             FunctionTypeParameter(
-                                position=(1, 27, 0),
+                                position=(1, 15, 0),
                                 optional=false,
-                                type_annotation=GenericTypeApplication(
-                                    position=(1, 27, 0),
-                                    generic_type=TypeName(
-                                        position=(1, 27, 0),
-                                        name="List"
-                                    ),
-                                    arguments=[
-                                        TypeName(
-                                            position=(1, 32, 0),
-                                            name="T"
-                                        )
-                                    ]
+                                type_annotation=SpreadTypeExpression(
+                                    position=(1, 15, 0),
+                                    expression=TypeName(
+                                        position=(1, 18, 0),
+                                        name="T"
+                                    )
                                 )
                             )
                         ],
                         return_type=TypeName(
-                            position=(1, 40, 0),
+                            position=(1, 24, 0),
                             name="T"
                         )
                     )

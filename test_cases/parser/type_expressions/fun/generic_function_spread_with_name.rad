@@ -1,0 +1,5 @@
+a : fun[...T](b: ...T) -> T
+
+(*
+FAIL("Spread type expression cannot have a name in function type parameter at test_cases/parser/type_expressions/fun/generic_function_spread_with_name.rad:1:22")
+*)
