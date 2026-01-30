@@ -140,6 +140,7 @@ class ProcedureTypeNode(Node):
 @dataclass(frozen=True)
 class GenericTypeParameterNode(Node):
     name: "SymbolNode"
+    variadic: bool
     constraint: "TypeExpressionNodeType | None"
 
 

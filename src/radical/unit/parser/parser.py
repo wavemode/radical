@@ -919,6 +919,11 @@ class Parser(Unit):
 
     def parse_generic_type_parameter(self) -> GenericTypeParameterNode:
         start_position = self._position
+
+        variadic = False
+        if self.parse_token(TokenType.ELLIPSIS):
+            variadic = True
+
         name = SymbolNode(
             position=start_position, name=self.require_token(TokenType.SYMBOL)
         )
@@ -930,6 +935,7 @@ class Parser(Unit):
         return GenericTypeParameterNode(
             position=start_position,
             name=name,
+            variadic=variadic,
             constraint=constraint,
         )
 

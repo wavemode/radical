@@ -57,7 +57,8 @@ Module(
                         name=Symbol(
                             position=(1, 8, 0),
                             name="T"
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 return_type=TypeName(

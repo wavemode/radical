@@ -24,7 +24,8 @@ Module(
                                     name=Symbol(
                                         position=(1, 6, 0),
                                         name="T"
-                                    )
+                                    ),
+                                    variadic=false
                                 )
                             ],
                             expression=TypeName(
@@ -40,7 +41,8 @@ Module(
                                     name=Symbol(
                                         position=(1, 13, 0),
                                         name="U"
-                                    )
+                                    ),
+                                    variadic=false
                                 )
                             ],
                             expression=TypeName(

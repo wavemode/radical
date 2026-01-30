@@ -50,7 +50,8 @@ Module(
                                         name=Symbol(
                                             position=(8, 13, 0),
                                             name="D"
-                                        )
+                                        ),
+                                        variadic=false
                                     )
                                 ],
                                 expression=TypeName(

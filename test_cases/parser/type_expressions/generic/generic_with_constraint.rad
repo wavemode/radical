@@ -23,6 +23,7 @@ Module(
                                 position=(1, 6, 0),
                                 name="T"
                             ),
+                            variadic=false,
                             constraint=TypeName(
                                 position=(1, 10, 0),
                                 name="Comparable"

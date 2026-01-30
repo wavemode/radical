@@ -39,6 +39,7 @@ Module(
                             position=(2, 5, 4),
                             name="K"
                         ),
+                        variadic=false,
                         constraint=TypeName(
                             position=(2, 9, 4),
                             name="Hashable"
@@ -49,7 +50,8 @@ Module(
                         name=Symbol(
                             position=(3, 5, 4),
                             name="V"
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 local=false

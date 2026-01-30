@@ -1,4 +1,5 @@
-a : [T](T, T)
+a : [...T]T
+a = undefined
 
 (*
 Module(
@@ -22,24 +23,28 @@ Module(
                                 position=(1, 6, 0),
                                 name="T"
                             ),
-                            variadic=false
+                            variadic=true
                         )
                     ],
-                    expression=TupleType(
-                        position=(1, 8, 0),
-                        elements=[
-                            TypeName(
-                                position=(1, 9, 0),
-                                name="T"
-                            ),
-                            TypeName(
-                                position=(1, 12, 0),
-                                name="T"
-                            )
-                        ]
+                    expression=TypeName(
+                        position=(1, 11, 0),
+                        name="T"
                     )
                 ),
                 local=false
+            ),
+            Assignment(
+                position=(2, 1, 0),
+                target=Symbol(
+                    position=(2, 1, 0),
+                    name="a"
+                ),
+                value=Symbol(
+                    position=(2, 5, 0),
+                    name="undefined"
+                ),
+                local=false,
+                tree_syntax=false
             )
         ]
     )
