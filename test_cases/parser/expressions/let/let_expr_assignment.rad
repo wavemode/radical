@@ -1,0 +1,8 @@
+b = let
+    ["a"] = 10
+  in
+    a + 5
+
+(*
+FAIL("Variable names in let expression cannot be expressions at test_cases/parser/expressions/let/let_expr_assignment.rad:2:5")
+*)

@@ -151,6 +151,18 @@ class Parser(Unit):
                     )
             else:
                 seen_non_import_declaration = True
+            if getattr(decl, "local", False):
+                self._raise_parse_error(
+                    message="Local declarations are not allowed in let expressions",
+                    position=decl.position,
+                )
+            elif (isinstance(decl, AssignmentNode) and decl.target_expr) or (
+                isinstance(decl, TypeAnnotationNode) and decl.name_expr
+            ):
+                self._raise_parse_error(
+                    message="Variable names in let expression cannot be expressions",
+                    position=decl.position,
+                )
             assignments.append(decl)
 
         body = self.parse_value_expression()
@@ -161,27 +173,13 @@ class Parser(Unit):
             body=body,
         )
 
-    def parse_scoped_declaration(self) -> LetExpressionDeclarationNodeType:
+    def parse_let_expression_declaration(self) -> LetExpressionDeclarationNodeType:
         for declaration_parser in self._let_expression_declaration_parsers:
             if declaration := declaration_parser():
                 return declaration
         self._raise_parse_error(
             message=f"Expected declaration. Unexpected token {self._peek().pretty()}"
         )
-
-    def parse_let_expression_declaration(self) -> LetExpressionDeclarationNodeType:
-        declaration = self.parse_scoped_declaration()
-        self._check_illegal_local_in_let(declaration)
-        return declaration
-
-    def _check_illegal_local_in_let(
-        self, declaration: LetExpressionDeclarationNodeType
-    ) -> None:
-        if getattr(declaration, "local", False):
-            self._raise_parse_error(
-                message="Local declarations are not allowed in let expressions",
-                position=declaration.position,
-            )
 
     def parse_module(self) -> ModuleNode:
         start_position = self._position
@@ -407,7 +405,7 @@ class Parser(Unit):
         declaration: LetExpressionDeclarationNodeType | None = None
         expression: ValueExpressionNodeType | None = None
         if self._peek().type == TokenType.LOCAL:
-            declaration = self.parse_scoped_declaration()
+            declaration = self.parse_let_expression_declaration()
         else:
             expression = self.parse_value_expression()
 
