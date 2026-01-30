@@ -14,13 +14,13 @@ Module(
                     position=(1, 1, 0),
                     name="a"
                 ),
-                value=ProcExpression(
+                value=ProcedureExpression(
                     position=(1, 5, 0),
                     parameters=[
 
                     ],
                     body=[
-                        ProcBodyStatement(
+                        ProcedureBodyStatement(
                             position=(2, 5, 4),
                             expression=NumberLiteral(
                                 position=(2, 5, 4),

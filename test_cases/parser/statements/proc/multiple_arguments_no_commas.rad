@@ -10,7 +10,7 @@ Module(
         position=(1, 1, 0),
         tree_syntax=false,
         declarations=[
-            ProcDeclaration(
+            ProcedureDeclaration(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
@@ -54,7 +54,7 @@ Module(
                     name="Int"
                 ),
                 body=[
-                    ProcBodyStatement(
+                    ProcedureBodyStatement(
                         position=(4, 13, 0),
                         declaration=Assignment(
                             position=(4, 13, 0),
@@ -77,7 +77,7 @@ Module(
                             tree_syntax=false
                         )
                     ),
-                    ProcBodyStatement(
+                    ProcedureBodyStatement(
                         position=(4, 29, 0),
                         expression=BinaryOperation(
                             position=(4, 29, 0),

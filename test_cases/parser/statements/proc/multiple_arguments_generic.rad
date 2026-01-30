@@ -8,7 +8,7 @@ Module(
         position=(1, 1, 0),
         tree_syntax=false,
         declarations=[
-            ProcDeclaration(
+            ProcedureDeclaration(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
@@ -65,7 +65,7 @@ Module(
                     name="T"
                 ),
                 body=[
-                    ProcBodyStatement(
+                    ProcedureBodyStatement(
                         position=(2, 5, 4),
                         expression=FunctionCallExpression(
                             position=(2, 5, 4),

@@ -127,6 +127,12 @@ class FunctionTypeNode(Node):
 
 
 @dataclass(frozen=True)
+class ProcedureTypeNode(Node):
+    parameters: list["FunctionTypeParameterNode"]
+    return_type: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class GenericTypeParameterNode(Node):
     name: "SymbolNode"
     constraint: "TypeExpressionNodeType | None"
@@ -350,10 +356,10 @@ class FunctionExpressionNode(Node):
 
 
 @dataclass(frozen=True)
-class ProcExpressionNode(Node):
+class ProcedureExpressionNode(Node):
     parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
-    body: list["ProcBodyStatementNode"]
+    body: list["ProcedureBodyStatementNode"]
 
 
 @dataclass(frozen=True)
@@ -463,18 +469,18 @@ class FunctionDeclarationNode(Node):
 
 
 @dataclass(frozen=True)
-class ProcBodyStatementNode(Node):
+class ProcedureBodyStatementNode(Node):
     declaration: "LetExpressionDeclarationNodeType | None"
     expression: "ValueExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
-class ProcDeclarationNode(Node):
+class ProcedureDeclarationNode(Node):
     name: SymbolNode
     parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
     return_type: "TypeExpressionNodeType | None"
-    body: list[ProcBodyStatementNode]
+    body: list[ProcedureBodyStatementNode]
     local: bool
 
 
@@ -514,7 +520,7 @@ AtomNodeType = (
     | IfExpressionNode
     | LetExpressionNode
     | FunctionExpressionNode
-    | ProcExpressionNode
+    | ProcedureExpressionNode
     | ModuleExpressionNode
 )
 ValueExpressionNodeType = (
@@ -535,6 +541,7 @@ TypeExpressionNodeType = (
     | ConstTypeExpressionNode
     | RecordTypeNode
     | FunctionTypeNode
+    | ProcedureTypeNode
     | GenericTypeExpressionNode
     | TypeUnionNode
     | GenericTypeApplicationNode
@@ -548,7 +555,7 @@ LetExpressionDeclarationNodeType = (
     | ModuleBodyDeclarationNode
     | ModuleAssignmentDeclarationNode
     | FunctionDeclarationNode
-    | ProcDeclarationNode
+    | ProcedureDeclarationNode
 )
 
 TopLevelDeclarationNodeType = (

@@ -20,7 +20,7 @@ Module(
                 value=LetExpression(
                     position=(1, 5, 0),
                     declarations=[
-                        ProcDeclaration(
+                        ProcedureDeclaration(
                             position=(2, 5, 4),
                             name=Symbol(
                                 position=(2, 10, 4),
@@ -44,7 +44,7 @@ Module(
                                 name="Int"
                             ),
                             body=[
-                                ProcBodyStatement(
+                                ProcedureBodyStatement(
                                     position=(3, 9, 8),
                                     declaration=Assignment(
                                         position=(3, 9, 8),
@@ -60,7 +60,7 @@ Module(
                                         tree_syntax=false
                                     )
                                 ),
-                                ProcBodyStatement(
+                                ProcedureBodyStatement(
                                     position=(3, 22, 8),
                                     expression=BinaryOperation(
                                         position=(3, 22, 8),

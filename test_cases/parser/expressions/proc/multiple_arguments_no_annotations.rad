@@ -16,7 +16,7 @@ Module(
                     position=(1, 1, 0),
                     name="a"
                 ),
-                value=ProcExpression(
+                value=ProcedureExpression(
                     position=(1, 5, 0),
                     parameters=[
                         FunctionParameter(
@@ -35,7 +35,7 @@ Module(
                         )
                     ],
                     body=[
-                        ProcBodyStatement(
+                        ProcedureBodyStatement(
                             position=(4, 7, 1),
                             expression=BinaryOperation(
                                 position=(4, 7, 1),

@@ -40,9 +40,10 @@ from radical.data.parser.ast import (
     NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
-    ProcBodyStatementNode,
-    ProcDeclarationNode,
-    ProcExpressionNode,
+    ProcedureBodyStatementNode,
+    ProcedureDeclarationNode,
+    ProcedureExpressionNode,
+    ProcedureTypeNode,
     RecordTypeNode,
     SpreadAssignmentStatementNode,
     SpreadOperationNode,
@@ -95,7 +96,7 @@ class Parser(Unit):
             self.parse_if_expression,
             self.parse_let_expression,
             self.parse_function_expression,
-            self.parse_proc_expression,
+            self.parse_procedure_expression,
             self.parse_module_expression,
         ]
 
@@ -107,13 +108,14 @@ class Parser(Unit):
             self.parse_const_type_expression,
             self.parse_record_type,
             self.parse_function_type,
+            self.parse_procedure_type,
         ]
 
         self._let_expression_declaration_parsers: list[
             Callable[[], LetExpressionDeclarationNodeType | None]
         ] = [
             self.parse_function_declaration,
-            self.parse_proc_declaration,
+            self.parse_procedure_declaration,
             self.parse_data_declaration,
             self.parse_type_declaration,
             self.parse_import_statement,
@@ -327,7 +329,7 @@ class Parser(Unit):
             local=local,
         )
 
-    def parse_proc_declaration(self) -> ProcDeclarationNode | None:
+    def parse_procedure_declaration(self) -> ProcedureDeclarationNode | None:
         start_position = self._position
         if self._peek().type != TokenType.PROC and not (
             self._peek().type == TokenType.LOCAL
@@ -365,12 +367,12 @@ class Parser(Unit):
             return_type = self.parse_type_expression()
 
         of_position = self.require_token(TokenType.OF).position
-        body = self.parse_proc_body(
+        body = self.parse_procedure_body(
             start_position=start_position,
             of_position=of_position,
         )
 
-        return ProcDeclarationNode(
+        return ProcedureDeclarationNode(
             position=start_position,
             name=name,
             parameters=parameters,
@@ -380,17 +382,17 @@ class Parser(Unit):
             local=local,
         )
 
-    def parse_proc_body(
+    def parse_procedure_body(
         self, start_position: Position, of_position: Position
-    ) -> list[ProcBodyStatementNode]:
+    ) -> list[ProcedureBodyStatementNode]:
         body = self.parse_block_body(
             start_position=of_position,
-            item_parser=self.parse_proc_body_statement,
+            item_parser=self.parse_procedure_body_statement,
         )
 
         if not body:
             self._raise_parse_error(
-                message="Procedure body must have at least one statement",
+                message="Procedureedure body must have at least one statement",
                 position=start_position,
             )
         elif not body[-1].expression:
@@ -400,7 +402,7 @@ class Parser(Unit):
             )
         return body
 
-    def parse_proc_body_statement(self) -> ProcBodyStatementNode:
+    def parse_procedure_body_statement(self) -> ProcedureBodyStatementNode:
         start_position = self._position
         declaration: LetExpressionDeclarationNodeType | None = None
         expression: ValueExpressionNodeType | None = None
@@ -409,7 +411,7 @@ class Parser(Unit):
         else:
             expression = self.parse_value_expression()
 
-        return ProcBodyStatementNode(
+        return ProcedureBodyStatementNode(
             position=start_position,
             declaration=declaration,
             expression=expression,
@@ -1060,6 +1062,30 @@ class Parser(Unit):
             return_type=return_type,
         )
 
+    def parse_procedure_type(self) -> ProcedureTypeNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.PROC):
+            return None
+        self.require_token(TokenType.PARENTHESES_START)
+
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_type_parameter,
+            ending_token=TokenType.PARENTHESES_END,
+        )
+
+        if not self.parse_token(TokenType.ARROW):
+            self._raise_parse_error(
+                message=f"Expected '->' after procedure parameter list in procedure type. Unexpected token {self._peek().pretty()}",
+                position=start_position,
+            )
+
+        return_type = self.parse_type_expression()
+        return ProcedureTypeNode(
+            position=start_position,
+            parameters=parameters,
+            return_type=return_type,
+        )
+
     def parse_function_type_parameter(self) -> FunctionTypeParameterNode:
         start_position = self._position
         name: SymbolNode | None = None
@@ -1359,7 +1385,7 @@ class Parser(Unit):
             body=body,
         )
 
-    def parse_proc_expression(self) -> ProcExpressionNode | None:
+    def parse_procedure_expression(self) -> ProcedureExpressionNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.PROC):
             return None
@@ -1377,11 +1403,11 @@ class Parser(Unit):
         )
 
         of_position = self.require_token(TokenType.OF).position
-        body = self.parse_proc_body(
+        body = self.parse_procedure_body(
             start_position=start_position,
             of_position=of_position,
         )
-        return ProcExpressionNode(
+        return ProcedureExpressionNode(
             position=start_position,
             parameters=parameters,
             generic_parameters=generic_parameters,
