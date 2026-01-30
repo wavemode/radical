@@ -293,6 +293,11 @@ class FunctionCallExpressionNode(Node):
     arguments: list["FunctionCallArgumentNode | SpreadOperationNode"]
 
 
+@dataclass(frozen=True)
+class PlaceholderExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
 # Compound Expressions
 
 
@@ -522,6 +527,7 @@ AtomNodeType = (
     | FunctionExpressionNode
     | ProcedureExpressionNode
     | ModuleExpressionNode
+    | PlaceholderExpressionNode
 )
 ValueExpressionNodeType = (
     AtomNodeType

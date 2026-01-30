@@ -40,6 +40,7 @@ from radical.data.parser.ast import (
     NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedTypeExpressionNode,
+    PlaceholderExpressionNode,
     ProcedureBodyStatementNode,
     ProcedureDeclarationNode,
     ProcedureExpressionNode,
@@ -83,10 +84,12 @@ class Parser(Unit):
         self._lexer = lexer
         self._filename = filename
         self._position = self._lexer.peek().position
+        self._placeholder_stack: list[Position] = []
         self._atom_parsers: list[Callable[[], AtomNodeType | None]] = [
             self.parse_parenthesized_expression,
             self.parse_null_literal,
             self.parse_boolean_literal,
+            self.parse_tilde_literal,
             self.parse_number_literal,
             self.parse_string_literal,
             self.parse_format_string_literal,
@@ -390,7 +393,7 @@ class Parser(Unit):
 
         if not body:
             self._raise_parse_error(
-                message="Procedureedure body must have at least one statement",
+                message="Procedure body must have at least one statement",
                 position=start_position,
             )
         elif not body[-1].expression:
@@ -1344,6 +1347,7 @@ class Parser(Unit):
                     field=field_name,
                 )
             elif self.parse_token(TokenType.FUNCTION_CALL_START):
+                s = self._save_placeholder_stack_size()
                 arguments = self.parse_comma_or_newline_separated(
                     element_parser=self.parse_function_call_argument,
                     ending_token=TokenType.FUNCTION_CALL_END,
@@ -1353,6 +1357,11 @@ class Parser(Unit):
                     function_expression=lhs,
                     arguments=arguments,
                 )
+                if self._reset_placeholder_stack(s) > 0:
+                    lhs = PlaceholderExpressionNode(
+                        position=lhs.position,
+                        expression=lhs,
+                    )
             else:
                 break
         return lhs
@@ -1595,30 +1604,44 @@ class Parser(Unit):
 
     def parse_parenthesized_expression(
         self,
-    ) -> ParenthesizedExpressionNode | TupleLiteralNode | None:
+    ) -> (
+        ParenthesizedExpressionNode
+        | TupleLiteralNode
+        | PlaceholderExpressionNode
+        | None
+    ):
         start_position = self._position
         if not self.parse_token(TokenType.PARENTHESES_START):
             return None
 
+        s = self._save_placeholder_stack_size()
         expressions = self.parse_comma_or_newline_separated(
             element_parser=self.parse_value_expression,
             ending_token=TokenType.PARENTHESES_END,
         )
 
+        expr: ParenthesizedExpressionNode | TupleLiteralNode | PlaceholderExpressionNode
         if len(expressions) == 1:
-            return ParenthesizedExpressionNode(
+            expr = ParenthesizedExpressionNode(
                 position=start_position,
                 expression=expressions[0],
             )
         else:
-            return TupleLiteralNode(
+            expr = TupleLiteralNode(
                 position=start_position,
                 elements=expressions,
             )
 
+        if self._reset_placeholder_stack(s) > 0:
+            expr = PlaceholderExpressionNode(
+                position=expr.position,
+                expression=expr,
+            )
+
+        return expr
+
     def parse_null_literal(self) -> NullLiteralNode | None:
-        token = self._peek()
-        if token.type != TokenType.NULL:
+        if self._peek().type != TokenType.NULL:
             return None
         token = self._read()
         return NullLiteralNode(
@@ -1627,8 +1650,7 @@ class Parser(Unit):
         )
 
     def parse_boolean_literal(self) -> BooleanLiteralNode | None:
-        token = self._peek()
-        if token.type not in {TokenType.TRUE, TokenType.FALSE}:
+        if self._peek().type not in {TokenType.TRUE, TokenType.FALSE}:
             return None
         token = self._read()
         return BooleanLiteralNode(
@@ -1636,9 +1658,18 @@ class Parser(Unit):
             contents=token,
         )
 
+    def parse_tilde_literal(self) -> SymbolNode | None:
+        if self._peek().type != TokenType.TILDE:
+            return None
+        token = self._read()
+        self._placeholder_stack_push(token.position)
+        return SymbolNode(
+            position=token.position,
+            name=token,
+        )
+
     def parse_number_literal(self) -> NumberLiteralNode | None:
-        token = self._peek()
-        if token.type not in {
+        if self._peek().type not in {
             TokenType.INTEGER_LITERAL,
             TokenType.FLOAT_LITERAL,
             TokenType.SCI_FLOAT_LITERAL,
@@ -1748,6 +1779,7 @@ class Parser(Unit):
                     )
 
             item = item_parser()
+            self._assert_empty_placeholder_stack()
             items.append(item)
 
             if end_of_block():
@@ -1843,6 +1875,26 @@ class Parser(Unit):
 
     def at_end(self) -> bool:
         return self._peek().type == TokenType.EOF
+
+    def _assert_empty_placeholder_stack(self) -> None:
+        if self._placeholder_stack:
+            self._raise_parse_error(
+                message="Placeholder '~' not contained within parentheses or a function call expression",
+                position=self._placeholder_stack[-1],
+            )
+
+    def _save_placeholder_stack_size(self) -> int:
+        return len(self._placeholder_stack)
+
+    def _placeholder_stack_push(self, position: Position) -> None:
+        self._placeholder_stack.append(position)
+
+    def _reset_placeholder_stack(self, size: int) -> int:
+        popped = 0
+        while len(self._placeholder_stack) > size:
+            self._placeholder_stack.pop()
+            popped += 1
+        return popped
 
     def _raise_parse_error(
         self, message: str, position: Position | None = None

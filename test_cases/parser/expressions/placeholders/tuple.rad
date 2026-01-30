@@ -1,0 +1,93 @@
+a : fun[T](T) -> (T, T, T)
+a = (~, ~, ~)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            TypeAnnotation(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                type_annotation=GenericTypeExpression(
+                    position=(1, 5, 0),
+                    parameters=[
+                        GenericTypeParameter(
+                            position=(1, 9, 0),
+                            name=Symbol(
+                                position=(1, 9, 0),
+                                name="T"
+                            )
+                        )
+                    ],
+                    expression=FunctionType(
+                        position=(1, 5, 0),
+                        parameters=[
+                            FunctionTypeParameter(
+                                position=(1, 12, 0),
+                                optional=false,
+                                type_annotation=TypeName(
+                                    position=(1, 12, 0),
+                                    name="T"
+                                )
+                            )
+                        ],
+                        return_type=TupleType(
+                            position=(1, 18, 0),
+                            elements=[
+                                TypeName(
+                                    position=(1, 19, 0),
+                                    name="T"
+                                ),
+                                TypeName(
+                                    position=(1, 22, 0),
+                                    name="T"
+                                ),
+                                TypeName(
+                                    position=(1, 25, 0),
+                                    name="T"
+                                )
+                            ]
+                        )
+                    )
+                ),
+                local=false
+            ),
+            Assignment(
+                position=(2, 1, 0),
+                target=Symbol(
+                    position=(2, 1, 0),
+                    name="a"
+                ),
+                value=PlaceholderExpression(
+                    position=(2, 5, 0),
+                    expression=TupleLiteral(
+                        position=(2, 5, 0),
+                        elements=[
+                            Symbol(
+                                position=(2, 6, 0),
+                                name="~"
+                            ),
+                            Symbol(
+                                position=(2, 9, 0),
+                                name="~"
+                            ),
+                            Symbol(
+                                position=(2, 12, 0),
+                                name="~"
+                            )
+                        ]
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

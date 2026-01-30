@@ -1,0 +1,63 @@
+a = f((~ + ~) + ~)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=PlaceholderExpression(
+                    position=(1, 5, 0),
+                    expression=FunctionCallExpression(
+                        position=(1, 5, 0),
+                        function_expression=Symbol(
+                            position=(1, 5, 0),
+                            name="f"
+                        ),
+                        arguments=[
+                            FunctionCallArgument(
+                                position=(1, 7, 0),
+                                value=BinaryOperation(
+                                    position=(1, 7, 0),
+                                    left=PlaceholderExpression(
+                                        position=(1, 7, 0),
+                                        expression=ParenthesizedExpression(
+                                            position=(1, 7, 0),
+                                            expression=BinaryOperation(
+                                                position=(1, 8, 0),
+                                                left=Symbol(
+                                                    position=(1, 8, 0),
+                                                    name="~"
+                                                ),
+                                                operator="+",
+                                                right=Symbol(
+                                                    position=(1, 12, 0),
+                                                    name="~"
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    operator="+",
+                                    right=Symbol(
+                                        position=(1, 17, 0),
+                                        name="~"
+                                    )
+                                )
+                            )
+                        ]
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)
