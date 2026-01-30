@@ -30,6 +30,7 @@ class TokenType(Enum):
     CONST = "const"
     LOCAL = "local"
 
+    TILDE = "~"
     COMMA = ","
     COLON = ":"
     PIPE = "|>"
@@ -111,6 +112,7 @@ EXPR_START_TOKENS = {
     TokenType.TRUE,
     TokenType.FALSE,
     TokenType.NULL,
+    TokenType.TILDE,
     TokenType.MODULE,
     TokenType.FUN,
     TokenType.PROC,
@@ -137,6 +139,7 @@ EXPR_END_TOKENS = {
     TokenType.TRUE,
     TokenType.FALSE,
     TokenType.NULL,
+    TokenType.TILDE,
     TokenType.STRING_LITERAL_END,
     TokenType.RAW_STRING_LITERAL_END,
     TokenType.MULTILINE_STRING_LITERAL_END,

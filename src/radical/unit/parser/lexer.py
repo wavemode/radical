@@ -118,6 +118,9 @@ class Lexer(Unit):
         elif char == ";":
             self._add_token(TokenType.SEMICOLON, char)
             self._advance_non_whitespace()
+        elif char == "~":
+            self._add_token(TokenType.TILDE, char)
+            self._advance_non_whitespace()
         elif (
             char == "f"
             and next_char == '"'

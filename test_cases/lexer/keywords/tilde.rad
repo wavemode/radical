@@ -1,0 +1,8 @@
+x = ~
+
+(*
+Token(type=SYMBOL, value="x", position=(1, 1, 0))
+Token(type=ASSIGN, value="=", position=(1, 3, 0))
+Token(type=TILDE, value="~", position=(1, 5, 0))
+Token(type=EOF, value="", position=(9, 1, 0))
+*)
