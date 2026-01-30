@@ -381,6 +381,34 @@ class ModuleExpressionNode(Node):
     body: ModuleBodyNode
 
 
+# Patterns
+
+
+@dataclass(frozen=True)
+class PatternNode(Node):
+    pass
+
+
+@dataclass(frozen=True)
+class SymbolPatternNode(PatternNode):
+    symbol: SymbolNode
+
+
+@dataclass(frozen=True)
+class ConstPatternNode(PatternNode):
+    expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class RestPatternNode(PatternNode):
+    name: SymbolNode | None
+
+
+@dataclass(frozen=True)
+class ParenthesizedPatternNode(PatternNode):
+    elements: list[PatternNode]
+
+
 # Declarations
 
 
@@ -388,6 +416,7 @@ class ModuleExpressionNode(Node):
 class AssignmentNode(Node):
     target: SymbolNode | None
     target_expr: "ValueExpressionNodeType | None"
+    target_pattern: ParenthesizedPatternNode | None
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
     local: bool

@@ -2,6 +2,7 @@ from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
+    ConstPatternNode,
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
@@ -39,7 +40,9 @@ from radical.data.parser.ast import (
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
+    ParenthesizedPatternNode,
     ParenthesizedTypeExpressionNode,
+    PatternNode,
     PlaceholderExpressionNode,
     PlaceholderTypeNode,
     ProcedureBodyStatementNode,
@@ -47,11 +50,13 @@ from radical.data.parser.ast import (
     ProcedureExpressionNode,
     ProcedureTypeNode,
     RecordTypeNode,
+    RestPatternNode,
     SpreadAssignmentStatementNode,
     SpreadOperationNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
     SymbolNode,
+    SymbolPatternNode,
     TopLevelDeclarationNodeType,
     TreeLiteralEntryNode,
     TreeLiteralNode,
@@ -101,6 +106,13 @@ class Parser(Unit):
             self.parse_function_expression,
             self.parse_procedure_expression,
             self.parse_module_expression,
+        ]
+
+        self._pattern_parsers: list[Callable[[], PatternNode | None]] = [
+            self.parse_parenthesized_pattern,
+            self.parse_rest_pattern,
+            self.parse_const_pattern,
+            self.parse_symbol_pattern,
         ]
 
         self._type_atom_parsers: list[Callable[[], TypeExpressionNodeType | None]] = [
@@ -766,9 +778,17 @@ class Parser(Unit):
         if self._peek().type not in (
             TokenType.SYMBOL,
             TokenType.LIST_START,
+            TokenType.PARENTHESES_START,
+            TokenType.FUNCTION_CALL_START,
         ) and not (
             self._peek().type == TokenType.LOCAL
-            and self._peek(1).type in (TokenType.SYMBOL, TokenType.LIST_START)
+            and self._peek(1).type
+            in (
+                TokenType.SYMBOL,
+                TokenType.LIST_START,
+                TokenType.PARENTHESES_START,
+                TokenType.FUNCTION_CALL_START,
+            )
         ):
             return None
 
@@ -784,6 +804,7 @@ class Parser(Unit):
         target_line: int
         target: SymbolNode | None = None
         target_expr: ValueExpressionNodeType | None = None
+        target_pattern: ParenthesizedPatternNode | None = None
         if target_token := self.parse_token(TokenType.SYMBOL):
             target = SymbolNode(
                 position=target_token.position,
@@ -795,6 +816,13 @@ class Parser(Unit):
             target_expr = self.parse_value_expression()
             target_line = target_expr.position.line
             self.require_token(TokenType.LIST_END)
+        elif self._peek().type in (
+            TokenType.PARENTHESES_START,
+            TokenType.FUNCTION_CALL_START,
+        ):
+            target_pattern = self.parse_parenthesized_pattern()
+            assert target_pattern is not None
+            target_line = target_pattern.position.line
         else:
             # just to appease type checker - we already checked the token type
             raise RuntimeError("unreachable")
@@ -829,6 +857,7 @@ class Parser(Unit):
                 position=start_position,
                 target=target,
                 target_expr=target_expr,
+                target_pattern=target_pattern,
                 value=value,
                 type_annotation=type_annotation,
                 local=local,
@@ -1190,6 +1219,60 @@ class Parser(Unit):
             optional=optional,
             type_annotation=type_annotation,
         )
+
+    def parse_pattern(self) -> PatternNode:
+        for pattern_parser in self._pattern_parsers:
+            if pattern := pattern_parser():
+                return pattern
+        self._raise_parse_error(
+            message=f"Expected pattern. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_parenthesized_pattern(self) -> ParenthesizedPatternNode | None:
+        start_position = self._position
+        if not self.parse_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        ):
+            return None
+
+        elements = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_pattern,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
+
+        return ParenthesizedPatternNode(
+            position=start_position,
+            elements=elements,
+        )
+
+    def parse_rest_pattern(self) -> RestPatternNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.ELLIPSIS):
+            return None
+        symbol = self.parse_symbol()
+        return RestPatternNode(
+            position=start_position,
+            name=symbol,
+        )
+
+    def parse_const_pattern(self) -> ConstPatternNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.CONST):
+            return None
+        value = self.parse_value_expression()
+        return ConstPatternNode(
+            position=start_position,
+            expression=value,
+        )
+
+    def parse_symbol_pattern(self) -> SymbolPatternNode | None:
+        start_position = self._position
+        if symbol := self.parse_symbol():
+            return SymbolPatternNode(
+                position=start_position,
+                symbol=symbol,
+            )
+        return None
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
         return self.parse_descend_expr_pipe()

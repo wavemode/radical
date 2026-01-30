@@ -1,0 +1,69 @@
+(
+    a
+    b
+    c
+) = (
+    1
+    2
+    3
+)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target_pattern=ParenthesizedPattern(
+                    position=(1, 1, 0),
+                    elements=[
+                        SymbolPattern(
+                            position=(2, 5, 4),
+                            symbol=Symbol(
+                                position=(2, 5, 4),
+                                name="a"
+                            )
+                        ),
+                        SymbolPattern(
+                            position=(3, 5, 4),
+                            symbol=Symbol(
+                                position=(3, 5, 4),
+                                name="b"
+                            )
+                        ),
+                        SymbolPattern(
+                            position=(4, 5, 4),
+                            symbol=Symbol(
+                                position=(4, 5, 4),
+                                name="c"
+                            )
+                        )
+                    ]
+                ),
+                value=TupleLiteral(
+                    position=(5, 5, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(6, 5, 4),
+                            contents="1"
+                        ),
+                        NumberLiteral(
+                            position=(7, 5, 4),
+                            contents="2"
+                        ),
+                        NumberLiteral(
+                            position=(8, 5, 4),
+                            contents="3"
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

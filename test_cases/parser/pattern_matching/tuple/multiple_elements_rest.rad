@@ -1,0 +1,69 @@
+(a, b, ...c) = (1, 2, 3, 4, 5)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target_pattern=ParenthesizedPattern(
+                    position=(1, 1, 0),
+                    elements=[
+                        SymbolPattern(
+                            position=(1, 2, 0),
+                            symbol=Symbol(
+                                position=(1, 2, 0),
+                                name="a"
+                            )
+                        ),
+                        SymbolPattern(
+                            position=(1, 5, 0),
+                            symbol=Symbol(
+                                position=(1, 5, 0),
+                                name="b"
+                            )
+                        ),
+                        RestPattern(
+                            position=(1, 8, 0),
+                            name=Symbol(
+                                position=(1, 11, 0),
+                                name="c"
+                            )
+                        )
+                    ]
+                ),
+                value=TupleLiteral(
+                    position=(1, 16, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(1, 17, 0),
+                            contents="1"
+                        ),
+                        NumberLiteral(
+                            position=(1, 20, 0),
+                            contents="2"
+                        ),
+                        NumberLiteral(
+                            position=(1, 23, 0),
+                            contents="3"
+                        ),
+                        NumberLiteral(
+                            position=(1, 26, 0),
+                            contents="4"
+                        ),
+                        NumberLiteral(
+                            position=(1, 29, 0),
+                            contents="5"
+                        )
+                    ]
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)
