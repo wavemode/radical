@@ -50,6 +50,7 @@ Module(
                         parameters=[
                             FunctionTypeParameter(
                                 position=(5, 7, 0),
+                                variadic=false,
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(5, 7, 0),
@@ -58,6 +59,7 @@ Module(
                             ),
                             FunctionTypeParameter(
                                 position=(5, 10, 0),
+                                variadic=false,
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(5, 10, 0),

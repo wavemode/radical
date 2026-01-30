@@ -1145,9 +1145,13 @@ class Parser(Unit):
 
     def parse_function_type_parameter(self) -> FunctionTypeParameterNode:
         start_position = self._position
+
+        variadic = False
+        if self.parse_token(TokenType.ELLIPSIS):
+            variadic = True
+
         name: SymbolNode | None = None
         optional = False
-
         if self._peek().type == TokenType.SYMBOL and self._peek(1).type in (
             TokenType.COLON,
             TokenType.QUESTION,
@@ -1159,6 +1163,10 @@ class Parser(Unit):
             )
 
             if self.parse_token(TokenType.QUESTION):
+                if variadic:
+                    self._raise_parse_error(
+                        message="Variadic function parameter cannot be optional",
+                    )
                 optional = True
 
         if self._peek().type == TokenType.COLON:
@@ -1180,6 +1188,7 @@ class Parser(Unit):
         return FunctionTypeParameterNode(
             position=start_position,
             name=name,
+            variadic=variadic,
             optional=optional,
             type_annotation=type_annotation,
         )

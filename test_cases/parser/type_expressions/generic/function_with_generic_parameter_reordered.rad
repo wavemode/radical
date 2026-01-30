@@ -18,6 +18,7 @@ Module(
                     parameters=[
                         FunctionTypeParameter(
                             position=(1, 10, 0),
+                            variadic=false,
                             optional=false,
                             type_annotation=GenericTypeExpression(
                                 position=(1, 10, 0),
@@ -36,6 +37,7 @@ Module(
                                     parameters=[
                                         FunctionTypeParameter(
                                             position=(1, 17, 0),
+                                            variadic=false,
                                             optional=false,
                                             type_annotation=TypeName(
                                                 position=(1, 17, 0),

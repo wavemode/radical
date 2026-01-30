@@ -22,6 +22,7 @@ Module(
                                 position=(1, 10, 0),
                                 name="a"
                             ),
+                            variadic=false,
                             optional=false,
                             type_annotation=TypeName(
                                 position=(1, 13, 0),

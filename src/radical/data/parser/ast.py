@@ -121,6 +121,7 @@ class RecordTypeNode(Node):
 @dataclass(frozen=True)
 class FunctionTypeParameterNode(Node):
     name: "SymbolNode | None"
+    variadic: bool
     optional: bool
     type_annotation: "TypeExpressionNodeType | SpreadTypeExpressionNode"
 

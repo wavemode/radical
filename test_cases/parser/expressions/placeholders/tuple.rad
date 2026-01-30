@@ -31,6 +31,7 @@ Module(
                         parameters=[
                             FunctionTypeParameter(
                                 position=(1, 12, 0),
+                                variadic=false,
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(1, 12, 0),

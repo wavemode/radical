@@ -27,6 +27,7 @@ Module(
                                 position=(2, 5, 4),
                                 name="a"
                             ),
+                            variadic=false,
                             optional=false,
                             type_annotation=TypeName(
                                 position=(2, 8, 4),
@@ -39,6 +40,7 @@ Module(
                                 position=(3, 6, 4),
                                 name="b"
                             ),
+                            variadic=false,
                             optional=true,
                             type_annotation=TypeName(
                                 position=(3, 10, 4),
@@ -51,6 +53,7 @@ Module(
                                 position=(4, 6, 4),
                                 name="c"
                             ),
+                            variadic=false,
                             optional=false,
                             type_annotation=TypeName(
                                 position=(4, 9, 4),
@@ -59,6 +62,7 @@ Module(
                         ),
                         FunctionTypeParameter(
                             position=(5, 6, 4),
+                            variadic=false,
                             optional=false,
                             type_annotation=TypeName(
                                 position=(5, 6, 4),

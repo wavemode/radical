@@ -1,8 +1,6 @@
 a : fun(
     a: Int
-    b?: String
-    c: Bool
-    Float
+    ...b: String
 ) -> Float
 
 (*
@@ -37,41 +35,19 @@ Module(
                         FunctionTypeParameter(
                             position=(3, 5, 4),
                             name=Symbol(
-                                position=(3, 5, 4),
+                                position=(3, 8, 4),
                                 name="b"
                             ),
-                            variadic=false,
-                            optional=true,
+                            variadic=true,
+                            optional=false,
                             type_annotation=TypeName(
-                                position=(3, 9, 4),
+                                position=(3, 11, 4),
                                 name="String"
-                            )
-                        ),
-                        FunctionTypeParameter(
-                            position=(4, 5, 4),
-                            name=Symbol(
-                                position=(4, 5, 4),
-                                name="c"
-                            ),
-                            variadic=false,
-                            optional=false,
-                            type_annotation=TypeName(
-                                position=(4, 8, 4),
-                                name="Bool"
-                            )
-                        ),
-                        FunctionTypeParameter(
-                            position=(5, 5, 4),
-                            variadic=false,
-                            optional=false,
-                            type_annotation=TypeName(
-                                position=(5, 5, 4),
-                                name="Float"
                             )
                         )
                     ],
                     return_type=TypeName(
-                        position=(6, 6, 0),
+                        position=(4, 6, 0),
                         name="Float"
                     )
                 ),
