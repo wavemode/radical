@@ -350,6 +350,13 @@ class LetExpressionNode(Node):
 
 
 @dataclass(frozen=True)
+class FunctionExpressionNode(Node):
+    parameters: list["FunctionParameterNode"]
+    generic_parameters: list["GenericTypeParameterNode"] | None
+    body: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class ModuleExpressionNode(Node):
     body: ModuleBodyNode
 
@@ -483,6 +490,7 @@ AtomNodeType = (
     | TreeLiteralNode
     | IfExpressionNode
     | LetExpressionNode
+    | FunctionExpressionNode
     | ModuleExpressionNode
 )
 ValueExpressionNodeType = (

@@ -1,0 +1,78 @@
+a = fun(b : Int, c : List[Int] ) ->
+    b + c[0]
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        tree_syntax=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=Symbol(
+                    position=(1, 1, 0),
+                    name="a"
+                ),
+                value=FunctionExpression(
+                    position=(1, 5, 0),
+                    parameters=[
+                        FunctionParameter(
+                            position=(1, 9, 0),
+                            name=Symbol(
+                                position=(1, 9, 0),
+                                name="b"
+                            ),
+                            type_annotation=TypeName(
+                                position=(1, 13, 0),
+                                name="Int"
+                            )
+                        ),
+                        FunctionParameter(
+                            position=(1, 18, 0),
+                            name=Symbol(
+                                position=(1, 18, 0),
+                                name="c"
+                            ),
+                            type_annotation=GenericTypeApplication(
+                                position=(1, 22, 0),
+                                generic_type=TypeName(
+                                    position=(1, 22, 0),
+                                    name="List"
+                                ),
+                                arguments=[
+                                    TypeName(
+                                        position=(1, 27, 0),
+                                        name="Int"
+                                    )
+                                ]
+                            )
+                        )
+                    ],
+                    body=BinaryOperation(
+                        position=(2, 5, 4),
+                        left=Symbol(
+                            position=(2, 5, 4),
+                            name="b"
+                        ),
+                        operator="+",
+                        right=IndexingExpression(
+                            position=(2, 9, 4),
+                            object_expression=Symbol(
+                                position=(2, 9, 4),
+                                name="c"
+                            ),
+                            index_expression=NumberLiteral(
+                                position=(2, 11, 4),
+                                contents="0"
+                            )
+                        )
+                    )
+                ),
+                local=false,
+                tree_syntax=false
+            )
+        ]
+    )
+)
+*)

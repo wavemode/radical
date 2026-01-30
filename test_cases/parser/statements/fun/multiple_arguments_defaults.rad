@@ -1,4 +1,4 @@
-fun a(b : Int = 5, c = [1, 2, 3] ) -> Int =
+fun a (b : Int = 5, c = [1, 2, 3] ) -> Int =
     b + c[0]
 
 (*
@@ -16,39 +16,39 @@ Module(
                 ),
                 parameters=[
                     FunctionParameter(
-                        position=(1, 7, 0),
+                        position=(1, 8, 0),
                         name=Symbol(
-                            position=(1, 7, 0),
+                            position=(1, 8, 0),
                             name="b"
                         ),
                         type_annotation=TypeName(
-                            position=(1, 11, 0),
+                            position=(1, 12, 0),
                             name="Int"
                         ),
                         default_value=NumberLiteral(
-                            position=(1, 17, 0),
+                            position=(1, 18, 0),
                             contents="5"
                         )
                     ),
                     FunctionParameter(
-                        position=(1, 20, 0),
+                        position=(1, 21, 0),
                         name=Symbol(
-                            position=(1, 20, 0),
+                            position=(1, 21, 0),
                             name="c"
                         ),
                         default_value=ListLiteral(
-                            position=(1, 24, 0),
+                            position=(1, 25, 0),
                             elements=[
                                 NumberLiteral(
-                                    position=(1, 25, 0),
+                                    position=(1, 26, 0),
                                     contents="1"
                                 ),
                                 NumberLiteral(
-                                    position=(1, 28, 0),
+                                    position=(1, 29, 0),
                                     contents="2"
                                 ),
                                 NumberLiteral(
-                                    position=(1, 31, 0),
+                                    position=(1, 32, 0),
                                     contents="3"
                                 )
                             ]
@@ -56,7 +56,7 @@ Module(
                     )
                 ],
                 return_type=TypeName(
-                    position=(1, 39, 0),
+                    position=(1, 40, 0),
                     name="Int"
                 ),
                 body=BinaryOperation(

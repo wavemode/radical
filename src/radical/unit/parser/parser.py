@@ -12,6 +12,7 @@ from radical.data.parser.ast import (
     FunctionCallArgumentNode,
     FunctionCallExpressionNode,
     FunctionDeclarationNode,
+    FunctionExpressionNode,
     FunctionParameterNode,
     FunctionTypeParameterNode,
     FunctionTypeNode,
@@ -89,6 +90,7 @@ class Parser(Unit):
             self.parse_map_or_tree_literal,
             self.parse_if_expression,
             self.parse_let_expression,
+            self.parse_function_expression,
             self.parse_module_expression,
         ]
 
@@ -1265,6 +1267,32 @@ class Parser(Unit):
                 return value
         self._raise_parse_error(
             message=f"Expected expression. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_function_expression(self) -> FunctionExpressionNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.FUN):
+            return None
+
+        generic_parameters: list[GenericTypeParameterNode] | None = None
+        if self._peek().type == TokenType.LIST_START:
+            generic_parameters = self.parse_generic_type_parameter_list()
+
+        self.parse_any_token(
+            [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
+        )
+        parameters = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_function_parameter,
+            ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
+        )
+
+        self.require_token(TokenType.ARROW)
+        body = self.parse_value_expression()
+        return FunctionExpressionNode(
+            position=start_position,
+            parameters=parameters,
+            generic_parameters=generic_parameters,
+            body=body,
         )
 
     def parse_if_expression(self) -> IfExpressionNode | None:
