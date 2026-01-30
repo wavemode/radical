@@ -85,12 +85,7 @@ class PlaceholderTypeNode(Node):
 
 @dataclass(frozen=True)
 class ParenthesizedTypeExpressionNode(Node):
-    expression: "TypeExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class TupleTypeNode(Node):
-    elements: list["TypeExpressionNodeType"]
+    expressions: list["TypeExpressionNodeType | SpreadTypeExpressionNode"]
 
 
 @dataclass(frozen=True)
@@ -549,7 +544,6 @@ ValueExpressionNodeType = (
 TypeExpressionNodeType = (
     TypeNameNode
     | ParenthesizedTypeExpressionNode
-    | TupleTypeNode
     | TypeTypeExpressionNode
     | TypeOfTypeExpressionNode
     | ConstTypeExpressionNode

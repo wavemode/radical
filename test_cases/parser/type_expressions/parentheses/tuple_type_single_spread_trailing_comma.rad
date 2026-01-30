@@ -1,6 +1,5 @@
 a : (
-    Int
-    String
+    ...T,
 )
 
 (*
@@ -19,13 +18,12 @@ Module(
                 type_annotation=ParenthesizedTypeExpression(
                     position=(1, 5, 0),
                     expressions=[
-                        TypeName(
+                        SpreadTypeExpression(
                             position=(2, 5, 4),
-                            name="Int"
-                        ),
-                        TypeName(
-                            position=(3, 5, 4),
-                            name="String"
+                            expression=TypeName(
+                                position=(2, 8, 4),
+                                name="T"
+                            )
                         )
                     ]
                 ),

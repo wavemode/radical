@@ -22,19 +22,21 @@ Module(
                         ),
                         ParenthesizedTypeExpression(
                             position=(1, 11, 0),
-                            expression=TypeUnion(
-                                position=(1, 12, 0),
-                                elements=[
-                                    TypeName(
-                                        position=(1, 12, 0),
-                                        name="String"
-                                    ),
-                                    TypeName(
-                                        position=(1, 21, 0),
-                                        name="Bool"
-                                    )
-                                ]
-                            )
+                            expressions=[
+                                TypeUnion(
+                                    position=(1, 12, 0),
+                                    elements=[
+                                        TypeName(
+                                            position=(1, 12, 0),
+                                            name="String"
+                                        ),
+                                        TypeName(
+                                            position=(1, 21, 0),
+                                            name="Bool"
+                                        )
+                                    ]
+                                )
+                            ]
                         ),
                         TypeName(
                             position=(1, 29, 0),

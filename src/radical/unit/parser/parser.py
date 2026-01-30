@@ -56,7 +56,6 @@ from radical.data.parser.ast import (
     TreeLiteralEntryNode,
     TreeLiteralNode,
     TupleLiteralNode,
-    TupleTypeNode,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
     TypeDeclarationNode,
@@ -964,7 +963,7 @@ class Parser(Unit):
 
     def parse_parenthesized_type_expression(
         self,
-    ) -> ParenthesizedTypeExpressionNode | TupleTypeNode | None:
+    ) -> ParenthesizedTypeExpressionNode | None:
         start_position = self._position
         if not self.parse_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
@@ -972,20 +971,19 @@ class Parser(Unit):
             return None
 
         type_expressions = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_type_expression,
+            element_parser=self.parse_tuple_element,
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        if len(type_expressions) == 1:
-            return ParenthesizedTypeExpressionNode(
-                position=start_position,
-                expression=type_expressions[0],
-            )
-        else:
-            return TupleTypeNode(
-                position=start_position,
-                elements=type_expressions,
-            )
+        return ParenthesizedTypeExpressionNode(
+            position=start_position,
+            expressions=type_expressions,
+        )
+
+    def parse_tuple_element(self) -> TypeExpressionNodeType | SpreadTypeExpressionNode:
+        if spread_type := self.parse_spread_type_expression():
+            return spread_type
+        return self.parse_type_expression()
 
     def parse_type_type_expression(self) -> TypeTypeExpressionNode | None:
         start_position = self._position

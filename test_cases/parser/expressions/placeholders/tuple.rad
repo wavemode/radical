@@ -39,9 +39,9 @@ Module(
                                 )
                             )
                         ],
-                        return_type=TupleType(
+                        return_type=ParenthesizedTypeExpression(
                             position=(1, 18, 0),
-                            elements=[
+                            expressions=[
                                 TypeName(
                                     position=(1, 19, 0),
                                     name="T"

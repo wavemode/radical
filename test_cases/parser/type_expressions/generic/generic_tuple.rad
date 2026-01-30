@@ -25,9 +25,9 @@ Module(
                             variadic=false
                         )
                     ],
-                    expression=TupleType(
+                    expression=ParenthesizedTypeExpression(
                         position=(1, 8, 0),
-                        elements=[
+                        expressions=[
                             TypeName(
                                 position=(1, 9, 0),
                                 name="T"

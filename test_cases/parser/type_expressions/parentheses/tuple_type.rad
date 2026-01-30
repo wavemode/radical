@@ -13,9 +13,9 @@ Module(
                     position=(1, 1, 0),
                     name="a"
                 ),
-                type_annotation=TupleType(
+                type_annotation=ParenthesizedTypeExpression(
                     position=(1, 5, 0),
-                    elements=[
+                    expressions=[
                         TypeName(
                             position=(1, 6, 0),
                             name="Int"
