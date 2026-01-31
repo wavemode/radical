@@ -1,6 +1,9 @@
 a = {
     b 10
-    c = 10
+    c = 20
+    "d" => 30
+    e
+    ...f
 }
 
 (*
@@ -42,9 +45,37 @@ Module(
                             ),
                             value=NumberLiteral(
                                 position=(3, 9, 4),
-                                contents="10"
+                                contents="20"
                             ),
                             omitted_equal_sign=false
+                        ),
+                        KeyValueEntry(
+                            position=(4, 5, 4),
+                            key=StringLiteral(
+                                position=(4, 5, 4),
+                                open_quote="\"",
+                                contents="d",
+                                close_quote="\""
+                            ),
+                            value=NumberLiteral(
+                                position=(4, 12, 4),
+                                contents="30"
+                            )
+                        ),
+                        RecordAssignmentEntry(
+                            position=(5, 5, 4),
+                            key=Symbol(
+                                position=(5, 5, 4),
+                                name="e"
+                            ),
+                            omitted_equal_sign=true
+                        ),
+                        SpreadOperation(
+                            position=(6, 5, 4),
+                            operand=Symbol(
+                                position=(6, 8, 4),
+                                name="f"
+                            )
                         )
                     ]
                 ),
