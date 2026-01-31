@@ -9,6 +9,8 @@ from radical.data.parser.ast import (
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
+    DataTypePatternArgumentNode,
+    DataTypePatternNode,
     FieldAccessExpressionNode,
     FormatStringExpressionNode,
     FormatStringLiteralNode,
@@ -118,6 +120,7 @@ class Parser(Unit):
         ]
 
         self._pattern_atom_parsers: list[Callable[[], PatternAtomNodeType | None]] = [
+            self.parse_data_type_pattern,
             self.parse_parenthesized_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
@@ -1222,6 +1225,51 @@ class Parser(Unit):
         return StringLiteralPatternNode(
             position=start_position,
             string=string_literal,
+        )
+
+    def parse_data_type_pattern(self) -> DataTypePatternNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.FUNCTION_CALL_START
+        ):
+            return None
+
+        name = self.parse_type_name_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected data type name in pattern. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
+
+        self._read()  # consume FUNCTION_CALL_START
+        arguments: list[DataTypePatternArgumentNode] = (
+            self.parse_comma_or_newline_separated(
+                element_parser=self.parse_data_type_pattern_argument,
+                ending_token=TokenType.FUNCTION_CALL_END,
+            )
+        )
+
+        return DataTypePatternNode(
+            position=start_position,
+            name=name,
+            arguments=arguments,
+        )
+
+    def parse_data_type_pattern_argument(self) -> DataTypePatternArgumentNode:
+        start_position = self._position
+        name: SymbolNode | None = None
+        if (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.ASSIGN
+        ):
+            assert (name := self.parse_symbol())
+            self._read()  # consume ASSIGN
+        pattern = self.parse_pattern_or_error()
+        return DataTypePatternArgumentNode(
+            position=start_position,
+            name=name,
+            pattern=pattern,
         )
 
     def parse_parenthesized_pattern(self) -> ParenthesizedPatternNode | None:

@@ -431,6 +431,18 @@ class BooleanLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class DataTypePatternArgumentNode(Node):
+    name: SymbolNode | None
+    pattern: "PatternNodeType"
+
+
+@dataclass(frozen=True)
+class DataTypePatternNode(Node):
+    name: SymbolNode
+    arguments: list["DataTypePatternArgumentNode"]
+
+
+@dataclass(frozen=True)
 class PatternGuardNode(Node):
     pattern: "PatternNodeType"
     condition: "ValueExpressionNodeType"
@@ -595,6 +607,7 @@ ValueExpressionNodeType = (
 )
 PatternAtomNodeType = (
     SymbolPatternNode
+    | DataTypePatternNode
     | ConstPatternNode
     | RestPatternNode
     | ParenthesizedPatternNode

@@ -1,0 +1,96 @@
+x = case y of DataType(a, b, ...c) -> f"{c.1}"
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        omitted_equal_sign=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=SymbolPattern(
+                    position=(1, 1, 0),
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="x"
+                    )
+                ),
+                value=CaseExpression(
+                    position=(1, 5, 0),
+                    expression=Symbol(
+                        position=(1, 10, 0),
+                        name="y"
+                    ),
+                    branches=[
+                        CaseBranch(
+                            position=(1, 15, 0),
+                            pattern=DataTypePattern(
+                                position=(1, 15, 0),
+                                name=Symbol(
+                                    position=(1, 15, 0),
+                                    name="DataType"
+                                ),
+                                arguments=[
+                                    DataTypePatternArgument(
+                                        position=(1, 24, 0),
+                                        pattern=SymbolPattern(
+                                            position=(1, 24, 0),
+                                            symbol=Symbol(
+                                                position=(1, 24, 0),
+                                                name="a"
+                                            )
+                                        )
+                                    ),
+                                    DataTypePatternArgument(
+                                        position=(1, 27, 0),
+                                        pattern=SymbolPattern(
+                                            position=(1, 27, 0),
+                                            symbol=Symbol(
+                                                position=(1, 27, 0),
+                                                name="b"
+                                            )
+                                        )
+                                    ),
+                                    DataTypePatternArgument(
+                                        position=(1, 30, 0),
+                                        pattern=RestPattern(
+                                            position=(1, 30, 0),
+                                            name=Symbol(
+                                                position=(1, 33, 0),
+                                                name="c"
+                                            )
+                                        )
+                                    )
+                                ]
+                            ),
+                            expression=FormatStringLiteral(
+                                position=(1, 39, 0),
+                                open_quote="f\"",
+                                contents=[
+                                    FormatStringExpression(
+                                        position=(1, 42, 0),
+                                        expression=FieldAccessExpression(
+                                            position=(1, 42, 0),
+                                            object_expression=Symbol(
+                                                position=(1, 42, 0),
+                                                name="c"
+                                            ),
+                                            field=Symbol(
+                                                position=(1, 44, 0),
+                                                name="1"
+                                            )
+                                        )
+                                    )
+                                ],
+                                close_quote="\""
+                            )
+                        )
+                    ]
+                ),
+                omitted_equal_sign=false
+            )
+        ]
+    )
+)
+*)
