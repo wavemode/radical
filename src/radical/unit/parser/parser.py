@@ -528,6 +528,13 @@ class Parser(Unit):
 
         declaration = self.parse_let_expression_declaration()
 
+        if isinstance(declaration, ImportStatementNode):
+            self._raise_parse_error(
+                message="Import statement cannot be a local declaration",
+                position=declaration.position,
+            )
+
+
         return LocalDeclarationNode(
             position=start_position,
             declaration=declaration,

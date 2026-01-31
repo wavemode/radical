@@ -190,6 +190,11 @@ class FormatStringLiteralNode(Node):
 
 
 @dataclass(frozen=True)
+class RegexLiteralNode(Node):
+    contents: Token
+
+
+@dataclass(frozen=True)
 class NumberLiteralNode(Node):
     contents: Token
 
@@ -623,6 +628,7 @@ AtomNodeType = (
     SymbolNode
     | StringLiteralNode
     | FormatStringLiteralNode
+    | RegexLiteralNode
     | NumberLiteralNode
     | BooleanLiteralNode
     | NullLiteralNode

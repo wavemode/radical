@@ -1,0 +1,5 @@
+local import Some.Module
+
+(*
+FAIL("Import statement cannot be a local declaration at test_cases/parser/statements/local/fail_local_import.rad:1:7")
+*)

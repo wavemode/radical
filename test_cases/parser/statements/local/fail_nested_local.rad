@@ -1,0 +1,5 @@
+local local x = 5
+
+(*
+FAIL("Expected declaration. Unexpected token LOCAL('local') at test_cases/parser/statements/local/fail_nested_local.rad:1:7")
+*)

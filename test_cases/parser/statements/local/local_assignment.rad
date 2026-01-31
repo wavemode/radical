@@ -1,0 +1,29 @@
+local a = b
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            LocalDeclaration(
+                position=(1, 1, 0),
+                declaration=AssignmentStatement(
+                    position=(1, 7, 0),
+                    assignment=Assignment(
+                        position=(1, 7, 0),
+                        target=Symbol(
+                            position=(1, 7, 0),
+                            name="a"
+                        ),
+                        value=Symbol(
+                            position=(1, 11, 0),
+                            name="b"
+                        )
+                    )
+                )
+            )
+        ]
+    )
+)
+*)
