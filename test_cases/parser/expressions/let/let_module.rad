@@ -10,7 +10,7 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -29,7 +29,7 @@ Module(
                             ),
                             body=ModuleBody(
                                 position=(2, 12, 2),
-                                tree_syntax=false,
+                                omitted_equal_sign=false,
                                 declarations=[
                                     Assignment(
                                         position=(3, 5, 4),
@@ -42,7 +42,7 @@ Module(
                                             contents="5"
                                         ),
                                         local=false,
-                                        tree_syntax=false
+                                        omitted_equal_sign=false
                                     ),
                                     Assignment(
                                         position=(4, 5, 4),
@@ -55,7 +55,7 @@ Module(
                                             contents="10"
                                         ),
                                         local=false,
-                                        tree_syntax=false
+                                        omitted_equal_sign=false
                                     )
                                 ]
                             )
@@ -69,7 +69,7 @@ Module(
                     )
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             )
         ]
     )

@@ -6,7 +6,7 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
@@ -48,7 +48,7 @@ Module(
                     name="undefined"
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             )
         ]
     )

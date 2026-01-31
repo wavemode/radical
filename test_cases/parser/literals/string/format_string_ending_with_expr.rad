@@ -6,7 +6,7 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -21,7 +21,7 @@ Module(
                     close_quote="\""
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             ),
             Assignment(
                 position=(2, 1, 0),
@@ -48,7 +48,7 @@ Module(
                     close_quote="\""
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             )
         ]
     )

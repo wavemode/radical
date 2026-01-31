@@ -311,7 +311,6 @@ class ListLiteralNode(Node):
 @dataclass(frozen=True)
 class MapLiteralEntryNode(Node):
     key: "ValueExpressionNodeType | None"
-    key_expr: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType | None"
 
 
@@ -323,7 +322,6 @@ class MapLiteralNode(Node):
 @dataclass(frozen=True)
 class TreeLiteralEntryNode(Node):
     key: "ValueExpressionNodeType | None"
-    key_expr: "ValueExpressionNodeType | None"
     value: "ValueExpressionNodeType"
 
 
@@ -372,7 +370,7 @@ class ProcedureExpressionNode(Node):
 @dataclass(frozen=True)
 class ModuleBodyNode(Node):
     name: SymbolNode | None
-    tree_syntax: bool
+    omitted_equal_sign: bool
     declarations: list["TopLevelDeclarationNodeType"]
 
 
@@ -416,18 +414,16 @@ class PatternGuardNode(Node):
 @dataclass(frozen=True)
 class AssignmentNode(Node):
     target: SymbolNode | None
-    target_expr: "ValueExpressionNodeType | None"
     target_pattern: "PatternNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
     local: bool
-    tree_syntax: bool
+    omitted_equal_sign: bool
 
 
 @dataclass(frozen=True)
 class TypeAnnotationNode(Node):
     name: SymbolNode | None
-    name_expr: "ValueExpressionNodeType | None"
     type_annotation: "TypeExpressionNodeType"
     local: bool
 
@@ -448,7 +444,6 @@ class ImportStatementNode(Node):
     module_parts: list[SymbolNode] | None
     module_expr: "ValueExpressionNodeType | None"
     filename: StringLiteralNode | None
-    filename_expr: "ValueExpressionNodeType | None"
     fields: list["ImportStatementFieldNode | ImportStatementEllipsisNode"] | None
     alias: SymbolNode | None
 

@@ -9,7 +9,7 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -22,7 +22,7 @@ Module(
                     contents="5"
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             ),
             Assignment(
                 position=(1, 8, 0),
@@ -35,7 +35,7 @@ Module(
                     contents="10"
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             ),
             Assignment(
                 position=(3, 1, 0),
@@ -47,7 +47,7 @@ Module(
                     position=(3, 5, 0),
                     body=ModuleBody(
                         position=(3, 12, 0),
-                        tree_syntax=false,
+                        omitted_equal_sign=false,
                         declarations=[
                             Assignment(
                                 position=(3, 15, 0),
@@ -60,7 +60,7 @@ Module(
                                     contents="15"
                                 ),
                                 local=false,
-                                tree_syntax=false
+                                omitted_equal_sign=false
                             ),
                             Assignment(
                                 position=(3, 23, 0),
@@ -73,13 +73,13 @@ Module(
                                     contents="20"
                                 ),
                                 local=false,
-                                tree_syntax=false
+                                omitted_equal_sign=false
                             )
                         ]
                     )
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             ),
             Assignment(
                 position=(5, 1, 0),
@@ -92,7 +92,7 @@ Module(
                     contents="30"
                 ),
                 local=false,
-                tree_syntax=false
+                omitted_equal_sign=false
             )
         ]
     )

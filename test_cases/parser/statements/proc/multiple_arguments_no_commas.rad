@@ -8,7 +8,7 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             ProcedureDeclaration(
                 position=(1, 1, 0),
@@ -76,7 +76,7 @@ Module(
                                 )
                             ),
                             local=true,
-                            tree_syntax=false
+                            omitted_equal_sign=false
                         )
                     ),
                     ProcedureBodyStatement(

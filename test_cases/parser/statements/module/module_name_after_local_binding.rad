@@ -11,7 +11,7 @@ Module(
             position=(3, 8, 0),
             name="A"
         ),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -24,7 +24,7 @@ Module(
                     contents="5"
                 ),
                 local=true,
-                tree_syntax=false
+                omitted_equal_sign=false
             ),
             ModuleName(
                 position=(3, 1, 0),

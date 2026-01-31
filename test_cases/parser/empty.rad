@@ -3,7 +3,7 @@ Module(
     position=(13, 1, 0),
     body=ModuleBody(
         position=(13, 1, 0),
-        tree_syntax=false,
+        omitted_equal_sign=false,
         declarations=[
 
         ]

@@ -1,5 +1,0 @@
-a = { ["b"] }
-
-(*
-FAIL("Map literal entry with computed key must have a value at test_cases/parser/literals/map/key_expr_without_value.rad:1:7")
-*)

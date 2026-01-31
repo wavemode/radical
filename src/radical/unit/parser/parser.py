@@ -173,13 +173,6 @@ class Parser(Unit):
                     message="Local declarations are not allowed in let expressions",
                     position=decl.position,
                 )
-            elif (isinstance(decl, AssignmentNode) and decl.target_expr) or (
-                isinstance(decl, TypeAnnotationNode) and decl.name_expr
-            ):
-                self._raise_parse_error(
-                    message="Variable names in let expression cannot be expressions",
-                    position=decl.position,
-                )
             assignments.append(decl)
 
         body = self.parse_value_expression()
@@ -244,7 +237,7 @@ class Parser(Unit):
         )
         seen_nonlocal_declaration = False
         name: SymbolNode | None = None
-        tree_syntax: bool | None = None
+        omitted_equal_sign: bool | None = None
 
         for decl in declarations:
             if not self._is_local_toplevel_declaration(decl):
@@ -267,14 +260,14 @@ class Parser(Unit):
                     )
                 name = decl.name
             elif isinstance(decl, AssignmentNode):
-                if tree_syntax is not None:
-                    if decl.tree_syntax != tree_syntax:
+                if omitted_equal_sign is not None:
+                    if decl.omitted_equal_sign != omitted_equal_sign:
                         self._raise_parse_error(
                             message="All assignments in module body must use the same syntax - map synax ('k = v') or tree syntax ('k v')",
                             position=decl.position,
                         )
                     else:
-                        tree_syntax = decl.tree_syntax
+                        omitted_equal_sign = decl.omitted_equal_sign
 
         return ModuleBodyNode(
             position=(
@@ -283,7 +276,7 @@ class Parser(Unit):
                 else (declarations[0].position if declarations else self._position)
             ),
             name=name,
-            tree_syntax=tree_syntax or False,
+            omitted_equal_sign=omitted_equal_sign or False,
             declarations=declarations,
         )
 
@@ -665,7 +658,6 @@ class Parser(Unit):
         module_parts: list[SymbolNode] | None = None
         module_expr: ValueExpressionNodeType | None = None
         filename: StringLiteralNode | None = None
-        filename_expr: ValueExpressionNodeType | None = None
         fields: list[ImportStatementFieldNode | ImportStatementEllipsisNode] | None = (
             None
         )
@@ -696,10 +688,6 @@ class Parser(Unit):
                     )
         elif filename := self.parse_string_literal():
             pass
-        elif self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
-            self._read()  # consume LIST_START
-            filename_expr = self.parse_value_expression()
-            self.require_any_token([TokenType.LIST_END, TokenType.INDEXING_END])
         elif self._peek().type == TokenType.MODULE:
             self._read()  # consume MODULE
             module_expr = self.parse_value_expression()
@@ -729,7 +717,7 @@ class Parser(Unit):
                 message="Dynamic import statement must have an alias",
                 position=start_position,
             )
-        elif filename or filename_expr:
+        elif filename:
             self._raise_parse_error(
                 message="Import statement with filename must have an alias",
                 position=start_position,
@@ -740,7 +728,6 @@ class Parser(Unit):
             module_parts=module_parts,
             module_expr=module_expr,
             filename=filename,
-            filename_expr=filename_expr,
             fields=fields,
             alias=alias,
         )
@@ -779,7 +766,6 @@ class Parser(Unit):
         start_position = self._position
         if self._peek().type not in (
             TokenType.SYMBOL,
-            TokenType.LIST_START,
             TokenType.PARENTHESES_START,
             TokenType.FUNCTION_CALL_START,
         ) and not (
@@ -787,7 +773,6 @@ class Parser(Unit):
             and self._peek(1).type
             in (
                 TokenType.SYMBOL,
-                TokenType.LIST_START,
                 TokenType.PARENTHESES_START,
                 TokenType.FUNCTION_CALL_START,
             )
@@ -797,7 +782,7 @@ class Parser(Unit):
         local = False
         type_annotation: TypeExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
-        tree_syntax = False
+        omitted_equal_sign = False
 
         if self._peek().type == TokenType.LOCAL:
             local = True
@@ -805,7 +790,6 @@ class Parser(Unit):
 
         target_line: int
         target: SymbolNode | None = None
-        target_expr: ValueExpressionNodeType | None = None
         target_pattern: PatternNodeType | None = None
         if target_token := self.parse_token(TokenType.SYMBOL):
             target = SymbolNode(
@@ -813,11 +797,6 @@ class Parser(Unit):
                 name=target_token,
             )
             target_line = target_token.position.line
-        elif self._peek().type == TokenType.LIST_START:
-            self._read()
-            target_expr = self.parse_value_expression()
-            target_line = target_expr.position.line
-            self.require_token(TokenType.LIST_END)
         elif self._peek().type in (
             TokenType.PARENTHESES_START,
             TokenType.FUNCTION_CALL_START,
@@ -851,24 +830,22 @@ class Parser(Unit):
                         position=upcoming_token.position,
                     )
                 value = self.parse_value_expression()
-                tree_syntax = True
+                omitted_equal_sign = True
 
         if value is not None:
             return AssignmentNode(
                 position=start_position,
                 target=target,
-                target_expr=target_expr,
                 target_pattern=target_pattern,
                 value=value,
                 type_annotation=type_annotation,
                 local=local,
-                tree_syntax=tree_syntax,
+                omitted_equal_sign=omitted_equal_sign,
             )
         elif type_annotation is not None:
             return TypeAnnotationNode(
                 position=start_position,
                 name=target,
-                name_expr=target_expr,
                 type_annotation=type_annotation,
                 local=local,
             )
@@ -1671,7 +1648,6 @@ class Parser(Unit):
         start_position = self._position
         key_line: int
         key: ValueExpressionNodeType | None = None
-        key_expr: ValueExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
         has_equal_sign = False
 
@@ -1681,10 +1657,6 @@ class Parser(Unit):
                 name=key_token,
             )
             key_line = key_token.position.line
-        elif self.parse_token(TokenType.LIST_START):
-            key_expr = self.parse_value_expression()
-            key_line = key_expr.position.line
-            self.require_token(TokenType.LIST_END)
         else:
             self._raise_parse_error(
                 message=f"Expected map literal key. Unexpected token {self._peek().pretty()}",
@@ -1700,24 +1672,16 @@ class Parser(Unit):
         ):
             value = self.parse_value_expression()
 
-        if key_expr and not value:
-            self._raise_parse_error(
-                message="Map literal entry with computed key must have a value",
-                position=start_position,
-            )
-
         if has_equal_sign or not value:
             return MapLiteralEntryNode(
                 position=start_position,
                 key=key,
-                key_expr=key_expr,
                 value=value,
             )
         else:
             return TreeLiteralEntryNode(
                 position=start_position,
                 key=key,
-                key_expr=key_expr,
                 value=value,
             )
 

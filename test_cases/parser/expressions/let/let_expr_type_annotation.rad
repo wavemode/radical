@@ -1,7 +1,0 @@
-a = let
-    ["x"] : Int
-in x + x
-
-(*
-FAIL("Variable names in let expression cannot be expressions at test_cases/parser/expressions/let/let_expr_type_annotation.rad:2:5")
-*)
