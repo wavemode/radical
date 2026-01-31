@@ -74,6 +74,8 @@ from radical.data.parser.ast import (
     RecordPatternNode,
     RecordTypeEntryNodeType,
     RecordTypeNode,
+    RegexLiteralNode,
+    RegexLiteralPatternNode,
     RestPatternNode,
     ShorthandAssignmentNode,
     SpreadAssignmentNode,
@@ -121,6 +123,7 @@ class Parser(Unit):
             self.parse_tilde_literal,
             self.parse_number_literal,
             self.parse_string_literal,
+            self.parse_regex_literal,
             self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
@@ -140,6 +143,7 @@ class Parser(Unit):
             self.parse_list_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
+            self.parse_regex_literal_pattern,
             self.parse_format_string_literal_pattern,
             self.parse_null_literal_pattern,
             self.parse_boolean_literal_pattern,
@@ -533,7 +537,6 @@ class Parser(Unit):
                 message="Import statement cannot be a local declaration",
                 position=declaration.position,
             )
-
 
         return LocalDeclarationNode(
             position=start_position,
@@ -1288,6 +1291,15 @@ class Parser(Unit):
             string=string_literal,
         )
 
+    def parse_regex_literal_pattern(self) -> RegexLiteralPatternNode | None:
+        start_position = self._position
+        if not (regex_literal := self.parse_regex_literal()):
+            return None
+        return RegexLiteralPatternNode(
+            position=start_position,
+            regex=regex_literal,
+        )
+
     def parse_format_string_literal_pattern(
         self,
     ) -> FormatStringLiteralPatternNode | None:
@@ -2026,6 +2038,17 @@ class Parser(Unit):
             open_quote=open_quote,
             contents=token,
             close_quote=close_quote,
+        )
+
+    def parse_regex_literal(self) -> RegexLiteralNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.REGEX_LITERAL_START):
+            return None
+        contents = self.require_token(TokenType.STRING_CONTENTS)
+        self.require_token(TokenType.REGEX_LITERAL_END)
+        return RegexLiteralNode(
+            position=start_position,
+            contents=contents,
         )
 
     def parse_format_string_literal(self) -> FormatStringLiteralNode | None:

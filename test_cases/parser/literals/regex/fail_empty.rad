@@ -1,0 +1,5 @@
+x = //
+
+(*
+FAIL("Expected expression. Unexpected token FLOOR_DIVIDE('//') at test_cases/parser/literals/regex/fail_empty.rad:1:5")
+*)

@@ -438,6 +438,11 @@ class StringLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class RegexLiteralPatternNode(Node):
+    regex: RegexLiteralNode
+
+
+@dataclass(frozen=True)
 class FormatStringTextSectionPatternNode(Node):
     string_contents: Token
 
@@ -662,6 +667,7 @@ PatternAtomNodeType = (
     | ListPatternNode
     | NumberLiteralPatternNode
     | StringLiteralPatternNode
+    | RegexLiteralPatternNode
     | FormatStringLiteralPatternNode
     | NullLiteralPatternNode
     | BooleanLiteralPatternNode
