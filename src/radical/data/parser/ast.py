@@ -411,6 +411,16 @@ class ParenthesizedPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class NumberLiteralPatternNode(Node):
+    number: NumberLiteralNode
+
+
+@dataclass(frozen=True)
+class StringLiteralPatternNode(Node):
+    string: StringLiteralNode
+
+
+@dataclass(frozen=True)
 class PatternGuardNode(Node):
     pattern: "PatternNodeType"
     condition: "ValueExpressionNodeType"
@@ -568,7 +578,12 @@ ValueExpressionNodeType = (
     | FunctionCallExpressionNode
 )
 PatternAtomNodeType = (
-    SymbolPatternNode | ConstPatternNode | RestPatternNode | ParenthesizedPatternNode
+    SymbolPatternNode
+    | ConstPatternNode
+    | RestPatternNode
+    | ParenthesizedPatternNode
+    | NumberLiteralPatternNode
+    | StringLiteralPatternNode
 )
 PatternNodeType = PatternAtomNodeType | PatternGuardNode
 TypeExpressionNodeType = (

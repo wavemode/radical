@@ -32,6 +32,7 @@ from radical.data.parser.ast import (
     LetExpressionNode,
     ListLiteralNode,
     LocalDeclarationNode,
+    NumberLiteralPatternNode,
     RecordAssignmentEntryNode,
     MapLiteralNode,
     ModuleAssignmentDeclarationNode,
@@ -60,6 +61,7 @@ from radical.data.parser.ast import (
     SpreadOperationNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
+    StringLiteralPatternNode,
     SymbolNode,
     SymbolPatternNode,
     TopLevelDeclarationNodeType,
@@ -114,6 +116,8 @@ class Parser(Unit):
 
         self._pattern_atom_parsers: list[Callable[[], PatternAtomNodeType | None]] = [
             self.parse_parenthesized_pattern,
+            self.parse_number_literal_pattern,
+            self.parse_string_literal_pattern,
             self.parse_rest_pattern,
             self.parse_const_pattern,
             self.parse_symbol_pattern,
@@ -1161,6 +1165,24 @@ class Parser(Unit):
         for pattern_parser in self._pattern_atom_parsers:
             if pattern := pattern_parser():
                 return pattern
+
+    def parse_number_literal_pattern(self) -> NumberLiteralPatternNode | None:
+        start_position = self._position
+        if not (number_literal := self.parse_number_literal()):
+            return None
+        return NumberLiteralPatternNode(
+            position=start_position,
+            number=number_literal,
+        )
+
+    def parse_string_literal_pattern(self) -> StringLiteralPatternNode | None:
+        start_position = self._position
+        if not (string_literal := self.parse_string_literal()):
+            return None
+        return StringLiteralPatternNode(
+            position=start_position,
+            string=string_literal,
+        )
 
     def parse_parenthesized_pattern(self) -> ParenthesizedPatternNode | None:
         start_position = self._position

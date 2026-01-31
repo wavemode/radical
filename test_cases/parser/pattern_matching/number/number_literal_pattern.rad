@@ -1,0 +1,62 @@
+fun x(5) = 10
+fun x(y) = 11
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        omitted_equal_sign=false,
+        declarations=[
+            FunctionDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 5, 0),
+                    name="x"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 7, 0),
+                        param=NumberLiteralPattern(
+                            position=(1, 7, 0),
+                            number=NumberLiteral(
+                                position=(1, 7, 0),
+                                contents="5"
+                            )
+                        ),
+                        variadic=false
+                    )
+                ],
+                body=NumberLiteral(
+                    position=(1, 12, 0),
+                    contents="10"
+                )
+            ),
+            FunctionDeclaration(
+                position=(2, 1, 0),
+                name=Symbol(
+                    position=(2, 5, 0),
+                    name="x"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(2, 7, 0),
+                        param=SymbolPattern(
+                            position=(2, 7, 0),
+                            symbol=Symbol(
+                                position=(2, 7, 0),
+                                name="y"
+                            )
+                        ),
+                        variadic=false
+                    )
+                ],
+                body=NumberLiteral(
+                    position=(2, 12, 0),
+                    contents="11"
+                )
+            )
+        ]
+    )
+)
+*)

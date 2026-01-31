@@ -1,0 +1,68 @@
+fun x("hello") = "goodbye"
+fun x(y) = "hello"
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        omitted_equal_sign=false,
+        declarations=[
+            FunctionDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 5, 0),
+                    name="x"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 7, 0),
+                        param=StringLiteralPattern(
+                            position=(1, 7, 0),
+                            string=StringLiteral(
+                                position=(1, 7, 0),
+                                open_quote="\"",
+                                contents="hello",
+                                close_quote="\""
+                            )
+                        ),
+                        variadic=false
+                    )
+                ],
+                body=StringLiteral(
+                    position=(1, 18, 0),
+                    open_quote="\"",
+                    contents="goodbye",
+                    close_quote="\""
+                )
+            ),
+            FunctionDeclaration(
+                position=(2, 1, 0),
+                name=Symbol(
+                    position=(2, 5, 0),
+                    name="x"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(2, 7, 0),
+                        param=SymbolPattern(
+                            position=(2, 7, 0),
+                            symbol=Symbol(
+                                position=(2, 7, 0),
+                                name="y"
+                            )
+                        ),
+                        variadic=false
+                    )
+                ],
+                body=StringLiteral(
+                    position=(2, 12, 0),
+                    open_quote="\"",
+                    contents="hello",
+                    close_quote="\""
+                )
+            )
+        ]
+    )
+)
+*)
