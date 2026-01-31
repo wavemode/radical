@@ -9,7 +9,7 @@ from radical.data.parser.ast import (
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
-    DataTypePatternArgumentNode,
+    KeyValueFieldPatternNode,
     DataTypePatternNode,
     FieldAccessExpressionNode,
     FormatStringExpressionNode,
@@ -38,7 +38,7 @@ from radical.data.parser.ast import (
     NullLiteralPatternNode,
     NumberLiteralPatternNode,
     RecordAssignmentEntryNode,
-    MapLiteralNode,
+    RecordLiteralNode,
     ModuleAssignmentDeclarationNode,
     ModuleBodyDeclarationNode,
     ModuleBodyNode,
@@ -110,7 +110,7 @@ class Parser(Unit):
             self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
-            self.parse_map_literal,
+            self.parse_record_literal,
             self.parse_if_expression,
             self.parse_case_expression,
             self.parse_let_expression,
@@ -246,7 +246,6 @@ class Parser(Unit):
         )
         seen_nonlocal_declaration = False
         name: SymbolNode | None = None
-        omitted_equal_sign: bool | None = None
 
         for decl in declarations:
             if not self._is_local_toplevel_declaration(decl):
@@ -268,15 +267,6 @@ class Parser(Unit):
                         position=decl.position,
                     )
                 name = decl.name
-            elif isinstance(decl, AssignmentNode):
-                if omitted_equal_sign is not None:
-                    if decl.omitted_equal_sign != omitted_equal_sign:
-                        self._raise_parse_error(
-                            message="All assignments in module body must use the same syntax - map synax ('k = v') or tree syntax ('k v')",
-                            position=decl.position,
-                        )
-                    else:
-                        omitted_equal_sign = decl.omitted_equal_sign
 
         return ModuleBodyNode(
             position=(
@@ -285,7 +275,6 @@ class Parser(Unit):
                 else (declarations[0].position if declarations else self._position)
             ),
             name=name,
-            omitted_equal_sign=omitted_equal_sign or False,
             declarations=declarations,
         )
 
@@ -1243,20 +1232,18 @@ class Parser(Unit):
             raise RuntimeError("unreachable")  # appease typechecker
 
         self._read()  # consume FUNCTION_CALL_START
-        arguments: list[DataTypePatternArgumentNode] = (
-            self.parse_comma_or_newline_separated(
-                element_parser=self.parse_data_type_pattern_argument,
-                ending_token=TokenType.FUNCTION_CALL_END,
-            )
+        fields: list[KeyValueFieldPatternNode] = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_key_value_field_pattern,
+            ending_token=TokenType.FUNCTION_CALL_END,
         )
 
         return DataTypePatternNode(
             position=start_position,
             name=name,
-            arguments=arguments,
+            fields=fields,
         )
 
-    def parse_data_type_pattern_argument(self) -> DataTypePatternArgumentNode:
+    def parse_key_value_field_pattern(self) -> KeyValueFieldPatternNode:
         start_position = self._position
         name: SymbolNode | None = None
         if (
@@ -1266,7 +1253,7 @@ class Parser(Unit):
             assert (name := self.parse_symbol())
             self._read()  # consume ASSIGN
         pattern = self.parse_pattern_or_error()
-        return DataTypePatternArgumentNode(
+        return KeyValueFieldPatternNode(
             position=start_position,
             name=name,
             pattern=pattern,
@@ -1687,21 +1674,21 @@ class Parser(Unit):
             return spread_operation
         return self.parse_value_expression()
 
-    def parse_map_literal(self) -> MapLiteralNode | None:
+    def parse_record_literal(self) -> RecordLiteralNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.OBJECT_START):
             return None
 
         entries = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_map_literal_entry,
+            element_parser=self.parse_record_literal_entry,
             ending_token=TokenType.OBJECT_END,
         )
-        return MapLiteralNode(
+        return RecordLiteralNode(
             position=start_position,
             entries=entries,
         )
 
-    def parse_map_literal_entry(
+    def parse_record_literal_entry(
         self,
     ) -> RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode:
         if spread_operation := self.parse_spread_operation():

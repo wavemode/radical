@@ -1,10 +1,10 @@
-a = f(
-    ...e
-    b=10
-    c=20
-    d=30
+a = {
+    b 10
+    c = 20
+    "d" => 30
+    e
     ...f
-)
+}
 
 (*
 Module(
@@ -21,52 +21,53 @@ Module(
                         name="a"
                     )
                 ),
-                value=FunctionCallExpression(
+                value=RecordLiteral(
                     position=(1, 5, 0),
-                    function_expression=Symbol(
-                        position=(1, 5, 0),
-                        name="f"
-                    ),
-                    arguments=[
-                        SpreadOperation(
+                    entries=[
+                        RecordAssignmentEntry(
                             position=(2, 5, 4),
-                            operand=Symbol(
-                                position=(2, 8, 4),
-                                name="e"
-                            )
-                        ),
-                        FunctionCallArgument(
-                            position=(3, 7, 4),
-                            name=Symbol(
-                                position=(3, 5, 4),
+                            key=Symbol(
+                                position=(2, 5, 4),
                                 name="b"
                             ),
                             value=NumberLiteral(
-                                position=(3, 7, 4),
+                                position=(2, 7, 4),
                                 contents="10"
-                            )
+                            ),
+                            omitted_equal_sign=true
                         ),
-                        FunctionCallArgument(
-                            position=(4, 7, 4),
-                            name=Symbol(
-                                position=(4, 5, 4),
+                        RecordAssignmentEntry(
+                            position=(3, 5, 4),
+                            key=Symbol(
+                                position=(3, 5, 4),
                                 name="c"
                             ),
                             value=NumberLiteral(
-                                position=(4, 7, 4),
+                                position=(3, 9, 4),
                                 contents="20"
-                            )
+                            ),
+                            omitted_equal_sign=false
                         ),
-                        FunctionCallArgument(
-                            position=(5, 7, 4),
-                            name=Symbol(
-                                position=(5, 5, 4),
-                                name="d"
+                        KeyValueEntry(
+                            position=(4, 5, 4),
+                            key=StringLiteral(
+                                position=(4, 5, 4),
+                                open_quote="\"",
+                                contents="d",
+                                close_quote="\""
                             ),
                             value=NumberLiteral(
-                                position=(5, 7, 4),
+                                position=(4, 12, 4),
                                 contents="30"
                             )
+                        ),
+                        RecordAssignmentEntry(
+                            position=(5, 5, 4),
+                            key=Symbol(
+                                position=(5, 5, 4),
+                                name="e"
+                            ),
+                            omitted_equal_sign=true
                         ),
                         SpreadOperation(
                             position=(6, 5, 4),

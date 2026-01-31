@@ -322,7 +322,7 @@ class RecordAssignmentEntryNode(Node):
 
 
 @dataclass(frozen=True)
-class MapLiteralNode(Node):
+class RecordLiteralNode(Node):
     entries: list["RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode"]
 
 
@@ -378,7 +378,6 @@ class ProcedureExpressionNode(Node):
 @dataclass(frozen=True)
 class ModuleBodyNode(Node):
     name: SymbolNode | None
-    omitted_equal_sign: bool
     declarations: list["TopLevelDeclarationNodeType"]
 
 
@@ -431,7 +430,7 @@ class BooleanLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
-class DataTypePatternArgumentNode(Node):
+class KeyValueFieldPatternNode(Node):
     name: SymbolNode | None
     pattern: "PatternNodeType"
 
@@ -439,7 +438,7 @@ class DataTypePatternArgumentNode(Node):
 @dataclass(frozen=True)
 class DataTypePatternNode(Node):
     name: SymbolNode
-    arguments: list["DataTypePatternArgumentNode"]
+    fields: list["KeyValueFieldPatternNode"]
 
 
 @dataclass(frozen=True)
@@ -587,7 +586,7 @@ AtomNodeType = (
     | ParenthesizedExpressionNode
     | TupleLiteralNode
     | ListLiteralNode
-    | MapLiteralNode
+    | RecordLiteralNode
     | IfExpressionNode
     | CaseExpressionNode
     | LetExpressionNode

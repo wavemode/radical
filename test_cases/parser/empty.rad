@@ -1,9 +1,8 @@
 (*
 Module(
-    position=(13, 1, 0),
+    position=(12, 1, 0),
     body=ModuleBody(
-        position=(13, 1, 0),
-        omitted_equal_sign=false,
+        position=(12, 1, 0),
         declarations=[
 
         ]

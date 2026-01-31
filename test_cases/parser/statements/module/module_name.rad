@@ -9,7 +9,6 @@ Module(
             position=(1, 8, 0),
             name="A"
         ),
-        omitted_equal_sign=false,
         declarations=[
             ModuleName(
                 position=(1, 1, 0),

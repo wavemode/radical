@@ -1,11 +1,10 @@
-a = { b 10, c 20, ...d }
+a = { b = 10, c = 20 }
 
 (*
 Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -16,7 +15,7 @@ Module(
                         name="a"
                     )
                 ),
-                value=MapLiteral(
+                value=RecordLiteral(
                     position=(1, 5, 0),
                     entries=[
                         RecordAssignmentEntry(
@@ -26,29 +25,22 @@ Module(
                                 name="b"
                             ),
                             value=NumberLiteral(
-                                position=(1, 9, 0),
+                                position=(1, 11, 0),
                                 contents="10"
                             ),
-                            omitted_equal_sign=true
+                            omitted_equal_sign=false
                         ),
                         RecordAssignmentEntry(
-                            position=(1, 13, 0),
+                            position=(1, 15, 0),
                             key=Symbol(
-                                position=(1, 13, 0),
+                                position=(1, 15, 0),
                                 name="c"
                             ),
                             value=NumberLiteral(
-                                position=(1, 15, 0),
+                                position=(1, 19, 0),
                                 contents="20"
                             ),
-                            omitted_equal_sign=true
-                        ),
-                        SpreadOperation(
-                            position=(1, 19, 0),
-                            operand=Symbol(
-                                position=(1, 22, 0),
-                                name="d"
-                            )
+                            omitted_equal_sign=false
                         )
                     ]
                 ),

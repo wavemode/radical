@@ -12,7 +12,6 @@ Module(
     position=(8, 1, 0),
     body=ModuleBody(
         position=(8, 1, 0),
-        omitted_equal_sign=false,
         declarations=[
             TypeAnnotation(
                 position=(8, 1, 0),

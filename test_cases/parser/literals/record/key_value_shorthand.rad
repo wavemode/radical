@@ -1,13 +1,12 @@
-a = {
-    b 10
-}
+b = 10
+-- equivalent to { b = b }
+a = { b }
 
 (*
 Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -15,21 +14,32 @@ Module(
                     position=(1, 1, 0),
                     symbol=Symbol(
                         position=(1, 1, 0),
+                        name="b"
+                    )
+                ),
+                value=NumberLiteral(
+                    position=(1, 5, 0),
+                    contents="10"
+                ),
+                omitted_equal_sign=false
+            ),
+            Assignment(
+                position=(3, 1, 0),
+                target=SymbolPattern(
+                    position=(3, 1, 0),
+                    symbol=Symbol(
+                        position=(3, 1, 0),
                         name="a"
                     )
                 ),
-                value=MapLiteral(
-                    position=(1, 5, 0),
+                value=RecordLiteral(
+                    position=(3, 5, 0),
                     entries=[
                         RecordAssignmentEntry(
-                            position=(2, 5, 4),
+                            position=(3, 7, 0),
                             key=Symbol(
-                                position=(2, 5, 4),
+                                position=(3, 7, 0),
                                 name="b"
-                            ),
-                            value=NumberLiteral(
-                                position=(2, 7, 4),
-                                contents="10"
                             ),
                             omitted_equal_sign=true
                         )

@@ -27,7 +27,6 @@ Module(
     position=(1, 1, 0),
     body=ModuleBody(
         position=(1, 1, 0),
-        omitted_equal_sign=false,
         declarations=[
             Assignment(
                 position=(1, 1, 0),
@@ -499,39 +498,39 @@ Module(
                 omitted_equal_sign=false
             ),
             Assignment(
-                position=(545, 1, 0),
+                position=(544, 1, 0),
                 target=SymbolPattern(
-                    position=(545, 1, 0),
+                    position=(544, 1, 0),
                     symbol=Symbol(
-                        position=(545, 1, 0),
+                        position=(544, 1, 0),
                         name="plusMinusPlus"
                     )
                 ),
                 value=BinaryOperation(
-                    position=(545, 17, 0),
+                    position=(544, 17, 0),
                     left=BinaryOperation(
-                        position=(545, 17, 0),
+                        position=(544, 17, 0),
                         left=BinaryOperation(
-                            position=(545, 17, 0),
+                            position=(544, 17, 0),
                             left=NumberLiteral(
-                                position=(545, 17, 0),
+                                position=(544, 17, 0),
                                 contents="1"
                             ),
                             operator="+",
                             right=NumberLiteral(
-                                position=(545, 21, 0),
+                                position=(544, 21, 0),
                                 contents="2"
                             )
                         ),
                         operator="-",
                         right=NumberLiteral(
-                            position=(545, 25, 0),
+                            position=(544, 25, 0),
                             contents="3"
                         )
                     ),
                     operator="+",
                     right=NumberLiteral(
-                        position=(545, 29, 0),
+                        position=(544, 29, 0),
                         contents="4"
                     )
                 ),
