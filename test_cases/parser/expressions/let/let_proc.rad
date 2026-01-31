@@ -13,9 +13,12 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="x"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="x"
+                    )
                 ),
                 value=LetExpression(
                     position=(1, 5, 0),
@@ -51,9 +54,12 @@ Module(
                                         position=(3, 9, 8),
                                         declaration=Assignment(
                                             position=(3, 15, 8),
-                                            target=Symbol(
+                                            target=SymbolPattern(
                                                 position=(3, 15, 8),
-                                                name="c"
+                                                symbol=Symbol(
+                                                    position=(3, 15, 8),
+                                                    name="c"
+                                                )
                                             ),
                                             value=NumberLiteral(
                                                 position=(3, 19, 8),

@@ -14,18 +14,24 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    )
                 ),
                 value=LetExpression(
                     position=(2, 5, 4),
                     declarations=[
                         Assignment(
                             position=(3, 9, 8),
-                            target=Symbol(
+                            target=SymbolPattern(
                                 position=(3, 9, 8),
-                                name="x"
+                                symbol=Symbol(
+                                    position=(3, 9, 8),
+                                    name="x"
+                                )
                             ),
                             value=NumberLiteral(
                                 position=(3, 13, 8),
@@ -35,9 +41,12 @@ Module(
                         ),
                         Assignment(
                             position=(4, 9, 8),
-                            target=Symbol(
+                            target=SymbolPattern(
                                 position=(4, 9, 8),
-                                name="y"
+                                symbol=Symbol(
+                                    position=(4, 9, 8),
+                                    name="y"
+                                )
                             ),
                             value=NumberLiteral(
                                 position=(4, 13, 8),

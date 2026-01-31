@@ -62,9 +62,12 @@ Module(
                             position=(4, 13, 0),
                             declaration=Assignment(
                                 position=(4, 19, 0),
-                                target=Symbol(
+                                target=SymbolPattern(
                                     position=(4, 19, 0),
-                                    name="d"
+                                    symbol=Symbol(
+                                        position=(4, 19, 0),
+                                        name="d"
+                                    )
                                 ),
                                 value=IndexingExpression(
                                     position=(4, 23, 0),

@@ -1,4 +1,4 @@
-(a if a > 10) = 20
+a if a > 10 = 20
 
 (*
 Module(
@@ -9,35 +9,30 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target_pattern=ParenthesizedPattern(
+                target=PatternGuard(
                     position=(1, 1, 0),
-                    elements=[
-                        PatternGuard(
-                            position=(1, 2, 0),
-                            pattern=SymbolPattern(
-                                position=(1, 2, 0),
-                                symbol=Symbol(
-                                    position=(1, 2, 0),
-                                    name="a"
-                                )
-                            ),
-                            condition=BinaryOperation(
-                                position=(1, 7, 0),
-                                left=Symbol(
-                                    position=(1, 7, 0),
-                                    name="a"
-                                ),
-                                operator=">",
-                                right=NumberLiteral(
-                                    position=(1, 11, 0),
-                                    contents="10"
-                                )
-                            )
+                    pattern=SymbolPattern(
+                        position=(1, 1, 0),
+                        symbol=Symbol(
+                            position=(1, 1, 0),
+                            name="a"
                         )
-                    ]
+                    ),
+                    condition=BinaryOperation(
+                        position=(1, 6, 0),
+                        left=Symbol(
+                            position=(1, 6, 0),
+                            name="a"
+                        ),
+                        operator=">",
+                        right=NumberLiteral(
+                            position=(1, 10, 0),
+                            contents="10"
+                        )
+                    )
                 ),
                 value=NumberLiteral(
-                    position=(1, 17, 0),
+                    position=(1, 15, 0),
                     contents="20"
                 ),
                 omitted_equal_sign=false

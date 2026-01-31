@@ -23,9 +23,12 @@ Module(
                     fields=[
                         TypeAnnotation(
                             position=(1, 14, 0),
-                            name=Symbol(
+                            name=SymbolPattern(
                                 position=(1, 14, 0),
-                                name="a"
+                                symbol=Symbol(
+                                    position=(1, 14, 0),
+                                    name="a"
+                                )
                             ),
                             type_annotation=TypeName(
                                 position=(1, 18, 0),
@@ -37,9 +40,12 @@ Module(
             ),
             Assignment(
                 position=(2, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(2, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(2, 1, 0),
+                        name="a"
+                    )
                 ),
                 value=NumberLiteral(
                     position=(2, 5, 0),

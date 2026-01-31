@@ -9,9 +9,12 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="z"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="z"
+                    )
                 ),
                 value=ModuleExpression(
                     position=(1, 5, 0),
@@ -21,9 +24,12 @@ Module(
                         declarations=[
                             Assignment(
                                 position=(1, 15, 0),
-                                target=Symbol(
+                                target=SymbolPattern(
                                     position=(1, 15, 0),
-                                    name="a"
+                                    symbol=Symbol(
+                                        position=(1, 15, 0),
+                                        name="a"
+                                    )
                                 ),
                                 value=NumberLiteral(
                                     position=(1, 19, 0),
@@ -33,9 +39,12 @@ Module(
                             ),
                             Assignment(
                                 position=(1, 23, 0),
-                                target=Symbol(
+                                target=SymbolPattern(
                                     position=(1, 23, 0),
-                                    name="b"
+                                    symbol=Symbol(
+                                        position=(1, 23, 0),
+                                        name="b"
+                                    )
                                 ),
                                 value=NumberLiteral(
                                     position=(1, 27, 0),

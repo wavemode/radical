@@ -11,9 +11,12 @@ Module(
                 position=(1, 1, 0),
                 declaration=TypeAnnotation(
                     position=(1, 7, 0),
-                    name=Symbol(
+                    name=SymbolPattern(
                         position=(1, 7, 0),
-                        name="a"
+                        symbol=Symbol(
+                            position=(1, 7, 0),
+                            name="a"
+                        )
                     ),
                     type_annotation=TypeName(
                         position=(1, 11, 0),

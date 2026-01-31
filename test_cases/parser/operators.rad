@@ -31,9 +31,12 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="binaryAnd"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="binaryAnd"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(1, 13, 0),
@@ -51,9 +54,12 @@ Module(
             ),
             Assignment(
                 position=(2, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(2, 1, 0),
-                    name="binaryAndOr"
+                    symbol=Symbol(
+                        position=(2, 1, 0),
+                        name="binaryAndOr"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(2, 15, 0),
@@ -79,9 +85,12 @@ Module(
             ),
             Assignment(
                 position=(3, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(3, 1, 0),
-                    name="binaryOrAnd"
+                    symbol=Symbol(
+                        position=(3, 1, 0),
+                        name="binaryOrAnd"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(3, 15, 0),
@@ -107,9 +116,12 @@ Module(
             ),
             Assignment(
                 position=(5, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(5, 1, 0),
-                    name="plusMinus"
+                    symbol=Symbol(
+                        position=(5, 1, 0),
+                        name="plusMinus"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(5, 13, 0),
@@ -135,9 +147,12 @@ Module(
             ),
             Assignment(
                 position=(6, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(6, 1, 0),
-                    name="minusPlus"
+                    symbol=Symbol(
+                        position=(6, 1, 0),
+                        name="minusPlus"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(6, 13, 0),
@@ -163,9 +178,12 @@ Module(
             ),
             Assignment(
                 position=(7, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(7, 1, 0),
-                    name="mixedArithmetic"
+                    symbol=Symbol(
+                        position=(7, 1, 0),
+                        name="mixedArithmetic"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(7, 19, 0),
@@ -247,9 +265,12 @@ Module(
             ),
             Assignment(
                 position=(9, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(9, 1, 0),
-                    name="allOperators"
+                    symbol=Symbol(
+                        position=(9, 1, 0),
+                        name="allOperators"
+                    )
                 ),
                 value=BinaryOperation(
                     position=(10, 5, 4),
@@ -478,36 +499,39 @@ Module(
                 omitted_equal_sign=false
             ),
             Assignment(
-                position=(521, 1, 0),
-                target=Symbol(
-                    position=(521, 1, 0),
-                    name="plusMinusPlus"
+                position=(545, 1, 0),
+                target=SymbolPattern(
+                    position=(545, 1, 0),
+                    symbol=Symbol(
+                        position=(545, 1, 0),
+                        name="plusMinusPlus"
+                    )
                 ),
                 value=BinaryOperation(
-                    position=(521, 17, 0),
+                    position=(545, 17, 0),
                     left=BinaryOperation(
-                        position=(521, 17, 0),
+                        position=(545, 17, 0),
                         left=BinaryOperation(
-                            position=(521, 17, 0),
+                            position=(545, 17, 0),
                             left=NumberLiteral(
-                                position=(521, 17, 0),
+                                position=(545, 17, 0),
                                 contents="1"
                             ),
                             operator="+",
                             right=NumberLiteral(
-                                position=(521, 21, 0),
+                                position=(545, 21, 0),
                                 contents="2"
                             )
                         ),
                         operator="-",
                         right=NumberLiteral(
-                            position=(521, 25, 0),
+                            position=(545, 25, 0),
                             contents="3"
                         )
                     ),
                     operator="+",
                     right=NumberLiteral(
-                        position=(521, 29, 0),
+                        position=(545, 29, 0),
                         contents="4"
                     )
                 ),

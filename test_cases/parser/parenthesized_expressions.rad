@@ -19,9 +19,12 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="parenthesizedExpr"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="parenthesizedExpr"
+                    )
                 ),
                 value=ParenthesizedExpression(
                     position=(1, 21, 0),
@@ -53,9 +56,12 @@ Module(
             ),
             Assignment(
                 position=(3, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(3, 1, 0),
-                    name="tupleExpr"
+                    symbol=Symbol(
+                        position=(3, 1, 0),
+                        name="tupleExpr"
+                    )
                 ),
                 value=TupleLiteral(
                     position=(3, 13, 0),
@@ -78,9 +84,12 @@ Module(
             ),
             Assignment(
                 position=(4, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(4, 1, 0),
-                    name="tupleExpr2"
+                    symbol=Symbol(
+                        position=(4, 1, 0),
+                        name="tupleExpr2"
+                    )
                 ),
                 value=TupleLiteral(
                     position=(4, 14, 0),
@@ -103,9 +112,12 @@ Module(
             ),
             Assignment(
                 position=(7, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(7, 1, 0),
-                    name="tupleExprNoCommas"
+                    symbol=Symbol(
+                        position=(7, 1, 0),
+                        name="tupleExprNoCommas"
+                    )
                 ),
                 value=TupleLiteral(
                     position=(7, 21, 0),

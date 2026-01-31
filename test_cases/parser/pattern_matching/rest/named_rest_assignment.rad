@@ -9,7 +9,7 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target_pattern=ParenthesizedPattern(
+                target=ParenthesizedPattern(
                     position=(1, 1, 0),
                     elements=[
                         RestPattern(

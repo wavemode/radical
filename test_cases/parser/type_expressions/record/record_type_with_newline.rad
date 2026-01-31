@@ -13,18 +13,24 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolPattern(
                     position=(1, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    )
                 ),
                 type_annotation=RecordType(
                     position=(1, 5, 0),
                     fields=[
                         TypeAnnotation(
                             position=(1, 7, 0),
-                            name=Symbol(
+                            name=SymbolPattern(
                                 position=(1, 7, 0),
-                                name="b"
+                                symbol=Symbol(
+                                    position=(1, 7, 0),
+                                    name="b"
+                                )
                             ),
                             type_annotation=TypeName(
                                 position=(3, 9, 8),
@@ -33,9 +39,12 @@ Module(
                         ),
                         TypeAnnotation(
                             position=(4, 7, 6),
-                            name=Symbol(
+                            name=SymbolPattern(
                                 position=(4, 7, 6),
-                                name="c"
+                                symbol=Symbol(
+                                    position=(4, 7, 6),
+                                    name="c"
+                                )
                             ),
                             type_annotation=TypeName(
                                 position=(4, 9, 6),

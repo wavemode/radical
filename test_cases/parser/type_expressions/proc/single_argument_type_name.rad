@@ -9,9 +9,12 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolPattern(
                     position=(1, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    )
                 ),
                 type_annotation=ProcedureType(
                     position=(1, 5, 0),

@@ -144,9 +144,9 @@ class Parser(Unit):
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
-            *self._let_expression_declaration_parsers,
             self.parse_local_declaration,
             self.parse_module_name_declaration,
+            *self._let_expression_declaration_parsers,
         ]
 
     def parse_let_expression(self) -> LetExpressionNode | None:
@@ -502,8 +502,13 @@ class Parser(Unit):
 
     def parse_module_name_declaration(self) -> ModuleNameNode | None:
         start_position = self._position
-        if not self.parse_token(TokenType.MODULE):
+        if not (
+            self._peek().type == TokenType.MODULE
+            and self._peek(1).type == TokenType.SYMBOL
+            and self._peek(2).type not in (TokenType.OF, TokenType.ASSIGN)
+        ):
             return None
+        self._read()  # consume MODULE
 
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
@@ -722,34 +727,12 @@ class Parser(Unit):
         self,
     ) -> AssignmentNode | TypeAnnotationNode | None:
         start_position = self._position
-        if self._peek().type not in (
-            TokenType.SYMBOL,
-            TokenType.PARENTHESES_START,
-            TokenType.FUNCTION_CALL_START,
-        ):
+        if not (target := self.parse_pattern()):
             return None
 
         type_annotation: TypeExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
         omitted_equal_sign = False
-        target_line: int
-        target: SymbolNode | None = None
-        target_pattern: PatternNodeType | None = None
-        if target_token := self.parse_token(TokenType.SYMBOL):
-            target = SymbolNode(
-                position=target_token.position,
-                name=target_token,
-            )
-            target_line = target_token.position.line
-        elif self._peek().type in (
-            TokenType.PARENTHESES_START,
-            TokenType.FUNCTION_CALL_START,
-        ):
-            target_pattern = self.parse_pattern()
-            target_line = target_pattern.position.line
-        else:
-            # just to appease type checker - we already checked the token type
-            raise RuntimeError("unreachable")
 
         if self._peek().type == TokenType.COLON:
             self._read()  # consume COLON
@@ -761,7 +744,7 @@ class Parser(Unit):
         else:
             upcoming_token = self._peek()
             if upcoming_token.type in EXPR_START_TOKENS and (
-                upcoming_token.position.line == target_line
+                upcoming_token.position.line == target.position.line
             ):
                 if type_annotation:
                     self._raise_parse_error(
@@ -775,22 +758,25 @@ class Parser(Unit):
             return AssignmentNode(
                 position=start_position,
                 target=target,
-                target_pattern=target_pattern,
                 value=value,
                 type_annotation=type_annotation,
                 omitted_equal_sign=omitted_equal_sign,
             )
         elif type_annotation is not None:
-            return TypeAnnotationNode(
-                position=start_position,
-                name=target,
-                type_annotation=type_annotation,
-            )
-        else:
+            if isinstance(target, SymbolPatternNode):
+                return TypeAnnotationNode(
+                    position=start_position,
+                    name=target,
+                    type_annotation=type_annotation,
+                )
             self._raise_parse_error(
-                message="Assignment must have a value and/or a type annotation",
-                position=start_position,
+                message="Left-hand side of type annotation must be a symbol",
+                position=target.position,
             )
+        self._raise_parse_error(
+            message="Assignment must have a value and/or a type annotation",
+            position=start_position,
+        )
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
         return self.parse_descend_type_expr_union()
@@ -1132,8 +1118,10 @@ class Parser(Unit):
             type_annotation=type_annotation,
         )
 
-    def parse_pattern(self) -> PatternNodeType:
+    def parse_pattern(self) -> PatternNodeType | None:
         lhs = self.parse_pattern_atom()
+        if not lhs:
+            return None
         while self.parse_token(TokenType.IF):
             condition = self.parse_value_expression()
             lhs = PatternGuardNode(
@@ -1143,13 +1131,17 @@ class Parser(Unit):
             )
         return lhs
 
-    def parse_pattern_atom(self) -> PatternAtomNodeType:
-        for pattern_parser in self._pattern_atom_parsers:
-            if pattern := pattern_parser():
-                return pattern
+    def parse_pattern_or_error(self) -> PatternNodeType:
+        if pattern := self.parse_pattern():
+            return pattern
         self._raise_parse_error(
             message=f"Expected pattern. Unexpected token {self._peek().pretty()}"
         )
+
+    def parse_pattern_atom(self) -> PatternAtomNodeType | None:
+        for pattern_parser in self._pattern_atom_parsers:
+            if pattern := pattern_parser():
+                return pattern
 
     def parse_parenthesized_pattern(self) -> ParenthesizedPatternNode | None:
         start_position = self._position
@@ -1159,7 +1151,7 @@ class Parser(Unit):
             return None
 
         elements = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_pattern,
+            element_parser=self.parse_pattern_or_error,
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 

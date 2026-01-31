@@ -418,8 +418,7 @@ class LocalDeclarationNode(Node):
 
 @dataclass(frozen=True)
 class AssignmentNode(Node):
-    target: SymbolNode | None
-    target_pattern: "PatternNodeType | None"
+    target: "PatternNodeType"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
     omitted_equal_sign: bool
@@ -427,7 +426,7 @@ class AssignmentNode(Node):
 
 @dataclass(frozen=True)
 class TypeAnnotationNode(Node):
-    name: SymbolNode | None
+    name: SymbolPatternNode
     type_annotation: "TypeExpressionNodeType"
 
 

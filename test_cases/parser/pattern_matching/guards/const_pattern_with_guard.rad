@@ -9,7 +9,7 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target_pattern=PatternGuard(
+                target=PatternGuard(
                     position=(1, 1, 0),
                     pattern=ParenthesizedPattern(
                         position=(1, 1, 0),

@@ -11,9 +11,12 @@ Module(
                 position=(1, 1, 0),
                 declaration=Assignment(
                     position=(1, 7, 0),
-                    target=Symbol(
+                    target=SymbolPattern(
                         position=(1, 7, 0),
-                        name="a"
+                        symbol=Symbol(
+                            position=(1, 7, 0),
+                            name="a"
+                        )
                     ),
                     value=NumberLiteral(
                         position=(1, 17, 0),

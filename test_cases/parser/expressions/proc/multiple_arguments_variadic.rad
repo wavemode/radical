@@ -11,9 +11,12 @@ Module(
         declarations=[
             Assignment(
                 position=(1, 1, 0),
-                target=Symbol(
+                target=SymbolPattern(
                     position=(1, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    )
                 ),
                 value=ProcedureExpression(
                     position=(1, 5, 0),
@@ -50,9 +53,12 @@ Module(
                                 position=(2, 5, 4),
                                 declaration=Assignment(
                                     position=(2, 11, 4),
-                                    target=Symbol(
+                                    target=SymbolPattern(
                                         position=(2, 11, 4),
-                                        name="d"
+                                        symbol=Symbol(
+                                            position=(2, 11, 4),
+                                            name="d"
+                                        )
                                     ),
                                     value=IndexingExpression(
                                         position=(2, 15, 4),

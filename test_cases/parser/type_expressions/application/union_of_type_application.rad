@@ -16,9 +16,12 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(8, 1, 0),
-                name=Symbol(
+                name=SymbolPattern(
                     position=(8, 1, 0),
-                    name="a"
+                    symbol=Symbol(
+                        position=(8, 1, 0),
+                        name="a"
+                    )
                 ),
                 type_annotation=TypeUnion(
                     position=(8, 5, 0),
