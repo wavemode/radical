@@ -521,11 +521,6 @@ class ProcedureDeclarationNode(Node):
 
 
 @dataclass(frozen=True)
-class SpreadAssignmentStatementNode(Node):
-    value: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
 class ModuleNameNode(Node):
     name: SymbolNode
     type_annotation: "TypeExpressionNodeType | None"
@@ -595,6 +590,4 @@ LetExpressionDeclarationNodeType = (
     | ProcedureDeclarationNode
 )
 
-TopLevelDeclarationNodeType = (
-    LetExpressionDeclarationNodeType | SpreadAssignmentStatementNode | ModuleNameNode
-)
+TopLevelDeclarationNodeType = LetExpressionDeclarationNodeType | ModuleNameNode

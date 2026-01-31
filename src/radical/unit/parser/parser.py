@@ -53,7 +53,6 @@ from radical.data.parser.ast import (
     ProcedureTypeNode,
     RecordTypeNode,
     RestPatternNode,
-    SpreadAssignmentStatementNode,
     SpreadOperationNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
@@ -136,16 +135,15 @@ class Parser(Unit):
             self.parse_data_declaration,
             self.parse_type_declaration,
             self.parse_import_statement,
-            self.parse_assignment,
             self.parse_module_assignment_declaration,
             self.parse_module_body_declaration,
+            self.parse_assignment,
         ]
 
         self._top_level_declaration_parsers: list[
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
             *self._let_expression_declaration_parsers,
-            self.parse_spread_assignment_statement,
             self.parse_module_name_declaration,
         ]
 
@@ -638,16 +636,6 @@ class Parser(Unit):
             type_expression=type_expr,
             local=local,
             parameters=parameters,
-        )
-
-    def parse_spread_assignment_statement(self) -> SpreadAssignmentStatementNode | None:
-        start_position = self._position
-        if not self.parse_token(TokenType.ELLIPSIS):
-            return None
-        value = self.parse_value_expression()
-        return SpreadAssignmentStatementNode(
-            position=start_position,
-            value=value,
         )
 
     def parse_import_statement(self) -> ImportStatementNode | None:
