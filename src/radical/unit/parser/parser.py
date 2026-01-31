@@ -37,6 +37,7 @@ from radical.data.parser.ast import (
     LocalDeclarationNode,
     NullLiteralPatternNode,
     NumberLiteralPatternNode,
+    PatternAliasNode,
     RecordAssignmentEntryNode,
     RecordLiteralNode,
     ModuleAssignmentDeclarationNode,
@@ -1152,6 +1153,18 @@ class Parser(Unit):
                     pattern=lhs,
                     condition=condition,
                 )
+            elif self.parse_token(TokenType.AS):
+                alias = self.parse_symbol()
+                if not alias:
+                    self._raise_parse_error(
+                        message=f"Expected pattern alias name after 'as'. Unexpected token {self._peek().pretty()}"
+                    )
+                    raise RuntimeError("unreachable")  # appease typechecker
+                lhs = PatternAliasNode(
+                    position=lhs.position,
+                    pattern=lhs,
+                    alias=alias,
+                )
             elif self.parse_token(TokenType.OF):
                 self.require_token(TokenType.TYPE)
                 type_expr = self.parse_type_expression()
@@ -1261,7 +1274,7 @@ class Parser(Unit):
                 self._raise_parse_error(
                     message="Record field pattern must have a name unless it is a rest pattern",
                     position=field.position,
-            )
+                )
 
         return RecordPatternNode(
             position=start_position,
