@@ -71,6 +71,7 @@ from radical.data.parser.ast import (
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
     TypeDeclarationNode,
+    TypeMatchPatternNode,
     TypeOfTypeExpressionNode,
     TypeTypeExpressionNode,
     TypeExpressionNodeType,
@@ -1149,13 +1150,30 @@ class Parser(Unit):
         lhs = self.parse_pattern_atom()
         if not lhs:
             return None
-        while self.parse_token(TokenType.IF):
-            condition = self.parse_value_expression()
-            lhs = PatternGuardNode(
-                position=lhs.position,
-                pattern=lhs,
-                condition=condition,
-            )
+        while True:
+            if self.parse_token(TokenType.IF):
+                condition = self.parse_value_expression()
+                lhs = PatternGuardNode(
+                    position=lhs.position,
+                    pattern=lhs,
+                    condition=condition,
+                )
+            elif self.parse_token(TokenType.OF):
+                self.require_token(TokenType.TYPE)
+                type_expr = self.parse_type_expression()
+                if not isinstance(lhs, SymbolPatternNode):
+                    self._raise_parse_error(
+                        message="Left-hand side for 'of type' pattern must be a symbol",
+                        position=lhs.position,
+                    )
+                    raise RuntimeError("unreachable")  # appease typechecker
+                lhs = TypeMatchPatternNode(
+                    position=lhs.position,
+                    symbol=lhs,
+                    type_expression=type_expr,
+                )
+            else:
+                break
         return lhs
 
     def parse_pattern_or_error(self) -> PatternNodeType:

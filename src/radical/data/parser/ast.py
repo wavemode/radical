@@ -436,6 +436,12 @@ class PatternGuardNode(Node):
     condition: "ValueExpressionNodeType"
 
 
+@dataclass(frozen=True)
+class TypeMatchPatternNode(Node):
+    symbol: SymbolPatternNode
+    type_expression: "TypeExpressionNodeType"
+
+
 # Declarations
 
 
@@ -597,7 +603,7 @@ PatternAtomNodeType = (
     | NullLiteralPatternNode
     | BooleanLiteralPatternNode
 )
-PatternNodeType = PatternAtomNodeType | PatternGuardNode
+PatternNodeType = PatternAtomNodeType | PatternGuardNode | TypeMatchPatternNode
 TypeExpressionNodeType = (
     TypeNameNode
     | ParenthesizedTypeExpressionNode
