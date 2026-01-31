@@ -1,4 +1,4 @@
-(a, b, c) = (1, 2, 3)
+(a, b, c) <- (1, 2, 3)
 
 (*
 Module(
@@ -37,18 +37,18 @@ Module(
                         ]
                     ),
                     value=TupleLiteral(
-                        position=(1, 13, 0),
+                        position=(1, 14, 0),
                         elements=[
                             NumberLiteral(
-                                position=(1, 14, 0),
+                                position=(1, 15, 0),
                                 contents="1"
                             ),
                             NumberLiteral(
-                                position=(1, 17, 0),
+                                position=(1, 18, 0),
                                 contents="2"
                             ),
                             NumberLiteral(
-                                position=(1, 20, 0),
+                                position=(1, 21, 0),
                                 contents="3"
                             )
                         ]

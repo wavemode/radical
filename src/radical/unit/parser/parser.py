@@ -803,7 +803,7 @@ class Parser(Unit):
     def parse_destructuring_assignment(self) -> DestructuringAssignmentNode | None:
         start_position = self._position
         if pattern := self.parse_pattern():
-            if not self.parse_token(TokenType.ASSIGN):
+            if not self.parse_token(TokenType.LEFT_ARROW):
                 self._raise_parse_error(
                     message=f"Expected '=' after pattern. Unexpected token {self._peek().pretty()}",
                     position=start_position,
@@ -1324,8 +1324,7 @@ class Parser(Unit):
     def parse_data_type_pattern(self) -> DataTypePatternNode | None:
         start_position = self._position
         if not (
-            self._peek().type == TokenType.SYMBOL
-            and self._peek(1).type == TokenType.FUNCTION_CALL_START
+            self._peek().type == TokenType.SYMBOL and self._peek().value[0].isupper()
         ):
             return None
 
@@ -1336,11 +1335,12 @@ class Parser(Unit):
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
-        self._read()  # consume FUNCTION_CALL_START
-        fields = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_key_value_field_pattern,
-            ending_token=TokenType.FUNCTION_CALL_END,
-        )
+        fields: list[KeyValueFieldPatternNode] | None = None
+        if self.parse_token(TokenType.FUNCTION_CALL_START):
+            fields = self.parse_comma_or_newline_separated(
+                element_parser=self.parse_key_value_field_pattern,
+                ending_token=TokenType.FUNCTION_CALL_END,
+            )
 
         return DataTypePatternNode(
             position=start_position,
@@ -1431,12 +1431,14 @@ class Parser(Unit):
 
     def parse_symbol_pattern(self) -> SymbolPatternNode | None:
         start_position = self._position
-        if symbol := self.parse_symbol():
+        if (self._peek().type == TokenType.SYMBOL) and (
+            not self._peek().value[0].isupper()
+        ):
+            assert (symbol := self.parse_symbol())
             return SymbolPatternNode(
                 position=start_position,
                 symbol=symbol,
             )
-        return None
 
     def parse_value_expression(self) -> ValueExpressionNodeType:
         return self.parse_descend_expr_pipe()

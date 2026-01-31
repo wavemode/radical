@@ -1,5 +1,5 @@
 x = let 
-    (a) = "c"
+    (a) <- "c"
   in
     a
 
@@ -37,7 +37,7 @@ Module(
                                         ]
                                     ),
                                     value=StringLiteral(
-                                        position=(2, 11, 4),
+                                        position=(2, 12, 4),
                                         open_quote="\"",
                                         contents="c",
                                         close_quote="\""

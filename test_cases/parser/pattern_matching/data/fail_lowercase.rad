@@ -1,5 +1,10 @@
 x = case y of dataType((x, y)) -> x
 
 (*
-FAIL("Type names must start with an uppercase letter at test_cases/parser/pattern_matching/data/fail_lowercase.rad:1:15")
+    TODO: This error message could make it clearer that the mistake is that
+    data constructors can't start with a lowercase letter, and so neither can
+    pattern matches against them.
+*)
+(*
+FAIL("Expected token of type RIGHT_ARROW. Unexpected token FUNCTION_CALL_START('(') at test_cases/parser/pattern_matching/data/fail_lowercase.rad:1:23")
 *)

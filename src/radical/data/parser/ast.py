@@ -470,7 +470,7 @@ class KeyValueFieldPatternNode(Node):
 @dataclass(frozen=True)
 class DataTypePatternNode(Node):
     name: SymbolNode
-    fields: list["KeyValueFieldPatternNode"]
+    fields: list["KeyValueFieldPatternNode"] | None
 
 
 @dataclass(frozen=True)

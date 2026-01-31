@@ -1,4 +1,4 @@
-f"{a}" = expr
+f"{a}" <- expr
 
 (*
 Module(
@@ -28,7 +28,7 @@ Module(
                         close_quote="\""
                     ),
                     value=Symbol(
-                        position=(1, 10, 0),
+                        position=(1, 11, 0),
                         name="expr"
                     )
                 )
