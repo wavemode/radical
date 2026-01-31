@@ -42,7 +42,7 @@ Module(
                                 string_contents="\n    hello "
                             ),
                             FormatStringExpression(
-                                position=(3, 12, 0),
+                                position=(3, 11, 0),
                                 expression=Symbol(
                                     position=(3, 12, 0),
                                     name="name"

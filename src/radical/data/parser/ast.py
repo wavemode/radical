@@ -433,6 +433,25 @@ class StringLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class FormatStringTextSectionPatternNode(Node):
+    string_contents: Token
+
+
+@dataclass(frozen=True)
+class FormatStringExpressionPatternNode(Node):
+    pattern: "PatternNodeType"
+
+
+@dataclass(frozen=True)
+class FormatStringLiteralPatternNode(Node):
+    open_quote: Token
+    contents: list[
+        FormatStringTextSectionPatternNode | FormatStringExpressionPatternNode
+    ]
+    close_quote: Token
+
+
+@dataclass(frozen=True)
 class NullLiteralPatternNode(Node):
     null: NullLiteralNode
 
@@ -634,6 +653,7 @@ PatternAtomNodeType = (
     | ListPatternNode
     | NumberLiteralPatternNode
     | StringLiteralPatternNode
+    | FormatStringLiteralPatternNode
     | NullLiteralPatternNode
     | BooleanLiteralPatternNode
 )

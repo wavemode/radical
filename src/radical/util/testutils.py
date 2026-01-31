@@ -54,6 +54,7 @@ def collect_test_cases(directory: str) -> list[CompilerTestCase]:
     for root, _, files in os.walk(directory):
         for file in files:
             if not file.endswith(".rad"):
+                print("Skipping file:", file)
                 continue
             file_path = os.path.join(root, file)
             if enabled_files is not None and file_path not in enabled_files:

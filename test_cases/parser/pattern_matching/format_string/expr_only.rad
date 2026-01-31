@@ -1,0 +1,39 @@
+f"{a}" = expr
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            AssignmentStatement(
+                position=(1, 1, 0),
+                assignment=DestructuringAssignment(
+                    position=(1, 1, 0),
+                    pattern=FormatStringLiteralPattern(
+                        position=(1, 1, 0),
+                        open_quote="f\"",
+                        contents=[
+                            FormatStringExpressionPattern(
+                                position=(1, 4, 0),
+                                pattern=SymbolPattern(
+                                    position=(1, 4, 0),
+                                    symbol=Symbol(
+                                        position=(1, 4, 0),
+                                        name="a"
+                                    )
+                                )
+                            )
+                        ],
+                        close_quote="\""
+                    ),
+                    value=Symbol(
+                        position=(1, 10, 0),
+                        name="expr"
+                    )
+                )
+            )
+        ]
+    )
+)
+*)

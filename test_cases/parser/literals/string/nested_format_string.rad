@@ -40,13 +40,13 @@ Module(
                                 string_contents="hello "
                             ),
                             FormatStringExpression(
-                                position=(2, 14, 0),
+                                position=(2, 13, 0),
                                 expression=FormatStringLiteral(
                                     position=(2, 14, 0),
                                     open_quote="f\"",
                                     contents=[
                                         FormatStringExpression(
-                                            position=(2, 17, 0),
+                                            position=(2, 16, 0),
                                             expression=BinaryOperation(
                                                 position=(2, 17, 0),
                                                 left=Symbol(

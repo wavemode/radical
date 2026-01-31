@@ -48,7 +48,7 @@ Module(
                                     open_quote="f\"",
                                     contents=[
                                         FormatStringExpression(
-                                            position=(2, 25, 4),
+                                            position=(2, 24, 4),
                                             expression=Symbol(
                                                 position=(2, 25, 4),
                                                 name="z"

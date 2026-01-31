@@ -11,6 +11,9 @@ from radical.data.parser.ast import (
     DataDeclarationNode,
     DataFieldNode,
     DestructuringAssignmentNode,
+    FormatStringExpressionPatternNode,
+    FormatStringLiteralPatternNode,
+    FormatStringTextSectionPatternNode,
     FunctionCallArgumentNodeType,
     KeyValueFieldPatternNode,
     DataTypePatternNode,
@@ -135,6 +138,7 @@ class Parser(Unit):
             self.parse_list_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
+            self.parse_format_string_literal_pattern,
             self.parse_null_literal_pattern,
             self.parse_boolean_literal_pattern,
             self.parse_rest_pattern,
@@ -1275,6 +1279,48 @@ class Parser(Unit):
             string=string_literal,
         )
 
+    def parse_format_string_literal_pattern(
+        self,
+    ) -> FormatStringLiteralPatternNode | None:
+        start_position = self._position
+        if not (
+            open_quote := self.parse_any_token(
+                [TokenType.FORMAT_STRING_START, TokenType.MULTILINE_FORMAT_STRING_START]
+            )
+        ):
+            return None
+
+        contents: list[
+            FormatStringTextSectionPatternNode | FormatStringExpressionPatternNode
+        ] = []
+        while not (
+            close_quote := self.parse_any_token(
+                [TokenType.FORMAT_STRING_END, TokenType.MULTILINE_FORMAT_STRING_END]
+            )
+        ):
+            if content_token := self.parse_token(TokenType.STRING_CONTENTS):
+                contents.append(
+                    FormatStringTextSectionPatternNode(
+                        position=content_token.position,
+                        string_contents=content_token,
+                    )
+                )
+            elif self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
+                pattern = self.parse_pattern_or_error()
+                self._read()  # consume FORMAT_STRING_EXPR_END
+                contents.append(
+                    FormatStringExpressionPatternNode(
+                        position=pattern.position,
+                        pattern=pattern,
+                    )
+                )
+        return FormatStringLiteralPatternNode(
+            position=start_position,
+            open_quote=open_quote,
+            contents=contents,
+            close_quote=close_quote,
+        )
+
     def parse_data_type_pattern(self) -> DataTypePatternNode | None:
         start_position = self._position
         if not (
@@ -1927,12 +1973,12 @@ class Parser(Unit):
                         string_contents=content_token,
                     )
                 )
-            elif self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
+            elif tok := self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
                 expr = self.parse_value_expression()
                 self._read()  # consume FORMAT_STRING_EXPR_END
                 contents.append(
                     FormatStringExpressionNode(
-                        position=expr.position,
+                        position=tok.position,
                         expression=expr,
                     )
                 )

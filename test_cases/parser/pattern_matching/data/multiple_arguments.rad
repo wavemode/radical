@@ -67,7 +67,7 @@ Module(
                                     open_quote="f\"",
                                     contents=[
                                         FormatStringExpression(
-                                            position=(1, 42, 0),
+                                            position=(1, 41, 0),
                                             expression=FieldAccessExpression(
                                                 position=(1, 42, 0),
                                                 object_expression=Symbol(
