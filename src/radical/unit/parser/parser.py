@@ -327,7 +327,7 @@ class Parser(Unit):
         )
 
         return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
-        if self.parse_token(TokenType.ARROW):
+        if self.parse_token(TokenType.RIGHT_ARROW):
             if not (return_type := self.parse_placeholder_type()):
                 return_type = self.parse_type_expression()
 
@@ -369,7 +369,7 @@ class Parser(Unit):
         )
 
         return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
-        if self.parse_token(TokenType.ARROW):
+        if self.parse_token(TokenType.RIGHT_ARROW):
             if not (return_type := self.parse_placeholder_type()):
                 return_type = self.parse_type_expression()
 
@@ -1083,7 +1083,7 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        if not self.parse_token(TokenType.ARROW):
+        if not self.parse_token(TokenType.RIGHT_ARROW):
             self._raise_parse_error(
                 message=f"Expected '->' after function parameter list in function type. Unexpected token {self._peek().pretty()}",
                 position=start_position,
@@ -1123,7 +1123,7 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        if not self.parse_token(TokenType.ARROW):
+        if not self.parse_token(TokenType.RIGHT_ARROW):
             self._raise_parse_error(
                 message=f"Expected '->' after procedure parameter list in procedure type. Unexpected token {self._peek().pretty()}",
                 position=start_position,
@@ -1684,7 +1684,7 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        self.require_token(TokenType.ARROW)
+        self.require_token(TokenType.RIGHT_ARROW)
         body = self.parse_value_expression()
         return FunctionExpressionNode(
             position=start_position,
@@ -1750,7 +1750,7 @@ class Parser(Unit):
     def parse_case_branch(self) -> CaseBranchNode:
         start_position = self._position
         pattern = self.parse_pattern_or_error()
-        self.require_token(TokenType.ARROW)
+        self.require_token(TokenType.RIGHT_ARROW)
         expression = self.parse_value_expression()
         return CaseBranchNode(
             position=start_position,

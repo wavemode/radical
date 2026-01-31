@@ -1,5 +1,5 @@
 x = case y of DataType ((x, y)) -> x
 
 (*
-FAIL("Expected token of type ARROW. Unexpected token PARENTHESES_START('(') at test_cases/parser/pattern_matching/data/fail_no_space_allowed.rad:1:24")
+FAIL("Expected token of type RIGHT_ARROW. Unexpected token PARENTHESES_START('(') at test_cases/parser/pattern_matching/data/fail_no_space_allowed.rad:1:24")
 *)

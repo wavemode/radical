@@ -62,7 +62,10 @@ class Lexer(Unit):
             self._add_token(TokenType.VARIANT, char)
             self._advance_non_whitespace()
         elif char == "-" and next_char == ">":
-            self._add_token(TokenType.ARROW, "->")
+            self._add_token(TokenType.RIGHT_ARROW, "->")
+            self._advance_non_whitespace(2)
+        elif char == "<" and next_char == "-":
+            self._add_token(TokenType.LEFT_ARROW, "<-")
             self._advance_non_whitespace(2)
         elif char == "." and next_char == "." and self._peek_char(2) == ".":
             self._add_token(TokenType.ELLIPSIS, "...")

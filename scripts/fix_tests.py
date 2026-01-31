@@ -10,6 +10,7 @@ from radical.unit.parser.parser import Parser
 
 def fix_parser_tests():
     for test_case in collect_test_cases("test_cases/parser"):
+        exc: Exception | None = None
         try:
             with (
                 Lexer(test_case.contents, filename=test_case.path) as lexer,
@@ -20,10 +21,12 @@ def fix_parser_tests():
             if "fail_" not in test_case.path:
                 raise
             formatted = f"FAIL({json.dumps(str(e))})"
-            if formatted != test_case.expected_output:
-                print(f"Test case {test_case.path} raised exception:\n{e}")
+            exc = e
         if formatted != test_case.expected_output:
-            print(f"Updating test case: {test_case.path}")
+            if exc is not None:
+                print(f"Test case {test_case.path} raised exception:\n{exc}")
+            else:
+                print(f"Updating test case: {test_case.path}")
             test_case.update_expected_output(formatted)
 
 
