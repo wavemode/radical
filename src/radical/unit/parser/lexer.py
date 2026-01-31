@@ -86,8 +86,11 @@ class Lexer(Unit):
             self._add_token(TokenType.FLOOR_DIVIDE, "//")
             self._advance_non_whitespace(2)
         elif char == "/":
-            self._add_token(TokenType.DIVIDE, char)
-            self._advance_non_whitespace()
+            if self._previous_token_was_expression():
+                self._add_token(TokenType.DIVIDE, char)
+                self._advance_non_whitespace()
+            else:
+                self._read_regex_literal()
         elif char == "%":
             self._add_token(TokenType.MODULO, char)
             self._advance_non_whitespace()
@@ -210,6 +213,34 @@ class Lexer(Unit):
             self._read_token()
         self._add_token(TokenType.OBJECT_END, "}")
         self._advance_non_whitespace()
+
+    def _read_regex_literal(self) -> None:
+        start_position = self._position()
+        self._add_token(TokenType.REGEX_LITERAL_START, "/")
+        self._advance_non_whitespace()  # Skip opening /
+        regex_chars: list[str] = []
+        contents_start_position = self._position()
+        while not (self._peek_char() == "/"):
+            if self._at_end() or self._peek_char() == "\n":
+                self._raise_parse_error("Unterminated regex literal", start_position)
+            regex_chars.append(self._read_regex_literal_character())
+        regex_value = "".join(regex_chars)
+        self._add_token(TokenType.STRING_CONTENTS, regex_value, contents_start_position)
+        self._add_token(TokenType.REGEX_LITERAL_END, "/")
+        self._advance_non_whitespace()  # Skip closing slash
+
+    def _read_regex_literal_character(self) -> str:
+        char = self._peek_char()
+        self._advance_non_whitespace()
+        if char == "\\":
+            next_char = self._peek_char()
+            if next_char == "/":
+                self._advance_non_whitespace()
+                return "/"
+            else:
+                return char
+        else:
+            return char
 
     def _read_type_application_expression(self) -> None:
         start_position = self._position()
@@ -661,6 +692,11 @@ class Lexer(Unit):
             or self._peek_char(-1) == ""
             or not self._tokens
         ):
+            return False
+        return self._previous_token_was_expression()
+
+    def _previous_token_was_expression(self) -> bool:
+        if not self._tokens:
             return False
         return self._tokens[-1].type in EXPR_END_TOKENS
 
