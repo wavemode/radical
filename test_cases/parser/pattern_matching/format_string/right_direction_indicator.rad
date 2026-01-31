@@ -1,4 +1,4 @@
-f"{a}" <- expr
+f"{ -> }Hello, {world}!" <- expr
 
 (*
 Module(
@@ -14,21 +14,33 @@ Module(
                         position=(1, 1, 0),
                         open_quote="f\"",
                         contents=[
-                            FormatStringExpressionPattern(
+                            FormatStringPatternDirectionIndicator(
                                 position=(1, 3, 0),
+                                direction="->"
+                            ),
+                            FormatStringTextSectionPattern(
+                                position=(1, 9, 0),
+                                string_contents="Hello, "
+                            ),
+                            FormatStringExpressionPattern(
+                                position=(1, 16, 0),
                                 pattern=SymbolPattern(
-                                    position=(1, 4, 0),
+                                    position=(1, 17, 0),
                                     symbol=Symbol(
-                                        position=(1, 4, 0),
-                                        name="a"
+                                        position=(1, 17, 0),
+                                        name="world"
                                     )
                                 )
+                            ),
+                            FormatStringTextSectionPattern(
+                                position=(1, 23, 0),
+                                string_contents="!"
                             )
                         ],
                         close_quote="\""
                     ),
                     value=Symbol(
-                        position=(1, 11, 0),
+                        position=(1, 29, 0),
                         name="expr"
                     )
                 )

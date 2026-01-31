@@ -13,6 +13,8 @@ from radical.data.parser.ast import (
     DestructuringAssignmentNode,
     FormatStringExpressionPatternNode,
     FormatStringLiteralPatternNode,
+    FormatStringPatternDirectionIndicatorNode,
+    FormatStringPatternPartNodeType,
     FormatStringTextSectionPatternNode,
     FunctionCallArgumentNodeType,
     KeyValueFieldPatternNode,
@@ -1290,35 +1292,101 @@ class Parser(Unit):
         ):
             return None
 
-        contents: list[
-            FormatStringTextSectionPatternNode | FormatStringExpressionPatternNode
-        ] = []
+        contents: list[FormatStringPatternPartNodeType] = []
+        seen_direction_indicator = False
+        seen_left_direction_indicator = False
         while not (
             close_quote := self.parse_any_token(
                 [TokenType.FORMAT_STRING_END, TokenType.MULTILINE_FORMAT_STRING_END]
             )
         ):
-            if content_token := self.parse_token(TokenType.STRING_CONTENTS):
-                contents.append(
-                    FormatStringTextSectionPatternNode(
-                        position=content_token.position,
-                        string_contents=content_token,
+            part = self.parse_format_string_pattern_part()
+            if isinstance(part, FormatStringPatternDirectionIndicatorNode):
+                if seen_direction_indicator:
+                    self._raise_parse_error(
+                        message="Format string pattern can only have one direction indicator",
+                        position=part.position,
                     )
-                )
-            elif self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
-                pattern = self.parse_pattern_or_error()
-                self._read()  # consume FORMAT_STRING_EXPR_END
-                contents.append(
-                    FormatStringExpressionPatternNode(
-                        position=pattern.position,
-                        pattern=pattern,
+                seen_direction_indicator = True
+                if part.direction.type == TokenType.LEFT_ARROW:
+                    seen_left_direction_indicator = True
+                elif contents:
+                    self._raise_parse_error(
+                        message="Right direction indicator must be at the start of the format string pattern",
+                        position=part.position,
                     )
+            elif seen_left_direction_indicator:
+                self._raise_parse_error(
+                    message="Left direction indicator must be at the end of the format string pattern",
+                    position=part.position,
                 )
+            contents.append(part)
+
         return FormatStringLiteralPatternNode(
             position=start_position,
             open_quote=open_quote,
             contents=contents,
             close_quote=close_quote,
+        )
+
+    def parse_format_string_pattern_part(self) -> FormatStringPatternPartNodeType:
+        if (
+            direction_indicator
+            := self.parse_format_string_pattern_direction_indicator()
+        ):
+            return direction_indicator
+
+        if text_section := self.parse_format_string_text_section_pattern():
+            return text_section
+
+        if expression_section := self.parse_format_string_expression_pattern():
+            return expression_section
+
+        self._raise_parse_error(
+            message=f"Expected format string pattern part. Unexpected token {self._peek().pretty()}"
+        )
+
+    def parse_format_string_pattern_direction_indicator(
+        self,
+    ) -> FormatStringPatternDirectionIndicatorNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.FORMAT_STRING_EXPR_START
+            and self._peek(1).type in (TokenType.RIGHT_ARROW, TokenType.LEFT_ARROW)
+        ):
+            return None
+
+        self._read()  # consume FORMAT_STRING_EXPR_START
+        direction_token = self._read()  # consume RIGHT_ARROW or LEFT_ARROW
+        self.require_token(TokenType.FORMAT_STRING_EXPR_END)
+
+        return FormatStringPatternDirectionIndicatorNode(
+            position=start_position,
+            direction=direction_token,
+        )
+
+    def parse_format_string_text_section_pattern(
+        self,
+    ) -> FormatStringTextSectionPatternNode | None:
+        start_position = self._position
+        if not (content_token := self.parse_token(TokenType.STRING_CONTENTS)):
+            return None
+        return FormatStringTextSectionPatternNode(
+            position=start_position,
+            string_contents=content_token,
+        )
+
+    def parse_format_string_expression_pattern(
+        self,
+    ) -> FormatStringExpressionPatternNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.FORMAT_STRING_EXPR_START):
+            return None
+        pattern = self.parse_pattern_or_error()
+        self._read()  # consume FORMAT_STRING_EXPR_END
+        return FormatStringExpressionPatternNode(
+            position=start_position,
+            pattern=pattern,
         )
 
     def parse_data_type_pattern(self) -> DataTypePatternNode | None:

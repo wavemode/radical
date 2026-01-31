@@ -1,4 +1,4 @@
-f"{a}" <- expr
+f"{<-}" <- expr
 
 (*
 Module(
@@ -14,21 +14,15 @@ Module(
                         position=(1, 1, 0),
                         open_quote="f\"",
                         contents=[
-                            FormatStringExpressionPattern(
+                            FormatStringPatternDirectionIndicator(
                                 position=(1, 3, 0),
-                                pattern=SymbolPattern(
-                                    position=(1, 4, 0),
-                                    symbol=Symbol(
-                                        position=(1, 4, 0),
-                                        name="a"
-                                    )
-                                )
+                                direction="<-"
                             )
                         ],
                         close_quote="\""
                     ),
                     value=Symbol(
-                        position=(1, 11, 0),
+                        position=(1, 12, 0),
                         name="expr"
                     )
                 )

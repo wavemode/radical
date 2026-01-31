@@ -19,7 +19,7 @@ Module(
                                 string_contents="Hello, "
                             ),
                             FormatStringExpressionPattern(
-                                position=(1, 11, 0),
+                                position=(1, 10, 0),
                                 pattern=SymbolPattern(
                                     position=(1, 11, 0),
                                     symbol=Symbol(

@@ -1,0 +1,5 @@
+f" { -> }Hello, {world}!" <- expr
+
+(*
+FAIL("Right direction indicator must be at the start of the format string pattern at test_cases/parser/pattern_matching/format_string/fail_right_direction_indicator_after_start.rad:1:4")
+*)

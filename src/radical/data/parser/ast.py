@@ -443,11 +443,14 @@ class FormatStringExpressionPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class FormatStringPatternDirectionIndicatorNode(Node):
+    direction: Token
+
+
+@dataclass(frozen=True)
 class FormatStringLiteralPatternNode(Node):
     open_quote: Token
-    contents: list[
-        FormatStringTextSectionPatternNode | FormatStringExpressionPatternNode
-    ]
+    contents: list["FormatStringPatternPartNodeType"]
     close_quote: Token
 
 
@@ -656,6 +659,11 @@ PatternAtomNodeType = (
     | FormatStringLiteralPatternNode
     | NullLiteralPatternNode
     | BooleanLiteralPatternNode
+)
+FormatStringPatternPartNodeType = (
+    FormatStringTextSectionPatternNode
+    | FormatStringExpressionPatternNode
+    | FormatStringPatternDirectionIndicatorNode
 )
 PatternNodeType = (
     PatternAtomNodeType | PatternGuardNode | PatternAliasNode | TypeMatchPatternNode

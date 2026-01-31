@@ -1,0 +1,5 @@
+f"Hello, {world}!{ <- } " <- expr
+
+(*
+FAIL("Left direction indicator must be at the end of the format string pattern at test_cases/parser/pattern_matching/format_string/fail_left_direction_indicator_before_end.rad:1:24")
+*)

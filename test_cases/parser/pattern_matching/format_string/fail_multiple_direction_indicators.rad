@@ -1,0 +1,5 @@
+f"{ -> }Hello, {world}!{ <- }" <- expr
+
+(*
+FAIL("Format string pattern can only have one direction indicator at test_cases/parser/pattern_matching/format_string/fail_multiple_direction_indicators.rad:1:24")
+*)
