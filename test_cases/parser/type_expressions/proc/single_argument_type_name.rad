@@ -30,8 +30,7 @@ Module(
                         position=(1, 18, 0),
                         name="Int"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

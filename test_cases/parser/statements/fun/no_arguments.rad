@@ -24,8 +24,7 @@ Module(
                 body=NumberLiteral(
                     position=(2, 5, 4),
                     contents="42"
-                ),
-                local=false
+                )
             )
         ]
     )

@@ -40,7 +40,6 @@ Module(
                     position=(1, 17, 0),
                     contents="20"
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

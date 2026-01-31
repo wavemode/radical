@@ -18,8 +18,7 @@ Module(
                     fields=[
 
                     ]
-                ),
-                local=false
+                )
             )
         ]
     )

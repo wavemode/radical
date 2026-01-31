@@ -47,18 +47,20 @@ Module(
                             body=[
                                 ProcedureBodyStatement(
                                     position=(3, 9, 8),
-                                    declaration=Assignment(
+                                    declaration=LocalDeclaration(
                                         position=(3, 9, 8),
-                                        target=Symbol(
+                                        declaration=Assignment(
                                             position=(3, 15, 8),
-                                            name="c"
-                                        ),
-                                        value=NumberLiteral(
-                                            position=(3, 19, 8),
-                                            contents="2"
-                                        ),
-                                        local=true,
-                                        omitted_equal_sign=false
+                                            target=Symbol(
+                                                position=(3, 15, 8),
+                                                name="c"
+                                            ),
+                                            value=NumberLiteral(
+                                                position=(3, 19, 8),
+                                                contents="2"
+                                            ),
+                                            omitted_equal_sign=false
+                                        )
                                     )
                                 ),
                                 ProcedureBodyStatement(
@@ -76,8 +78,7 @@ Module(
                                         )
                                     )
                                 )
-                            ],
-                            local=false
+                            ]
                         )
                     ],
                     body=FunctionCallExpression(
@@ -97,7 +98,6 @@ Module(
                         ]
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

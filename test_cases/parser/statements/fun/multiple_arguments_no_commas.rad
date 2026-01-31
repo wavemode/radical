@@ -73,8 +73,7 @@ Module(
                             contents="0"
                         )
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

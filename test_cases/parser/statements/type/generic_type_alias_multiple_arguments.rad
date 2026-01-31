@@ -48,8 +48,7 @@ Module(
                         ),
                         variadic=false
                     )
-                ],
-                local=false
+                ]
             )
         ]
     )

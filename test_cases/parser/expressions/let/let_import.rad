@@ -51,7 +51,6 @@ Module(
                                 position=(3, 9, 4),
                                 contents="5"
                             ),
-                            local=false,
                             omitted_equal_sign=false
                         )
                     ],
@@ -60,7 +59,6 @@ Module(
                         name="x"
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

@@ -20,7 +20,6 @@ Module(
                     contents="world",
                     close_quote="\""
                 ),
-                local=false,
                 omitted_equal_sign=false
             ),
             Assignment(
@@ -51,7 +50,6 @@ Module(
                     ],
                     close_quote="\""
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

@@ -30,8 +30,7 @@ Module(
                             )
                         )
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

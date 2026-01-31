@@ -19,7 +19,6 @@ Module(
                     contents="value",
                     close_quote="\""
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

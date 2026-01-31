@@ -43,8 +43,7 @@ Module(
                         position=(2, 9, 4),
                         contents="3"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

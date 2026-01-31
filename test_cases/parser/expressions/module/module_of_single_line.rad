@@ -31,7 +31,6 @@ Module(
                                     position=(2, 12, 4),
                                     contents="10"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             ),
                             Assignment(
@@ -44,13 +43,11 @@ Module(
                                     position=(2, 20, 4),
                                     contents="30"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             )
                         ]
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             ),
             Assignment(
@@ -75,13 +72,11 @@ Module(
                                     position=(3, 19, 0),
                                     contents="20"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             )
                         ]
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

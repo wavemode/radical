@@ -31,13 +31,11 @@ Module(
                                     position=(2, 9, 4),
                                     contents="5"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             )
                         ]
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

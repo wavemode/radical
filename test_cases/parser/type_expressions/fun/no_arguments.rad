@@ -22,8 +22,7 @@ Module(
                         position=(1, 14, 0),
                         name="Null"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

@@ -43,8 +43,7 @@ Module(
                             name="Float"
                         )
                     ]
-                ),
-                local=false
+                )
             )
         ]
     )

@@ -29,8 +29,7 @@ Module(
                             contents="42"
                         )
                     )
-                ],
-                local=false
+                ]
             )
         ]
     )

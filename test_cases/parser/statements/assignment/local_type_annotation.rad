@@ -7,17 +7,19 @@ Module(
         position=(1, 1, 0),
         omitted_equal_sign=false,
         declarations=[
-            TypeAnnotation(
+            LocalDeclaration(
                 position=(1, 1, 0),
-                name=Symbol(
+                declaration=TypeAnnotation(
                     position=(1, 7, 0),
-                    name="a"
-                ),
-                type_annotation=TypeName(
-                    position=(1, 11, 0),
-                    name="Int"
-                ),
-                local=true
+                    name=Symbol(
+                        position=(1, 7, 0),
+                        name="a"
+                    ),
+                    type_annotation=TypeName(
+                        position=(1, 11, 0),
+                        name="Int"
+                    )
+                )
             )
         ]
     )

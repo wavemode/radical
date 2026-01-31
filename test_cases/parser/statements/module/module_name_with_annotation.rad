@@ -30,8 +30,7 @@ Module(
                             type_annotation=TypeName(
                                 position=(1, 18, 0),
                                 name="Int"
-                            ),
-                            local=false
+                            )
                         )
                     ]
                 )
@@ -46,7 +45,6 @@ Module(
                     position=(2, 5, 0),
                     contents="5"
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

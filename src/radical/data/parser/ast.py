@@ -412,12 +412,16 @@ class PatternGuardNode(Node):
 
 
 @dataclass(frozen=True)
+class LocalDeclarationNode(Node):
+    declaration: "LetExpressionDeclarationNodeType"
+
+
+@dataclass(frozen=True)
 class AssignmentNode(Node):
     target: SymbolNode | None
     target_pattern: "PatternNodeType | None"
     value: "ValueExpressionNodeType"
     type_annotation: "TypeExpressionNodeType | None"
-    local: bool
     omitted_equal_sign: bool
 
 
@@ -425,7 +429,6 @@ class AssignmentNode(Node):
 class TypeAnnotationNode(Node):
     name: SymbolNode | None
     type_annotation: "TypeExpressionNodeType"
-    local: bool
 
 
 @dataclass(frozen=True)
@@ -453,7 +456,6 @@ class TypeDeclarationNode(Node):
     name: SymbolNode
     type_expression: "TypeExpressionNodeType"
     parameters: list[GenericTypeParameterNode] | None
-    local: bool
 
 
 @dataclass(frozen=True)
@@ -468,7 +470,6 @@ class DataDeclarationNode(Node):
     name: SymbolNode
     parameters: list[GenericTypeParameterNode] | None
     fields: list[DataFieldNode] | None
-    local: bool
 
 
 @dataclass(frozen=True)
@@ -498,12 +499,11 @@ class FunctionDeclarationNode(Node):
     generic_parameters: list["GenericTypeParameterNode"] | None
     return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: "ValueExpressionNodeType"
-    local: bool
 
 
 @dataclass(frozen=True)
 class ProcedureBodyStatementNode(Node):
-    declaration: "LetExpressionDeclarationNodeType | None"
+    declaration: LocalDeclarationNode | None
     expression: "ValueExpressionNodeType | None"
 
 
@@ -514,7 +514,6 @@ class ProcedureDeclarationNode(Node):
     generic_parameters: list["GenericTypeParameterNode"] | None
     return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: list[ProcedureBodyStatementNode]
-    local: bool
 
 
 # Top Level
@@ -590,4 +589,6 @@ LetExpressionDeclarationNodeType = (
     | ProcedureDeclarationNode
 )
 
-TopLevelDeclarationNodeType = LetExpressionDeclarationNodeType | ModuleNameNode
+TopLevelDeclarationNodeType = (
+    LetExpressionDeclarationNodeType | ModuleNameNode | LocalDeclarationNode
+)

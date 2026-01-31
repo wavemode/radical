@@ -12,8 +12,7 @@ Module(
                 name=Symbol(
                     position=(1, 6, 0),
                     name="A"
-                ),
-                local=false
+                )
             )
         ]
     )

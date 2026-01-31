@@ -16,8 +16,7 @@ Module(
                 type_expression=TypeName(
                     position=(1, 10, 0),
                     name="Int"
-                ),
-                local=false
+                )
             )
         ]
     )

@@ -47,7 +47,6 @@ Module(
                         )
                     ]
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

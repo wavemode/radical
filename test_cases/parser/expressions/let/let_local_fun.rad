@@ -5,5 +5,5 @@ x = let
         add(2, 3)
 
 (*
-FAIL("Local declarations are not allowed in let expressions at test_cases/parser/expressions/let/let_local_fun.rad:2:9")
+FAIL("Expected declaration. Unexpected token LOCAL('local') at test_cases/parser/expressions/let/let_local_fun.rad:2:9")
 *)

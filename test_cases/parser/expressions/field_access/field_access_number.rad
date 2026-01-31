@@ -24,7 +24,6 @@ Module(
                         name="0"
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

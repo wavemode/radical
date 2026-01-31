@@ -28,6 +28,7 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    LocalDeclarationNode,
     MapLiteralEntryNode,
     MapLiteralNode,
     ModuleAssignmentDeclarationNode,
@@ -144,6 +145,7 @@ class Parser(Unit):
             Callable[[], TopLevelDeclarationNodeType | None]
         ] = [
             *self._let_expression_declaration_parsers,
+            self.parse_local_declaration,
             self.parse_module_name_declaration,
         ]
 
@@ -166,11 +168,6 @@ class Parser(Unit):
                     )
             else:
                 seen_non_import_declaration = True
-            if getattr(decl, "local", False):
-                self._raise_parse_error(
-                    message="Local declarations are not allowed in let expressions",
-                    position=decl.position,
-                )
             assignments.append(decl)
 
         body = self.parse_value_expression()
@@ -200,8 +197,8 @@ class Parser(Unit):
     def _is_local_toplevel_declaration(
         self, declaration: TopLevelDeclarationNodeType
     ) -> bool:
-        return getattr(declaration, "local", False) or (
-            isinstance(declaration, (ImportStatementNode, ModuleNameNode))
+        return isinstance(
+            declaration, (LocalDeclarationNode, ImportStatementNode, ModuleNameNode)
         )
 
     def parse_module_expression(self) -> ModuleExpressionNode | None:
@@ -288,16 +285,8 @@ class Parser(Unit):
 
     def parse_function_declaration(self) -> FunctionDeclarationNode | None:
         start_position = self._position
-        if self._peek().type != TokenType.FUN and not (
-            self._peek().type == TokenType.LOCAL and self._peek(1).type == TokenType.FUN
-        ):
+        if not self.parse_token(TokenType.FUN):
             return None
-
-        local = False
-        if self.parse_token(TokenType.LOCAL):
-            local = True
-
-        self._read()  # consume FUN
 
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
@@ -333,22 +322,12 @@ class Parser(Unit):
             generic_parameters=generic_parameters,
             return_type=return_type,
             body=body,
-            local=local,
         )
 
     def parse_procedure_declaration(self) -> ProcedureDeclarationNode | None:
         start_position = self._position
-        if self._peek().type != TokenType.PROC and not (
-            self._peek().type == TokenType.LOCAL
-            and self._peek(1).type == TokenType.PROC
-        ):
+        if not self.parse_token(TokenType.PROC):
             return None
-
-        local = False
-        if self.parse_token(TokenType.LOCAL):
-            local = True
-
-        self._read()  # consume PROC
 
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
@@ -387,7 +366,6 @@ class Parser(Unit):
             generic_parameters=generic_parameters,
             return_type=return_type,
             body=body,
-            local=local,
         )
 
     def parse_procedure_body(
@@ -412,11 +390,10 @@ class Parser(Unit):
 
     def parse_procedure_body_statement(self) -> ProcedureBodyStatementNode:
         start_position = self._position
-        declaration: LetExpressionDeclarationNodeType | None = None
+        declaration: LocalDeclarationNode | None = None
         expression: ValueExpressionNodeType | None = None
-        if self._peek().type == TokenType.LOCAL:
-            declaration = self.parse_let_expression_declaration()
-        else:
+
+        if not (declaration := self.parse_local_declaration()):
             expression = self.parse_value_expression()
 
         return ProcedureBodyStatementNode(
@@ -511,6 +488,18 @@ class Parser(Unit):
             value=value,
         )
 
+    def parse_local_declaration(self) -> LocalDeclarationNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.LOCAL):
+            return None
+
+        declaration = self.parse_let_expression_declaration()
+
+        return LocalDeclarationNode(
+            position=start_position,
+            declaration=declaration,
+        )
+
     def parse_module_name_declaration(self) -> ModuleNameNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.MODULE):
@@ -534,17 +523,9 @@ class Parser(Unit):
 
     def parse_data_declaration(self) -> DataDeclarationNode | None:
         start_position = self._position
-        if self._peek().type != TokenType.DATA and not (
-            self._peek().type == TokenType.LOCAL
-            and self._peek(1).type == TokenType.DATA
-        ):
+        if not self.parse_token(TokenType.DATA):
             return None
 
-        local = False
-        if self.parse_token(TokenType.LOCAL):
-            local = True
-
-        self._read()  # consume DATA
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
             position=name_token.position,
@@ -570,7 +551,6 @@ class Parser(Unit):
             name=name,
             parameters=parameters,
             fields=fields,
-            local=local,
         )
 
     def parse_data_field(self) -> DataFieldNode:
@@ -606,17 +586,8 @@ class Parser(Unit):
 
     def parse_type_declaration(self) -> TypeDeclarationNode | None:
         start_position = self._position
-        if self._peek().type not in (TokenType.TYPE,) and not (
-            self._peek().type == TokenType.LOCAL
-            and self._peek(1).type == TokenType.TYPE
-        ):
+        if not self.parse_token(TokenType.TYPE):
             return None
-
-        local = False
-        if self.parse_token(TokenType.LOCAL):
-            local = True
-
-        self._read()  # consume TYPE
 
         name_token = self.require_token(TokenType.SYMBOL)
         name = SymbolNode(
@@ -634,7 +605,6 @@ class Parser(Unit):
             position=start_position,
             name=name,
             type_expression=type_expr,
-            local=local,
             parameters=parameters,
         )
 
@@ -756,26 +726,12 @@ class Parser(Unit):
             TokenType.SYMBOL,
             TokenType.PARENTHESES_START,
             TokenType.FUNCTION_CALL_START,
-        ) and not (
-            self._peek().type == TokenType.LOCAL
-            and self._peek(1).type
-            in (
-                TokenType.SYMBOL,
-                TokenType.PARENTHESES_START,
-                TokenType.FUNCTION_CALL_START,
-            )
         ):
             return None
 
-        local = False
         type_annotation: TypeExpressionNodeType | None = None
         value: ValueExpressionNodeType | None = None
         omitted_equal_sign = False
-
-        if self._peek().type == TokenType.LOCAL:
-            local = True
-            self._read()  # consume LOCAL
-
         target_line: int
         target: SymbolNode | None = None
         target_pattern: PatternNodeType | None = None
@@ -812,11 +768,6 @@ class Parser(Unit):
                         message="Assignment with type annotation must use '=' to separate target and value",
                         position=upcoming_token.position,
                     )
-                elif local:
-                    self._raise_parse_error(
-                        message="Local assignment must use '=' to separate target and value",
-                        position=upcoming_token.position,
-                    )
                 value = self.parse_value_expression()
                 omitted_equal_sign = True
 
@@ -827,7 +778,6 @@ class Parser(Unit):
                 target_pattern=target_pattern,
                 value=value,
                 type_annotation=type_annotation,
-                local=local,
                 omitted_equal_sign=omitted_equal_sign,
             )
         elif type_annotation is not None:
@@ -835,7 +785,6 @@ class Parser(Unit):
                 position=start_position,
                 name=target,
                 type_annotation=type_annotation,
-                local=local,
             )
         else:
             self._raise_parse_error(
@@ -1040,10 +989,7 @@ class Parser(Unit):
         if spread_type := self.parse_spread_type_expression():
             entry = spread_type
         elif type_annotation := self.parse_assignment():
-            if (
-                not isinstance(type_annotation, TypeAnnotationNode)
-                or type_annotation.local
-            ):
+            if not isinstance(type_annotation, TypeAnnotationNode):
                 self._raise_parse_error(
                     message="Each entry of a record type must be an annotation of the form 'name : Type', or a spread type expression '...Type'",
                 )

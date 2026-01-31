@@ -50,8 +50,7 @@ Module(
                         position=(4, 6, 0),
                         name="Float"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

@@ -29,7 +29,6 @@ Module(
                                 position=(2, 9, 4),
                                 contents="5"
                             ),
-                            local=false,
                             omitted_equal_sign=false
                         ),
                         Assignment(
@@ -42,7 +41,6 @@ Module(
                                 position=(3, 9, 4),
                                 contents="10"
                             ),
-                            local=false,
                             omitted_equal_sign=false
                         )
                     ]

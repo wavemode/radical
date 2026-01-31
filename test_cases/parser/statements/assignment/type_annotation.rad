@@ -16,8 +16,7 @@ Module(
                 type_annotation=TypeName(
                     position=(1, 5, 0),
                     name="Int"
-                ),
-                local=false
+                )
             )
         ]
     )

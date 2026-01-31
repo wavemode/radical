@@ -28,8 +28,7 @@ Module(
                             type_annotation=TypeName(
                                 position=(2, 9, 4),
                                 name="Int"
-                            ),
-                            local=false
+                            )
                         ),
                         TypeAnnotation(
                             position=(3, 6, 3),
@@ -40,12 +39,10 @@ Module(
                             type_annotation=TypeName(
                                 position=(3, 8, 3),
                                 name="String"
-                            ),
-                            local=false
+                            )
                         )
                     ]
-                ),
-                local=false
+                )
             )
         ]
     )

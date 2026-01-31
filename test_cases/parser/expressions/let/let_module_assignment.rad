@@ -39,7 +39,6 @@ Module(
                         close_quote="\""
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

@@ -24,7 +24,6 @@ Module(
                         name="c"
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

@@ -1,5 +1,28 @@
 local x 10.5
 
 (*
-FAIL("Local assignment must use '=' to separate target and value at test_cases/parser/statements/tree_assignment/local_assignment.rad:1:9")
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        omitted_equal_sign=false,
+        declarations=[
+            LocalDeclaration(
+                position=(1, 1, 0),
+                declaration=Assignment(
+                    position=(1, 7, 0),
+                    target=Symbol(
+                        position=(1, 7, 0),
+                        name="x"
+                    ),
+                    value=NumberLiteral(
+                        position=(1, 9, 0),
+                        contents="10.5"
+                    ),
+                    omitted_equal_sign=true
+                )
+            )
+        ]
+    )
+)
 *)

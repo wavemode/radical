@@ -32,7 +32,6 @@ Module(
                     position=(1, 27, 0),
                     name="myValue"
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

@@ -34,8 +34,7 @@ Module(
                         position=(1, 22, 0),
                         name="Int"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

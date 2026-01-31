@@ -45,8 +45,7 @@ Module(
                         position=(4, 10, 1),
                         name="c"
                     )
-                ),
-                local=false
+                )
             )
         ]
     )

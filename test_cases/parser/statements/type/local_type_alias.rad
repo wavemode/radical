@@ -7,17 +7,19 @@ Module(
         position=(1, 1, 0),
         omitted_equal_sign=false,
         declarations=[
-            TypeDeclaration(
+            LocalDeclaration(
                 position=(1, 1, 0),
-                name=Symbol(
-                    position=(1, 12, 0),
-                    name="A"
-                ),
-                type_expression=TypeName(
-                    position=(1, 16, 0),
-                    name="Int"
-                ),
-                local=true
+                declaration=TypeDeclaration(
+                    position=(1, 7, 0),
+                    name=Symbol(
+                        position=(1, 12, 0),
+                        name="A"
+                    ),
+                    type_expression=TypeName(
+                        position=(1, 16, 0),
+                        name="Int"
+                    )
+                )
             )
         ]
     )

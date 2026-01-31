@@ -21,7 +21,6 @@ Module(
                     contents="\n    hello\n    ",
                     close_quote="\"\"\""
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

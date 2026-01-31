@@ -57,25 +57,27 @@ Module(
                 body=[
                     ProcedureBodyStatement(
                         position=(2, 5, 4),
-                        declaration=Assignment(
+                        declaration=LocalDeclaration(
                             position=(2, 5, 4),
-                            target=Symbol(
+                            declaration=Assignment(
                                 position=(2, 11, 4),
-                                name="d"
-                            ),
-                            value=IndexingExpression(
-                                position=(2, 15, 4),
-                                object_expression=Symbol(
-                                    position=(2, 15, 4),
-                                    name="c"
+                                target=Symbol(
+                                    position=(2, 11, 4),
+                                    name="d"
                                 ),
-                                index_expression=NumberLiteral(
-                                    position=(2, 17, 4),
-                                    contents="0"
-                                )
-                            ),
-                            local=true,
-                            omitted_equal_sign=false
+                                value=IndexingExpression(
+                                    position=(2, 15, 4),
+                                    object_expression=Symbol(
+                                        position=(2, 15, 4),
+                                        name="c"
+                                    ),
+                                    index_expression=NumberLiteral(
+                                        position=(2, 17, 4),
+                                        contents="0"
+                                    )
+                                ),
+                                omitted_equal_sign=false
+                            )
                         )
                     ),
                     ProcedureBodyStatement(
@@ -93,8 +95,7 @@ Module(
                             )
                         )
                     )
-                ],
-                local=false
+                ]
             )
         ]
     )

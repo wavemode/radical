@@ -21,7 +21,6 @@ Module(
                     position=(1, 4, 0),
                     name="Int"
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

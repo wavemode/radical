@@ -29,7 +29,6 @@ Module(
                                     position=(1, 19, 0),
                                     contents="15"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             ),
                             Assignment(
@@ -42,13 +41,11 @@ Module(
                                     position=(1, 27, 0),
                                     contents="20"
                                 ),
-                                local=false,
                                 omitted_equal_sign=false
                             )
                         ]
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

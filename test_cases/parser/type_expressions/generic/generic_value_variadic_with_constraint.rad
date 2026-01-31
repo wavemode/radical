@@ -34,8 +34,7 @@ Module(
                         position=(1, 25, 0),
                         name="T"
                     )
-                ),
-                local=false
+                )
             ),
             Assignment(
                 position=(2, 1, 0),
@@ -47,7 +46,6 @@ Module(
                     position=(2, 5, 0),
                     name="undefined"
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]

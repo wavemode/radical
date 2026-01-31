@@ -73,8 +73,7 @@ Module(
                             ]
                         )
                     )
-                ],
-                local=false
+                ]
             )
         ]
     )

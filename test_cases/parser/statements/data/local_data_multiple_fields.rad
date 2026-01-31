@@ -7,58 +7,60 @@ Module(
         position=(1, 1, 0),
         omitted_equal_sign=false,
         declarations=[
-            DataDeclaration(
+            LocalDeclaration(
                 position=(1, 1, 0),
-                name=Symbol(
-                    position=(1, 12, 0),
-                    name="A"
-                ),
-                fields=[
-                    DataField(
-                        position=(1, 14, 0),
-                        type_annotation=TypeName(
+                declaration=DataDeclaration(
+                    position=(1, 7, 0),
+                    name=Symbol(
+                        position=(1, 12, 0),
+                        name="A"
+                    ),
+                    fields=[
+                        DataField(
                             position=(1, 14, 0),
-                            name="Int"
-                        )
-                    ),
-                    DataField(
-                        position=(1, 19, 0),
-                        type_annotation=TypeName(
+                            type_annotation=TypeName(
+                                position=(1, 14, 0),
+                                name="Int"
+                            )
+                        ),
+                        DataField(
                             position=(1, 19, 0),
-                            name="String"
-                        )
-                    ),
-                    DataField(
-                        position=(1, 27, 0),
-                        type_annotation=GenericTypeApplication(
+                            type_annotation=TypeName(
+                                position=(1, 19, 0),
+                                name="String"
+                            )
+                        ),
+                        DataField(
                             position=(1, 27, 0),
-                            generic_type=TypeName(
+                            type_annotation=GenericTypeApplication(
                                 position=(1, 27, 0),
-                                name="Map"
-                            ),
-                            arguments=[
-                                TypeName(
-                                    position=(1, 31, 0),
-                                    name="Int"
+                                generic_type=TypeName(
+                                    position=(1, 27, 0),
+                                    name="Map"
                                 ),
-                                GenericTypeApplication(
-                                    position=(1, 36, 0),
-                                    generic_type=TypeName(
-                                        position=(1, 36, 0),
-                                        name="List"
+                                arguments=[
+                                    TypeName(
+                                        position=(1, 31, 0),
+                                        name="Int"
                                     ),
-                                    arguments=[
-                                        TypeName(
-                                            position=(1, 41, 0),
-                                            name="String"
-                                        )
-                                    ]
-                                )
-                            ]
+                                    GenericTypeApplication(
+                                        position=(1, 36, 0),
+                                        generic_type=TypeName(
+                                            position=(1, 36, 0),
+                                            name="List"
+                                        ),
+                                        arguments=[
+                                            TypeName(
+                                                position=(1, 41, 0),
+                                                name="String"
+                                            )
+                                        ]
+                                    )
+                                ]
+                            )
                         )
-                    )
-                ],
-                local=true
+                    ]
+                )
             )
         ]
     )

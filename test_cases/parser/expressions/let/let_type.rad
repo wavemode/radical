@@ -27,8 +27,7 @@ Module(
                             type_expression=TypeName(
                                 position=(2, 14, 4),
                                 name="Int"
-                            ),
-                            local=false
+                            )
                         )
                     ],
                     body=NumberLiteral(
@@ -36,7 +35,6 @@ Module(
                         contents="10"
                     )
                 ),
-                local=false,
                 omitted_equal_sign=false
             )
         ]
