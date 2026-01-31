@@ -2,6 +2,8 @@ from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
+    CaseBranchNode,
+    CaseExpressionNode,
     ConstPatternNode,
     ConstTypeExpressionNode,
     DataDeclarationNode,
@@ -103,6 +105,7 @@ class Parser(Unit):
             self.parse_list_literal,
             self.parse_map_literal,
             self.parse_if_expression,
+            self.parse_case_expression,
             self.parse_let_expression,
             self.parse_function_expression,
             self.parse_procedure_expression,
@@ -1496,6 +1499,42 @@ class Parser(Unit):
             parameters=parameters,
             generic_parameters=generic_parameters,
             body=body,
+        )
+
+    def parse_case_expression(self) -> CaseExpressionNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.CASE):
+            return None
+
+        expression = self.parse_value_expression()
+        of_position = self.require_token(TokenType.OF).position
+
+        branches = self.parse_block_body(
+            start_position=of_position,
+            item_parser=self.parse_case_branch,
+        )
+
+        if not branches:
+            self._raise_parse_error(
+                message="Case expression must have at least one branch",
+                position=start_position,
+            )
+
+        return CaseExpressionNode(
+            position=start_position,
+            expression=expression,
+            branches=branches,
+        )
+
+    def parse_case_branch(self) -> CaseBranchNode:
+        start_position = self._position
+        pattern = self.parse_pattern_or_error()
+        self.require_token(TokenType.ARROW)
+        expression = self.parse_value_expression()
+        return CaseBranchNode(
+            position=start_position,
+            pattern=pattern,
+            expression=expression,
         )
 
     def parse_if_expression(self) -> IfExpressionNode | None:

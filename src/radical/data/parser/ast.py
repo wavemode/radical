@@ -350,6 +350,18 @@ class LetExpressionNode(Node):
 
 
 @dataclass(frozen=True)
+class CaseBranchNode(Node):
+    pattern: "PatternNodeType"
+    expression: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class CaseExpressionNode(Node):
+    expression: "ValueExpressionNodeType"
+    branches: list["CaseBranchNode"]
+
+
+@dataclass(frozen=True)
 class FunctionExpressionNode(Node):
     parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
@@ -539,6 +551,7 @@ AtomNodeType = (
     | ListLiteralNode
     | MapLiteralNode
     | IfExpressionNode
+    | CaseExpressionNode
     | LetExpressionNode
     | FunctionExpressionNode
     | ProcedureExpressionNode
