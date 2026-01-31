@@ -60,6 +60,7 @@ from radical.data.parser.ast import (
     ProcedureDeclarationNode,
     ProcedureExpressionNode,
     ProcedureTypeNode,
+    RecordPatternNode,
     RecordTypeNode,
     RestPatternNode,
     SpreadOperationNode,
@@ -121,6 +122,7 @@ class Parser(Unit):
 
         self._pattern_atom_parsers: list[Callable[[], PatternAtomNodeType | None]] = [
             self.parse_data_type_pattern,
+            self.parse_record_pattern,
             self.parse_parenthesized_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
@@ -1232,7 +1234,7 @@ class Parser(Unit):
             raise RuntimeError("unreachable")  # appease typechecker
 
         self._read()  # consume FUNCTION_CALL_START
-        fields: list[KeyValueFieldPatternNode] = self.parse_comma_or_newline_separated(
+        fields = self.parse_comma_or_newline_separated(
             element_parser=self.parse_key_value_field_pattern,
             ending_token=TokenType.FUNCTION_CALL_END,
         )
@@ -1240,6 +1242,29 @@ class Parser(Unit):
         return DataTypePatternNode(
             position=start_position,
             name=name,
+            fields=fields,
+        )
+
+    def parse_record_pattern(self) -> RecordPatternNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.OBJECT_START):
+            return None
+
+        fields = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_key_value_field_pattern,
+            ending_token=TokenType.OBJECT_END,
+        )
+        for field in fields:
+            if field.name is None and not (
+                isinstance(field.pattern, (RestPatternNode, SymbolPatternNode))
+            ):
+                self._raise_parse_error(
+                    message="Record field pattern must have a name unless it is a rest pattern",
+                    position=field.position,
+            )
+
+        return RecordPatternNode(
+            position=start_position,
             fields=fields,
         )
 

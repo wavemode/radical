@@ -1,0 +1,37 @@
+fun f({}) = "empty record"
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            FunctionDeclaration(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 5, 0),
+                    name="f"
+                ),
+                parameters=[
+                    FunctionParameter(
+                        position=(1, 7, 0),
+                        param=RecordPattern(
+                            position=(1, 7, 0),
+                            fields=[
+
+                            ]
+                        ),
+                        variadic=false
+                    )
+                ],
+                body=StringLiteral(
+                    position=(1, 13, 0),
+                    open_quote="\"",
+                    contents="empty record",
+                    close_quote="\""
+                )
+            )
+        ]
+    )
+)
+*)

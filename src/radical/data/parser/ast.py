@@ -442,6 +442,11 @@ class DataTypePatternNode(Node):
 
 
 @dataclass(frozen=True)
+class RecordPatternNode(Node):
+    fields: list[KeyValueFieldPatternNode]
+
+
+@dataclass(frozen=True)
 class PatternGuardNode(Node):
     pattern: "PatternNodeType"
     condition: "ValueExpressionNodeType"
@@ -607,6 +612,7 @@ ValueExpressionNodeType = (
 PatternAtomNodeType = (
     SymbolPatternNode
     | DataTypePatternNode
+    | RecordPatternNode
     | ConstPatternNode
     | RestPatternNode
     | ParenthesizedPatternNode
