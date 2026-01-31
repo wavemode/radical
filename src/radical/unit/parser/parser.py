@@ -287,11 +287,12 @@ class Parser(Unit):
         if not self.parse_token(TokenType.FUN):
             return None
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected function name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         generic_parameters: list[GenericTypeParameterNode] | None = None
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
@@ -328,11 +329,12 @@ class Parser(Unit):
         if not self.parse_token(TokenType.PROC):
             return None
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected procedure name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         generic_parameters: list[GenericTypeParameterNode] | None = None
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
@@ -442,11 +444,12 @@ class Parser(Unit):
 
         self._read()  # consume MODULE
 
-        name_token = self._read()
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         of_position = self._read().position
 
@@ -471,11 +474,12 @@ class Parser(Unit):
 
         self._read()  # consume MODULE
 
-        name_token = self._read()
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         self._read()  # consume ASSIGN
 
@@ -509,11 +513,12 @@ class Parser(Unit):
             return None
         self._read()  # consume MODULE
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         type_annotation: TypeExpressionNodeType | None = None
         if self.parse_token(TokenType.COLON):
@@ -566,11 +571,7 @@ class Parser(Unit):
             self._peek().type == TokenType.SYMBOL
             and self._peek(1).type == TokenType.COLON
         ):
-            name_token = self._read()
-            field_name = SymbolNode(
-                position=name_token.position,
-                name=name_token,
-            )
+            assert (field_name := self.parse_symbol())
             self._read()  # consume COLON
         type_annotation = self.parse_type_expression()
         default_value: ValueExpressionNodeType | None = None
@@ -630,22 +631,13 @@ class Parser(Unit):
 
         if self._peek().type == TokenType.SYMBOL:
             module_parts = []
-            module_part_token = self._read()
-            module_parts.append(
-                SymbolNode(
-                    position=module_part_token.position,
-                    name=module_part_token,
-                )
-            )
+            assert (part := self.parse_symbol())
+            module_parts.append(part)
+
             while dot := self.parse_token(TokenType.DOT):
                 if self._peek().type == TokenType.SYMBOL:
-                    module_part_token = self._read()
-                    module_parts.append(
-                        SymbolNode(
-                            position=module_part_token.position,
-                            name=module_part_token,
-                        )
-                    )
+                    assert (part := self.parse_symbol())
+                    module_parts.append(part)
                 else:
                     self._raise_parse_error(
                         message=f"Expected module name after '.' in import statement. Unexpected token {self._peek().pretty()}",
@@ -672,11 +664,12 @@ class Parser(Unit):
             )
 
         if self.parse_token(TokenType.AS):
-            alias_token = self.require_token(TokenType.SYMBOL)
-            alias = SymbolNode(
-                position=alias_token.position,
-                name=alias_token,
-            )
+            alias = self.parse_symbol()
+            if not alias:
+                self._raise_parse_error(
+                    message=f"Expected import alias. Unexpected token {self._peek().pretty()}"
+                )
+                raise RuntimeError("unreachable")  # appease typechecker
         elif module_expr:
             self._raise_parse_error(
                 message="Dynamic import statement must have an alias",
@@ -706,18 +699,19 @@ class Parser(Unit):
                 position=self._position,
             )
         else:
-            name_token = self.require_token(TokenType.SYMBOL)
-            name = SymbolNode(
-                position=name_token.position,
-                name=name_token,
-            )
+            name = self.parse_symbol()
+            if not name:
+                self._raise_parse_error(
+                    message=f"Expected import field name. Unexpected token {self._peek().pretty()}"
+                )
+                raise RuntimeError("unreachable")  # appease typechecker
             alias: SymbolNode | None = None
             if self.parse_token(TokenType.AS):
-                alias_token = self.require_token(TokenType.SYMBOL)
-                alias = SymbolNode(
-                    position=alias_token.position,
-                    name=alias_token,
-                )
+                alias = self.parse_symbol()
+                if not alias:
+                    self._raise_parse_error(
+                        message=f"Expected import field alias. Unexpected token {self._peek().pretty()}"
+                    )
             field = ImportStatementFieldNode(
                 position=name.position,
                 name=name,
@@ -1099,12 +1093,7 @@ class Parser(Unit):
             TokenType.COLON,
             TokenType.QUESTION,
         ):
-            name_token = self._read()
-            name = SymbolNode(
-                position=name_token.position,
-                name=name_token,
-            )
-
+            assert (name := self.parse_symbol())
             if self.parse_token(TokenType.QUESTION):
                 if variadic:
                     self._raise_parse_error(
@@ -1427,11 +1416,7 @@ class Parser(Unit):
             self._peek().type == TokenType.SYMBOL
             and self._peek(1).type == TokenType.ASSIGN
         ):
-            name_token = self._read()
-            name = SymbolNode(
-                position=name_token.position,
-                name=name_token,
-            )
+            assert (name := self.parse_symbol())
             self._read()  # consume ASSIGN
 
         value = self.parse_value_expression()
