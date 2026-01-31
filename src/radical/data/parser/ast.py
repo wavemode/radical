@@ -408,11 +408,6 @@ class SymbolPatternNode(Node):
 
 
 @dataclass(frozen=True)
-class ConstPatternNode(Node):
-    expression: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
 class RestPatternNode(Node):
     name: SymbolNode | None
 
@@ -634,7 +629,6 @@ PatternAtomNodeType = (
     SymbolPatternNode
     | DataTypePatternNode
     | RecordPatternNode
-    | ConstPatternNode
     | RestPatternNode
     | ParenthesizedPatternNode
     | ListPatternNode

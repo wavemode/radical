@@ -7,7 +7,6 @@ from radical.data.parser.ast import (
     BooleanLiteralPatternNode,
     CaseBranchNode,
     CaseExpressionNode,
-    ConstPatternNode,
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
@@ -139,7 +138,6 @@ class Parser(Unit):
             self.parse_null_literal_pattern,
             self.parse_boolean_literal_pattern,
             self.parse_rest_pattern,
-            self.parse_const_pattern,
             self.parse_symbol_pattern,
         ]
 
@@ -1383,16 +1381,6 @@ class Parser(Unit):
         return RestPatternNode(
             position=start_position,
             name=symbol,
-        )
-
-    def parse_const_pattern(self) -> ConstPatternNode | None:
-        start_position = self._position
-        if not self.parse_token(TokenType.CONST):
-            return None
-        value = self.parse_value_expression()
-        return ConstPatternNode(
-            position=start_position,
-            expression=value,
         )
 
     def parse_symbol_pattern(self) -> SymbolPatternNode | None:
