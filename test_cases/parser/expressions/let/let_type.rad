@@ -29,7 +29,10 @@ Module(
                             ),
                             type_expression=TypeName(
                                 position=(2, 14, 4),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 14, 4),
+                                    name="Int"
+                                )
                             )
                         )
                     ],

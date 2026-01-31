@@ -24,11 +24,17 @@ Module(
                     expressions=[
                         TypeName(
                             position=(2, 5, 4),
-                            name="Int"
+                            name=Symbol(
+                                position=(2, 5, 4),
+                                name="Int"
+                            )
                         ),
                         TypeName(
                             position=(3, 5, 4),
-                            name="String"
+                            name=Symbol(
+                                position=(3, 5, 4),
+                                name="String"
+                            )
                         )
                     ]
                 )

@@ -43,7 +43,10 @@ Module(
                         type_arguments=[
                             TypeName(
                                 position=(2, 24, 0),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 24, 0),
+                                    name="Int"
+                                )
                             )
                         ]
                     )

@@ -22,16 +22,25 @@ Module(
                     position=(1, 5, 0),
                     generic_type=TypeName(
                         position=(1, 5, 0),
-                        name="Map"
+                        name=Symbol(
+                            position=(1, 5, 0),
+                            name="Map"
+                        )
                     ),
                     arguments=[
                         TypeName(
                             position=(2, 5, 4),
-                            name="String"
+                            name=Symbol(
+                                position=(2, 5, 4),
+                                name="String"
+                            )
                         ),
                         TypeName(
                             position=(2, 17, 4),
-                            name="Int"
+                            name=Symbol(
+                                position=(2, 17, 4),
+                                name="Int"
+                            )
                         )
                     ]
                 )

@@ -31,7 +31,10 @@ Module(
                             variadic=false,
                             type_annotation=TypeName(
                                 position=(2, 13, 8),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 13, 8),
+                                    name="Int"
+                                )
                             )
                         ),
                         FunctionParameter(
@@ -45,12 +48,18 @@ Module(
                                 position=(3, 13, 8),
                                 generic_type=TypeName(
                                     position=(3, 13, 8),
-                                    name="List"
+                                    name=Symbol(
+                                        position=(3, 13, 8),
+                                        name="List"
+                                    )
                                 ),
                                 arguments=[
                                     TypeName(
                                         position=(3, 18, 8),
-                                        name="Int"
+                                        name=Symbol(
+                                            position=(3, 18, 8),
+                                            name="Int"
+                                        )
                                     )
                                 ]
                             )

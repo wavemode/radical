@@ -31,7 +31,10 @@ Module(
                     ],
                     expression=TypeName(
                         position=(1, 8, 0),
-                        name="T"
+                        name=Symbol(
+                            position=(1, 8, 0),
+                            name="T"
+                        )
                     )
                 )
             ),

@@ -44,13 +44,19 @@ Module(
                                             optional=false,
                                             type_annotation=TypeName(
                                                 position=(1, 17, 0),
-                                                name="T"
+                                                name=Symbol(
+                                                    position=(1, 17, 0),
+                                                    name="T"
+                                                )
                                             )
                                         )
                                     ],
                                     return_type=TypeName(
                                         position=(1, 23, 0),
-                                        name="T"
+                                        name=Symbol(
+                                            position=(1, 23, 0),
+                                            name="T"
+                                        )
                                     )
                                 )
                             )
@@ -58,7 +64,10 @@ Module(
                     ],
                     return_type=TypeName(
                         position=(1, 29, 0),
-                        name="Bool"
+                        name=Symbol(
+                            position=(1, 29, 0),
+                            name="Bool"
+                        )
                     )
                 )
             )

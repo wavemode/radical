@@ -34,7 +34,10 @@ Module(
                             ),
                             type_annotation=TypeName(
                                 position=(2, 9, 4),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 9, 4),
+                                    name="Int"
+                                )
                             )
                         ),
                         TypeAnnotation(
@@ -48,14 +51,20 @@ Module(
                             ),
                             type_annotation=TypeName(
                                 position=(3, 9, 4),
-                                name="String"
+                                name=Symbol(
+                                    position=(3, 9, 4),
+                                    name="String"
+                                )
                             )
                         ),
                         SpreadTypeExpression(
                             position=(4, 5, 4),
                             expression=TypeName(
                                 position=(4, 8, 4),
-                                name="OtherType"
+                                name=Symbol(
+                                    position=(4, 8, 4),
+                                    name="OtherType"
+                                )
                             )
                         )
                     ]

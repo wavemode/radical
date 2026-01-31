@@ -75,7 +75,7 @@ class Node:
 
 @dataclass(frozen=True)
 class TypeNameNode(Node):
-    name: Token
+    name: "SymbolNode"
 
 
 @dataclass(frozen=True)

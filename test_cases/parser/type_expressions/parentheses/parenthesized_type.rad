@@ -21,7 +21,10 @@ Module(
                     expressions=[
                         TypeName(
                             position=(1, 6, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 6, 0),
+                                name="Int"
+                            )
                         )
                     ]
                 )

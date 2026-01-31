@@ -56,7 +56,10 @@ Module(
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(4, 7, 0),
-                                    name="A"
+                                    name=Symbol(
+                                        position=(4, 7, 0),
+                                        name="A"
+                                    )
                                 )
                             ),
                             FunctionTypeParameter(
@@ -65,13 +68,19 @@ Module(
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(4, 10, 0),
-                                    name="B"
+                                    name=Symbol(
+                                        position=(4, 10, 0),
+                                        name="B"
+                                    )
                                 )
                             )
                         ],
                         return_type=TypeName(
                             position=(4, 16, 0),
-                            name="C"
+                            name=Symbol(
+                                position=(4, 16, 0),
+                                name="C"
+                            )
                         )
                     )
                 )

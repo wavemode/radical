@@ -26,7 +26,10 @@ Module(
                         ),
                         type_annotation=TypeName(
                             position=(2, 8, 4),
-                            name="Int"
+                            name=Symbol(
+                                position=(2, 8, 4),
+                                name="Int"
+                            )
                         ),
                         default_value=NumberLiteral(
                             position=(2, 14, 4),
@@ -41,7 +44,10 @@ Module(
                         ),
                         type_annotation=TypeName(
                             position=(3, 8, 4),
-                            name="String"
+                            name=Symbol(
+                                position=(3, 8, 4),
+                                name="String"
+                            )
                         ),
                         default_value=StringLiteral(
                             position=(3, 17, 4),
@@ -60,12 +66,18 @@ Module(
                             position=(4, 8, 4),
                             generic_type=TypeName(
                                 position=(4, 8, 4),
-                                name="List"
+                                name=Symbol(
+                                    position=(4, 8, 4),
+                                    name="List"
+                                )
                             ),
                             arguments=[
                                 TypeName(
                                     position=(4, 13, 4),
-                                    name="String"
+                                    name=Symbol(
+                                        position=(4, 13, 4),
+                                        name="String"
+                                    )
                                 )
                             ]
                         ),

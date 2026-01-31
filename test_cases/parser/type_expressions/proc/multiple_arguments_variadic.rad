@@ -32,7 +32,10 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(2, 8, 4),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 8, 4),
+                                    name="Int"
+                                )
                             )
                         ),
                         FunctionTypeParameter(
@@ -45,13 +48,19 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(3, 11, 4),
-                                name="String"
+                                name=Symbol(
+                                    position=(3, 11, 4),
+                                    name="String"
+                                )
                             )
                         )
                     ],
                     return_type=TypeName(
                         position=(4, 6, 0),
-                        name="Float"
+                        name=Symbol(
+                            position=(4, 6, 0),
+                            name="Float"
+                        )
                     )
                 )
             )

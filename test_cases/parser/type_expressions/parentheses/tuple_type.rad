@@ -21,11 +21,17 @@ Module(
                     expressions=[
                         TypeName(
                             position=(1, 6, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 6, 0),
+                                name="Int"
+                            )
                         ),
                         TypeName(
                             position=(1, 10, 0),
-                            name="String"
+                            name=Symbol(
+                                position=(1, 10, 0),
+                                name="String"
+                            )
                         )
                     ]
                 )

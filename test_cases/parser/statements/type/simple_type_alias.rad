@@ -15,7 +15,10 @@ Module(
                 ),
                 type_expression=TypeName(
                     position=(1, 10, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 10, 0),
+                        name="Int"
+                    )
                 )
             )
         ]

@@ -25,7 +25,10 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 13, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 13, 0),
+                                name="Int"
+                            )
                         ),
                         default_value=NumberLiteral(
                             position=(1, 19, 0),
@@ -60,7 +63,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 41, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 41, 0),
+                        name="Int"
+                    )
                 ),
                 body=[
                     ProcedureBodyStatement(

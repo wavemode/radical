@@ -24,7 +24,10 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 16, 0),
-                            name="T"
+                            name=Symbol(
+                                position=(1, 16, 0),
+                                name="T"
+                            )
                         )
                     ),
                     FunctionParameter(
@@ -43,13 +46,19 @@ Module(
                                     optional=false,
                                     type_annotation=TypeName(
                                         position=(1, 27, 0),
-                                        name="T"
+                                        name=Symbol(
+                                            position=(1, 27, 0),
+                                            name="T"
+                                        )
                                     )
                                 )
                             ],
                             return_type=TypeName(
                                 position=(1, 33, 0),
-                                name="T"
+                                name=Symbol(
+                                    position=(1, 33, 0),
+                                    name="T"
+                                )
                             )
                         )
                     )
@@ -66,7 +75,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 40, 0),
-                    name="T"
+                    name=Symbol(
+                        position=(1, 40, 0),
+                        name="T"
+                    )
                 ),
                 body=[
                     ProcedureBodyStatement(

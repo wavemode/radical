@@ -29,7 +29,10 @@ Module(
                             variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 14, 0),
-                                name="Int"
+                                name=Symbol(
+                                    position=(1, 14, 0),
+                                    name="Int"
+                                )
                             ),
                             default_value=NumberLiteral(
                                 position=(1, 20, 0),

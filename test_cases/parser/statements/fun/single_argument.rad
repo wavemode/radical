@@ -24,13 +24,19 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 11, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 11, 0),
+                                name="Int"
+                            )
                         )
                     )
                 ],
                 return_type=TypeName(
                     position=(1, 19, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 19, 0),
+                        name="Int"
+                    )
                 ),
                 body=BinaryOperation(
                     position=(2, 5, 4),

@@ -22,7 +22,7 @@ Module(
                         GenericTypeParameter(
                             position=(1, 6, 0),
                             name=Symbol(
-                                position=(1, 6, 0),
+                                position=(1, 9, 0),
                                 name="T"
                             ),
                             variadic=true
@@ -37,13 +37,19 @@ Module(
                                 optional=false,
                                 type_annotation=TypeName(
                                     position=(1, 18, 0),
-                                    name="T"
+                                    name=Symbol(
+                                        position=(1, 18, 0),
+                                        name="T"
+                                    )
                                 )
                             )
                         ],
                         return_type=TypeName(
                             position=(1, 24, 0),
-                            name="T"
+                            name=Symbol(
+                                position=(1, 24, 0),
+                                name="T"
+                            )
                         )
                     )
                 )

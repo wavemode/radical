@@ -19,16 +19,25 @@ Module(
                     position=(3, 10, 4),
                     generic_type=TypeName(
                         position=(3, 10, 4),
-                        name="Map"
+                        name=Symbol(
+                            position=(3, 10, 4),
+                            name="Map"
+                        )
                     ),
                     arguments=[
                         TypeName(
                             position=(3, 14, 4),
-                            name="K"
+                            name=Symbol(
+                                position=(3, 14, 4),
+                                name="K"
+                            )
                         ),
                         TypeName(
                             position=(3, 17, 4),
-                            name="V"
+                            name=Symbol(
+                                position=(3, 17, 4),
+                                name="V"
+                            )
                         )
                     ]
                 ),
@@ -42,7 +51,10 @@ Module(
                         variadic=false,
                         constraint=TypeName(
                             position=(2, 9, 4),
-                            name="Hashable"
+                            name=Symbol(
+                                position=(2, 9, 4),
+                                name="Hashable"
+                            )
                         )
                     ),
                     GenericTypeParameter(

@@ -29,7 +29,10 @@ Module(
                             variadic=false,
                             constraint=TypeName(
                                 position=(1, 10, 0),
-                                name="Comparable"
+                                name=Symbol(
+                                    position=(1, 10, 0),
+                                    name="Comparable"
+                                )
                             )
                         )
                     ],
@@ -44,12 +47,18 @@ Module(
                                     position=(1, 25, 0),
                                     generic_type=TypeName(
                                         position=(1, 25, 0),
-                                        name="List"
+                                        name=Symbol(
+                                            position=(1, 25, 0),
+                                            name="List"
+                                        )
                                     ),
                                     arguments=[
                                         TypeName(
                                             position=(1, 30, 0),
-                                            name="T"
+                                            name=Symbol(
+                                                position=(1, 30, 0),
+                                                name="T"
+                                            )
                                         )
                                     ]
                                 )
@@ -57,7 +66,10 @@ Module(
                         ],
                         return_type=TypeName(
                             position=(1, 37, 0),
-                            name="T"
+                            name=Symbol(
+                                position=(1, 37, 0),
+                                name="T"
+                            )
                         )
                     )
                 )

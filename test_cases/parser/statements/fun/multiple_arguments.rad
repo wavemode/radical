@@ -24,7 +24,10 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 11, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 11, 0),
+                                name="Int"
+                            )
                         )
                     ),
                     FunctionParameter(
@@ -38,12 +41,18 @@ Module(
                             position=(1, 20, 0),
                             generic_type=TypeName(
                                 position=(1, 20, 0),
-                                name="List"
+                                name=Symbol(
+                                    position=(1, 20, 0),
+                                    name="List"
+                                )
                             ),
                             arguments=[
                                 TypeName(
                                     position=(1, 25, 0),
-                                    name="Int"
+                                    name=Symbol(
+                                        position=(1, 25, 0),
+                                        name="Int"
+                                    )
                                 )
                             ]
                         )
@@ -51,7 +60,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 35, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 35, 0),
+                        name="Int"
+                    )
                 ),
                 body=BinaryOperation(
                     position=(2, 5, 4),

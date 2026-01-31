@@ -1,5 +1,5 @@
 data
 
 (*
-FAIL("Expected token of type SYMBOL. Unexpected end of file at test_cases/parser/statements/data/data_missing_name.rad:6:1")
+FAIL("Expected data type name. Unexpected token EOF('') at test_cases/parser/statements/data/data_missing_name.rad:6:1")
 *)

@@ -21,7 +21,10 @@ Module(
                     elements=[
                         TypeName(
                             position=(1, 5, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 5, 0),
+                                name="Int"
+                            )
                         ),
                         ParenthesizedTypeExpression(
                             position=(1, 11, 0),
@@ -31,11 +34,17 @@ Module(
                                     elements=[
                                         TypeName(
                                             position=(1, 12, 0),
-                                            name="String"
+                                            name=Symbol(
+                                                position=(1, 12, 0),
+                                                name="String"
+                                            )
                                         ),
                                         TypeName(
                                             position=(1, 21, 0),
-                                            name="Bool"
+                                            name=Symbol(
+                                                position=(1, 21, 0),
+                                                name="Bool"
+                                            )
                                         )
                                     ]
                                 )
@@ -43,7 +52,10 @@ Module(
                         ),
                         TypeName(
                             position=(1, 29, 0),
-                            name="Float"
+                            name=Symbol(
+                                position=(1, 29, 0),
+                                name="Float"
+                            )
                         )
                     ]
                 )

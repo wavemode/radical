@@ -530,11 +530,13 @@ class Parser(Unit):
         if not self.parse_token(TokenType.DATA):
             return None
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_type_name_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected data type name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
+
         parameters: list[GenericTypeParameterNode] | None = None
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             parameters = self.parse_generic_type_parameter_list()
@@ -593,11 +595,12 @@ class Parser(Unit):
         if not self.parse_token(TokenType.TYPE):
             return None
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        name = self.parse_type_name_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected type name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
 
         parameters: list[GenericTypeParameterNode] | None = None
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
@@ -851,9 +854,12 @@ class Parser(Unit):
         if self.parse_token(TokenType.ELLIPSIS):
             variadic = True
 
-        name = SymbolNode(
-            position=start_position, name=self.require_token(TokenType.SYMBOL)
-        )
+        name = self.parse_type_name_symbol()
+        if not name:
+            self._raise_parse_error(
+                message=f"Expected generic type parameter name. Unexpected token {self._peek().pretty()}"
+            )
+            raise RuntimeError("unreachable")  # appease typechecker
         constraint: TypeExpressionNodeType | None = None
 
         if self.parse_token(TokenType.COLON):
@@ -875,12 +881,25 @@ class Parser(Unit):
         )
 
     def parse_type_name(self) -> TypeExpressionNodeType | None:
-        if token := self.parse_token(TokenType.SYMBOL):
+        if name := self.parse_type_name_symbol():
             return TypeNameNode(
-                position=token.position,
-                name=token,
+                position=name.position,
+                name=name,
             )
         return None
+
+    def parse_type_name_symbol(self) -> SymbolNode | None:
+        if not (token := self.parse_token(TokenType.SYMBOL)):
+            return None
+        if not token.value[0].isupper():
+            self._raise_parse_error(
+                message="Type names must start with an uppercase letter",
+                position=token.position,
+            )
+        return SymbolNode(
+            position=token.position,
+            name=token,
+        )
 
     def parse_placeholder_type(self) -> PlaceholderTypeNode | None:
         start_position = self._position

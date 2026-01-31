@@ -24,7 +24,10 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 12, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 12, 0),
+                                name="Int"
+                            )
                         ),
                         default_value=NumberLiteral(
                             position=(1, 18, 0),
@@ -59,7 +62,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 40, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 40, 0),
+                        name="Int"
+                    )
                 ),
                 body=BinaryOperation(
                     position=(2, 5, 4),

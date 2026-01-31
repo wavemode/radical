@@ -29,7 +29,10 @@ Module(
                             variadic=false,
                             type_annotation=TypeName(
                                 position=(1, 17, 0),
-                                name="T"
+                                name=Symbol(
+                                    position=(1, 17, 0),
+                                    name="T"
+                                )
                             )
                         ),
                         FunctionParameter(
@@ -48,13 +51,19 @@ Module(
                                         optional=false,
                                         type_annotation=TypeName(
                                             position=(1, 28, 0),
-                                            name="T"
+                                            name=Symbol(
+                                                position=(1, 28, 0),
+                                                name="T"
+                                            )
                                         )
                                     )
                                 ],
                                 return_type=TypeName(
                                     position=(1, 34, 0),
-                                    name="T"
+                                    name=Symbol(
+                                        position=(1, 34, 0),
+                                        name="T"
+                                    )
                                 )
                             )
                         )

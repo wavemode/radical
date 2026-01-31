@@ -29,13 +29,19 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(1, 13, 0),
-                                name="Int"
+                                name=Symbol(
+                                    position=(1, 13, 0),
+                                    name="Int"
+                                )
                             )
                         )
                     ],
                     return_type=TypeName(
                         position=(1, 21, 0),
-                        name="Int"
+                        name=Symbol(
+                            position=(1, 21, 0),
+                            name="Int"
+                        )
                     )
                 )
             )

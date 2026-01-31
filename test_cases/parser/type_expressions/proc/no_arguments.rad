@@ -23,7 +23,10 @@ Module(
                     ],
                     return_type=TypeName(
                         position=(1, 15, 0),
-                        name="Null"
+                        name=Symbol(
+                            position=(1, 15, 0),
+                            name="Null"
+                        )
                     )
                 )
             )

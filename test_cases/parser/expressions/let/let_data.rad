@@ -32,7 +32,10 @@ Module(
                                     position=(2, 12, 4),
                                     type_annotation=TypeName(
                                         position=(2, 12, 4),
-                                        name="Int"
+                                        name=Symbol(
+                                            position=(2, 12, 4),
+                                            name="Int"
+                                        )
                                     )
                                 )
                             ]

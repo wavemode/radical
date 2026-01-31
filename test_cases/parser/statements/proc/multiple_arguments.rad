@@ -25,7 +25,10 @@ Module(
                         variadic=false,
                         type_annotation=TypeName(
                             position=(1, 12, 0),
-                            name="Int"
+                            name=Symbol(
+                                position=(1, 12, 0),
+                                name="Int"
+                            )
                         )
                     ),
                     FunctionParameter(
@@ -39,12 +42,18 @@ Module(
                             position=(1, 21, 0),
                             generic_type=TypeName(
                                 position=(1, 21, 0),
-                                name="List"
+                                name=Symbol(
+                                    position=(1, 21, 0),
+                                    name="List"
+                                )
                             ),
                             arguments=[
                                 TypeName(
                                     position=(1, 26, 0),
-                                    name="Int"
+                                    name=Symbol(
+                                        position=(1, 26, 0),
+                                        name="Int"
+                                    )
                                 )
                             ]
                         )
@@ -52,7 +61,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 36, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 36, 0),
+                        name="Int"
+                    )
                 ),
                 body=[
                     ProcedureBodyStatement(

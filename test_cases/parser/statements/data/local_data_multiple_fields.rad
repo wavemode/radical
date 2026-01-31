@@ -20,14 +20,20 @@ Module(
                             position=(1, 14, 0),
                             type_annotation=TypeName(
                                 position=(1, 14, 0),
-                                name="Int"
+                                name=Symbol(
+                                    position=(1, 14, 0),
+                                    name="Int"
+                                )
                             )
                         ),
                         DataField(
                             position=(1, 19, 0),
                             type_annotation=TypeName(
                                 position=(1, 19, 0),
-                                name="String"
+                                name=Symbol(
+                                    position=(1, 19, 0),
+                                    name="String"
+                                )
                             )
                         ),
                         DataField(
@@ -36,23 +42,35 @@ Module(
                                 position=(1, 27, 0),
                                 generic_type=TypeName(
                                     position=(1, 27, 0),
-                                    name="Map"
+                                    name=Symbol(
+                                        position=(1, 27, 0),
+                                        name="Map"
+                                    )
                                 ),
                                 arguments=[
                                     TypeName(
                                         position=(1, 31, 0),
-                                        name="Int"
+                                        name=Symbol(
+                                            position=(1, 31, 0),
+                                            name="Int"
+                                        )
                                     ),
                                     GenericTypeApplication(
                                         position=(1, 36, 0),
                                         generic_type=TypeName(
                                             position=(1, 36, 0),
-                                            name="List"
+                                            name=Symbol(
+                                                position=(1, 36, 0),
+                                                name="List"
+                                            )
                                         ),
                                         arguments=[
                                             TypeName(
                                                 position=(1, 41, 0),
-                                                name="String"
+                                                name=Symbol(
+                                                    position=(1, 41, 0),
+                                                    name="String"
+                                                )
                                             )
                                         ]
                                     )

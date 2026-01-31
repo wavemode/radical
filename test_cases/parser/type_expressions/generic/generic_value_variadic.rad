@@ -23,7 +23,7 @@ Module(
                         GenericTypeParameter(
                             position=(1, 6, 0),
                             name=Symbol(
-                                position=(1, 6, 0),
+                                position=(1, 9, 0),
                                 name="T"
                             ),
                             variadic=true
@@ -31,7 +31,10 @@ Module(
                     ],
                     expression=TypeName(
                         position=(1, 11, 0),
-                        name="T"
+                        name=Symbol(
+                            position=(1, 11, 0),
+                            name="T"
+                        )
                     )
                 )
             ),

@@ -19,7 +19,10 @@ Module(
                 ],
                 return_type=TypeName(
                     position=(1, 12, 0),
-                    name="Int"
+                    name=Symbol(
+                        position=(1, 12, 0),
+                        name="Int"
+                    )
                 ),
                 body=NumberLiteral(
                     position=(2, 5, 4),

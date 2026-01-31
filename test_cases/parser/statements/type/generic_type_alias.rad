@@ -17,12 +17,18 @@ Module(
                     position=(1, 13, 0),
                     generic_type=TypeName(
                         position=(1, 13, 0),
-                        name="List"
+                        name=Symbol(
+                            position=(1, 13, 0),
+                            name="List"
+                        )
                     ),
                     arguments=[
                         TypeName(
                             position=(1, 18, 0),
-                            name="T"
+                            name=Symbol(
+                                position=(1, 18, 0),
+                                name="T"
+                            )
                         )
                     ]
                 ),

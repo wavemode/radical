@@ -34,7 +34,10 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(2, 8, 4),
-                                name="Int"
+                                name=Symbol(
+                                    position=(2, 8, 4),
+                                    name="Int"
+                                )
                             )
                         ),
                         FunctionTypeParameter(
@@ -47,7 +50,10 @@ Module(
                             optional=true,
                             type_annotation=TypeName(
                                 position=(3, 10, 4),
-                                name="String"
+                                name=Symbol(
+                                    position=(3, 10, 4),
+                                    name="String"
+                                )
                             )
                         ),
                         FunctionTypeParameter(
@@ -60,7 +66,10 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(4, 9, 4),
-                                name="Bool"
+                                name=Symbol(
+                                    position=(4, 9, 4),
+                                    name="Bool"
+                                )
                             )
                         ),
                         FunctionTypeParameter(
@@ -69,13 +78,19 @@ Module(
                             optional=false,
                             type_annotation=TypeName(
                                 position=(5, 6, 4),
-                                name="Float"
+                                name=Symbol(
+                                    position=(5, 6, 4),
+                                    name="Float"
+                                )
                             )
                         )
                     ],
                     return_type=TypeName(
                         position=(6, 6, 0),
-                        name="Float"
+                        name=Symbol(
+                            position=(6, 6, 0),
+                            name="Float"
+                        )
                     )
                 )
             )
