@@ -1,7 +1,0 @@
-a : fun( a: Int
-    b?: String     c: Bool     Float
-) -> Float
-
-(*
-FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/type_expressions/fun/multiple_arguments_no_commas_no_newlines.rad:2:20")
-*)

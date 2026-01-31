@@ -1,0 +1,5 @@
+a : const type
+
+(*
+FAIL("Expected expression. Unexpected token TYPE('type') at test_cases/parser/type_expressions/const/fail_not_a_value_expression.rad:1:11")
+*)

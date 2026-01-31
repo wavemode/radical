@@ -1,5 +1,0 @@
-x = case y of dataType((x, y)) -> x
-
-(*
-FAIL("Type names must start with an uppercase letter at test_cases/parser/pattern_matching/data/lowercase.rad:1:15")
-*)

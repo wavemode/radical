@@ -1,0 +1,5 @@
+a : int
+
+(*
+FAIL("Type names must start with an uppercase letter at test_cases/parser/type_expressions/type_name/fail_lowercase.rad:1:5")
+*)

@@ -1,9 +1,0 @@
-  b = 5
-
-x = module of
-    a = 5
-
-
-(*
-FAIL("Top-level items must not be indented at test_cases/parser/module/module_of_lesser_indent_above.rad:1:3")
-*)

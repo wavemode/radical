@@ -1,0 +1,7 @@
+module A
+
+module B
+
+(*
+FAIL("Multiple module name declarations are not allowed at test_cases/parser/statements/module/fail_module_name_multiple.rad:3:1")
+*)

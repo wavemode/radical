@@ -1,0 +1,5 @@
+a = if 6 > 5 then "yes"
+
+(*
+FAIL("Expected token of type ELSE. Unexpected end of file at test_cases/parser/expressions/if/fail_if_expression_missing_else.rad:6:1")
+*)

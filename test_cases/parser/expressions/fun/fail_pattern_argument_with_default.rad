@@ -1,0 +1,5 @@
+flip = fun((a, b) = (1, 2)) -> (b, a)
+
+(*
+FAIL("Function parameter with default value cannot be a pattern at test_cases/parser/expressions/fun/fail_pattern_argument_with_default.rad:1:12")
+*)

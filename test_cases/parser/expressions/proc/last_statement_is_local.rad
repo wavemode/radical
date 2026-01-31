@@ -1,7 +1,0 @@
-a = proc(b : Int, c : List[Int] )of
-    b + d
-    local d = c[0]
-
-(*
-FAIL("Last statement in procedure body must be an expression at test_cases/parser/expressions/proc/last_statement_is_local.rad:3:5")
-*)

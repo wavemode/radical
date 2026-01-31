@@ -1,0 +1,14 @@
+a =
+    let
+        x = 5         y = 10
+    in
+        x + y
+
+(*
+    TODO: Maybe this error message should be more descriptive.
+    It's not necessarily intuitive that we parse the body of let
+    the exact same way we parse all comma-separated bodies.
+*)
+(*
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/expressions/let/fail_let_multiple_fields_no_commas_no_newlines.rad:3:23")
+*)

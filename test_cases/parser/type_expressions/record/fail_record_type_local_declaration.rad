@@ -1,0 +1,5 @@
+a : { local b : Int }
+
+(*
+FAIL("Expected record type entry. Unexpected token LOCAL('local') at test_cases/parser/type_expressions/record/fail_record_type_local_declaration.rad:1:7")
+*)

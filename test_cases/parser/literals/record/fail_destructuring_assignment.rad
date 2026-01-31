@@ -1,0 +1,7 @@
+a = {
+    (b, c) = tup
+}
+
+(*
+FAIL("Expected token of type MAPPING. Unexpected token ASSIGN('=') at test_cases/parser/literals/record/fail_destructuring_assignment.rad:2:12")
+*)

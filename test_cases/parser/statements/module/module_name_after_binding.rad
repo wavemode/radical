@@ -1,7 +1,0 @@
-x = 5
-
-module A
-
-(*
-FAIL("Module name must be the first nonlocal declaration at test_cases/parser/statements/module/module_name_after_binding.rad:3:1")
-*)

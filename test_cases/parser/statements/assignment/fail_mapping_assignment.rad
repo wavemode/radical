@@ -1,0 +1,5 @@
+4 => 5
+
+(*
+FAIL("Expected '=' after pattern. Unexpected token MAPPING('=>') at test_cases/parser/statements/assignment/fail_mapping_assignment.rad:1:1")
+*)

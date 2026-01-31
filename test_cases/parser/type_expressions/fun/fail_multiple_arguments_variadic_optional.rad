@@ -1,0 +1,8 @@
+a : fun(
+    a: Int
+    ...b?: String
+) -> Float
+
+(*
+FAIL("Variadic function parameter cannot be optional at test_cases/parser/type_expressions/fun/fail_multiple_arguments_variadic_optional.rad:3:10")
+*)

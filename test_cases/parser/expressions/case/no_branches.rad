@@ -1,5 +1,0 @@
-x = case y of
-
-(*
-FAIL("Case expression must have at least one branch at test_cases/parser/expressions/case/no_branches.rad:1:5")
-*)

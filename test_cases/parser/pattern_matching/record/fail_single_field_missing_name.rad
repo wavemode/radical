@@ -1,0 +1,5 @@
+fun f({ 4 }) = 4
+
+(*
+FAIL("Record field pattern must have a name unless it is a rest pattern at test_cases/parser/pattern_matching/record/fail_single_field_missing_name.rad:1:9")
+*)

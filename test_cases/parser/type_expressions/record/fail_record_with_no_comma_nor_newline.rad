@@ -1,0 +1,5 @@
+a : { b : Int c:String }
+
+(*
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/type_expressions/record/fail_record_with_no_comma_nor_newline.rad:1:15")
+*)

@@ -1,0 +1,9 @@
+a = f((a, b) = tup)
+
+(*
+    TODO: Could use a better error message here, highlighting that destructuring assignments
+    are not allowed as function call arguments.
+*)
+(*
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/expressions/function_call/fail_destructuring_assignment.rad:1:14")
+*)

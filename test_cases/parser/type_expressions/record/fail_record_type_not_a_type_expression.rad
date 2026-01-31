@@ -1,0 +1,5 @@
+a : { b : 5 }
+
+(*
+FAIL("Expected type expression. Unexpected token INTEGER_LITERAL('5') at test_cases/parser/type_expressions/record/fail_record_type_not_a_type_expression.rad:1:11")
+*)

@@ -1,0 +1,5 @@
+a : fun[a](a) -> a
+
+(*
+FAIL("Type names must start with an uppercase letter at test_cases/parser/type_expressions/generic/fail_generic_function_reordered_lowercase_param.rad:1:9")
+*)

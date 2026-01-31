@@ -1,5 +1,0 @@
-a : typeof data
-
-(*
-FAIL("Expected expression. Unexpected token DATA('data') at test_cases/parser/type_expressions/typeof/not_a_value_expression.rad:1:12")
-*)

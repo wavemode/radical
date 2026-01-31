@@ -1,0 +1,5 @@
+data
+
+(*
+FAIL("Expected data type name. Unexpected token EOF('') at test_cases/parser/statements/data/fail_data_missing_name.rad:6:1")
+*)

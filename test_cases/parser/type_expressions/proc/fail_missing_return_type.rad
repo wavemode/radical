@@ -1,0 +1,5 @@
+a : proc()
+
+(*
+FAIL("Expected '->' after procedure parameter list in procedure type. Unexpected token EOF('') at test_cases/parser/type_expressions/proc/fail_missing_return_type.rad:1:5")
+*)

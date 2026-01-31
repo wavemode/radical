@@ -1,0 +1,5 @@
+x = ...y
+
+(*
+FAIL("Expected expression. Unexpected token ELLIPSIS('...') at test_cases/parser/expressions/fail_spreads_are_not_expressions.rad:1:5")
+*)

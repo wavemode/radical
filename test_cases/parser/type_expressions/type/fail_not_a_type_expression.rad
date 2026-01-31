@@ -1,0 +1,5 @@
+a : type type
+
+(*
+FAIL("Expected expression. Unexpected token TYPE('type') at test_cases/parser/type_expressions/type/fail_not_a_type_expression.rad:1:10")
+*)

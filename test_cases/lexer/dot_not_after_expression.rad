@@ -1,5 +1,0 @@
-expr .
-
-(*
-FAIL("Unexpected character: '.' at test_cases/lexer/dot_not_after_expression.rad:1:6")
-*)

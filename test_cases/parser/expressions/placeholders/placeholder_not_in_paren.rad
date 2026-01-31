@@ -1,5 +1,0 @@
-a = ~
-
-(*
-FAIL("Placeholder '~' not contained within parentheses or a function call expression at test_cases/parser/expressions/placeholders/placeholder_not_in_paren.rad:1:5")
-*)

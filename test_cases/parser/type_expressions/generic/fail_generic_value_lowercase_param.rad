@@ -1,0 +1,6 @@
+a : [a]a
+a = undefined
+
+(*
+FAIL("Type names must start with an uppercase letter at test_cases/parser/type_expressions/generic/fail_generic_value_lowercase_param.rad:1:6")
+*)

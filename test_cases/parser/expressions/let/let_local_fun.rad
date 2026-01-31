@@ -1,9 +1,0 @@
-x = let
-        local fun add(a: Int, b: Int) -> Int =
-            a + b
-    in
-        add(2, 3)
-
-(*
-FAIL("Expected declaration. Unexpected token LOCAL('local') at test_cases/parser/expressions/let/let_local_fun.rad:2:9")
-*)

@@ -1,0 +1,9 @@
+a = f("a" => "b")
+
+(*
+    TODO: Could use a better error message here, highlighting that mapping assignments
+    are not allowed as function call arguments.
+*)
+(*
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/expressions/function_call/fail_mapping_assignment.rad:1:11")
+*)

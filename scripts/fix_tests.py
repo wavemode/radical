@@ -17,6 +17,8 @@ def fix_parser_tests():
             ):
                 formatted = parser.parse_module().format()
         except Exception as e:
+            if "fail_" not in test_case.path:
+                raise
             formatted = f"FAIL({json.dumps(str(e))})"
             if formatted != test_case.expected_output:
                 print(f"Test case {test_case.path} raised exception:\n{e}")
@@ -31,6 +33,8 @@ def fix_lexer_tests():
             with Lexer(test_case.contents, filename=test_case.path) as lexer:
                 formatted = "\n".join(str(token) for token in lexer.read_all())
         except Exception as e:
+            if "fail_" not in test_case.path:
+                raise
             formatted = f"FAIL({json.dumps(str(e))})"
             if formatted != test_case.expected_output:
                 print(f"Test case {test_case.path} raised exception:\n{e}")

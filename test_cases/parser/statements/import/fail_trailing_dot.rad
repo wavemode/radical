@@ -1,0 +1,5 @@
+import A.B.
+
+(*
+FAIL("Expected module name after '.' in import statement. Unexpected token EOF('') at test_cases/parser/statements/import/fail_trailing_dot.rad:1:11")
+*)

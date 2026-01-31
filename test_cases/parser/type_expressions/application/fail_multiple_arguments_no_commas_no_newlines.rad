@@ -1,0 +1,7 @@
+a : Map[
+    String Int
+]
+
+(*
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/type_expressions/application/fail_multiple_arguments_no_commas_no_newlines.rad:2:12")
+*)

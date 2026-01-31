@@ -1,0 +1,5 @@
+flip = fun(...(a, b)) -> (b, a)
+
+(*
+FAIL("Variadic function parameter cannot be a pattern at test_cases/parser/expressions/fun/fail_variadic_pattern_argument.rad:1:15")
+*)

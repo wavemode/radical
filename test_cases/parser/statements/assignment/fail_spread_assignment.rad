@@ -1,0 +1,5 @@
+...a
+
+(*
+FAIL("Expected '=' after pattern. Unexpected token EOF('') at test_cases/parser/statements/assignment/fail_spread_assignment.rad:1:1")
+*)

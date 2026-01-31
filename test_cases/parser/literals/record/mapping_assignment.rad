@@ -1,0 +1,42 @@
+a = {
+    "b" => 10
+}
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            AssignmentStatement(
+                position=(1, 1, 0),
+                assignment=Assignment(
+                    position=(1, 1, 0),
+                    target=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    ),
+                    value=RecordLiteral(
+                        position=(1, 5, 0),
+                        entries=[
+                            MappingAssignment(
+                                position=(2, 5, 4),
+                                key=StringLiteral(
+                                    position=(2, 5, 4),
+                                    open_quote="\"",
+                                    contents="b",
+                                    close_quote="\""
+                                ),
+                                value=NumberLiteral(
+                                    position=(2, 12, 4),
+                                    contents="10"
+                                )
+                            )
+                        ]
+                    )
+                )
+            )
+        ]
+    )
+)
+*)

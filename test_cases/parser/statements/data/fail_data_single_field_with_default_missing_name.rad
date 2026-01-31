@@ -1,0 +1,5 @@
+data A(Int = 5)
+
+(*
+FAIL("Data field with default value must have a name at test_cases/parser/statements/data/fail_data_single_field_with_default_missing_name.rad:1:14")
+*)

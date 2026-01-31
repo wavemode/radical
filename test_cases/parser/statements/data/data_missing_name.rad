@@ -1,5 +1,0 @@
-data
-
-(*
-FAIL("Expected data type name. Unexpected token EOF('') at test_cases/parser/statements/data/data_missing_name.rad:6:1")
-*)

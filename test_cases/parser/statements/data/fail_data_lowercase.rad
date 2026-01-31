@@ -1,0 +1,5 @@
+data a(Int)
+
+(*
+FAIL("Type names must start with an uppercase letter at test_cases/parser/statements/data/fail_data_lowercase.rad:1:6")
+*)
