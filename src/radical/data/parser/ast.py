@@ -421,6 +421,16 @@ class StringLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class NullLiteralPatternNode(Node):
+    null: NullLiteralNode
+
+
+@dataclass(frozen=True)
+class BooleanLiteralPatternNode(Node):
+    boolean: BooleanLiteralNode
+
+
+@dataclass(frozen=True)
 class PatternGuardNode(Node):
     pattern: "PatternNodeType"
     condition: "ValueExpressionNodeType"
@@ -584,6 +594,8 @@ PatternAtomNodeType = (
     | ParenthesizedPatternNode
     | NumberLiteralPatternNode
     | StringLiteralPatternNode
+    | NullLiteralPatternNode
+    | BooleanLiteralPatternNode
 )
 PatternNodeType = PatternAtomNodeType | PatternGuardNode
 TypeExpressionNodeType = (

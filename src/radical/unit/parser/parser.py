@@ -2,6 +2,7 @@ from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
     AssignmentNode,
     BooleanLiteralNode,
+    BooleanLiteralPatternNode,
     CaseBranchNode,
     CaseExpressionNode,
     ConstPatternNode,
@@ -32,6 +33,7 @@ from radical.data.parser.ast import (
     LetExpressionNode,
     ListLiteralNode,
     LocalDeclarationNode,
+    NullLiteralPatternNode,
     NumberLiteralPatternNode,
     RecordAssignmentEntryNode,
     MapLiteralNode,
@@ -118,6 +120,8 @@ class Parser(Unit):
             self.parse_parenthesized_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
+            self.parse_null_literal_pattern,
+            self.parse_boolean_literal_pattern,
             self.parse_rest_pattern,
             self.parse_const_pattern,
             self.parse_symbol_pattern,
@@ -1165,6 +1169,24 @@ class Parser(Unit):
         for pattern_parser in self._pattern_atom_parsers:
             if pattern := pattern_parser():
                 return pattern
+
+    def parse_null_literal_pattern(self) -> NullLiteralPatternNode | None:
+        start_position = self._position
+        if not (null := self.parse_null_literal()):
+            return None
+        return NullLiteralPatternNode(
+            position=start_position,
+            null=null,
+        )
+
+    def parse_boolean_literal_pattern(self) -> BooleanLiteralPatternNode | None:
+        start_position = self._position
+        if not (boolean_literal := self.parse_boolean_literal()):
+            return None
+        return BooleanLiteralPatternNode(
+            position=start_position,
+            boolean=boolean_literal,
+        )
 
     def parse_number_literal_pattern(self) -> NumberLiteralPatternNode | None:
         start_position = self._position
