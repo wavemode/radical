@@ -6,24 +6,23 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="x"
+                    ),
+                    value=UnaryOperation(
+                        position=(1, 5, 0),
+                        operator="module",
+                        operand=Symbol(
+                            position=(1, 12, 0),
+                            name="moduleObject"
+                        )
                     )
-                ),
-                value=UnaryOperation(
-                    position=(1, 5, 0),
-                    operator="module",
-                    operand=Symbol(
-                        position=(1, 12, 0),
-                        name="moduleObject"
-                    )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

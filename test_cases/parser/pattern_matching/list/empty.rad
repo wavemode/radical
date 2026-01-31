@@ -6,21 +6,23 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ListPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
+                    pattern=ListPattern(
+                        position=(1, 1, 0),
+                        elements=[
 
-                    ]
-                ),
-                value=ListLiteral(
-                    position=(1, 6, 0),
-                    elements=[
+                        ]
+                    ),
+                    value=ListLiteral(
+                        position=(1, 6, 0),
+                        elements=[
 
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

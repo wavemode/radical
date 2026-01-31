@@ -8,26 +8,20 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=RecordType(
+                type_expression=RecordType(
                     position=(1, 5, 0),
                     fields=[
                         TypeAnnotation(
                             position=(1, 7, 0),
-                            name=SymbolPattern(
+                            name=Symbol(
                                 position=(1, 7, 0),
-                                symbol=Symbol(
-                                    position=(1, 7, 0),
-                                    name="b"
-                                )
+                                name="b"
                             ),
-                            type_annotation=TypeName(
+                            type_expression=TypeName(
                                 position=(1, 11, 0),
                                 name=Symbol(
                                     position=(1, 11, 0),

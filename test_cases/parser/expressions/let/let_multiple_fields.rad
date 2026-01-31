@@ -7,63 +7,60 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=LetExpression(
-                    position=(1, 5, 0),
-                    declarations=[
-                        Assignment(
-                            position=(1, 9, 0),
-                            target=SymbolPattern(
+                    ),
+                    value=LetExpression(
+                        position=(1, 5, 0),
+                        declarations=[
+                            AssignmentStatement(
                                 position=(1, 9, 0),
-                                symbol=Symbol(
+                                assignment=Assignment(
                                     position=(1, 9, 0),
-                                    name="x"
+                                    target=Symbol(
+                                        position=(1, 9, 0),
+                                        name="x"
+                                    ),
+                                    value=NumberLiteral(
+                                        position=(1, 13, 0),
+                                        contents="5"
+                                    )
                                 )
                             ),
-                            value=NumberLiteral(
-                                position=(1, 13, 0),
-                                contents="5"
-                            ),
-                            omitted_equal_sign=false
-                        ),
-                        Assignment(
-                            position=(1, 16, 0),
-                            target=SymbolPattern(
+                            AssignmentStatement(
                                 position=(1, 16, 0),
-                                symbol=Symbol(
+                                assignment=Assignment(
                                     position=(1, 16, 0),
-                                    name="y"
+                                    target=Symbol(
+                                        position=(1, 16, 0),
+                                        name="y"
+                                    ),
+                                    value=NumberLiteral(
+                                        position=(1, 20, 0),
+                                        contents="10"
+                                    )
                                 )
-                            ),
-                            value=NumberLiteral(
-                                position=(1, 20, 0),
-                                contents="10"
-                            ),
-                            omitted_equal_sign=false
-                        )
-                    ],
-                    body=BinaryOperation(
-                        position=(2, 8, 4),
-                        left=Symbol(
+                            )
+                        ],
+                        body=BinaryOperation(
                             position=(2, 8, 4),
-                            name="x"
-                        ),
-                        operator="+",
-                        right=Symbol(
-                            position=(2, 12, 4),
-                            name="y"
+                            left=Symbol(
+                                position=(2, 8, 4),
+                                name="x"
+                            ),
+                            operator="+",
+                            right=Symbol(
+                                position=(2, 12, 4),
+                                name="y"
+                            )
                         )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

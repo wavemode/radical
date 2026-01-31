@@ -6,56 +6,55 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=BinaryOperation(
-                    position=(1, 5, 0),
-                    left=Symbol(
-                        position=(1, 5, 0),
-                        name="b"
                     ),
-                    operator="|>",
-                    right=PlaceholderExpression(
-                        position=(1, 10, 0),
-                        expression=ParenthesizedExpression(
+                    value=BinaryOperation(
+                        position=(1, 5, 0),
+                        left=Symbol(
+                            position=(1, 5, 0),
+                            name="b"
+                        ),
+                        operator="|>",
+                        right=PlaceholderExpression(
                             position=(1, 10, 0),
-                            expression=BinaryOperation(
-                                position=(1, 11, 0),
-                                left=FieldAccessExpression(
+                            expression=ParenthesizedExpression(
+                                position=(1, 10, 0),
+                                expression=BinaryOperation(
                                     position=(1, 11, 0),
-                                    object_expression=Symbol(
+                                    left=FieldAccessExpression(
                                         position=(1, 11, 0),
-                                        name="~"
+                                        object_expression=Symbol(
+                                            position=(1, 11, 0),
+                                            name="~"
+                                        ),
+                                        field=Symbol(
+                                            position=(1, 13, 0),
+                                            name="hello"
+                                        )
                                     ),
-                                    field=Symbol(
-                                        position=(1, 13, 0),
-                                        name="hello"
-                                    )
-                                ),
-                                operator="+",
-                                right=FieldAccessExpression(
-                                    position=(1, 21, 0),
-                                    object_expression=Symbol(
+                                    operator="+",
+                                    right=FieldAccessExpression(
                                         position=(1, 21, 0),
-                                        name="~"
-                                    ),
-                                    field=Symbol(
-                                        position=(1, 23, 0),
-                                        name="foo"
+                                        object_expression=Symbol(
+                                            position=(1, 21, 0),
+                                            name="~"
+                                        ),
+                                        field=Symbol(
+                                            position=(1, 23, 0),
+                                            name="foo"
+                                        )
                                     )
                                 )
                             )
                         )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

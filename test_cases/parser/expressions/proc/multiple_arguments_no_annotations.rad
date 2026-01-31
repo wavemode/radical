@@ -9,60 +9,59 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=ProcedureExpression(
-                    position=(1, 5, 0),
-                    parameters=[
-                        FunctionParameter(
-                            position=(2, 9, 8),
-                            param=SymbolPattern(
+                    ),
+                    value=ProcedureExpression(
+                        position=(1, 5, 0),
+                        parameters=[
+                            FunctionParameter(
                                 position=(2, 9, 8),
-                                symbol=Symbol(
+                                param=SymbolPattern(
                                     position=(2, 9, 8),
-                                    name="b"
-                                )
-                            ),
-                            variadic=false
-                        ),
-                        FunctionParameter(
-                            position=(3, 9, 8),
-                            param=SymbolPattern(
-                                position=(3, 9, 8),
-                                symbol=Symbol(
-                                    position=(3, 9, 8),
-                                    name="c"
-                                )
-                            ),
-                            variadic=false
-                        )
-                    ],
-                    body=[
-                        ProcedureBodyStatement(
-                            position=(4, 7, 1),
-                            expression=BinaryOperation(
-                                position=(4, 7, 1),
-                                left=Symbol(
-                                    position=(4, 7, 1),
-                                    name="b"
+                                    symbol=Symbol(
+                                        position=(2, 9, 8),
+                                        name="b"
+                                    )
                                 ),
-                                operator="+",
-                                right=Symbol(
-                                    position=(4, 11, 1),
-                                    name="c"
+                                variadic=false
+                            ),
+                            FunctionParameter(
+                                position=(3, 9, 8),
+                                param=SymbolPattern(
+                                    position=(3, 9, 8),
+                                    symbol=Symbol(
+                                        position=(3, 9, 8),
+                                        name="c"
+                                    )
+                                ),
+                                variadic=false
+                            )
+                        ],
+                        body=[
+                            ProcedureBodyStatement(
+                                position=(4, 7, 1),
+                                expression=BinaryOperation(
+                                    position=(4, 7, 1),
+                                    left=Symbol(
+                                        position=(4, 7, 1),
+                                        name="b"
+                                    ),
+                                    operator="+",
+                                    right=Symbol(
+                                        position=(4, 11, 1),
+                                        name="c"
+                                    )
                                 )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

@@ -9,14 +9,11 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=GenericTypeExpression(
+                type_expression=GenericTypeExpression(
                     position=(1, 5, 0),
                     parameters=[
                         GenericTypeParameter(
@@ -37,20 +34,19 @@ Module(
                     )
                 )
             ),
-            Assignment(
+            AssignmentStatement(
                 position=(2, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(2, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(2, 1, 0),
                         name="a"
+                    ),
+                    value=Symbol(
+                        position=(2, 5, 0),
+                        name="undefined"
                     )
-                ),
-                value=Symbol(
-                    position=(2, 5, 0),
-                    name="undefined"
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

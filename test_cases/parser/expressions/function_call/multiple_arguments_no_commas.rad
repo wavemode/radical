@@ -10,46 +10,36 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=FunctionCallExpression(
-                    position=(1, 5, 0),
-                    function_expression=Symbol(
-                        position=(1, 5, 0),
-                        name="f"
                     ),
-                    arguments=[
-                        FunctionCallArgument(
-                            position=(2, 3, 2),
-                            value=NumberLiteral(
+                    value=FunctionCallExpression(
+                        position=(1, 5, 0),
+                        function_expression=Symbol(
+                            position=(1, 5, 0),
+                            name="f"
+                        ),
+                        arguments=[
+                            NumberLiteral(
                                 position=(2, 3, 2),
                                 contents="10"
-                            )
-                        ),
-                        FunctionCallArgument(
-                            position=(3, 5, 4),
-                            value=NumberLiteral(
+                            ),
+                            NumberLiteral(
                                 position=(3, 5, 4),
                                 contents="20"
-                            )
-                        ),
-                        FunctionCallArgument(
-                            position=(4, 5, 4),
-                            value=NumberLiteral(
+                            ),
+                            NumberLiteral(
                                 position=(4, 5, 4),
                                 contents="30"
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

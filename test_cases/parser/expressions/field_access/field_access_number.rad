@@ -6,27 +6,26 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=FieldAccessExpression(
-                    position=(1, 5, 0),
-                    object_expression=Symbol(
-                        position=(1, 5, 0),
-                        name="b"
                     ),
-                    field=Symbol(
-                        position=(1, 7, 0),
-                        name="0"
+                    value=FieldAccessExpression(
+                        position=(1, 5, 0),
+                        object_expression=Symbol(
+                            position=(1, 5, 0),
+                            name="b"
+                        ),
+                        field=Symbol(
+                            position=(1, 7, 0),
+                            name="0"
+                        )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

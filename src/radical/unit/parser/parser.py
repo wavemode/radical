@@ -1,6 +1,8 @@
 from typing import Callable, NoReturn, TypeVar
 from radical.data.parser.ast import (
+    AssignmentBindingNodeType,
     AssignmentNode,
+    AssignmentStatementNode,
     BooleanLiteralNode,
     BooleanLiteralPatternNode,
     CaseBranchNode,
@@ -9,13 +11,14 @@ from radical.data.parser.ast import (
     ConstTypeExpressionNode,
     DataDeclarationNode,
     DataFieldNode,
+    DestructuringAssignmentNode,
+    FunctionCallArgumentNodeType,
     KeyValueFieldPatternNode,
     DataTypePatternNode,
     FieldAccessExpressionNode,
     FormatStringExpressionNode,
     FormatStringLiteralNode,
     FormatStringTextSectionNode,
-    FunctionCallArgumentNode,
     FunctionCallExpressionNode,
     FunctionDeclarationNode,
     FunctionExpressionNode,
@@ -30,16 +33,18 @@ from radical.data.parser.ast import (
     ImportStatementFieldNode,
     ImportStatementNode,
     IndexingExpressionNode,
-    KeyValueEntryNode,
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
+    ListLiteralElementNodeType,
     ListLiteralNode,
     ListPatternNode,
     LocalDeclarationNode,
+    MappingAssignmentNode,
+    NamingAssignmentNode,
     NullLiteralPatternNode,
     NumberLiteralPatternNode,
     PatternAliasNode,
-    RecordAssignmentEntryNode,
+    RecordLiteralEntryNodeType,
     RecordLiteralNode,
     ModuleAssignmentDeclarationNode,
     ModuleBodyDeclarationNode,
@@ -63,9 +68,11 @@ from radical.data.parser.ast import (
     ProcedureExpressionNode,
     ProcedureTypeNode,
     RecordPatternNode,
+    RecordTypeEntryNodeType,
     RecordTypeNode,
     RestPatternNode,
-    SpreadOperationNode,
+    ShorthandAssignmentNode,
+    SpreadAssignmentNode,
     SpreadTypeExpressionNode,
     StringLiteralNode,
     StringLiteralPatternNode,
@@ -157,7 +164,8 @@ class Parser(Unit):
             self.parse_import_statement,
             self.parse_module_assignment_declaration,
             self.parse_module_body_declaration,
-            self.parse_assignment,
+            self.parse_type_annotation,
+            self.parse_assignment_statement,
         ]
 
         self._top_level_declaration_parsers: list[
@@ -737,59 +745,100 @@ class Parser(Unit):
             )
         return field
 
-    def parse_assignment(
-        self,
-    ) -> AssignmentNode | TypeAnnotationNode | None:
+    def parse_assignment_statement(self) -> AssignmentStatementNode | None:
         start_position = self._position
-        if not (target := self.parse_pattern()):
+        if not (assignment := self.parse_assignment_statement_assignment()):
             return None
+        return AssignmentStatementNode(
+            position=start_position,
+            assignment=assignment,
+        )
 
-        type_annotation: TypeExpressionNodeType | None = None
-        value: ValueExpressionNodeType | None = None
-        omitted_equal_sign = False
+    def parse_assignment_statement_assignment(self) -> AssignmentBindingNodeType | None:
+        if assignment := self.parse_assignment():
+            return assignment
 
-        if self._peek().type == TokenType.COLON:
-            self._read()  # consume COLON
-            type_annotation = self.parse_type_expression()
+        if naming_assignment := self.parse_naming_assignment():
+            return naming_assignment
 
-        if self._peek().type == TokenType.ASSIGN:
+        if destructuring_assignment := self.parse_destructuring_assignment():
+            return destructuring_assignment
+
+        return None
+
+    def parse_assignment(self) -> AssignmentNode | None:
+        start_position = self._position
+        if (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.ASSIGN
+        ):
+            assert (target := self.parse_symbol())
             self._read()  # consume ASSIGN
             value = self.parse_value_expression()
-        else:
-            upcoming_token = self._peek()
-            if upcoming_token.type in EXPR_START_TOKENS and (
-                upcoming_token.position.line == target.position.line
-            ):
-                if type_annotation:
-                    self._raise_parse_error(
-                        message="Assignment with type annotation must use '=' to separate target and value",
-                        position=upcoming_token.position,
-                    )
-                value = self.parse_value_expression()
-                omitted_equal_sign = True
-
-        if value is not None:
             return AssignmentNode(
                 position=start_position,
                 target=target,
                 value=value,
-                type_annotation=type_annotation,
-                omitted_equal_sign=omitted_equal_sign,
             )
-        elif type_annotation is not None:
-            if isinstance(target, SymbolPatternNode):
-                return TypeAnnotationNode(
+
+    def parse_naming_assignment(self) -> NamingAssignmentNode | None:
+        start_position = self._position
+        if self._peek().type == TokenType.SYMBOL:
+            symbol_token = self._peek()
+            upcoming_token = self._peek(1)
+            if (
+                upcoming_token.type in EXPR_START_TOKENS
+                and upcoming_token.position.line == symbol_token.position.line
+            ):
+                assert (name := self.parse_symbol())
+                value = self.parse_value_expression()
+                return NamingAssignmentNode(
                     position=start_position,
-                    name=target,
-                    type_annotation=type_annotation,
+                    name=name,
+                    value=value,
                 )
-            self._raise_parse_error(
-                message="Left-hand side of type annotation cannot be a pattern",
-                position=target.position,
+
+    def parse_destructuring_assignment(self) -> DestructuringAssignmentNode | None:
+        start_position = self._position
+        if pattern := self.parse_pattern():
+            if not self.parse_token(TokenType.ASSIGN):
+                self._raise_parse_error(
+                    message=f"Expected '=' after pattern. Unexpected token {self._peek().pretty()}",
+                    position=start_position,
+                )
+            value = self.parse_value_expression()
+            return DestructuringAssignmentNode(
+                position=start_position,
+                pattern=pattern,
+                value=value,
             )
-        self._raise_parse_error(
-            message="Assignment must have a value and/or a type annotation",
+
+    def parse_spread_assignment(self) -> SpreadAssignmentNode | None:
+        start_position = self._position
+        if not self.parse_token(TokenType.ELLIPSIS):
+            return None
+        expression = self.parse_value_expression()
+        return SpreadAssignmentNode(
             position=start_position,
+            expression=expression,
+        )
+
+    def parse_type_annotation(self) -> TypeAnnotationNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type == TokenType.COLON
+        ):
+            return None
+
+        assert (name := self.parse_symbol())
+        self._read()  # consume COLON
+        type_expression = self.parse_type_expression()
+
+        return TypeAnnotationNode(
+            position=start_position,
+            name=name,
+            type_expression=type_expression,
         )
 
     def parse_type_expression(self) -> TypeExpressionNodeType:
@@ -991,7 +1040,7 @@ class Parser(Unit):
             return None
 
         fields = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_record_entry,
+            element_parser=self.parse_record_type_entry,
             ending_token=TokenType.OBJECT_END,
         )
 
@@ -1000,16 +1049,11 @@ class Parser(Unit):
             fields=fields,
         )
 
-    def parse_record_entry(self) -> TypeAnnotationNode | SpreadTypeExpressionNode:
+    def parse_record_type_entry(self) -> RecordTypeEntryNodeType:
         entry: TypeAnnotationNode | SpreadTypeExpressionNode
         if spread_type := self.parse_spread_type_expression():
             entry = spread_type
-        elif type_annotation := self.parse_assignment():
-            if not isinstance(type_annotation, TypeAnnotationNode):
-                self._raise_parse_error(
-                    message="Each entry of a record type must be an annotation of the form 'name : Type', or a spread type expression '...Type'",
-                )
-                raise RuntimeError("unreachable")  # appease type checker
+        elif type_annotation := self.parse_type_annotation():
             entry = type_annotation
         else:
             self._raise_parse_error(
@@ -1569,26 +1613,17 @@ class Parser(Unit):
                 break
         return lhs
 
-    def parse_function_call_argument(
-        self,
-    ) -> FunctionCallArgumentNode | SpreadOperationNode:
-        if spread_operation := self.parse_spread_operation():
-            return spread_operation
+    def parse_function_call_argument(self) -> FunctionCallArgumentNodeType:
+        if spread_assignment := self.parse_spread_assignment():
+            return spread_assignment
 
-        name: SymbolNode | None = None
-        if (
-            self._peek().type == TokenType.SYMBOL
-            and self._peek(1).type == TokenType.ASSIGN
-        ):
-            assert (name := self.parse_symbol())
-            self._read()  # consume ASSIGN
+        if assignment := self.parse_assignment():
+            return assignment
 
-        value = self.parse_value_expression()
-        return FunctionCallArgumentNode(
-            position=value.position,
-            name=name,
-            value=value,
-        )
+        if naming_assignment := self.parse_naming_assignment():
+            return naming_assignment
+
+        return self.parse_value_expression()
 
     def parse_atom(self) -> AtomNodeType:
         for atom_parser in self._atom_parsers:
@@ -1722,11 +1757,10 @@ class Parser(Unit):
             elements=elements,
         )
 
-    def parse_list_literal_element(
-        self,
-    ) -> ValueExpressionNodeType | SpreadOperationNode:
-        if spread_operation := self.parse_spread_operation():
-            return spread_operation
+    def parse_list_literal_element(self) -> ListLiteralElementNodeType:
+        if spread_assignment := self.parse_spread_assignment():
+            return spread_assignment
+
         return self.parse_value_expression()
 
     def parse_record_literal(self) -> RecordLiteralNode | None:
@@ -1743,66 +1777,44 @@ class Parser(Unit):
             entries=entries,
         )
 
-    def parse_record_literal_entry(
-        self,
-    ) -> RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode:
-        if spread_operation := self.parse_spread_operation():
-            return spread_operation
+    def parse_record_literal_entry(self) -> RecordLiteralEntryNodeType:
+        if spread_assignment := self.parse_spread_assignment():
+            return spread_assignment
 
+        if assignment := self.parse_assignment():
+            return assignment
+
+        if naming_assignment := self.parse_naming_assignment():
+            return naming_assignment
+
+        if shorthand_assignment := self.parse_shorthand_assignment():
+            return shorthand_assignment
+
+        return self.parse_mapping_assignment()
+
+    def parse_mapping_assignment(self) -> MappingAssignmentNode:
         start_position = self._position
-
-        if self._peek().type == TokenType.SYMBOL:
-            symbol_token = self._peek()
-            upcoming_token = self._peek(1)
-            if upcoming_token.type == TokenType.ASSIGN:
-                assert (key := self.parse_symbol())
-                self._read()  # consume ASSIGN
-                value = self.parse_value_expression()
-                return RecordAssignmentEntryNode(
-                    position=start_position,
-                    key=key,
-                    value=value,
-                    omitted_equal_sign=False,
-                )
-            elif (
-                upcoming_token.type in EXPR_START_TOKENS
-                and upcoming_token.position.line == symbol_token.position.line
-            ):
-                assert (key := self.parse_symbol())
-                value = self.parse_value_expression()
-                return RecordAssignmentEntryNode(
-                    position=start_position,
-                    key=key,
-                    value=value,
-                    omitted_equal_sign=True,
-                )
-            elif upcoming_token.type != TokenType.MAPPING:
-                assert (key := self.parse_symbol())
-                return RecordAssignmentEntryNode(
-                    position=start_position,
-                    key=key,
-                    value=None,
-                    omitted_equal_sign=True,
-                )
-
         key = self.parse_value_expression()
         self.require_token(TokenType.MAPPING)
         value = self.parse_value_expression()
-        return KeyValueEntryNode(
+        return MappingAssignmentNode(
             position=start_position,
             key=key,
             value=value,
         )
 
-    def parse_spread_operation(self) -> SpreadOperationNode | None:
+    def parse_shorthand_assignment(self) -> ShorthandAssignmentNode | None:
         start_position = self._position
-        if self.parse_token(TokenType.ELLIPSIS):
-            operand = self.parse_value_expression()
-            return SpreadOperationNode(
-                position=start_position,
-                operand=operand,
-            )
-        return None
+        if not (
+            self._peek().type == TokenType.SYMBOL
+            and self._peek(1).type not in (TokenType.ASSIGN, TokenType.MAPPING)
+        ):
+            return None
+        assert (symbol := self.parse_symbol())
+        return ShorthandAssignmentNode(
+            position=start_position,
+            name=symbol,
+        )
 
     def parse_parenthesized_expression(
         self,

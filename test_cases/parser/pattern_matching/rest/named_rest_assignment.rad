@@ -6,38 +6,40 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ParenthesizedPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
-                        RestPattern(
-                            position=(1, 2, 0),
-                            name=Symbol(
-                                position=(1, 5, 0),
-                                name="x"
+                    pattern=ParenthesizedPattern(
+                        position=(1, 1, 0),
+                        elements=[
+                            RestPattern(
+                                position=(1, 2, 0),
+                                name=Symbol(
+                                    position=(1, 5, 0),
+                                    name="x"
+                                )
                             )
-                        )
-                    ]
-                ),
-                value=TupleLiteral(
-                    position=(1, 10, 0),
-                    elements=[
-                        NumberLiteral(
-                            position=(1, 11, 0),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(1, 14, 0),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(1, 17, 0),
-                            contents="3"
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    ),
+                    value=TupleLiteral(
+                        position=(1, 10, 0),
+                        elements=[
+                            NumberLiteral(
+                                position=(1, 11, 0),
+                                contents="1"
+                            ),
+                            NumberLiteral(
+                                position=(1, 14, 0),
+                                contents="2"
+                            ),
+                            NumberLiteral(
+                                position=(1, 17, 0),
+                                contents="3"
+                            )
+                        ]
+                    )
+                )
             )
         ]
     )

@@ -204,6 +204,43 @@ class NullLiteralNode(Node):
     contents: Token
 
 
+# Binding
+
+
+@dataclass(frozen=True)
+class AssignmentNode(Node):
+    target: SymbolNode
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class NamingAssignmentNode(Node):
+    name: SymbolNode
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class DestructuringAssignmentNode(Node):
+    pattern: "PatternNodeType"
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class ShorthandAssignmentNode(Node):
+    name: SymbolNode
+
+
+@dataclass(frozen=True)
+class MappingAssignmentNode(Node):
+    key: "ValueExpressionNodeType"
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
+class SpreadAssignmentNode(Node):
+    expression: "ValueExpressionNodeType"
+
+
 # Operations
 
 
@@ -279,20 +316,9 @@ class IndexingExpressionNode(Node):
 
 
 @dataclass(frozen=True)
-class SpreadOperationNode(Node):
-    operand: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class FunctionCallArgumentNode(Node):
-    name: SymbolNode | None
-    value: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
 class FunctionCallExpressionNode(Node):
     function_expression: "ValueExpressionNodeType"
-    arguments: list["FunctionCallArgumentNode | SpreadOperationNode"]
+    arguments: list["FunctionCallArgumentNodeType"]
 
 
 @dataclass(frozen=True)
@@ -305,25 +331,12 @@ class PlaceholderExpressionNode(Node):
 
 @dataclass(frozen=True)
 class ListLiteralNode(Node):
-    elements: list["ValueExpressionNodeType | SpreadOperationNode"]
-
-
-@dataclass(frozen=True)
-class KeyValueEntryNode(Node):
-    key: "ValueExpressionNodeType"
-    value: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class RecordAssignmentEntryNode(Node):
-    key: SymbolNode
-    value: "ValueExpressionNodeType | None"
-    omitted_equal_sign: bool
+    elements: list["ListLiteralElementNodeType"]
 
 
 @dataclass(frozen=True)
 class RecordLiteralNode(Node):
-    entries: list["RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode"]
+    entries: list["RecordLiteralEntryNodeType"]
 
 
 @dataclass(frozen=True)
@@ -478,17 +491,14 @@ class LocalDeclarationNode(Node):
 
 
 @dataclass(frozen=True)
-class AssignmentNode(Node):
-    target: "PatternNodeType"
-    value: "ValueExpressionNodeType"
-    type_annotation: "TypeExpressionNodeType | None"
-    omitted_equal_sign: bool
+class AssignmentStatementNode(Node):
+    assignment: "AssignmentBindingNodeType"
 
 
 @dataclass(frozen=True)
 class TypeAnnotationNode(Node):
-    name: SymbolPatternNode
-    type_annotation: "TypeExpressionNodeType"
+    name: SymbolNode
+    type_expression: "TypeExpressionNodeType"
 
 
 @dataclass(frozen=True)
@@ -650,7 +660,7 @@ TypeExpressionNodeType = (
     | GenericTypeApplicationNode
 )
 LetExpressionDeclarationNodeType = (
-    AssignmentNode
+    AssignmentStatementNode
     | TypeAnnotationNode
     | ImportStatementNode
     | TypeDeclarationNode
@@ -660,7 +670,24 @@ LetExpressionDeclarationNodeType = (
     | FunctionDeclarationNode
     | ProcedureDeclarationNode
 )
-
+FunctionCallArgumentNodeType = (
+    AssignmentNode
+    | NamingAssignmentNode
+    | SpreadAssignmentNode
+    | ValueExpressionNodeType
+)
+RecordLiteralEntryNodeType = (
+    AssignmentNode
+    | NamingAssignmentNode
+    | ShorthandAssignmentNode
+    | MappingAssignmentNode
+    | SpreadAssignmentNode
+)
+AssignmentBindingNodeType = (
+    AssignmentNode | NamingAssignmentNode | DestructuringAssignmentNode
+)
+RecordTypeEntryNodeType = TypeAnnotationNode | SpreadTypeExpressionNode
+ListLiteralElementNodeType = ValueExpressionNodeType | SpreadAssignmentNode
 TopLevelDeclarationNodeType = (
     LetExpressionDeclarationNodeType | ModuleNameNode | LocalDeclarationNode
 )

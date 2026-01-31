@@ -1,5 +1,0 @@
-a: Int 5
-
-(*
-FAIL("Assignment with type annotation must use '=' to separate target and value at test_cases/parser/statements/assignment/typed_assignment_no_equals.rad:1:8")
-*)

@@ -6,52 +6,49 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=RecordLiteral(
-                    position=(1, 5, 0),
-                    entries=[
-                        RecordAssignmentEntry(
-                            position=(1, 7, 0),
-                            key=Symbol(
+                    ),
+                    value=RecordLiteral(
+                        position=(1, 5, 0),
+                        entries=[
+                            Assignment(
                                 position=(1, 7, 0),
-                                name="b"
+                                target=Symbol(
+                                    position=(1, 7, 0),
+                                    name="b"
+                                ),
+                                value=NumberLiteral(
+                                    position=(1, 11, 0),
+                                    contents="10"
+                                )
                             ),
-                            value=NumberLiteral(
-                                position=(1, 11, 0),
-                                contents="10"
-                            ),
-                            omitted_equal_sign=false
-                        ),
-                        RecordAssignmentEntry(
-                            position=(1, 15, 0),
-                            key=Symbol(
+                            Assignment(
                                 position=(1, 15, 0),
-                                name="c"
+                                target=Symbol(
+                                    position=(1, 15, 0),
+                                    name="c"
+                                ),
+                                value=NumberLiteral(
+                                    position=(1, 19, 0),
+                                    contents="20"
+                                )
                             ),
-                            value=NumberLiteral(
-                                position=(1, 19, 0),
-                                contents="20"
-                            ),
-                            omitted_equal_sign=false
-                        ),
-                        SpreadOperation(
-                            position=(1, 23, 0),
-                            operand=Symbol(
-                                position=(1, 26, 0),
-                                name="d"
+                            SpreadAssignment(
+                                position=(1, 23, 0),
+                                expression=Symbol(
+                                    position=(1, 26, 0),
+                                    name="d"
+                                )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

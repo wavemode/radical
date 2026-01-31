@@ -7,71 +7,69 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="name"
+                    ),
+                    value=StringLiteral(
+                        position=(1, 8, 0),
+                        open_quote="\"",
+                        contents="world",
+                        close_quote="\""
                     )
-                ),
-                value=StringLiteral(
-                    position=(1, 8, 0),
-                    open_quote="\"",
-                    contents="world",
-                    close_quote="\""
-                ),
-                omitted_equal_sign=false
+                )
             ),
-            Assignment(
+            AssignmentStatement(
                 position=(2, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(2, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(2, 1, 0),
                         name="x"
-                    )
-                ),
-                value=FormatStringLiteral(
-                    position=(2, 5, 0),
-                    open_quote="f\"",
-                    contents=[
-                        FormatStringTextSection(
-                            position=(2, 7, 0),
-                            string_contents="hello "
-                        ),
-                        FormatStringExpression(
-                            position=(2, 14, 0),
-                            expression=FormatStringLiteral(
+                    ),
+                    value=FormatStringLiteral(
+                        position=(2, 5, 0),
+                        open_quote="f\"",
+                        contents=[
+                            FormatStringTextSection(
+                                position=(2, 7, 0),
+                                string_contents="hello "
+                            ),
+                            FormatStringExpression(
                                 position=(2, 14, 0),
-                                open_quote="f\"",
-                                contents=[
-                                    FormatStringExpression(
-                                        position=(2, 17, 0),
-                                        expression=BinaryOperation(
+                                expression=FormatStringLiteral(
+                                    position=(2, 14, 0),
+                                    open_quote="f\"",
+                                    contents=[
+                                        FormatStringExpression(
                                             position=(2, 17, 0),
-                                            left=Symbol(
+                                            expression=BinaryOperation(
                                                 position=(2, 17, 0),
-                                                name="name"
-                                            ),
-                                            operator="+",
-                                            right=StringLiteral(
-                                                position=(2, 24, 0),
-                                                open_quote="\"",
-                                                contents="!",
-                                                close_quote="\""
+                                                left=Symbol(
+                                                    position=(2, 17, 0),
+                                                    name="name"
+                                                ),
+                                                operator="+",
+                                                right=StringLiteral(
+                                                    position=(2, 24, 0),
+                                                    open_quote="\"",
+                                                    contents="!",
+                                                    close_quote="\""
+                                                )
                                             )
                                         )
-                                    )
-                                ],
-                                close_quote="\""
+                                    ],
+                                    close_quote="\""
+                                )
                             )
-                        )
-                    ],
-                    close_quote="\""
-                ),
-                omitted_equal_sign=false
+                        ],
+                        close_quote="\""
+                    )
+                )
             )
         ]
     )

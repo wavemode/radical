@@ -8,14 +8,11 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=FunctionType(
+                type_expression=FunctionType(
                     position=(1, 5, 0),
                     parameters=[
 

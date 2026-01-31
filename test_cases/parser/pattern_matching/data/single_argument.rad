@@ -6,63 +6,62 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="x"
-                    )
-                ),
-                value=CaseExpression(
-                    position=(1, 5, 0),
-                    expression=Symbol(
-                        position=(1, 10, 0),
-                        name="y"
                     ),
-                    branches=[
-                        CaseBranch(
-                            position=(1, 15, 0),
-                            pattern=DataTypePattern(
+                    value=CaseExpression(
+                        position=(1, 5, 0),
+                        expression=Symbol(
+                            position=(1, 10, 0),
+                            name="y"
+                        ),
+                        branches=[
+                            CaseBranch(
                                 position=(1, 15, 0),
-                                name=Symbol(
+                                pattern=DataTypePattern(
                                     position=(1, 15, 0),
-                                    name="DataType"
-                                ),
-                                fields=[
-                                    KeyValueFieldPattern(
-                                        position=(1, 24, 0),
-                                        pattern=ParenthesizedPattern(
+                                    name=Symbol(
+                                        position=(1, 15, 0),
+                                        name="DataType"
+                                    ),
+                                    fields=[
+                                        KeyValueFieldPattern(
                                             position=(1, 24, 0),
-                                            elements=[
-                                                SymbolPattern(
-                                                    position=(1, 25, 0),
-                                                    symbol=Symbol(
+                                            pattern=ParenthesizedPattern(
+                                                position=(1, 24, 0),
+                                                elements=[
+                                                    SymbolPattern(
                                                         position=(1, 25, 0),
-                                                        name="x"
-                                                    )
-                                                ),
-                                                SymbolPattern(
-                                                    position=(1, 28, 0),
-                                                    symbol=Symbol(
+                                                        symbol=Symbol(
+                                                            position=(1, 25, 0),
+                                                            name="x"
+                                                        )
+                                                    ),
+                                                    SymbolPattern(
                                                         position=(1, 28, 0),
-                                                        name="y"
+                                                        symbol=Symbol(
+                                                            position=(1, 28, 0),
+                                                            name="y"
+                                                        )
                                                     )
-                                                )
-                                            ]
+                                                ]
+                                            )
                                         )
-                                    )
-                                ]
-                            ),
-                            expression=Symbol(
-                                position=(1, 35, 0),
-                                name="x"
+                                    ]
+                                ),
+                                expression=Symbol(
+                                    position=(1, 35, 0),
+                                    name="x"
+                                )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

@@ -7,50 +7,49 @@ Module(
     body=ModuleBody(
         position=(2, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(2, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(2, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(2, 1, 0),
                         name="a"
-                    )
-                ),
-                value=UnaryOperation(
-                    position=(2, 5, 0),
-                    operator="module",
-                    operand=TypeApplicationExpression(
-                        position=(2, 12, 0),
-                        value_expression=IndexingExpression(
+                    ),
+                    value=UnaryOperation(
+                        position=(2, 5, 0),
+                        operator="module",
+                        operand=TypeApplicationExpression(
                             position=(2, 12, 0),
-                            object_expression=FieldAccessExpression(
+                            value_expression=IndexingExpression(
                                 position=(2, 12, 0),
-                                object_expression=Symbol(
+                                object_expression=FieldAccessExpression(
                                     position=(2, 12, 0),
-                                    name="m"
+                                    object_expression=Symbol(
+                                        position=(2, 12, 0),
+                                        name="m"
+                                    ),
+                                    field=Symbol(
+                                        position=(2, 14, 0),
+                                        name="field"
+                                    )
                                 ),
-                                field=Symbol(
-                                    position=(2, 14, 0),
-                                    name="field"
+                                index_expression=NumberLiteral(
+                                    position=(2, 20, 0),
+                                    contents="4"
                                 )
                             ),
-                            index_expression=NumberLiteral(
-                                position=(2, 20, 0),
-                                contents="4"
-                            )
-                        ),
-                        type_arguments=[
-                            TypeName(
-                                position=(2, 24, 0),
-                                name=Symbol(
+                            type_arguments=[
+                                TypeName(
                                     position=(2, 24, 0),
-                                    name="Int"
+                                    name=Symbol(
+                                        position=(2, 24, 0),
+                                        name="Int"
+                                    )
                                 )
-                            )
-                        ]
+                            ]
+                        )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

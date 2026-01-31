@@ -7,51 +7,50 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=FunctionExpression(
-                    position=(1, 5, 0),
-                    parameters=[
-                        FunctionParameter(
-                            position=(1, 9, 0),
-                            param=SymbolPattern(
+                    ),
+                    value=FunctionExpression(
+                        position=(1, 5, 0),
+                        parameters=[
+                            FunctionParameter(
                                 position=(1, 9, 0),
-                                symbol=Symbol(
+                                param=SymbolPattern(
                                     position=(1, 9, 0),
-                                    name="b"
-                                )
-                            ),
-                            variadic=false,
-                            type_annotation=TypeName(
-                                position=(1, 13, 0),
-                                name=Symbol(
+                                    symbol=Symbol(
+                                        position=(1, 9, 0),
+                                        name="b"
+                                    )
+                                ),
+                                variadic=false,
+                                type_annotation=TypeName(
                                     position=(1, 13, 0),
-                                    name="Int"
+                                    name=Symbol(
+                                        position=(1, 13, 0),
+                                        name="Int"
+                                    )
                                 )
                             )
-                        )
-                    ],
-                    body=BinaryOperation(
-                        position=(2, 5, 4),
-                        left=Symbol(
+                        ],
+                        body=BinaryOperation(
                             position=(2, 5, 4),
-                            name="b"
-                        ),
-                        operator="+",
-                        right=NumberLiteral(
-                            position=(2, 9, 4),
-                            contents="3"
+                            left=Symbol(
+                                position=(2, 5, 4),
+                                name="b"
+                            ),
+                            operator="+",
+                            right=NumberLiteral(
+                                position=(2, 9, 4),
+                                contents="3"
+                            )
                         )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

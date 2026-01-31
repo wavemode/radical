@@ -14,52 +14,54 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ListPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
-                        SymbolPattern(
-                            position=(2, 5, 4),
-                            symbol=Symbol(
+                    pattern=ListPattern(
+                        position=(1, 1, 0),
+                        elements=[
+                            SymbolPattern(
                                 position=(2, 5, 4),
-                                name="a"
-                            )
-                        ),
-                        SymbolPattern(
-                            position=(3, 5, 4),
-                            symbol=Symbol(
+                                symbol=Symbol(
+                                    position=(2, 5, 4),
+                                    name="a"
+                                )
+                            ),
+                            SymbolPattern(
                                 position=(3, 5, 4),
-                                name="b"
-                            )
-                        ),
-                        SymbolPattern(
-                            position=(4, 5, 4),
-                            symbol=Symbol(
+                                symbol=Symbol(
+                                    position=(3, 5, 4),
+                                    name="b"
+                                )
+                            ),
+                            SymbolPattern(
                                 position=(4, 5, 4),
-                                name="c"
+                                symbol=Symbol(
+                                    position=(4, 5, 4),
+                                    name="c"
+                                )
                             )
-                        )
-                    ]
-                ),
-                value=ListLiteral(
-                    position=(5, 6, 1),
-                    elements=[
-                        NumberLiteral(
-                            position=(6, 5, 4),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(7, 5, 4),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(8, 5, 4),
-                            contents="3"
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    ),
+                    value=ListLiteral(
+                        position=(5, 6, 1),
+                        elements=[
+                            NumberLiteral(
+                                position=(6, 5, 4),
+                                contents="1"
+                            ),
+                            NumberLiteral(
+                                position=(7, 5, 4),
+                                contents="2"
+                            ),
+                            NumberLiteral(
+                                position=(8, 5, 4),
+                                contents="3"
+                            )
+                        ]
+                    )
+                )
             )
         ]
     )

@@ -6,65 +6,64 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=TypeApplicationExpression(
-                    position=(1, 5, 0),
-                    value_expression=Symbol(
-                        position=(1, 5, 0),
-                        name="b"
                     ),
-                    type_arguments=[
-                        TypeName(
-                            position=(1, 8, 0),
-                            name=Symbol(
+                    value=TypeApplicationExpression(
+                        position=(1, 5, 0),
+                        value_expression=Symbol(
+                            position=(1, 5, 0),
+                            name="b"
+                        ),
+                        type_arguments=[
+                            TypeName(
                                 position=(1, 8, 0),
-                                name="Int"
-                            )
-                        ),
-                        TypeName(
-                            position=(1, 13, 0),
-                            name=Symbol(
-                                position=(1, 13, 0),
-                                name="String"
-                            )
-                        ),
-                        GenericTypeApplication(
-                            position=(1, 21, 0),
-                            generic_type=TypeName(
-                                position=(1, 21, 0),
                                 name=Symbol(
-                                    position=(1, 21, 0),
-                                    name="Map"
+                                    position=(1, 8, 0),
+                                    name="Int"
                                 )
                             ),
-                            arguments=[
-                                TypeName(
-                                    position=(1, 25, 0),
+                            TypeName(
+                                position=(1, 13, 0),
+                                name=Symbol(
+                                    position=(1, 13, 0),
+                                    name="String"
+                                )
+                            ),
+                            GenericTypeApplication(
+                                position=(1, 21, 0),
+                                generic_type=TypeName(
+                                    position=(1, 21, 0),
                                     name=Symbol(
-                                        position=(1, 25, 0),
-                                        name="Int"
+                                        position=(1, 21, 0),
+                                        name="Map"
                                     )
                                 ),
-                                TypeName(
-                                    position=(1, 30, 0),
-                                    name=Symbol(
+                                arguments=[
+                                    TypeName(
+                                        position=(1, 25, 0),
+                                        name=Symbol(
+                                            position=(1, 25, 0),
+                                            name="Int"
+                                        )
+                                    ),
+                                    TypeName(
                                         position=(1, 30, 0),
-                                        name="String"
+                                        name=Symbol(
+                                            position=(1, 30, 0),
+                                            name="String"
+                                        )
                                     )
-                                )
-                            ]
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                                ]
+                            )
+                        ]
+                    )
+                )
             )
         ]
     )

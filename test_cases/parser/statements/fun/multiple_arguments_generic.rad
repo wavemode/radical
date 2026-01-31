@@ -92,12 +92,9 @@ Module(
                         name="f"
                     ),
                     arguments=[
-                        FunctionCallArgument(
+                        Symbol(
                             position=(2, 7, 4),
-                            value=Symbol(
-                                position=(2, 7, 4),
-                                name="b"
-                            )
+                            name="b"
                         )
                     ]
                 )

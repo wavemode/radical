@@ -6,60 +6,62 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ParenthesizedPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
-                        SymbolPattern(
-                            position=(1, 2, 0),
-                            symbol=Symbol(
+                    pattern=ParenthesizedPattern(
+                        position=(1, 1, 0),
+                        elements=[
+                            SymbolPattern(
                                 position=(1, 2, 0),
-                                name="a"
-                            )
-                        ),
-                        SymbolPattern(
-                            position=(1, 5, 0),
-                            symbol=Symbol(
+                                symbol=Symbol(
+                                    position=(1, 2, 0),
+                                    name="a"
+                                )
+                            ),
+                            SymbolPattern(
                                 position=(1, 5, 0),
-                                name="b"
+                                symbol=Symbol(
+                                    position=(1, 5, 0),
+                                    name="b"
+                                )
+                            ),
+                            RestPattern(
+                                position=(1, 8, 0),
+                                name=Symbol(
+                                    position=(1, 11, 0),
+                                    name="c"
+                                )
                             )
-                        ),
-                        RestPattern(
-                            position=(1, 8, 0),
-                            name=Symbol(
-                                position=(1, 11, 0),
-                                name="c"
+                        ]
+                    ),
+                    value=TupleLiteral(
+                        position=(1, 16, 0),
+                        elements=[
+                            NumberLiteral(
+                                position=(1, 17, 0),
+                                contents="1"
+                            ),
+                            NumberLiteral(
+                                position=(1, 20, 0),
+                                contents="2"
+                            ),
+                            NumberLiteral(
+                                position=(1, 23, 0),
+                                contents="3"
+                            ),
+                            NumberLiteral(
+                                position=(1, 26, 0),
+                                contents="4"
+                            ),
+                            NumberLiteral(
+                                position=(1, 29, 0),
+                                contents="5"
                             )
-                        )
-                    ]
-                ),
-                value=TupleLiteral(
-                    position=(1, 16, 0),
-                    elements=[
-                        NumberLiteral(
-                            position=(1, 17, 0),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(1, 20, 0),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(1, 23, 0),
-                            contents="3"
-                        ),
-                        NumberLiteral(
-                            position=(1, 26, 0),
-                            contents="4"
-                        ),
-                        NumberLiteral(
-                            position=(1, 29, 0),
-                            contents="5"
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

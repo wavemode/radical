@@ -6,55 +6,54 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="x"
-                    )
-                ),
-                value=CaseExpression(
-                    position=(1, 5, 0),
-                    expression=Symbol(
-                        position=(1, 10, 0),
-                        name="y"
                     ),
-                    branches=[
-                        CaseBranch(
-                            position=(1, 15, 0),
-                            pattern=DataTypePattern(
+                    value=CaseExpression(
+                        position=(1, 5, 0),
+                        expression=Symbol(
+                            position=(1, 10, 0),
+                            name="y"
+                        ),
+                        branches=[
+                            CaseBranch(
                                 position=(1, 15, 0),
-                                name=Symbol(
+                                pattern=DataTypePattern(
                                     position=(1, 15, 0),
-                                    name="DataType"
-                                ),
-                                fields=[
-                                    KeyValueFieldPattern(
-                                        position=(1, 24, 0),
-                                        name=Symbol(
+                                    name=Symbol(
+                                        position=(1, 15, 0),
+                                        name="DataType"
+                                    ),
+                                    fields=[
+                                        KeyValueFieldPattern(
                                             position=(1, 24, 0),
-                                            name="v"
-                                        ),
-                                        pattern=NumberLiteralPattern(
-                                            position=(1, 28, 0),
-                                            number=NumberLiteral(
+                                            name=Symbol(
+                                                position=(1, 24, 0),
+                                                name="v"
+                                            ),
+                                            pattern=NumberLiteralPattern(
                                                 position=(1, 28, 0),
-                                                contents="5"
+                                                number=NumberLiteral(
+                                                    position=(1, 28, 0),
+                                                    contents="5"
+                                                )
                                             )
                                         )
-                                    )
-                                ]
-                            ),
-                            expression=NumberLiteral(
-                                position=(1, 34, 0),
-                                contents="5"
+                                    ]
+                                ),
+                                expression=NumberLiteral(
+                                    position=(1, 34, 0),
+                                    contents="5"
+                                )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

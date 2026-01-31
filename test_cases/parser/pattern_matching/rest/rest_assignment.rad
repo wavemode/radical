@@ -6,34 +6,36 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ParenthesizedPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
-                        RestPattern(
-                            position=(1, 2, 0)
-                        )
-                    ]
-                ),
-                value=TupleLiteral(
-                    position=(1, 9, 0),
-                    elements=[
-                        NumberLiteral(
-                            position=(1, 10, 0),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(1, 13, 0),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(1, 16, 0),
-                            contents="3"
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                    pattern=ParenthesizedPattern(
+                        position=(1, 1, 0),
+                        elements=[
+                            RestPattern(
+                                position=(1, 2, 0)
+                            )
+                        ]
+                    ),
+                    value=TupleLiteral(
+                        position=(1, 9, 0),
+                        elements=[
+                            NumberLiteral(
+                                position=(1, 10, 0),
+                                contents="1"
+                            ),
+                            NumberLiteral(
+                                position=(1, 13, 0),
+                                contents="2"
+                            ),
+                            NumberLiteral(
+                                position=(1, 16, 0),
+                                contents="3"
+                            )
+                        ]
+                    )
+                )
             )
         ]
     )

@@ -9,47 +9,48 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="x"
-                    )
-                ),
-                value=LetExpression(
-                    position=(1, 5, 0),
-                    declarations=[
-                        Assignment(
-                            position=(2, 5, 4),
-                            target=ParenthesizedPattern(
+                    ),
+                    value=LetExpression(
+                        position=(1, 5, 0),
+                        declarations=[
+                            AssignmentStatement(
                                 position=(2, 5, 4),
-                                elements=[
-                                    SymbolPattern(
-                                        position=(2, 6, 4),
-                                        symbol=Symbol(
-                                            position=(2, 6, 4),
-                                            name="a"
-                                        )
+                                assignment=DestructuringAssignment(
+                                    position=(2, 5, 4),
+                                    pattern=ParenthesizedPattern(
+                                        position=(2, 5, 4),
+                                        elements=[
+                                            SymbolPattern(
+                                                position=(2, 6, 4),
+                                                symbol=Symbol(
+                                                    position=(2, 6, 4),
+                                                    name="a"
+                                                )
+                                            )
+                                        ]
+                                    ),
+                                    value=StringLiteral(
+                                        position=(2, 11, 4),
+                                        open_quote="\"",
+                                        contents="c",
+                                        close_quote="\""
                                     )
-                                ]
-                            ),
-                            value=StringLiteral(
-                                position=(2, 11, 4),
-                                open_quote="\"",
-                                contents="c",
-                                close_quote="\""
-                            ),
-                            omitted_equal_sign=false
+                                )
+                            )
+                        ],
+                        body=Symbol(
+                            position=(4, 5, 4),
+                            name="a"
                         )
-                    ],
-                    body=Symbol(
-                        position=(4, 5, 4),
-                        name="a"
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

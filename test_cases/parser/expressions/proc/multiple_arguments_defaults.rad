@@ -8,116 +8,114 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=ProcedureExpression(
-                    position=(1, 5, 0),
-                    parameters=[
-                        FunctionParameter(
-                            position=(1, 11, 0),
-                            param=SymbolPattern(
+                    ),
+                    value=ProcedureExpression(
+                        position=(1, 5, 0),
+                        parameters=[
+                            FunctionParameter(
                                 position=(1, 11, 0),
-                                symbol=Symbol(
+                                param=SymbolPattern(
                                     position=(1, 11, 0),
-                                    name="b"
-                                )
-                            ),
-                            variadic=false,
-                            type_annotation=TypeName(
-                                position=(1, 15, 0),
-                                name=Symbol(
-                                    position=(1, 15, 0),
-                                    name="Int"
-                                )
-                            ),
-                            default_value=NumberLiteral(
-                                position=(1, 21, 0),
-                                contents="5"
-                            )
-                        ),
-                        FunctionParameter(
-                            position=(1, 24, 0),
-                            param=SymbolPattern(
-                                position=(1, 24, 0),
-                                symbol=Symbol(
-                                    position=(1, 24, 0),
-                                    name="c"
-                                )
-                            ),
-                            variadic=false,
-                            default_value=ListLiteral(
-                                position=(1, 28, 0),
-                                elements=[
-                                    NumberLiteral(
-                                        position=(1, 29, 0),
-                                        contents="1"
-                                    ),
-                                    NumberLiteral(
-                                        position=(1, 32, 0),
-                                        contents="2"
-                                    ),
-                                    NumberLiteral(
-                                        position=(1, 35, 0),
-                                        contents="3"
+                                    symbol=Symbol(
+                                        position=(1, 11, 0),
+                                        name="b"
                                     )
-                                ]
-                            )
-                        )
-                    ],
-                    body=[
-                        ProcedureBodyStatement(
-                            position=(2, 5, 4),
-                            declaration=LocalDeclaration(
-                                position=(2, 5, 4),
-                                declaration=Assignment(
-                                    position=(2, 11, 4),
-                                    target=SymbolPattern(
-                                        position=(2, 11, 4),
-                                        symbol=Symbol(
-                                            position=(2, 11, 4),
-                                            name="d"
-                                        )
-                                    ),
-                                    value=IndexingExpression(
-                                        position=(2, 15, 4),
-                                        object_expression=Symbol(
-                                            position=(2, 15, 4),
-                                            name="c"
-                                        ),
-                                        index_expression=NumberLiteral(
-                                            position=(2, 17, 4),
-                                            contents="0"
-                                        )
-                                    ),
-                                    omitted_equal_sign=false
-                                )
-                            )
-                        ),
-                        ProcedureBodyStatement(
-                            position=(3, 5, 4),
-                            expression=BinaryOperation(
-                                position=(3, 5, 4),
-                                left=Symbol(
-                                    position=(3, 5, 4),
-                                    name="b"
                                 ),
-                                operator="+",
-                                right=Symbol(
-                                    position=(3, 9, 4),
-                                    name="d"
+                                variadic=false,
+                                type_annotation=TypeName(
+                                    position=(1, 15, 0),
+                                    name=Symbol(
+                                        position=(1, 15, 0),
+                                        name="Int"
+                                    )
+                                ),
+                                default_value=NumberLiteral(
+                                    position=(1, 21, 0),
+                                    contents="5"
+                                )
+                            ),
+                            FunctionParameter(
+                                position=(1, 24, 0),
+                                param=SymbolPattern(
+                                    position=(1, 24, 0),
+                                    symbol=Symbol(
+                                        position=(1, 24, 0),
+                                        name="c"
+                                    )
+                                ),
+                                variadic=false,
+                                default_value=ListLiteral(
+                                    position=(1, 28, 0),
+                                    elements=[
+                                        NumberLiteral(
+                                            position=(1, 29, 0),
+                                            contents="1"
+                                        ),
+                                        NumberLiteral(
+                                            position=(1, 32, 0),
+                                            contents="2"
+                                        ),
+                                        NumberLiteral(
+                                            position=(1, 35, 0),
+                                            contents="3"
+                                        )
+                                    ]
                                 )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ],
+                        body=[
+                            ProcedureBodyStatement(
+                                position=(2, 5, 4),
+                                declaration=LocalDeclaration(
+                                    position=(2, 5, 4),
+                                    declaration=AssignmentStatement(
+                                        position=(2, 11, 4),
+                                        assignment=Assignment(
+                                            position=(2, 11, 4),
+                                            target=Symbol(
+                                                position=(2, 11, 4),
+                                                name="d"
+                                            ),
+                                            value=IndexingExpression(
+                                                position=(2, 15, 4),
+                                                object_expression=Symbol(
+                                                    position=(2, 15, 4),
+                                                    name="c"
+                                                ),
+                                                index_expression=NumberLiteral(
+                                                    position=(2, 17, 4),
+                                                    contents="0"
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            ProcedureBodyStatement(
+                                position=(3, 5, 4),
+                                expression=BinaryOperation(
+                                    position=(3, 5, 4),
+                                    left=Symbol(
+                                        position=(3, 5, 4),
+                                        name="b"
+                                    ),
+                                    operator="+",
+                                    right=Symbol(
+                                        position=(3, 9, 4),
+                                        name="d"
+                                    )
+                                )
+                            )
+                        ]
+                    )
+                )
             )
         ]
     )

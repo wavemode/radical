@@ -46,20 +46,19 @@ Module(
                         position=(2, 5, 4),
                         declaration=LocalDeclaration(
                             position=(2, 5, 4),
-                            declaration=Assignment(
+                            declaration=AssignmentStatement(
                                 position=(2, 11, 4),
-                                target=SymbolPattern(
+                                assignment=Assignment(
                                     position=(2, 11, 4),
-                                    symbol=Symbol(
+                                    target=Symbol(
                                         position=(2, 11, 4),
                                         name="c"
+                                    ),
+                                    value=NumberLiteral(
+                                        position=(2, 15, 4),
+                                        contents="3"
                                     )
-                                ),
-                                value=NumberLiteral(
-                                    position=(2, 15, 4),
-                                    contents="3"
-                                ),
-                                omitted_equal_sign=false
+                                )
                             )
                         )
                     ),

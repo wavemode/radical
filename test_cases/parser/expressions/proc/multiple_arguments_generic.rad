@@ -7,105 +7,101 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=ProcedureExpression(
-                    position=(1, 5, 0),
-                    parameters=[
-                        FunctionParameter(
-                            position=(1, 14, 0),
-                            param=SymbolPattern(
+                    ),
+                    value=ProcedureExpression(
+                        position=(1, 5, 0),
+                        parameters=[
+                            FunctionParameter(
                                 position=(1, 14, 0),
-                                symbol=Symbol(
+                                param=SymbolPattern(
                                     position=(1, 14, 0),
-                                    name="b"
-                                )
-                            ),
-                            variadic=false,
-                            type_annotation=TypeName(
-                                position=(1, 18, 0),
-                                name=Symbol(
-                                    position=(1, 18, 0),
-                                    name="T"
-                                )
-                            )
-                        ),
-                        FunctionParameter(
-                            position=(1, 21, 0),
-                            param=SymbolPattern(
-                                position=(1, 21, 0),
-                                symbol=Symbol(
-                                    position=(1, 21, 0),
-                                    name="f"
-                                )
-                            ),
-                            variadic=false,
-                            type_annotation=FunctionType(
-                                position=(1, 25, 0),
-                                parameters=[
-                                    FunctionTypeParameter(
-                                        position=(1, 29, 0),
-                                        variadic=false,
-                                        optional=false,
-                                        type_annotation=TypeName(
-                                            position=(1, 29, 0),
-                                            name=Symbol(
-                                                position=(1, 29, 0),
-                                                name="T"
-                                            )
-                                        )
+                                    symbol=Symbol(
+                                        position=(1, 14, 0),
+                                        name="b"
                                     )
-                                ],
-                                return_type=TypeName(
-                                    position=(1, 35, 0),
+                                ),
+                                variadic=false,
+                                type_annotation=TypeName(
+                                    position=(1, 18, 0),
                                     name=Symbol(
-                                        position=(1, 35, 0),
+                                        position=(1, 18, 0),
                                         name="T"
                                     )
                                 )
-                            )
-                        )
-                    ],
-                    generic_parameters=[
-                        GenericTypeParameter(
-                            position=(1, 10, 0),
-                            name=Symbol(
-                                position=(1, 10, 0),
-                                name="T"
                             ),
-                            variadic=false
-                        )
-                    ],
-                    body=[
-                        ProcedureBodyStatement(
-                            position=(2, 5, 4),
-                            expression=FunctionCallExpression(
-                                position=(2, 5, 4),
-                                function_expression=Symbol(
-                                    position=(2, 5, 4),
-                                    name="f"
+                            FunctionParameter(
+                                position=(1, 21, 0),
+                                param=SymbolPattern(
+                                    position=(1, 21, 0),
+                                    symbol=Symbol(
+                                        position=(1, 21, 0),
+                                        name="f"
+                                    )
                                 ),
-                                arguments=[
-                                    FunctionCallArgument(
-                                        position=(2, 7, 4),
-                                        value=Symbol(
+                                variadic=false,
+                                type_annotation=FunctionType(
+                                    position=(1, 25, 0),
+                                    parameters=[
+                                        FunctionTypeParameter(
+                                            position=(1, 29, 0),
+                                            variadic=false,
+                                            optional=false,
+                                            type_annotation=TypeName(
+                                                position=(1, 29, 0),
+                                                name=Symbol(
+                                                    position=(1, 29, 0),
+                                                    name="T"
+                                                )
+                                            )
+                                        )
+                                    ],
+                                    return_type=TypeName(
+                                        position=(1, 35, 0),
+                                        name=Symbol(
+                                            position=(1, 35, 0),
+                                            name="T"
+                                        )
+                                    )
+                                )
+                            )
+                        ],
+                        generic_parameters=[
+                            GenericTypeParameter(
+                                position=(1, 10, 0),
+                                name=Symbol(
+                                    position=(1, 10, 0),
+                                    name="T"
+                                ),
+                                variadic=false
+                            )
+                        ],
+                        body=[
+                            ProcedureBodyStatement(
+                                position=(2, 5, 4),
+                                expression=FunctionCallExpression(
+                                    position=(2, 5, 4),
+                                    function_expression=Symbol(
+                                        position=(2, 5, 4),
+                                        name="f"
+                                    ),
+                                    arguments=[
+                                        Symbol(
                                             position=(2, 7, 4),
                                             name="b"
                                         )
-                                    )
-                                ]
+                                    ]
+                                )
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

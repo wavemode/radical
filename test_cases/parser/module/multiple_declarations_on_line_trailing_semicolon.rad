@@ -6,54 +6,51 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="z"
-                    )
-                ),
-                value=ModuleExpression(
-                    position=(1, 5, 0),
-                    body=ModuleBody(
-                        position=(1, 12, 0),
-                        declarations=[
-                            Assignment(
-                                position=(1, 15, 0),
-                                target=SymbolPattern(
+                    ),
+                    value=ModuleExpression(
+                        position=(1, 5, 0),
+                        body=ModuleBody(
+                            position=(1, 12, 0),
+                            declarations=[
+                                AssignmentStatement(
                                     position=(1, 15, 0),
-                                    symbol=Symbol(
+                                    assignment=Assignment(
                                         position=(1, 15, 0),
-                                        name="a"
+                                        target=Symbol(
+                                            position=(1, 15, 0),
+                                            name="a"
+                                        ),
+                                        value=NumberLiteral(
+                                            position=(1, 19, 0),
+                                            contents="15"
+                                        )
                                     )
                                 ),
-                                value=NumberLiteral(
-                                    position=(1, 19, 0),
-                                    contents="15"
-                                ),
-                                omitted_equal_sign=false
-                            ),
-                            Assignment(
-                                position=(1, 23, 0),
-                                target=SymbolPattern(
+                                AssignmentStatement(
                                     position=(1, 23, 0),
-                                    symbol=Symbol(
+                                    assignment=Assignment(
                                         position=(1, 23, 0),
-                                        name="b"
+                                        target=Symbol(
+                                            position=(1, 23, 0),
+                                            name="b"
+                                        ),
+                                        value=NumberLiteral(
+                                            position=(1, 27, 0),
+                                            contents="20"
+                                        )
                                     )
-                                ),
-                                value=NumberLiteral(
-                                    position=(1, 27, 0),
-                                    contents="20"
-                                ),
-                                omitted_equal_sign=false
-                            )
-                        ]
+                                )
+                            ]
+                        )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

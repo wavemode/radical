@@ -6,25 +6,27 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=ParenthesizedPattern(
+                assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    elements=[
-                        SymbolPattern(
-                            position=(1, 2, 0),
-                            symbol=Symbol(
+                    pattern=ParenthesizedPattern(
+                        position=(1, 1, 0),
+                        elements=[
+                            SymbolPattern(
                                 position=(1, 2, 0),
-                                name="x"
+                                symbol=Symbol(
+                                    position=(1, 2, 0),
+                                    name="x"
+                                )
                             )
-                        )
-                    ]
-                ),
-                value=Symbol(
-                    position=(1, 7, 0),
-                    name="y"
-                ),
-                omitted_equal_sign=false
+                        ]
+                    ),
+                    value=Symbol(
+                        position=(1, 7, 0),
+                        name="y"
+                    )
+                )
             )
         ]
     )

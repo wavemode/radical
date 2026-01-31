@@ -8,48 +8,46 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=LetExpression(
-                    position=(1, 5, 0),
-                    declarations=[
-                        Assignment(
-                            position=(2, 5, 4),
-                            target=SymbolPattern(
+                    ),
+                    value=LetExpression(
+                        position=(1, 5, 0),
+                        declarations=[
+                            AssignmentStatement(
                                 position=(2, 5, 4),
-                                symbol=Symbol(
+                                assignment=Assignment(
                                     position=(2, 5, 4),
-                                    name="x"
+                                    target=Symbol(
+                                        position=(2, 5, 4),
+                                        name="x"
+                                    ),
+                                    value=NumberLiteral(
+                                        position=(2, 9, 4),
+                                        contents="5"
+                                    )
                                 )
-                            ),
-                            value=NumberLiteral(
-                                position=(2, 9, 4),
-                                contents="5"
-                            ),
-                            omitted_equal_sign=false
-                        )
-                    ],
-                    body=BinaryOperation(
-                        position=(3, 4, 0),
-                        left=Symbol(
+                            )
+                        ],
+                        body=BinaryOperation(
                             position=(3, 4, 0),
-                            name="x"
-                        ),
-                        operator="+",
-                        right=Symbol(
-                            position=(3, 8, 0),
-                            name="x"
+                            left=Symbol(
+                                position=(3, 4, 0),
+                                name="x"
+                            ),
+                            operator="+",
+                            right=Symbol(
+                                position=(3, 8, 0),
+                                name="x"
+                            )
                         )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

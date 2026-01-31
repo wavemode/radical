@@ -77,27 +77,26 @@ Module(
                         position=(4, 13, 0),
                         declaration=LocalDeclaration(
                             position=(4, 13, 0),
-                            declaration=Assignment(
+                            declaration=AssignmentStatement(
                                 position=(4, 19, 0),
-                                target=SymbolPattern(
+                                assignment=Assignment(
                                     position=(4, 19, 0),
-                                    symbol=Symbol(
+                                    target=Symbol(
                                         position=(4, 19, 0),
                                         name="d"
-                                    )
-                                ),
-                                value=IndexingExpression(
-                                    position=(4, 23, 0),
-                                    object_expression=Symbol(
-                                        position=(4, 23, 0),
-                                        name="c"
                                     ),
-                                    index_expression=NumberLiteral(
-                                        position=(4, 25, 0),
-                                        contents="0"
+                                    value=IndexingExpression(
+                                        position=(4, 23, 0),
+                                        object_expression=Symbol(
+                                            position=(4, 23, 0),
+                                            name="c"
+                                        ),
+                                        index_expression=NumberLiteral(
+                                            position=(4, 25, 0),
+                                            contents="0"
+                                        )
                                     )
-                                ),
-                                omitted_equal_sign=false
+                                )
                             )
                         )
                     ),

@@ -8,14 +8,11 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=TypeOfTypeExpression(
+                type_expression=TypeOfTypeExpression(
                     position=(1, 5, 0),
                     expression=ParenthesizedExpression(
                         position=(1, 12, 0),

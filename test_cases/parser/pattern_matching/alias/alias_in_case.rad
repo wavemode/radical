@@ -9,79 +9,78 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="x"
-                    )
-                ),
-                value=CaseExpression(
-                    position=(1, 5, 0),
-                    expression=Symbol(
-                        position=(1, 10, 0),
-                        name="w"
                     ),
-                    branches=[
-                        CaseBranch(
-                            position=(2, 5, 4),
-                            pattern=PatternGuard(
+                    value=CaseExpression(
+                        position=(1, 5, 0),
+                        expression=Symbol(
+                            position=(1, 10, 0),
+                            name="w"
+                        ),
+                        branches=[
+                            CaseBranch(
                                 position=(2, 5, 4),
-                                pattern=PatternAlias(
+                                pattern=PatternGuard(
                                     position=(2, 5, 4),
-                                    pattern=RecordPattern(
+                                    pattern=PatternAlias(
                                         position=(2, 5, 4),
-                                        fields=[
-                                            KeyValueFieldPattern(
-                                                position=(2, 7, 4),
-                                                pattern=SymbolPattern(
+                                        pattern=RecordPattern(
+                                            position=(2, 5, 4),
+                                            fields=[
+                                                KeyValueFieldPattern(
                                                     position=(2, 7, 4),
-                                                    symbol=Symbol(
+                                                    pattern=SymbolPattern(
                                                         position=(2, 7, 4),
-                                                        name="x"
+                                                        symbol=Symbol(
+                                                            position=(2, 7, 4),
+                                                            name="x"
+                                                        )
                                                     )
-                                                )
-                                            ),
-                                            KeyValueFieldPattern(
-                                                position=(2, 10, 4),
-                                                pattern=SymbolPattern(
+                                                ),
+                                                KeyValueFieldPattern(
                                                     position=(2, 10, 4),
-                                                    symbol=Symbol(
+                                                    pattern=SymbolPattern(
                                                         position=(2, 10, 4),
-                                                        name="y"
+                                                        symbol=Symbol(
+                                                            position=(2, 10, 4),
+                                                            name="y"
+                                                        )
                                                     )
                                                 )
-                                            )
-                                        ]
+                                            ]
+                                        ),
+                                        alias=Symbol(
+                                            position=(2, 17, 4),
+                                            name="z"
+                                        )
                                     ),
-                                    alias=Symbol(
-                                        position=(2, 17, 4),
-                                        name="z"
+                                    condition=BinaryOperation(
+                                        position=(3, 12, 8),
+                                        left=Symbol(
+                                            position=(3, 12, 8),
+                                            name="x"
+                                        ),
+                                        operator=">",
+                                        right=Symbol(
+                                            position=(3, 16, 8),
+                                            name="y"
+                                        )
                                     )
                                 ),
-                                condition=BinaryOperation(
-                                    position=(3, 12, 8),
-                                    left=Symbol(
-                                        position=(3, 12, 8),
-                                        name="x"
-                                    ),
-                                    operator=">",
-                                    right=Symbol(
-                                        position=(3, 16, 8),
-                                        name="y"
-                                    )
+                                expression=Symbol(
+                                    position=(4, 8, 4),
+                                    name="z"
                                 )
-                            ),
-                            expression=Symbol(
-                                position=(4, 8, 4),
-                                name="z"
                             )
-                        )
-                    ]
-                ),
-                omitted_equal_sign=false
+                        ]
+                    )
+                )
             )
         ]
     )

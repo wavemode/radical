@@ -6,49 +6,45 @@ Module(
     body=ModuleBody(
         position=(1, 1, 0),
         declarations=[
-            Assignment(
+            AssignmentStatement(
                 position=(1, 1, 0),
-                target=SymbolPattern(
+                assignment=Assignment(
                     position=(1, 1, 0),
-                    symbol=Symbol(
+                    target=Symbol(
                         position=(1, 1, 0),
                         name="a"
-                    )
-                ),
-                value=PlaceholderExpression(
-                    position=(1, 5, 0),
-                    expression=ParenthesizedExpression(
+                    ),
+                    value=PlaceholderExpression(
                         position=(1, 5, 0),
-                        expression=BinaryOperation(
-                            position=(1, 6, 0),
-                            left=Symbol(
+                        expression=ParenthesizedExpression(
+                            position=(1, 5, 0),
+                            expression=BinaryOperation(
                                 position=(1, 6, 0),
-                                name="~"
-                            ),
-                            operator="+",
-                            right=PlaceholderExpression(
-                                position=(1, 10, 0),
-                                expression=FunctionCallExpression(
+                                left=Symbol(
+                                    position=(1, 6, 0),
+                                    name="~"
+                                ),
+                                operator="+",
+                                right=PlaceholderExpression(
                                     position=(1, 10, 0),
-                                    function_expression=Symbol(
+                                    expression=FunctionCallExpression(
                                         position=(1, 10, 0),
-                                        name="f"
-                                    ),
-                                    arguments=[
-                                        FunctionCallArgument(
-                                            position=(1, 12, 0),
-                                            value=Symbol(
+                                        function_expression=Symbol(
+                                            position=(1, 10, 0),
+                                            name="f"
+                                        ),
+                                        arguments=[
+                                            Symbol(
                                                 position=(1, 12, 0),
                                                 name="~"
                                             )
-                                        )
-                                    ]
+                                        ]
+                                    )
                                 )
                             )
                         )
                     )
-                ),
-                omitted_equal_sign=false
+                )
             )
         ]
     )

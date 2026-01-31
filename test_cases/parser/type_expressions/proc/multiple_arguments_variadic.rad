@@ -11,14 +11,11 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=ProcedureType(
+                type_expression=ProcedureType(
                     position=(1, 5, 0),
                     parameters=[
                         FunctionTypeParameter(

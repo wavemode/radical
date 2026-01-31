@@ -64,27 +64,26 @@ Module(
                         position=(2, 5, 4),
                         declaration=LocalDeclaration(
                             position=(2, 5, 4),
-                            declaration=Assignment(
+                            declaration=AssignmentStatement(
                                 position=(2, 11, 4),
-                                target=SymbolPattern(
+                                assignment=Assignment(
                                     position=(2, 11, 4),
-                                    symbol=Symbol(
+                                    target=Symbol(
                                         position=(2, 11, 4),
                                         name="d"
-                                    )
-                                ),
-                                value=IndexingExpression(
-                                    position=(2, 15, 4),
-                                    object_expression=Symbol(
-                                        position=(2, 15, 4),
-                                        name="c"
                                     ),
-                                    index_expression=NumberLiteral(
-                                        position=(2, 17, 4),
-                                        contents="0"
+                                    value=IndexingExpression(
+                                        position=(2, 15, 4),
+                                        object_expression=Symbol(
+                                            position=(2, 15, 4),
+                                            name="c"
+                                        ),
+                                        index_expression=NumberLiteral(
+                                            position=(2, 17, 4),
+                                            contents="0"
+                                        )
                                     )
-                                ),
-                                omitted_equal_sign=false
+                                )
                             )
                         )
                     ),

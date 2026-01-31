@@ -12,26 +12,20 @@ Module(
         declarations=[
             TypeAnnotation(
                 position=(1, 1, 0),
-                name=SymbolPattern(
+                name=Symbol(
                     position=(1, 1, 0),
-                    symbol=Symbol(
-                        position=(1, 1, 0),
-                        name="a"
-                    )
+                    name="a"
                 ),
-                type_annotation=RecordType(
+                type_expression=RecordType(
                     position=(1, 5, 0),
                     fields=[
                         TypeAnnotation(
                             position=(2, 5, 4),
-                            name=SymbolPattern(
+                            name=Symbol(
                                 position=(2, 5, 4),
-                                symbol=Symbol(
-                                    position=(2, 5, 4),
-                                    name="b"
-                                )
+                                name="b"
                             ),
-                            type_annotation=TypeName(
+                            type_expression=TypeName(
                                 position=(2, 9, 4),
                                 name=Symbol(
                                     position=(2, 9, 4),
@@ -41,14 +35,11 @@ Module(
                         ),
                         TypeAnnotation(
                             position=(3, 5, 4),
-                            name=SymbolPattern(
+                            name=Symbol(
                                 position=(3, 5, 4),
-                                symbol=Symbol(
-                                    position=(3, 5, 4),
-                                    name="c"
-                                )
+                                name="c"
                             ),
-                            type_annotation=TypeName(
+                            type_expression=TypeName(
                                 position=(3, 9, 4),
                                 name=Symbol(
                                     position=(3, 9, 4),
