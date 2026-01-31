@@ -32,9 +32,12 @@ Module(
                             parameters=[
                                 FunctionParameter(
                                     position=(2, 12, 4),
-                                    name=Symbol(
+                                    param=SymbolPattern(
                                         position=(2, 12, 4),
-                                        name="b"
+                                        symbol=Symbol(
+                                            position=(2, 12, 4),
+                                            name="b"
+                                        )
                                     ),
                                     variadic=false,
                                     type_annotation=TypeName(

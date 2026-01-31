@@ -17,9 +17,12 @@ Module(
                 parameters=[
                     FunctionParameter(
                         position=(1, 7, 0),
-                        name=Symbol(
+                        param=SymbolPattern(
                             position=(1, 7, 0),
-                            name="b"
+                            symbol=Symbol(
+                                position=(1, 7, 0),
+                                name="b"
+                            )
                         ),
                         variadic=false,
                         type_annotation=TypeName(

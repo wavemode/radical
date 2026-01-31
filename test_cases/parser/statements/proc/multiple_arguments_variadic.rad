@@ -18,9 +18,12 @@ Module(
                 parameters=[
                     FunctionParameter(
                         position=(1, 8, 0),
-                        name=Symbol(
+                        param=SymbolPattern(
                             position=(1, 8, 0),
-                            name="b"
+                            symbol=Symbol(
+                                position=(1, 8, 0),
+                                name="b"
+                            )
                         ),
                         variadic=false,
                         type_annotation=TypeName(
@@ -33,9 +36,12 @@ Module(
                     ),
                     FunctionParameter(
                         position=(1, 17, 0),
-                        name=Symbol(
+                        param=SymbolPattern(
                             position=(1, 20, 0),
-                            name="c"
+                            symbol=Symbol(
+                                position=(1, 20, 0),
+                                name="c"
+                            )
                         ),
                         variadic=true,
                         type_annotation=TypeName(

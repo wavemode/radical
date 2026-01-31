@@ -481,7 +481,7 @@ class ModuleAssignmentDeclarationNode(Node):
 
 @dataclass(frozen=True)
 class FunctionParameterNode(Node):
-    name: SymbolNode
+    param: "PatternNodeType"
     variadic: bool
     type_annotation: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     default_value: "ValueExpressionNodeType | None"

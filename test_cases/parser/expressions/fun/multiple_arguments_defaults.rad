@@ -22,9 +22,12 @@ Module(
                     parameters=[
                         FunctionParameter(
                             position=(1, 10, 0),
-                            name=Symbol(
+                            param=SymbolPattern(
                                 position=(1, 10, 0),
-                                name="b"
+                                symbol=Symbol(
+                                    position=(1, 10, 0),
+                                    name="b"
+                                )
                             ),
                             variadic=false,
                             type_annotation=TypeName(
@@ -41,9 +44,12 @@ Module(
                         ),
                         FunctionParameter(
                             position=(1, 23, 0),
-                            name=Symbol(
+                            param=SymbolPattern(
                                 position=(1, 23, 0),
-                                name="c"
+                                symbol=Symbol(
+                                    position=(1, 23, 0),
+                                    name="c"
+                                )
                             ),
                             variadic=false,
                             default_value=ListLiteral(

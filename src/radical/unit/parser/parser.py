@@ -410,11 +410,8 @@ class Parser(Unit):
         if self.parse_token(TokenType.ELLIPSIS):
             variadic = True
 
-        name_token = self.require_token(TokenType.SYMBOL)
-        name = SymbolNode(
-            position=name_token.position,
-            name=name_token,
-        )
+        param = self.parse_pattern_or_error()
+
         type_annotation: TypeExpressionNodeType | PlaceholderTypeNode | None = None
         default_value: ValueExpressionNodeType | None = None
 
@@ -425,9 +422,21 @@ class Parser(Unit):
         if self.parse_token(TokenType.ASSIGN):
             default_value = self.parse_value_expression()
 
+        if not isinstance(param, (SymbolPatternNode)):
+            if variadic:
+                self._raise_parse_error(
+                    message="Variadic function parameter cannot be a pattern",
+                    position=param.position,
+                )
+            elif default_value is not None:
+                self._raise_parse_error(
+                    message="Function parameter with default value cannot be a pattern",
+                    position=param.position,
+                )
+
         return FunctionParameterNode(
             position=start_position,
-            name=name,
+            param=param,
             variadic=variadic,
             type_annotation=type_annotation,
             default_value=default_value,
@@ -766,7 +775,7 @@ class Parser(Unit):
                     type_annotation=type_annotation,
                 )
             self._raise_parse_error(
-                message="Left-hand side of type annotation must be a symbol",
+                message="Left-hand side of type annotation cannot be a pattern",
                 position=target.position,
             )
         self._raise_parse_error(

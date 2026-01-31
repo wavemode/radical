@@ -1,0 +1,65 @@
+flip = fun((a, b)) -> (b, a)
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        omitted_equal_sign=false,
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=SymbolPattern(
+                    position=(1, 1, 0),
+                    symbol=Symbol(
+                        position=(1, 1, 0),
+                        name="flip"
+                    )
+                ),
+                value=FunctionExpression(
+                    position=(1, 8, 0),
+                    parameters=[
+                        FunctionParameter(
+                            position=(1, 12, 0),
+                            param=ParenthesizedPattern(
+                                position=(1, 12, 0),
+                                elements=[
+                                    SymbolPattern(
+                                        position=(1, 13, 0),
+                                        symbol=Symbol(
+                                            position=(1, 13, 0),
+                                            name="a"
+                                        )
+                                    ),
+                                    SymbolPattern(
+                                        position=(1, 16, 0),
+                                        symbol=Symbol(
+                                            position=(1, 16, 0),
+                                            name="b"
+                                        )
+                                    )
+                                ]
+                            ),
+                            variadic=false
+                        )
+                    ],
+                    body=TupleLiteral(
+                        position=(1, 23, 0),
+                        elements=[
+                            Symbol(
+                                position=(1, 24, 0),
+                                name="b"
+                            ),
+                            Symbol(
+                                position=(1, 27, 0),
+                                name="a"
+                            )
+                        ]
+                    )
+                ),
+                omitted_equal_sign=false
+            )
+        ]
+    )
+)
+*)
