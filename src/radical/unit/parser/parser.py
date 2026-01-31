@@ -25,11 +25,12 @@ from radical.data.parser.ast import (
     ImportStatementFieldNode,
     ImportStatementNode,
     IndexingExpressionNode,
+    KeyValueEntryNode,
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
     LocalDeclarationNode,
-    MapLiteralEntryNode,
+    RecordAssignmentEntryNode,
     MapLiteralNode,
     ModuleAssignmentDeclarationNode,
     ModuleBodyDeclarationNode,
@@ -60,8 +61,6 @@ from radical.data.parser.ast import (
     SymbolNode,
     SymbolPatternNode,
     TopLevelDeclarationNodeType,
-    TreeLiteralEntryNode,
-    TreeLiteralNode,
     TupleLiteralNode,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
@@ -102,7 +101,7 @@ class Parser(Unit):
             self.parse_format_string_literal,
             self.parse_symbol,
             self.parse_list_literal,
-            self.parse_map_or_tree_literal,
+            self.parse_map_literal,
             self.parse_if_expression,
             self.parse_let_expression,
             self.parse_function_expression,
@@ -1526,90 +1525,70 @@ class Parser(Unit):
             return spread_operation
         return self.parse_value_expression()
 
-    def parse_map_or_tree_literal(self) -> MapLiteralNode | TreeLiteralNode | None:
+    def parse_map_literal(self) -> MapLiteralNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.OBJECT_START):
             return None
 
         entries = self.parse_comma_or_newline_separated(
-            element_parser=self.parse_map_or_tree_literal_entry,
+            element_parser=self.parse_map_literal_entry,
             ending_token=TokenType.OBJECT_END,
         )
-        map_entries = [
-            entry
-            for entry in entries
-            if isinstance(entry, (MapLiteralEntryNode, SpreadOperationNode))
-        ]
-        if len(map_entries) == len(entries):
-            return MapLiteralNode(
-                position=start_position,
-                entries=map_entries,
-            )
-
-        tree_entries = [
-            entry
-            for entry in entries
-            if isinstance(entry, (TreeLiteralEntryNode, SpreadOperationNode))
-        ]
-        if len(tree_entries) == len(entries):
-            return TreeLiteralNode(
-                position=start_position,
-                entries=tree_entries,
-            )
-
-        self._raise_parse_error(
-            message=(
-                "Tree entries ('k v' without an '=' sign) cannot be mixed with map entries"
-                "('k = v' syntax, or shorthand 'k' syntax) within the same literal"
-            ),
+        return MapLiteralNode(
             position=start_position,
+            entries=entries,
         )
 
-    def parse_map_or_tree_literal_entry(
+    def parse_map_literal_entry(
         self,
-    ) -> MapLiteralEntryNode | TreeLiteralEntryNode | SpreadOperationNode:
+    ) -> RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode:
         if spread_operation := self.parse_spread_operation():
             return spread_operation
 
         start_position = self._position
-        key_line: int
-        key: ValueExpressionNodeType | None = None
-        value: ValueExpressionNodeType | None = None
-        has_equal_sign = False
 
-        if key_token := self.parse_token(TokenType.SYMBOL):
-            key = SymbolNode(
-                position=key_token.position,
-                name=key_token,
-            )
-            key_line = key_token.position.line
-        else:
-            self._raise_parse_error(
-                message=f"Expected map literal key. Unexpected token {self._peek().pretty()}",
-                position=self._position,
-            )
+        if self._peek().type == TokenType.SYMBOL:
+            symbol_token = self._peek()
+            upcoming_token = self._peek(1)
+            if upcoming_token.type == TokenType.ASSIGN:
+                assert (key := self.parse_symbol())
+                self._read()  # consume ASSIGN
+                value = self.parse_value_expression()
+                return RecordAssignmentEntryNode(
+                    position=start_position,
+                    key=key,
+                    value=value,
+                    omitted_equal_sign=False,
+                )
+            elif (
+                upcoming_token.type in EXPR_START_TOKENS
+                and upcoming_token.position.line == symbol_token.position.line
+            ):
+                assert (key := self.parse_symbol())
+                value = self.parse_value_expression()
+                return RecordAssignmentEntryNode(
+                    position=start_position,
+                    key=key,
+                    value=value,
+                    omitted_equal_sign=True,
+                )
+            elif upcoming_token.type != TokenType.MAPPING:
+                assert (key := self.parse_symbol())
+                return RecordAssignmentEntryNode(
+                    position=start_position,
+                    key=key,
+                    value=None,
+                    omitted_equal_sign=True,
+                )
 
-        if self.parse_token(TokenType.ASSIGN):
-            has_equal_sign = True
-
-        if has_equal_sign or (
-            self._peek().position.line == key_line
-            and (self._peek().type not in (TokenType.COMMA, TokenType.OBJECT_END))
-        ):
-            value = self.parse_value_expression()
-
-        if has_equal_sign or not value:
-            return MapLiteralEntryNode(
-                position=start_position,
-                key=key,
-                value=value,
-            )
-        else:
-            return TreeLiteralEntryNode(
-                position=start_position,
-                key=key,
-                value=value,
-            )
+        key = self.parse_value_expression()
+        self.require_token(TokenType.MAPPING)
+        value = self.parse_value_expression()
+        return KeyValueEntryNode(
+            position=start_position,
+            key=key,
+            value=value,
+        )
 
     def parse_spread_operation(self) -> SpreadOperationNode | None:
         start_position = self._position

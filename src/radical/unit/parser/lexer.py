@@ -94,6 +94,9 @@ class Lexer(Unit):
         elif char == "-":
             self._add_token(TokenType.MINUS, char)
             self._advance_non_whitespace()
+        elif char == "=" and next_char == ">":
+            self._add_token(TokenType.MAPPING, "=>")
+            self._advance_non_whitespace(2)
         elif char == "=" and next_char == "=":
             self._add_token(TokenType.EQUAL, "==")
             self._advance_non_whitespace(2)

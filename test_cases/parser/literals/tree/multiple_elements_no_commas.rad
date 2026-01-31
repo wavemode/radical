@@ -19,10 +19,10 @@ Module(
                         name="a"
                     )
                 ),
-                value=TreeLiteral(
+                value=MapLiteral(
                     position=(1, 5, 0),
                     entries=[
-                        TreeLiteralEntry(
+                        RecordAssignmentEntry(
                             position=(2, 5, 4),
                             key=Symbol(
                                 position=(2, 5, 4),
@@ -31,9 +31,10 @@ Module(
                             value=NumberLiteral(
                                 position=(2, 7, 4),
                                 contents="10"
-                            )
+                            ),
+                            omitted_equal_sign=true
                         ),
-                        TreeLiteralEntry(
+                        RecordAssignmentEntry(
                             position=(3, 5, 4),
                             key=Symbol(
                                 position=(3, 5, 4),
@@ -42,7 +43,8 @@ Module(
                             value=NumberLiteral(
                                 position=(3, 7, 4),
                                 contents="20"
-                            )
+                            ),
+                            omitted_equal_sign=true
                         )
                     ]
                 ),

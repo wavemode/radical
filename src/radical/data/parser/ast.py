@@ -309,25 +309,21 @@ class ListLiteralNode(Node):
 
 
 @dataclass(frozen=True)
-class MapLiteralEntryNode(Node):
-    key: "ValueExpressionNodeType | None"
-    value: "ValueExpressionNodeType | None"
-
-
-@dataclass(frozen=True)
-class MapLiteralNode(Node):
-    entries: list["MapLiteralEntryNode | SpreadOperationNode"]
-
-
-@dataclass(frozen=True)
-class TreeLiteralEntryNode(Node):
-    key: "ValueExpressionNodeType | None"
+class KeyValueEntryNode(Node):
+    key: "ValueExpressionNodeType"
     value: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
-class TreeLiteralNode(Node):
-    entries: list["TreeLiteralEntryNode | SpreadOperationNode"]
+class RecordAssignmentEntryNode(Node):
+    key: SymbolNode
+    value: "ValueExpressionNodeType | None"
+    omitted_equal_sign: bool
+
+
+@dataclass(frozen=True)
+class MapLiteralNode(Node):
+    entries: list["RecordAssignmentEntryNode | KeyValueEntryNode | SpreadOperationNode"]
 
 
 @dataclass(frozen=True)
@@ -542,7 +538,6 @@ AtomNodeType = (
     | TupleLiteralNode
     | ListLiteralNode
     | MapLiteralNode
-    | TreeLiteralNode
     | IfExpressionNode
     | LetExpressionNode
     | FunctionExpressionNode

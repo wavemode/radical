@@ -22,7 +22,7 @@ Module(
                 value=MapLiteral(
                     position=(1, 5, 0),
                     entries=[
-                        MapLiteralEntry(
+                        RecordAssignmentEntry(
                             position=(2, 5, 4),
                             key=Symbol(
                                 position=(2, 5, 4),
@@ -31,9 +31,10 @@ Module(
                             value=NumberLiteral(
                                 position=(2, 9, 4),
                                 contents="10"
-                            )
+                            ),
+                            omitted_equal_sign=false
                         ),
-                        MapLiteralEntry(
+                        RecordAssignmentEntry(
                             position=(3, 5, 4),
                             key=Symbol(
                                 position=(3, 5, 4),
@@ -42,7 +43,8 @@ Module(
                             value=NumberLiteral(
                                 position=(3, 9, 4),
                                 contents="20"
-                            )
+                            ),
+                            omitted_equal_sign=false
                         )
                     ]
                 ),

@@ -36,12 +36,13 @@ Module(
                 value=MapLiteral(
                     position=(3, 5, 0),
                     entries=[
-                        MapLiteralEntry(
+                        RecordAssignmentEntry(
                             position=(3, 7, 0),
                             key=Symbol(
                                 position=(3, 7, 0),
                                 name="b"
-                            )
+                            ),
+                            omitted_equal_sign=true
                         )
                     ]
                 ),

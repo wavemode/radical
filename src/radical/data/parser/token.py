@@ -36,6 +36,7 @@ class TokenType(Enum):
     PIPE = "|>"
     VARIANT = "|"
     ARROW = "->"
+    MAPPING = "=>"
     ELLIPSIS = "..."
     QUESTION = "?"
     DOT = "."
