@@ -410,6 +410,11 @@ class ParenthesizedPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class ListPatternNode(Node):
+    elements: list["PatternNodeType"]
+
+
+@dataclass(frozen=True)
 class NumberLiteralPatternNode(Node):
     number: NumberLiteralNode
 
@@ -622,6 +627,7 @@ PatternAtomNodeType = (
     | ConstPatternNode
     | RestPatternNode
     | ParenthesizedPatternNode
+    | ListPatternNode
     | NumberLiteralPatternNode
     | StringLiteralPatternNode
     | NullLiteralPatternNode

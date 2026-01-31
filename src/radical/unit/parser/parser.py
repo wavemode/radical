@@ -34,6 +34,7 @@ from radical.data.parser.ast import (
     LetExpressionDeclarationNodeType,
     LetExpressionNode,
     ListLiteralNode,
+    ListPatternNode,
     LocalDeclarationNode,
     NullLiteralPatternNode,
     NumberLiteralPatternNode,
@@ -125,6 +126,7 @@ class Parser(Unit):
             self.parse_data_type_pattern,
             self.parse_record_pattern,
             self.parse_parenthesized_pattern,
+            self.parse_list_pattern,
             self.parse_number_literal_pattern,
             self.parse_string_literal_pattern,
             self.parse_null_literal_pattern,
@@ -1310,6 +1312,21 @@ class Parser(Unit):
         )
 
         return ParenthesizedPatternNode(
+            position=start_position,
+            elements=elements,
+        )
+
+    def parse_list_pattern(self) -> ListPatternNode | None:
+        start_position = self._position
+        if not self.parse_any_token([TokenType.LIST_START, TokenType.INDEXING_START]):
+            return None
+
+        elements = self.parse_comma_or_newline_separated(
+            element_parser=self.parse_pattern_or_error,
+            ending_tokens=[TokenType.LIST_END, TokenType.INDEXING_END],
+        )
+
+        return ListPatternNode(
             position=start_position,
             elements=elements,
         )

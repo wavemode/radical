@@ -1,0 +1,28 @@
+[] = []
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            Assignment(
+                position=(1, 1, 0),
+                target=ListPattern(
+                    position=(1, 1, 0),
+                    elements=[
+
+                    ]
+                ),
+                value=ListLiteral(
+                    position=(1, 6, 0),
+                    elements=[
+
+                    ]
+                ),
+                omitted_equal_sign=false
+            )
+        ]
+    )
+)
+*)

@@ -1,5 +1,6 @@
 parenthesizedExpr = (1 * (2 + 3))
 
+emptyTuple = ()
 tupleExpr = (1, 2, 3)
 tupleExpr2 = (1
 2,
@@ -59,24 +60,13 @@ Module(
                     position=(3, 1, 0),
                     symbol=Symbol(
                         position=(3, 1, 0),
-                        name="tupleExpr"
+                        name="emptyTuple"
                     )
                 ),
                 value=TupleLiteral(
-                    position=(3, 13, 0),
+                    position=(3, 14, 0),
                     elements=[
-                        NumberLiteral(
-                            position=(3, 14, 0),
-                            contents="1"
-                        ),
-                        NumberLiteral(
-                            position=(3, 17, 0),
-                            contents="2"
-                        ),
-                        NumberLiteral(
-                            position=(3, 20, 0),
-                            contents="3"
-                        )
+
                     ]
                 ),
                 omitted_equal_sign=false
@@ -87,22 +77,22 @@ Module(
                     position=(4, 1, 0),
                     symbol=Symbol(
                         position=(4, 1, 0),
-                        name="tupleExpr2"
+                        name="tupleExpr"
                     )
                 ),
                 value=TupleLiteral(
-                    position=(4, 14, 0),
+                    position=(4, 13, 0),
                     elements=[
                         NumberLiteral(
-                            position=(4, 15, 0),
+                            position=(4, 14, 0),
                             contents="1"
                         ),
                         NumberLiteral(
-                            position=(5, 1, 0),
+                            position=(4, 17, 0),
                             contents="2"
                         ),
                         NumberLiteral(
-                            position=(6, 1, 0),
+                            position=(4, 20, 0),
                             contents="3"
                         )
                     ]
@@ -110,27 +100,55 @@ Module(
                 omitted_equal_sign=false
             ),
             Assignment(
-                position=(7, 1, 0),
+                position=(5, 1, 0),
                 target=SymbolPattern(
-                    position=(7, 1, 0),
+                    position=(5, 1, 0),
                     symbol=Symbol(
-                        position=(7, 1, 0),
+                        position=(5, 1, 0),
+                        name="tupleExpr2"
+                    )
+                ),
+                value=TupleLiteral(
+                    position=(5, 14, 0),
+                    elements=[
+                        NumberLiteral(
+                            position=(5, 15, 0),
+                            contents="1"
+                        ),
+                        NumberLiteral(
+                            position=(6, 1, 0),
+                            contents="2"
+                        ),
+                        NumberLiteral(
+                            position=(7, 1, 0),
+                            contents="3"
+                        )
+                    ]
+                ),
+                omitted_equal_sign=false
+            ),
+            Assignment(
+                position=(8, 1, 0),
+                target=SymbolPattern(
+                    position=(8, 1, 0),
+                    symbol=Symbol(
+                        position=(8, 1, 0),
                         name="tupleExprNoCommas"
                     )
                 ),
                 value=TupleLiteral(
-                    position=(7, 21, 0),
+                    position=(8, 21, 0),
                     elements=[
                         NumberLiteral(
-                            position=(8, 5, 4),
+                            position=(9, 5, 4),
                             contents="4"
                         ),
                         NumberLiteral(
-                            position=(9, 5, 4),
+                            position=(10, 5, 4),
                             contents="5"
                         ),
                         NumberLiteral(
-                            position=(10, 5, 4),
+                            position=(11, 5, 4),
                             contents="6"
                         )
                     ]
