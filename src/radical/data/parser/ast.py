@@ -478,6 +478,11 @@ class BooleanLiteralPatternNode(Node):
 
 
 @dataclass(frozen=True)
+class ConstPatternNode(Node):
+    value: "ValueExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class KeyValueFieldPatternNode(Node):
     name: SymbolNode | None
     pattern: "PatternNodeType"
@@ -675,6 +680,7 @@ PatternAtomNodeType = (
     | FormatStringLiteralPatternNode
     | NullLiteralPatternNode
     | BooleanLiteralPatternNode
+    | ConstPatternNode
 )
 FormatStringPatternPartNodeType = (
     FormatStringTextSectionPatternNode
