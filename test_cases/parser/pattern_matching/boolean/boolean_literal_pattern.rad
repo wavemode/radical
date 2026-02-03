@@ -14,15 +14,16 @@ Module(
                     name="invert"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(1, 12, 0),
-                        pattern=BooleanLiteralPattern(
+                        param=BooleanLiteralPattern(
                             position=(1, 12, 0),
                             boolean=BooleanLiteral(
                                 position=(1, 12, 0),
                                 contents="true"
                             )
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=BooleanLiteral(
@@ -37,15 +38,16 @@ Module(
                     name="invert"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(2, 12, 0),
-                        pattern=BooleanLiteralPattern(
+                        param=BooleanLiteralPattern(
                             position=(2, 12, 0),
                             boolean=BooleanLiteral(
                                 position=(2, 12, 0),
                                 contents="false"
                             )
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=BooleanLiteral(

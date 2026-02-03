@@ -14,15 +14,16 @@ Module(
                     name="x"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(1, 7, 0),
-                        pattern=NumberLiteralPattern(
+                        param=NumberLiteralPattern(
                             position=(1, 7, 0),
                             number=NumberLiteral(
                                 position=(1, 7, 0),
                                 contents="5"
                             )
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=NumberLiteral(
@@ -37,12 +38,16 @@ Module(
                     name="x"
                 ),
                 parameters=[
-                    FunctionParameterName(
+                    FunctionParameter(
                         position=(2, 7, 0),
-                        name=Symbol(
+                        param=SymbolPattern(
                             position=(2, 7, 0),
-                            name="y"
-                        )
+                            symbol=Symbol(
+                                position=(2, 7, 0),
+                                name="y"
+                            )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=NumberLiteral(

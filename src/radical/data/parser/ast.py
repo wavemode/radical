@@ -79,6 +79,11 @@ class TypeNameNode(Node):
 
 
 @dataclass(frozen=True)
+class PlaceholderTypeNode(Node):
+    pass
+
+
+@dataclass(frozen=True)
 class ParenthesizedTypeExpressionNode(Node):
     expressions: list["TypeExpressionNodeType | SpreadTypeExpressionNode"]
 
@@ -374,14 +379,14 @@ class CaseExpressionNode(Node):
 
 @dataclass(frozen=True)
 class FunctionExpressionNode(Node):
-    parameters: list["FunctionParameterNodeType"]
+    parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
     body: "ValueExpressionNodeType"
 
 
 @dataclass(frozen=True)
 class ProcedureExpressionNode(Node):
-    parameters: list["FunctionParameterNodeType"]
+    parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
     body: list["ProcedureBodyStatementNode"]
 
@@ -575,38 +580,19 @@ class ModuleAssignmentDeclarationNode(Node):
 
 
 @dataclass(frozen=True)
-class FunctionParameterPatternNode(Node):
-    pattern: "PatternNodeType"
-
-
-@dataclass(frozen=True)
-class FunctionParameterNameNode(Node):
-    name: SymbolNode
-
-
-@dataclass(frozen=True)
-class VariadicFunctionParameterNode(Node):
-    name: SymbolNode
-
-
-@dataclass(frozen=True)
-class FunctionParameterTypeAnnotationNode(Node):
-    name: "FunctionParameterNameNodeType"
-    type_annotation: "TypeExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class FunctionParameterDefaultValueNode(Node):
-    parameter: "FunctionParameterAnnotationNodeType"
-    default_value: "ValueExpressionNodeType"
+class FunctionParameterNode(Node):
+    param: "PatternNodeType"
+    variadic: bool
+    type_annotation: "TypeExpressionNodeType | PlaceholderTypeNode | None"
+    default_value: "ValueExpressionNodeType | None"
 
 
 @dataclass(frozen=True)
 class FunctionDeclarationNode(Node):
     name: SymbolNode
-    parameters: list["FunctionParameterNodeType"]
+    parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
-    return_type: "TypeExpressionNodeType | None"
+    return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: "ValueExpressionNodeType"
 
 
@@ -619,9 +605,9 @@ class ProcedureBodyStatementNode(Node):
 @dataclass(frozen=True)
 class ProcedureDeclarationNode(Node):
     name: SymbolNode
-    parameters: list["FunctionParameterNodeType"]
+    parameters: list["FunctionParameterNode"]
     generic_parameters: list["GenericTypeParameterNode"] | None
-    return_type: "TypeExpressionNodeType | None"
+    return_type: "TypeExpressionNodeType | PlaceholderTypeNode | None"
     body: list[ProcedureBodyStatementNode]
 
 
@@ -731,17 +717,6 @@ RecordLiteralEntryNodeType = (
 )
 AssignmentBindingNodeType = (
     AssignmentNode | NamingAssignmentNode | DestructuringAssignmentNode
-)
-FunctionParameterNameNodeType = (
-    FunctionParameterNameNode | VariadicFunctionParameterNode
-)
-FunctionParameterAnnotationNodeType = (
-    FunctionParameterNameNodeType
-    | FunctionParameterTypeAnnotationNode
-    | FunctionParameterDefaultValueNode
-)
-FunctionParameterNodeType = (
-    FunctionParameterAnnotationNodeType | FunctionParameterPatternNode
 )
 RecordTypeEntryNodeType = TypeAnnotationNode | SpreadTypeExpressionNode
 ListLiteralElementNodeType = ValueExpressionNodeType | SpreadAssignmentNode

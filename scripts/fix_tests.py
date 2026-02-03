@@ -22,9 +22,6 @@ def fix_parser_tests():
                 raise
             formatted = f"FAIL({json.dumps(str(e))})"
             exc = e
-        else:
-            if "fail_" in test_case.path:
-                print(f"Test case {test_case.path} was expected to fail but succeeded")
         if formatted != test_case.expected_output:
             if exc is not None:
                 print(f"Test case {test_case.path} raised exception:\n{exc}")
@@ -44,9 +41,6 @@ def fix_lexer_tests():
             formatted = f"FAIL({json.dumps(str(e))})"
             if formatted != test_case.expected_output:
                 print(f"Test case {test_case.path} raised exception:\n{e}")
-        else:
-            if "fail_" in test_case.path:
-                print(f"Test case {test_case.path} was expected to fail but succeeded")
         if formatted != test_case.expected_output:
             print(f"Updating test case: {test_case.path}")
             test_case.update_expected_output(formatted)

@@ -13,9 +13,9 @@ Module(
                     name="f"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(1, 7, 0),
-                        pattern=StringLiteralPattern(
+                        param=StringLiteralPattern(
                             position=(1, 7, 0),
                             string=StringLiteral(
                                 position=(1, 7, 0),
@@ -23,7 +23,8 @@ Module(
                                 contents="",
                                 close_quote="\""
                             )
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=StringLiteral(

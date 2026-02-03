@@ -14,9 +14,9 @@ Module(
                     name="x"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(1, 7, 0),
-                        pattern=StringLiteralPattern(
+                        param=StringLiteralPattern(
                             position=(1, 7, 0),
                             string=StringLiteral(
                                 position=(1, 7, 0),
@@ -24,7 +24,8 @@ Module(
                                 contents="hello",
                                 close_quote="\""
                             )
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=StringLiteral(
@@ -41,12 +42,16 @@ Module(
                     name="x"
                 ),
                 parameters=[
-                    FunctionParameterName(
+                    FunctionParameter(
                         position=(2, 7, 0),
-                        name=Symbol(
+                        param=SymbolPattern(
                             position=(2, 7, 0),
-                            name="y"
-                        )
+                            symbol=Symbol(
+                                position=(2, 7, 0),
+                                name="y"
+                            )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=StringLiteral(

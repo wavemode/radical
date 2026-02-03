@@ -18,23 +18,21 @@ Module(
                     value=FunctionExpression(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionParameterDefaultValue(
+                            FunctionParameter(
                                 position=(1, 10, 0),
-                                parameter=FunctionParameterTypeAnnotation(
+                                param=SymbolPattern(
                                     position=(1, 10, 0),
-                                    name=FunctionParameterName(
+                                    symbol=Symbol(
                                         position=(1, 10, 0),
-                                        name=Symbol(
-                                            position=(1, 10, 0),
-                                            name="b"
-                                        )
-                                    ),
-                                    type_annotation=TypeName(
+                                        name="b"
+                                    )
+                                ),
+                                variadic=false,
+                                type_annotation=TypeName(
+                                    position=(1, 14, 0),
+                                    name=Symbol(
                                         position=(1, 14, 0),
-                                        name=Symbol(
-                                            position=(1, 14, 0),
-                                            name="Int"
-                                        )
+                                        name="Int"
                                     )
                                 ),
                                 default_value=NumberLiteral(
@@ -42,15 +40,16 @@ Module(
                                     contents="5"
                                 )
                             ),
-                            FunctionParameterDefaultValue(
+                            FunctionParameter(
                                 position=(1, 23, 0),
-                                parameter=FunctionParameterName(
+                                param=SymbolPattern(
                                     position=(1, 23, 0),
-                                    name=Symbol(
+                                    symbol=Symbol(
                                         position=(1, 23, 0),
                                         name="c"
                                     )
                                 ),
+                                variadic=false,
                                 default_value=ListLiteral(
                                     position=(1, 27, 0),
                                     elements=[

@@ -13,14 +13,15 @@ Module(
                     name="f"
                 ),
                 parameters=[
-                    FunctionParameterPattern(
+                    FunctionParameter(
                         position=(1, 7, 0),
-                        pattern=RecordPattern(
+                        param=RecordPattern(
                             position=(1, 7, 0),
                             fields=[
 
                             ]
-                        )
+                        ),
+                        variadic=false
                     )
                 ],
                 body=StringLiteral(

@@ -1,7 +1,7 @@
 a = fun(
-        b : Int
-        c : List[Int]
-) -> b + c[0]
+        b: ~
+        c: ~
+ ) -> b + c
 
 (*
 Module(
@@ -30,12 +30,8 @@ Module(
                                     )
                                 ),
                                 variadic=false,
-                                type_annotation=TypeName(
-                                    position=(2, 13, 8),
-                                    name=Symbol(
-                                        position=(2, 13, 8),
-                                        name="Int"
-                                    )
+                                type_annotation=PlaceholderType(
+                                    position=(2, 12, 8)
                                 )
                             ),
                             FunctionParameter(
@@ -48,44 +44,21 @@ Module(
                                     )
                                 ),
                                 variadic=false,
-                                type_annotation=GenericTypeApplication(
-                                    position=(3, 13, 8),
-                                    generic_type=TypeName(
-                                        position=(3, 13, 8),
-                                        name=Symbol(
-                                            position=(3, 13, 8),
-                                            name="List"
-                                        )
-                                    ),
-                                    arguments=[
-                                        TypeName(
-                                            position=(3, 18, 8),
-                                            name=Symbol(
-                                                position=(3, 18, 8),
-                                                name="Int"
-                                            )
-                                        )
-                                    ]
+                                type_annotation=PlaceholderType(
+                                    position=(3, 12, 8)
                                 )
                             )
                         ],
                         body=BinaryOperation(
-                            position=(4, 6, 0),
+                            position=(4, 7, 1),
                             left=Symbol(
-                                position=(4, 6, 0),
+                                position=(4, 7, 1),
                                 name="b"
                             ),
                             operator="+",
-                            right=IndexingExpression(
-                                position=(4, 10, 0),
-                                object_expression=Symbol(
-                                    position=(4, 10, 0),
-                                    name="c"
-                                ),
-                                index_expression=NumberLiteral(
-                                    position=(4, 12, 0),
-                                    contents="0"
-                                )
+                            right=Symbol(
+                                position=(4, 11, 1),
+                                name="c"
                             )
                         )
                     )

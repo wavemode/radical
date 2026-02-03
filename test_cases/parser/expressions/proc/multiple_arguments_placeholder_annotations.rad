@@ -1,7 +1,7 @@
-a = fun (
-        b
-        c
- ) -> b + c
+a = proc(
+        b: ~
+        c: ~
+ ) of b + c
 
 (*
 Module(
@@ -17,7 +17,7 @@ Module(
                         position=(1, 1, 0),
                         name="a"
                     ),
-                    value=FunctionExpression(
+                    value=ProcedureExpression(
                         position=(1, 5, 0),
                         parameters=[
                             FunctionParameter(
@@ -29,7 +29,10 @@ Module(
                                         name="b"
                                     )
                                 ),
-                                variadic=false
+                                variadic=false,
+                                type_annotation=PlaceholderType(
+                                    position=(2, 12, 8)
+                                )
                             ),
                             FunctionParameter(
                                 position=(3, 9, 8),
@@ -40,21 +43,29 @@ Module(
                                         name="c"
                                     )
                                 ),
-                                variadic=false
+                                variadic=false,
+                                type_annotation=PlaceholderType(
+                                    position=(3, 12, 8)
+                                )
                             )
                         ],
-                        body=BinaryOperation(
-                            position=(4, 7, 1),
-                            left=Symbol(
+                        body=[
+                            ProcedureBodyStatement(
                                 position=(4, 7, 1),
-                                name="b"
-                            ),
-                            operator="+",
-                            right=Symbol(
-                                position=(4, 11, 1),
-                                name="c"
+                                expression=BinaryOperation(
+                                    position=(4, 7, 1),
+                                    left=Symbol(
+                                        position=(4, 7, 1),
+                                        name="b"
+                                    ),
+                                    operator="+",
+                                    right=Symbol(
+                                        position=(4, 11, 1),
+                                        name="c"
+                                    )
+                                )
                             )
-                        )
+                        ]
                     )
                 )
             )

@@ -1,7 +1,7 @@
 proc a(
-        b
-        c
- ) of b + c
+        b: ~
+        c: ~
+ ) -> ~ of b + c
 
 (*
 Module(
@@ -25,7 +25,10 @@ Module(
                                 name="b"
                             )
                         ),
-                        variadic=false
+                        variadic=false,
+                        type_annotation=PlaceholderType(
+                            position=(2, 12, 8)
+                        )
                     ),
                     FunctionParameter(
                         position=(3, 9, 8),
@@ -36,21 +39,27 @@ Module(
                                 name="c"
                             )
                         ),
-                        variadic=false
+                        variadic=false,
+                        type_annotation=PlaceholderType(
+                            position=(3, 12, 8)
+                        )
                     )
                 ],
+                return_type=PlaceholderType(
+                    position=(4, 7, 1)
+                ),
                 body=[
                     ProcedureBodyStatement(
-                        position=(4, 7, 1),
+                        position=(4, 12, 1),
                         expression=BinaryOperation(
-                            position=(4, 7, 1),
+                            position=(4, 12, 1),
                             left=Symbol(
-                                position=(4, 7, 1),
+                                position=(4, 12, 1),
                                 name="b"
                             ),
                             operator="+",
                             right=Symbol(
-                                position=(4, 11, 1),
+                                position=(4, 16, 1),
                                 name="c"
                             )
                         )
