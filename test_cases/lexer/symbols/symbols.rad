@@ -1,0 +1,10 @@
+regularSymbol
+symbolWithTick'
+symbolWithNumber123
+
+(*
+Token(type=SYMBOL, value="regularSymbol", position=(1, 1, 0))
+Token(type=SYMBOL, value="symbolWithTick'", position=(2, 1, 0))
+Token(type=SYMBOL, value="symbolWithNumber123", position=(3, 1, 0))
+Token(type=EOF, value="", position=(11, 1, 0))
+*)

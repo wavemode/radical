@@ -1,0 +1,7 @@
+`quoted
+
+symbol`
+
+(*
+FAIL("Unterminated quoted symbol at test_cases/lexer/symbols/fail_newline_in_quoted_symbol.rad:1:1")
+*)

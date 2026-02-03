@@ -1,0 +1,6 @@
+`quoted symbol`
+
+(*
+Token(type=SYMBOL, value="quoted symbol", position=(1, 1, 0))
+Token(type=EOF, value="", position=(7, 1, 0))
+*)

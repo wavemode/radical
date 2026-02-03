@@ -1,0 +1,14 @@
+`\n`
+`\r`
+`\t`
+`\\`
+`\``
+
+(*
+Token(type=SYMBOL, value="\n", position=(1, 1, 0))
+Token(type=SYMBOL, value="\r", position=(2, 1, 0))
+Token(type=SYMBOL, value="\t", position=(3, 1, 0))
+Token(type=SYMBOL, value="\\", position=(4, 1, 0))
+Token(type=SYMBOL, value="`", position=(5, 1, 0))
+Token(type=EOF, value="", position=(15, 1, 0))
+*)

@@ -687,14 +687,40 @@ class Lexer(Unit):
     def _get_quoted_symbol(self) -> str:
         start_position = self._position()
         self._advance_non_whitespace()  # Skip opening backtick
-        start_index = self._index
+        chars: list[str] = []
         while self._peek_char() != "`":
-            if self._at_end():
+            if self._at_end() or self._peek_char() == "\n":
                 self._raise_parse_error("Unterminated quoted symbol", start_position)
-            self._advance_non_whitespace()
-        symbol = self._contents[start_index : self._index]
+            chars.append(self._get_quoted_symbol_character())
+        symbol = "".join(chars)
         self._advance_non_whitespace()  # Skip closing backtick
         return symbol
+
+    def _get_quoted_symbol_character(self) -> str:
+        char = self._peek_char()
+        if self._peek_char() == "\\":
+            next_char = self._peek_char(1)
+            if next_char == "n":
+                self._advance_non_whitespace(2)
+                return "\n"
+            elif next_char == "r":
+                self._advance_non_whitespace(2)
+                return "\r"
+            elif next_char == "t":
+                self._advance_non_whitespace(2)
+                return "\t"
+            elif next_char == "\\":
+                self._advance_non_whitespace(2)
+                return "\\"
+            elif self._peek_char(1) == "`":
+                self._advance_non_whitespace(2)
+                return "`"
+            else:
+                self._raise_parse_error(
+                    f"Invalid escape sequence in quoted symbol: '\\{next_char}'"
+                )
+        self._advance_non_whitespace()
+        return char
 
     def _read_multiline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '(*'
