@@ -1,5 +1,5 @@
 a = f(
-  10
+    10
     20
     30
 )
@@ -26,7 +26,7 @@ Module(
                         ),
                         arguments=[
                             NumberLiteral(
-                                position=(2, 3, 2),
+                                position=(2, 5, 4),
                                 contents="10"
                             ),
                             NumberLiteral(

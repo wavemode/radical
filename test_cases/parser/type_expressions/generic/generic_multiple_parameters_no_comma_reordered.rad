@@ -1,4 +1,5 @@
-a :  fun [A
+a :  fun [
+    A
     B
     C
 ] (A, B)  -> C
@@ -19,18 +20,10 @@ Module(
                     position=(1, 6, 0),
                     parameters=[
                         GenericTypeParameter(
-                            position=(1, 11, 0),
-                            name=Symbol(
-                                position=(1, 11, 0),
-                                name="A"
-                            ),
-                            variadic=false
-                        ),
-                        GenericTypeParameter(
                             position=(2, 5, 4),
                             name=Symbol(
                                 position=(2, 5, 4),
-                                name="B"
+                                name="A"
                             ),
                             variadic=false
                         ),
@@ -38,6 +31,14 @@ Module(
                             position=(3, 5, 4),
                             name=Symbol(
                                 position=(3, 5, 4),
+                                name="B"
+                            ),
+                            variadic=false
+                        ),
+                        GenericTypeParameter(
+                            position=(4, 5, 4),
+                            name=Symbol(
+                                position=(4, 5, 4),
                                 name="C"
                             ),
                             variadic=false
@@ -47,34 +48,34 @@ Module(
                         position=(1, 6, 0),
                         parameters=[
                             FunctionTypeParameter(
-                                position=(4, 4, 0),
+                                position=(5, 4, 0),
                                 variadic=false,
                                 optional=false,
                                 type_annotation=TypeName(
-                                    position=(4, 4, 0),
+                                    position=(5, 4, 0),
                                     name=Symbol(
-                                        position=(4, 4, 0),
+                                        position=(5, 4, 0),
                                         name="A"
                                     )
                                 )
                             ),
                             FunctionTypeParameter(
-                                position=(4, 7, 0),
+                                position=(5, 7, 0),
                                 variadic=false,
                                 optional=false,
                                 type_annotation=TypeName(
-                                    position=(4, 7, 0),
+                                    position=(5, 7, 0),
                                     name=Symbol(
-                                        position=(4, 7, 0),
+                                        position=(5, 7, 0),
                                         name="B"
                                     )
                                 )
                             )
                         ],
                         return_type=TypeName(
-                            position=(4, 14, 0),
+                            position=(5, 14, 0),
                             name=Symbol(
-                                position=(4, 14, 0),
+                                position=(5, 14, 0),
                                 name="C"
                             )
                         )

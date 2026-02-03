@@ -2172,14 +2172,17 @@ class Parser(Unit):
                     break
             else:
                 position = getattr(element, "position", None)
-                if (
-                    isinstance(position, Position)
-                    and self._peek().position.line == position.line
-                ):
-                    self._raise_parse_error(
-                        message="Elements must be separated by a comma and/or newline",
-                        position=self._peek().position,
-                    )
+                if isinstance(position, Position):
+                    if self._peek().position.line == position.line:
+                        self._raise_parse_error(
+                            message="Elements must be separated by a comma and/or newline",
+                            position=self._peek().position,
+                        )
+                    elif self._peek().position.indent_level != position.indent_level:
+                        self._raise_parse_error(
+                            message="Elements separated by newlines must have the same indent level",
+                            position=self._peek().position,
+                        )
 
         return elements
 
