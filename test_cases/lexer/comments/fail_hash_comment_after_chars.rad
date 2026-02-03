@@ -1,0 +1,6 @@
+x = 5  # hash comment
+y = 6
+
+(*
+FAIL("Hash comment must start at the beginning of a line at test_cases/lexer/comments/fail_hash_comment_after_chars.rad:1:8")
+*)

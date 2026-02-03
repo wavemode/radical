@@ -45,6 +45,8 @@ class Lexer(Unit):
             self._advance_newline()
         elif char.isspace():
             self._advance_whitespace()
+        elif char == "#":
+            self._read_hash_comment()
         elif char == "(" and next_char == "*":
             self._read_multiline_comment()
         elif char == "-" and next_char == "-":
@@ -602,9 +604,7 @@ class Lexer(Unit):
                 )
             else:
                 if "e" in number or "E" in number:
-                    self._add_token(
-                        TokenType.SCI_FLOAT_LITERAL, number, start_position
-                    )
+                    self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
                 else:
                     self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
                 return
@@ -776,6 +776,14 @@ class Lexer(Unit):
 
     def _read_singleline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '--'
+        while not self._at_end() and self._peek_char() != "\n":
+            self._advance_whitespace()
+
+    def _read_hash_comment(self) -> None:
+        if self._position().column != 1:
+            self._raise_parse_error(
+                "Hash comment must start at the beginning of a line"
+            )
         while not self._at_end() and self._peek_char() != "\n":
             self._advance_whitespace()
 
