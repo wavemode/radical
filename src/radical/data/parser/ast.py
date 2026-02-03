@@ -152,9 +152,15 @@ class TypeUnionNode(Node):
 
 
 @dataclass(frozen=True)
+class GenericTypeArgumentNode(Node):
+    name: "SymbolNode | None"
+    argument: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class GenericTypeApplicationNode(Node):
     generic_type: "TypeExpressionNodeType"
-    arguments: list["TypeExpressionNodeType | SpreadTypeExpressionNode"]
+    arguments: list["GenericTypeArgumentNode | SpreadTypeExpressionNode"]
 
 
 # Literals

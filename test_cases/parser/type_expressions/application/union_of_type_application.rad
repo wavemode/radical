@@ -39,11 +39,14 @@ Module(
                                 )
                             ),
                             arguments=[
-                                TypeName(
+                                GenericTypeArgument(
                                     position=(8, 9, 0),
-                                    name=Symbol(
+                                    argument=TypeName(
                                         position=(8, 9, 0),
-                                        name="C"
+                                        name=Symbol(
+                                            position=(8, 9, 0),
+                                            name="C"
+                                        )
                                     )
                                 )
                             ]
@@ -71,11 +74,14 @@ Module(
                                 )
                             ),
                             arguments=[
-                                TypeName(
+                                GenericTypeArgument(
                                     position=(8, 17, 0),
-                                    name=Symbol(
+                                    argument=TypeName(
                                         position=(8, 17, 0),
-                                        name="F"
+                                        name=Symbol(
+                                            position=(8, 17, 0),
+                                            name="F"
+                                        )
                                     )
                                 )
                             ]

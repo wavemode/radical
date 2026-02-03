@@ -18,6 +18,7 @@ from radical.data.parser.ast import (
     FormatStringPatternPartNodeType,
     FormatStringTextSectionPatternNode,
     FunctionCallArgumentNodeType,
+    GenericTypeArgumentNode,
     KeyValueFieldPatternNode,
     DataTypePatternNode,
     FieldAccessExpressionNode,
@@ -895,10 +896,25 @@ class Parser(Unit):
 
     def parse_generic_application_argument(
         self,
-    ) -> TypeExpressionNodeType | SpreadTypeExpressionNode:
+    ) -> GenericTypeArgumentNode | SpreadTypeExpressionNode:
+        start_position = self._position
+
         if spread_type := self.parse_spread_type_expression():
             return spread_type
-        return self.parse_type_expression()
+
+        name: SymbolNode | None = None
+        if self._peek().type == TokenType.SYMBOL and (
+            self._peek(1).type == TokenType.ASSIGN
+        ):
+            assert (name := self.parse_type_name_symbol())
+            self._read()  # consume ASSIGN
+
+        type_expr = self.parse_type_expression()
+        return GenericTypeArgumentNode(
+            position=start_position,
+            name=name,
+            argument=type_expr,
+        )
 
     def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
         start_position = self._position

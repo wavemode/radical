@@ -45,18 +45,24 @@ Module(
                                     )
                                 ),
                                 arguments=[
-                                    TypeName(
+                                    GenericTypeArgument(
                                         position=(1, 25, 0),
-                                        name=Symbol(
+                                        argument=TypeName(
                                             position=(1, 25, 0),
-                                            name="Int"
+                                            name=Symbol(
+                                                position=(1, 25, 0),
+                                                name="Int"
+                                            )
                                         )
                                     ),
-                                    TypeName(
+                                    GenericTypeArgument(
                                         position=(1, 30, 0),
-                                        name=Symbol(
+                                        argument=TypeName(
                                             position=(1, 30, 0),
-                                            name="String"
+                                            name=Symbol(
+                                                position=(1, 30, 0),
+                                                name="String"
+                                            )
                                         )
                                     )
                                 ]

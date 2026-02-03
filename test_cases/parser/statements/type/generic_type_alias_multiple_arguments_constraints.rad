@@ -24,18 +24,24 @@ Module(
                         )
                     ),
                     arguments=[
-                        TypeName(
+                        GenericTypeArgument(
                             position=(3, 14, 4),
-                            name=Symbol(
+                            argument=TypeName(
                                 position=(3, 14, 4),
-                                name="K"
+                                name=Symbol(
+                                    position=(3, 14, 4),
+                                    name="K"
+                                )
                             )
                         ),
-                        TypeName(
+                        GenericTypeArgument(
                             position=(3, 17, 4),
-                            name=Symbol(
+                            argument=TypeName(
                                 position=(3, 17, 4),
-                                name="V"
+                                name=Symbol(
+                                    position=(3, 17, 4),
+                                    name="V"
+                                )
                             )
                         )
                     ]

@@ -1,0 +1,7 @@
+a : Map [
+    key = String    , value=Int ,
+]
+
+(*
+FAIL("Type names must start with an uppercase letter at test_cases/parser/type_expressions/application/fail_multiple_arguments_named_lowercase.rad:2:5")
+*)

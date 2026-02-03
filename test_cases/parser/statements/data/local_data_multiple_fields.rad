@@ -47,31 +47,40 @@ Module(
                                     )
                                 ),
                                 arguments=[
-                                    TypeName(
+                                    GenericTypeArgument(
                                         position=(1, 31, 0),
-                                        name=Symbol(
+                                        argument=TypeName(
                                             position=(1, 31, 0),
-                                            name="Int"
+                                            name=Symbol(
+                                                position=(1, 31, 0),
+                                                name="Int"
+                                            )
                                         )
                                     ),
-                                    GenericTypeApplication(
+                                    GenericTypeArgument(
                                         position=(1, 36, 0),
-                                        generic_type=TypeName(
+                                        argument=GenericTypeApplication(
                                             position=(1, 36, 0),
-                                            name=Symbol(
+                                            generic_type=TypeName(
                                                 position=(1, 36, 0),
-                                                name="List"
-                                            )
-                                        ),
-                                        arguments=[
-                                            TypeName(
-                                                position=(1, 41, 0),
                                                 name=Symbol(
-                                                    position=(1, 41, 0),
-                                                    name="String"
+                                                    position=(1, 36, 0),
+                                                    name="List"
                                                 )
-                                            )
-                                        ]
+                                            ),
+                                            arguments=[
+                                                GenericTypeArgument(
+                                                    position=(1, 41, 0),
+                                                    argument=TypeName(
+                                                        position=(1, 41, 0),
+                                                        name=Symbol(
+                                                            position=(1, 41, 0),
+                                                            name="String"
+                                                        )
+                                                    )
+                                                )
+                                            ]
+                                        )
                                     )
                                 ]
                             )

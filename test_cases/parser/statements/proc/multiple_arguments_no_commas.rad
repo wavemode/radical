@@ -54,11 +54,14 @@ Module(
                                 )
                             ),
                             arguments=[
-                                TypeName(
+                                GenericTypeArgument(
                                     position=(3, 18, 8),
-                                    name=Symbol(
+                                    argument=TypeName(
                                         position=(3, 18, 8),
-                                        name="Int"
+                                        name=Symbol(
+                                            position=(3, 18, 8),
+                                            name="Int"
+                                        )
                                     )
                                 )
                             ]
