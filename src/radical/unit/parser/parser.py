@@ -91,6 +91,7 @@ from radical.data.parser.ast import (
     TopLevelDeclarationNodeType,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
+    TypeCastExpressionNode,
     TypeDeclarationNode,
     TypeMatchPatternNode,
     TypeOfTypeExpressionNode,
@@ -1697,7 +1698,7 @@ class Parser(Unit):
         )
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_descend_expr_postfix()
+        lhs = self.parse_descend_expr_as()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -1705,6 +1706,17 @@ class Parser(Unit):
                 left=lhs,
                 operator=Operator.EXPONENTIATION,
                 right=rhs,
+            )
+        return lhs
+
+    def parse_descend_expr_as(self) -> ValueExpressionNodeType:
+        lhs = self.parse_descend_expr_postfix()
+        while self.parse_token(TokenType.AS):
+            type_expression = self.parse_type_expression()
+            lhs = TypeCastExpressionNode(
+                position=lhs.position,
+                value_expression=lhs,
+                type_expression=type_expression,
             )
         return lhs
 

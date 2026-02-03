@@ -20,7 +20,13 @@ class Node:
         parts: list[str] = [indent]
         if name is not None:
             parts.append(f"{name}=")
-        parts.append(f"{self.__class__.__name__[:-4]}(\n")
+        parts.append(
+            f"""{
+                self.__class__.__name__[:-4]
+                if self.__class__.__name__.endswith("Node")
+                else self.__class__.__name__
+            }(\n"""
+        )
 
         field_lines: list[str] = []
         for field_name, field_value in self.__dict__.items():

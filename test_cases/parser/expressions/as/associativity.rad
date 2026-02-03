@@ -1,0 +1,56 @@
+x = 4 as Float as Int as Float
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            AssignmentStatement(
+                position=(1, 1, 0),
+                assignment=Assignment(
+                    position=(1, 1, 0),
+                    target=Symbol(
+                        position=(1, 1, 0),
+                        name="x"
+                    ),
+                    value=TypeCastExpression(
+                        position=(1, 5, 0),
+                        value_expression=TypeCastExpression(
+                            position=(1, 5, 0),
+                            value_expression=TypeCastExpression(
+                                position=(1, 5, 0),
+                                value_expression=NumberLiteral(
+                                    position=(1, 5, 0),
+                                    contents="4"
+                                ),
+                                type_expression=TypeName(
+                                    position=(1, 10, 0),
+                                    name=Symbol(
+                                        position=(1, 10, 0),
+                                        name="Float"
+                                    )
+                                )
+                            ),
+                            type_expression=TypeName(
+                                position=(1, 19, 0),
+                                name=Symbol(
+                                    position=(1, 19, 0),
+                                    name="Int"
+                                )
+                            )
+                        ),
+                        type_expression=TypeName(
+                            position=(1, 26, 0),
+                            name=Symbol(
+                                position=(1, 26, 0),
+                                name="Float"
+                            )
+                        )
+                    )
+                )
+            )
+        ]
+    )
+)
+*)
