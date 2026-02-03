@@ -1,4 +1,6 @@
 from typing import Callable, NoReturn, TypeVar
+from radical.data.parser.operator import Operator
+from radical.data.parser.node import Node
 from radical.data.parser.ast import (
     AssignmentBindingNodeType,
     AssignmentNode,
@@ -58,7 +60,6 @@ from radical.data.parser.ast import (
     ModuleExpressionNode,
     ModuleNameNode,
     ModuleNode,
-    Node,
     NullLiteralNode,
     NumberLiteralNode,
     ParenthesizedExpressionNode,
@@ -101,7 +102,6 @@ from radical.data.parser.ast import (
     ValueExpressionNodeType,
     AtomNodeType,
     BinaryOperationNode,
-    Operator,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
