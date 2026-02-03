@@ -19,7 +19,7 @@ Module(
                         parameters=[
                             FunctionParameter(
                                 position=(1, 12, 0),
-                                param=ParenthesizedPattern(
+                                param=TuplePattern(
                                     position=(1, 12, 0),
                                     elements=[
                                         SymbolPattern(

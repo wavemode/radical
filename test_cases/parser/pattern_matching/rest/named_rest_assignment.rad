@@ -12,15 +12,13 @@ Module(
                     position=(1, 1, 0),
                     pattern=ParenthesizedPattern(
                         position=(1, 1, 0),
-                        elements=[
-                            RestPattern(
-                                position=(1, 2, 0),
-                                name=Symbol(
-                                    position=(1, 5, 0),
-                                    name="x"
-                                )
+                        pattern=RestPattern(
+                            position=(1, 2, 0),
+                            name=Symbol(
+                                position=(1, 5, 0),
+                                name="x"
                             )
-                        ]
+                        )
                     ),
                     value=TupleLiteral(
                         position=(1, 11, 0),

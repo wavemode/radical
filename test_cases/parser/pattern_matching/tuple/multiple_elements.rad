@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 assignment=DestructuringAssignment(
                     position=(1, 1, 0),
-                    pattern=ParenthesizedPattern(
+                    pattern=TuplePattern(
                         position=(1, 1, 0),
                         elements=[
                             SymbolPattern(

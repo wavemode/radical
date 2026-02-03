@@ -86,6 +86,7 @@ from radical.data.parser.ast import (
     SymbolPatternNode,
     TopLevelDeclarationNodeType,
     TupleLiteralNode,
+    TuplePatternNode,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
     TypeDeclarationNode,
@@ -1474,7 +1475,9 @@ class Parser(Unit):
             pattern=pattern,
         )
 
-    def parse_parenthesized_pattern(self) -> ParenthesizedPatternNode | None:
+    def parse_parenthesized_pattern(
+        self,
+    ) -> ParenthesizedPatternNode | TuplePatternNode | None:
         start_position = self._position
         if not self.parse_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
@@ -1486,7 +1489,13 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        return ParenthesizedPatternNode(
+        if len(elements) == 1:
+            return ParenthesizedPatternNode(
+                position=start_position,
+                pattern=elements[0],
+            )
+
+        return TuplePatternNode(
             position=start_position,
             elements=elements,
         )
