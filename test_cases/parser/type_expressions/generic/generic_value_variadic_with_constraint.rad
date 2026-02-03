@@ -23,13 +23,15 @@ Module(
                                 name="T"
                             ),
                             variadic=true,
-                            constraint=TypeName(
-                                position=(1, 13, 0),
-                                name=Symbol(
+                            constraints=[
+                                TypeName(
                                     position=(1, 13, 0),
-                                    name="Comparable"
+                                    name=Symbol(
+                                        position=(1, 13, 0),
+                                        name="Comparable"
+                                    )
                                 )
-                            )
+                            ]
                         )
                     ],
                     expression=TypeName(

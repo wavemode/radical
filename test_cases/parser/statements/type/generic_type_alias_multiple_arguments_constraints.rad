@@ -54,13 +54,15 @@ Module(
                             name="K"
                         ),
                         variadic=false,
-                        constraint=TypeName(
-                            position=(2, 9, 4),
-                            name=Symbol(
+                        constraints=[
+                            TypeName(
                                 position=(2, 9, 4),
-                                name="Hashable"
+                                name=Symbol(
+                                    position=(2, 9, 4),
+                                    name="Hashable"
+                                )
                             )
-                        )
+                        ]
                     ),
                     GenericTypeParameter(
                         position=(3, 5, 4),
