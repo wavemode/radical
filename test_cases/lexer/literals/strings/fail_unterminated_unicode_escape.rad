@@ -1,5 +1,0 @@
-period = "\u{2E"
-
-(*
-FAIL("Unexpected character in unicode escape sequence: '\"' at test_cases/lexer/literals/strings/fail_unterminated_unicode_escape.rad:1:16")
-*)

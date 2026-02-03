@@ -1,0 +1,5 @@
+num = 2A3
+
+(*
+FAIL("Invalid integer number format: '2A3' at test_cases/lexer/literals/number/fail_hex_without_prefix.rad:1:7")
+*)

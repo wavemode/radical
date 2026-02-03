@@ -593,39 +593,61 @@ class Lexer(Unit):
         ):
             self._advance_non_whitespace()
         number = self._contents[start_index : self._index]
-        try:
-            int(number)
-        except ValueError:
+        if "." in number or "e" in number or "E" in number:
+            try:
+                float(number)
+            except ValueError:
+                self._raise_parse_error(
+                    f"Invalid float number format: '{number}'", start_position
+                )
+            else:
+                if "e" in number or "E" in number:
+                    self._add_token(
+                        TokenType.SCI_FLOAT_LITERAL, number, start_position
+                    )
+                else:
+                    self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+                return
+
+        if number.startswith("0b") or number.startswith("0B"):
             try:
                 int(number, 2)
             except ValueError:
-                try:
-                    int(number, 8)
-                except ValueError:
-                    try:
-                        int(number, 16)
-                    except ValueError:
-                        try:
-                            float(
-                                number,
-                            )
-                        except ValueError:
-                            self._raise_parse_error(
-                                f"Invalid number format: '{number}'",
-                                start_position,
-                            )
-                        else:
-                            if "e" in number or "E" in number:
-                                self._add_token(
-                                    TokenType.SCI_FLOAT_LITERAL, number, start_position
-                                )
-                            else:
-                                self._add_token(
-                                    TokenType.FLOAT_LITERAL, number, start_position
-                                )
-                            return
-        if "e" in number or "E" in number:
-            self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
+                self._raise_parse_error(
+                    f"Invalid binary number format: '{number}'", start_position
+                )
+            else:
+                self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
+                return
+
+        if number.startswith("0o") or number.startswith("0O"):
+            try:
+                int(number, 8)
+            except ValueError:
+                self._raise_parse_error(
+                    f"Invalid octal number format: '{number}'", start_position
+                )
+            else:
+                self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
+                return
+
+        if number.startswith("0x") or number.startswith("0X"):
+            try:
+                int(number, 16)
+            except ValueError:
+                self._raise_parse_error(
+                    f"Invalid hexadecimal number format: '{number}'", start_position
+                )
+            else:
+                self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
+                return
+
+        try:
+            int(number, 10)
+        except ValueError:
+            self._raise_parse_error(
+                f"Invalid integer number format: '{number}'", start_position
+            )
         else:
             self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
 
