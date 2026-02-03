@@ -27,29 +27,33 @@ Module(
                     ),
                     value=ParenthesizedExpression(
                         position=(1, 21, 0),
-                        expression=BinaryOperation(
-                            position=(1, 22, 0),
-                            left=NumberLiteral(
+                        elements=[
+                            BinaryOperation(
                                 position=(1, 22, 0),
-                                contents="1"
-                            ),
-                            operator="*",
-                            right=ParenthesizedExpression(
-                                position=(1, 26, 0),
-                                expression=BinaryOperation(
-                                    position=(1, 27, 0),
-                                    left=NumberLiteral(
-                                        position=(1, 27, 0),
-                                        contents="2"
-                                    ),
-                                    operator="+",
-                                    right=NumberLiteral(
-                                        position=(1, 31, 0),
-                                        contents="3"
-                                    )
+                                left=NumberLiteral(
+                                    position=(1, 22, 0),
+                                    contents="1"
+                                ),
+                                operator="*",
+                                right=ParenthesizedExpression(
+                                    position=(1, 26, 0),
+                                    elements=[
+                                        BinaryOperation(
+                                            position=(1, 27, 0),
+                                            left=NumberLiteral(
+                                                position=(1, 27, 0),
+                                                contents="2"
+                                            ),
+                                            operator="+",
+                                            right=NumberLiteral(
+                                                position=(1, 31, 0),
+                                                contents="3"
+                                            )
+                                        )
+                                    ]
                                 )
                             )
-                        )
+                        ]
                     )
                 )
             ),
@@ -61,7 +65,7 @@ Module(
                         position=(3, 1, 0),
                         name="emptyTuple"
                     ),
-                    value=TupleLiteral(
+                    value=ParenthesizedExpression(
                         position=(3, 14, 0),
                         elements=[
 
@@ -77,7 +81,7 @@ Module(
                         position=(4, 1, 0),
                         name="tupleExpr"
                     ),
-                    value=TupleLiteral(
+                    value=ParenthesizedExpression(
                         position=(4, 13, 0),
                         elements=[
                             NumberLiteral(
@@ -104,7 +108,7 @@ Module(
                         position=(5, 1, 0),
                         name="tupleExpr2"
                     ),
-                    value=TupleLiteral(
+                    value=ParenthesizedExpression(
                         position=(5, 14, 0),
                         elements=[
                             NumberLiteral(
@@ -131,7 +135,7 @@ Module(
                         position=(8, 1, 0),
                         name="tupleExprNoCommas"
                     ),
-                    value=TupleLiteral(
+                    value=ParenthesizedExpression(
                         position=(8, 21, 0),
                         elements=[
                             NumberLiteral(

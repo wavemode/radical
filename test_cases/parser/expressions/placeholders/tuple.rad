@@ -80,7 +80,7 @@ Module(
                     ),
                     value=PlaceholderExpression(
                         position=(2, 5, 0),
-                        expression=TupleLiteral(
+                        expression=ParenthesizedExpression(
                             position=(2, 5, 0),
                             elements=[
                                 Symbol(

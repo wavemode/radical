@@ -12,13 +12,15 @@ Module(
                     position=(1, 1, 0),
                     pattern=ParenthesizedPattern(
                         position=(1, 1, 0),
-                        pattern=DataTypePattern(
-                            position=(1, 2, 0),
-                            name=Symbol(
+                        elements=[
+                            DataTypePattern(
                                 position=(1, 2, 0),
-                                name="X"
+                                name=Symbol(
+                                    position=(1, 2, 0),
+                                    name="X"
+                                )
                             )
-                        )
+                        ]
                     ),
                     value=Symbol(
                         position=(1, 8, 0),

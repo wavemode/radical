@@ -25,32 +25,34 @@ Module(
                             position=(1, 10, 0),
                             expression=ParenthesizedExpression(
                                 position=(1, 10, 0),
-                                expression=BinaryOperation(
-                                    position=(1, 11, 0),
-                                    left=FieldAccessExpression(
+                                elements=[
+                                    BinaryOperation(
                                         position=(1, 11, 0),
-                                        object_expression=Symbol(
+                                        left=FieldAccessExpression(
                                             position=(1, 11, 0),
-                                            name="~"
+                                            object_expression=Symbol(
+                                                position=(1, 11, 0),
+                                                name="~"
+                                            ),
+                                            field=Symbol(
+                                                position=(1, 13, 0),
+                                                name="hello"
+                                            )
                                         ),
-                                        field=Symbol(
-                                            position=(1, 13, 0),
-                                            name="hello"
-                                        )
-                                    ),
-                                    operator="+",
-                                    right=FieldAccessExpression(
-                                        position=(1, 21, 0),
-                                        object_expression=Symbol(
+                                        operator="+",
+                                        right=FieldAccessExpression(
                                             position=(1, 21, 0),
-                                            name="~"
-                                        ),
-                                        field=Symbol(
-                                            position=(1, 23, 0),
-                                            name="foo"
+                                            object_expression=Symbol(
+                                                position=(1, 21, 0),
+                                                name="~"
+                                            ),
+                                            field=Symbol(
+                                                position=(1, 23, 0),
+                                                name="foo"
+                                            )
                                         )
                                     )
-                                )
+                                ]
                             )
                         )
                     )

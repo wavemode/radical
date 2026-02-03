@@ -12,13 +12,15 @@ Module(
                     position=(1, 1, 0),
                     pattern=ParenthesizedPattern(
                         position=(1, 1, 0),
-                        pattern=ConstPattern(
-                            position=(1, 2, 0),
-                            value=Symbol(
-                                position=(1, 8, 0),
-                                name="Data"
+                        elements=[
+                            ConstPattern(
+                                position=(1, 2, 0),
+                                value=Symbol(
+                                    position=(1, 8, 0),
+                                    name="Data"
+                                )
                             )
-                        )
+                        ]
                     ),
                     value=FunctionCallExpression(
                         position=(1, 17, 0),

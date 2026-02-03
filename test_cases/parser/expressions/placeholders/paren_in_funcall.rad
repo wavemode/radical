@@ -29,18 +29,20 @@ Module(
                                         position=(1, 7, 0),
                                         expression=ParenthesizedExpression(
                                             position=(1, 7, 0),
-                                            expression=BinaryOperation(
-                                                position=(1, 8, 0),
-                                                left=Symbol(
+                                            elements=[
+                                                BinaryOperation(
                                                     position=(1, 8, 0),
-                                                    name="~"
-                                                ),
-                                                operator="+",
-                                                right=Symbol(
-                                                    position=(1, 12, 0),
-                                                    name="~"
+                                                    left=Symbol(
+                                                        position=(1, 8, 0),
+                                                        name="~"
+                                                    ),
+                                                    operator="+",
+                                                    right=Symbol(
+                                                        position=(1, 12, 0),
+                                                        name="~"
+                                                    )
                                                 )
-                                            )
+                                            ]
                                         )
                                     ),
                                     operator="+",

@@ -86,8 +86,6 @@ from radical.data.parser.ast import (
     SymbolNode,
     SymbolPatternNode,
     TopLevelDeclarationNodeType,
-    TupleLiteralNode,
-    TuplePatternNode,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
     TypeDeclarationNode,
@@ -879,7 +877,7 @@ class Parser(Unit):
         while self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             self._read()  # consume LIST_START
             arguments = self.parse_comma_or_newline_separated(
-                element_parser=self.parse_type_expression,
+                element_parser=self.parse_generic_application_argument,
                 ending_tokens=[TokenType.LIST_END, TokenType.INDEXING_END],
             )
             if not arguments:
@@ -894,6 +892,13 @@ class Parser(Unit):
                 arguments=arguments,
             )
         return lhs
+
+    def parse_generic_application_argument(
+        self,
+    ) -> TypeExpressionNodeType | SpreadTypeExpressionNode:
+        if spread_type := self.parse_spread_type_expression():
+            return spread_type
+        return self.parse_type_expression()
 
     def parse_descend_type_expr_generic(self) -> TypeExpressionNodeType:
         start_position = self._position
@@ -1489,7 +1494,7 @@ class Parser(Unit):
 
     def parse_parenthesized_pattern(
         self,
-    ) -> ParenthesizedPatternNode | TuplePatternNode | None:
+    ) -> ParenthesizedPatternNode | None:
         start_position = self._position
         if not self.parse_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
@@ -1501,13 +1506,7 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        if len(elements) == 1:
-            return ParenthesizedPatternNode(
-                position=start_position,
-                pattern=elements[0],
-            )
-
-        return TuplePatternNode(
+        return ParenthesizedPatternNode(
             position=start_position,
             elements=elements,
         )
@@ -1943,12 +1942,7 @@ class Parser(Unit):
 
     def parse_parenthesized_expression(
         self,
-    ) -> (
-        ParenthesizedExpressionNode
-        | TupleLiteralNode
-        | PlaceholderExpressionNode
-        | None
-    ):
+    ) -> ParenthesizedExpressionNode | PlaceholderExpressionNode | None:
         start_position = self._position
         if not self.parse_token(TokenType.PARENTHESES_START):
             return None
@@ -1959,17 +1953,10 @@ class Parser(Unit):
             ending_token=TokenType.PARENTHESES_END,
         )
 
-        expr: ParenthesizedExpressionNode | TupleLiteralNode | PlaceholderExpressionNode
-        if len(expressions) == 1:
-            expr = ParenthesizedExpressionNode(
-                position=start_position,
-                expression=expressions[0],
-            )
-        else:
-            expr = TupleLiteralNode(
-                position=start_position,
-                elements=expressions,
-            )
+        expr = ParenthesizedExpressionNode(
+            position=start_position,
+            elements=expressions,
+        )
 
         if self._reset_placeholder_stack(s) > 0:
             expr = PlaceholderExpressionNode(

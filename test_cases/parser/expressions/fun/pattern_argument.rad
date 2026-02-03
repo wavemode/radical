@@ -19,7 +19,7 @@ Module(
                         parameters=[
                             FunctionParameter(
                                 position=(1, 12, 0),
-                                param=TuplePattern(
+                                param=ParenthesizedPattern(
                                     position=(1, 12, 0),
                                     elements=[
                                         SymbolPattern(
@@ -41,7 +41,7 @@ Module(
                                 variadic=false
                             )
                         ],
-                        body=TupleLiteral(
+                        body=ParenthesizedExpression(
                             position=(1, 23, 0),
                             elements=[
                                 Symbol(

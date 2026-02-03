@@ -154,7 +154,7 @@ class TypeUnionNode(Node):
 @dataclass(frozen=True)
 class GenericTypeApplicationNode(Node):
     generic_type: "TypeExpressionNodeType"
-    arguments: list["TypeExpressionNodeType"]
+    arguments: list["TypeExpressionNodeType | SpreadTypeExpressionNode"]
 
 
 # Literals
@@ -344,11 +344,6 @@ class RecordLiteralNode(Node):
 
 @dataclass(frozen=True)
 class ParenthesizedExpressionNode(Node):
-    expression: "ValueExpressionNodeType"
-
-
-@dataclass(frozen=True)
-class TupleLiteralNode(Node):
     elements: list["ValueExpressionNodeType"]
 
 
@@ -417,11 +412,6 @@ class RestPatternNode(Node):
 
 @dataclass(frozen=True)
 class ParenthesizedPatternNode(Node):
-    pattern: "PatternNodeType"
-
-
-@dataclass(frozen=True)
-class TuplePatternNode(Node):
     elements: list["PatternNodeType"]
 
 
@@ -646,7 +636,6 @@ AtomNodeType = (
     | BooleanLiteralNode
     | NullLiteralNode
     | ParenthesizedExpressionNode
-    | TupleLiteralNode
     | ListLiteralNode
     | RecordLiteralNode
     | IfExpressionNode
@@ -672,7 +661,6 @@ PatternAtomNodeType = (
     | RecordPatternNode
     | RestPatternNode
     | ParenthesizedPatternNode
-    | TuplePatternNode
     | ListPatternNode
     | NumberLiteralPatternNode
     | StringLiteralPatternNode

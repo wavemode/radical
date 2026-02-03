@@ -12,28 +12,30 @@ Module(
                     position=(1, 1, 0),
                     pattern=ParenthesizedPattern(
                         position=(1, 1, 0),
-                        pattern=PatternGuard(
-                            position=(1, 2, 0),
-                            pattern=SymbolPattern(
+                        elements=[
+                            PatternGuard(
                                 position=(1, 2, 0),
-                                symbol=Symbol(
+                                pattern=SymbolPattern(
                                     position=(1, 2, 0),
-                                    name="a"
-                                )
-                            ),
-                            condition=BinaryOperation(
-                                position=(1, 7, 0),
-                                left=Symbol(
-                                    position=(1, 7, 0),
-                                    name="a"
+                                    symbol=Symbol(
+                                        position=(1, 2, 0),
+                                        name="a"
+                                    )
                                 ),
-                                operator=">",
-                                right=NumberLiteral(
-                                    position=(1, 11, 0),
-                                    contents="10"
+                                condition=BinaryOperation(
+                                    position=(1, 7, 0),
+                                    left=Symbol(
+                                        position=(1, 7, 0),
+                                        name="a"
+                                    ),
+                                    operator=">",
+                                    right=NumberLiteral(
+                                        position=(1, 11, 0),
+                                        contents="10"
+                                    )
                                 )
                             )
-                        )
+                        ]
                     ),
                     value=NumberLiteral(
                         position=(1, 18, 0),

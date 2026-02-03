@@ -14,13 +14,15 @@ Module(
                         position=(1, 1, 0),
                         pattern=ParenthesizedPattern(
                             position=(1, 1, 0),
-                            pattern=ConstPattern(
-                                position=(1, 2, 0),
-                                value=Symbol(
-                                    position=(1, 8, 0),
-                                    name="myValue"
+                            elements=[
+                                ConstPattern(
+                                    position=(1, 2, 0),
+                                    value=Symbol(
+                                        position=(1, 8, 0),
+                                        name="myValue"
+                                    )
                                 )
-                            )
+                            ]
                         ),
                         condition=BooleanLiteral(
                             position=(1, 20, 0),

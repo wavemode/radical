@@ -16,18 +16,20 @@ Module(
                     position=(1, 5, 0),
                     expression=ParenthesizedExpression(
                         position=(1, 12, 0),
-                        expression=BinaryOperation(
-                            position=(1, 13, 0),
-                            left=NumberLiteral(
+                        elements=[
+                            BinaryOperation(
                                 position=(1, 13, 0),
-                                contents="5"
-                            ),
-                            operator="+",
-                            right=NumberLiteral(
-                                position=(1, 17, 0),
-                                contents="6"
+                                left=NumberLiteral(
+                                    position=(1, 13, 0),
+                                    contents="5"
+                                ),
+                                operator="+",
+                                right=NumberLiteral(
+                                    position=(1, 17, 0),
+                                    contents="6"
+                                )
                             )
-                        )
+                        ]
                     )
                 )
             )
