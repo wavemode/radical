@@ -534,6 +534,8 @@ class Lexer(Unit):
             elif next_char == "t":
                 self._advance_non_whitespace(2)
                 return "\t"
+            elif next_char == "u":
+                return self._get_unicode_escape_sequence()
             elif next_char == "\\":
                 self._advance_non_whitespace(2)
                 return "\\"
@@ -542,8 +544,8 @@ class Lexer(Unit):
                 return '"'
             else:
                 self._raise_parse_error(f"Invalid escape sequence: '\\{next_char}'")
-        else:
-            return self._read_string_literal_character()
+
+        return self._read_string_literal_character()
 
     def _read_string_literal_character(self) -> str:
         char = self._peek_char()
@@ -552,6 +554,20 @@ class Lexer(Unit):
         else:
             self._advance_non_whitespace()
         return char
+
+    def _get_unicode_escape_sequence(self) -> str:
+        self._advance_non_whitespace(3)  # Skip \u{
+        start_index = self._index
+        while self._peek_char().isalnum():
+            self._advance_non_whitespace()
+        hex_digits = self._contents[start_index : self._index]
+        character = chr(int(hex_digits, 16))
+        if self._peek_char() != "}":
+            self._raise_parse_error(
+                f"Unexpected character in unicode escape sequence: '{self._peek_char()}'"
+            )
+        self._advance_non_whitespace()  # Skip closing }
+        return character
 
     def _read_number(self) -> None:
         start_position = self._position()
