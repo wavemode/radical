@@ -16,27 +16,19 @@ Module(
                     name="a"
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterName(
                         position=(2, 9, 8),
-                        param=SymbolPattern(
+                        name=Symbol(
                             position=(2, 9, 8),
-                            symbol=Symbol(
-                                position=(2, 9, 8),
-                                name="b"
-                            )
-                        ),
-                        variadic=false
+                            name="b"
+                        )
                     ),
-                    FunctionParameter(
+                    FunctionParameterName(
                         position=(3, 9, 8),
-                        param=SymbolPattern(
+                        name=Symbol(
                             position=(3, 9, 8),
-                            symbol=Symbol(
-                                position=(3, 9, 8),
-                                name="c"
-                            )
-                        ),
-                        variadic=false
+                            name="c"
+                        )
                     )
                 ],
                 body=[

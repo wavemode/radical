@@ -28,16 +28,15 @@ Module(
                                     name="a"
                                 ),
                                 parameters=[
-                                    FunctionParameter(
+                                    FunctionParameterTypeAnnotation(
                                         position=(2, 12, 4),
-                                        param=SymbolPattern(
+                                        name=FunctionParameterName(
                                             position=(2, 12, 4),
-                                            symbol=Symbol(
+                                            name=Symbol(
                                                 position=(2, 12, 4),
                                                 name="b"
                                             )
                                         ),
-                                        variadic=false,
                                         type_annotation=TypeName(
                                             position=(2, 15, 4),
                                             name=Symbol(

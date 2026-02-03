@@ -14,21 +14,23 @@ Module(
                     name="a"
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterDefaultValue(
                         position=(1, 8, 0),
-                        param=SymbolPattern(
+                        parameter=FunctionParameterTypeAnnotation(
                             position=(1, 8, 0),
-                            symbol=Symbol(
+                            name=FunctionParameterName(
                                 position=(1, 8, 0),
-                                name="b"
-                            )
-                        ),
-                        variadic=false,
-                        type_annotation=TypeName(
-                            position=(1, 12, 0),
-                            name=Symbol(
+                                name=Symbol(
+                                    position=(1, 8, 0),
+                                    name="b"
+                                )
+                            ),
+                            type_annotation=TypeName(
                                 position=(1, 12, 0),
-                                name="Int"
+                                name=Symbol(
+                                    position=(1, 12, 0),
+                                    name="Int"
+                                )
                             )
                         ),
                         default_value=NumberLiteral(
@@ -36,16 +38,15 @@ Module(
                             contents="5"
                         )
                     ),
-                    FunctionParameter(
+                    FunctionParameterDefaultValue(
                         position=(1, 21, 0),
-                        param=SymbolPattern(
+                        parameter=FunctionParameterName(
                             position=(1, 21, 0),
-                            symbol=Symbol(
+                            name=Symbol(
                                 position=(1, 21, 0),
                                 name="c"
                             )
                         ),
-                        variadic=false,
                         default_value=ListLiteral(
                             position=(1, 25, 0),
                             elements=[

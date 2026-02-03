@@ -13,16 +13,15 @@ Module(
                     name="f"
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterPattern(
                         position=(1, 7, 0),
-                        param=RegexLiteralPattern(
+                        pattern=RegexLiteralPattern(
                             position=(1, 7, 0),
                             regex=RegexLiteral(
                                 position=(1, 7, 0),
                                 contents="\\d+"
                             )
-                        ),
-                        variadic=false
+                        )
                     )
                 ],
                 body=StringLiteral(

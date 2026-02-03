@@ -17,6 +17,11 @@ from radical.data.parser.ast import (
     FormatStringPatternPartNodeType,
     FormatStringTextSectionPatternNode,
     FunctionCallArgumentNodeType,
+    FunctionParameterAnnotationNodeType,
+    FunctionParameterDefaultValueNode,
+    FunctionParameterNameNode,
+    FunctionParameterNodeType,
+    FunctionParameterTypeAnnotationNode,
     KeyValueFieldPatternNode,
     DataTypePatternNode,
     FieldAccessExpressionNode,
@@ -26,7 +31,7 @@ from radical.data.parser.ast import (
     FunctionCallExpressionNode,
     FunctionDeclarationNode,
     FunctionExpressionNode,
-    FunctionParameterNode,
+    FunctionParameterPatternNode,
     FunctionTypeParameterNode,
     FunctionTypeNode,
     GenericTypeApplicationNode,
@@ -66,7 +71,6 @@ from radical.data.parser.ast import (
     PatternGuardNode,
     PatternNodeType,
     PlaceholderExpressionNode,
-    PlaceholderTypeNode,
     ProcedureBodyStatementNode,
     ProcedureDeclarationNode,
     ProcedureExpressionNode,
@@ -100,6 +104,7 @@ from radical.data.parser.ast import (
     AtomNodeType,
     BinaryOperationNode,
     Operator,
+    VariadicFunctionParameterNode,
 )
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
@@ -323,7 +328,7 @@ class Parser(Unit):
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             generic_parameters = self.parse_generic_type_parameter_list()
 
-        parameters: list[FunctionParameterNode] = []
+        parameters: list[FunctionParameterNodeType] = []
         self.require_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
         )
@@ -332,10 +337,9 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
+        return_type: TypeExpressionNodeType | None = None
         if self.parse_token(TokenType.RIGHT_ARROW):
-            if not (return_type := self.parse_placeholder_type()):
-                return_type = self.parse_type_expression()
+            return_type = self.parse_type_expression()
 
         self.require_token(TokenType.ASSIGN)
         body = self.parse_value_expression()
@@ -365,7 +369,7 @@ class Parser(Unit):
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             generic_parameters = self.parse_generic_type_parameter_list()
 
-        parameters: list[FunctionParameterNode] = []
+        parameters: list[FunctionParameterNodeType] = []
         self.require_any_token(
             [TokenType.PARENTHESES_START, TokenType.FUNCTION_CALL_START]
         )
@@ -374,10 +378,9 @@ class Parser(Unit):
             ending_tokens=[TokenType.PARENTHESES_END, TokenType.FUNCTION_CALL_END],
         )
 
-        return_type: TypeExpressionNodeType | PlaceholderTypeNode | None = None
+        return_type: TypeExpressionNodeType | None = None
         if self.parse_token(TokenType.RIGHT_ARROW):
-            if not (return_type := self.parse_placeholder_type()):
-                return_type = self.parse_type_expression()
+            return_type = self.parse_type_expression()
 
         of_position = self.require_token(TokenType.OF).position
         body = self.parse_procedure_body(
@@ -428,43 +431,90 @@ class Parser(Unit):
             expression=expression,
         )
 
-    def parse_function_parameter(self) -> FunctionParameterNode:
+    def parse_function_parameter(self) -> FunctionParameterNodeType:
+        parameter: FunctionParameterNodeType
+        if p := self.parse_function_parameter_default_value():
+            parameter = p
+        elif p := self.parse_function_parameter_pattern():
+            parameter = p
+        else:
+            self._raise_parse_error(
+                message=f"Expected function parameter. Unexpected token {self._peek().pretty()}"
+            )
+
+        return parameter
+
+    def parse_function_parameter_default_value(
+        self,
+    ) -> FunctionParameterAnnotationNodeType | None:
         start_position = self._position
+        if not (param := self.parse_function_parameter_annotation()):
+            return None
 
-        variadic = False
-        if self.parse_token(TokenType.ELLIPSIS):
-            variadic = True
+        if not self.parse_token(TokenType.ASSIGN):
+            return param
 
-        param = self.parse_pattern_or_error()
-
-        type_annotation: TypeExpressionNodeType | PlaceholderTypeNode | None = None
-        default_value: ValueExpressionNodeType | None = None
-
-        if self.parse_token(TokenType.COLON):
-            if not (type_annotation := self.parse_placeholder_type()):
-                type_annotation = self.parse_type_expression()
-
-        if self.parse_token(TokenType.ASSIGN):
-            default_value = self.parse_value_expression()
-
-        if not isinstance(param, (SymbolPatternNode)):
-            if variadic:
-                self._raise_parse_error(
-                    message="Variadic function parameter cannot be a pattern",
-                    position=param.position,
-                )
-            elif default_value is not None:
-                self._raise_parse_error(
-                    message="Function parameter with default value cannot be a pattern",
-                    position=param.position,
-                )
-
-        return FunctionParameterNode(
+        default_value = self.parse_value_expression()
+        return FunctionParameterDefaultValueNode(
             position=start_position,
-            param=param,
-            variadic=variadic,
-            type_annotation=type_annotation,
+            parameter=param,
             default_value=default_value,
+        )
+
+    def parse_function_parameter_annotation(
+        self,
+    ) -> FunctionParameterAnnotationNodeType | None:
+        parameter: FunctionParameterAnnotationNodeType | None = None
+        if variadic_param := self.parse_variadic_function_parameter():
+            parameter = variadic_param
+        elif name_param := self.parse_function_parameter_name():
+            parameter = name_param
+
+        if parameter:
+            if self.parse_token(TokenType.COLON):
+                type_annotation = self.parse_type_expression()
+                parameter = FunctionParameterTypeAnnotationNode(
+                    position=parameter.position,
+                    name=parameter,
+                    type_annotation=type_annotation,
+                )
+
+        return parameter
+
+    def parse_function_parameter_pattern(self) -> FunctionParameterPatternNode | None:
+        start_position = self._position
+        if not (pattern := self.parse_pattern()):
+            return None
+
+        return FunctionParameterPatternNode(
+            position=start_position,
+            pattern=pattern,
+        )
+
+    def parse_variadic_function_parameter(self) -> VariadicFunctionParameterNode | None:
+        start_position = self._position
+        if not (
+            self._peek().type == TokenType.ELLIPSIS
+            and self._peek(1).type == TokenType.SYMBOL
+        ):
+            return None
+
+        self._read()  # consume ELLIPSIS
+        assert (name := self.parse_symbol())
+        return VariadicFunctionParameterNode(
+            position=start_position,
+            name=name,
+        )
+
+    def parse_function_parameter_name(self) -> FunctionParameterNameNode | None:
+        start_position = self._position
+        if not self._peek().type == TokenType.SYMBOL:
+            return None
+
+        assert (name := self.parse_symbol())
+        return FunctionParameterNameNode(
+            position=start_position,
+            name=name,
         )
 
     def parse_module_body_declaration(self) -> ModuleBodyDeclarationNode | None:
@@ -974,14 +1024,6 @@ class Parser(Unit):
         return SymbolNode(
             position=token.position,
             name=token,
-        )
-
-    def parse_placeholder_type(self) -> PlaceholderTypeNode | None:
-        start_position = self._position
-        if not self.parse_token(TokenType.TILDE):
-            return None
-        return PlaceholderTypeNode(
-            position=start_position,
         )
 
     def parse_parenthesized_type_expression(

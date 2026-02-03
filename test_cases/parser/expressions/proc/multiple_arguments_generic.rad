@@ -18,16 +18,15 @@ Module(
                     value=ProcedureExpression(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionParameterTypeAnnotation(
                                 position=(1, 14, 0),
-                                param=SymbolPattern(
+                                name=FunctionParameterName(
                                     position=(1, 14, 0),
-                                    symbol=Symbol(
+                                    name=Symbol(
                                         position=(1, 14, 0),
                                         name="b"
                                     )
                                 ),
-                                variadic=false,
                                 type_annotation=TypeName(
                                     position=(1, 18, 0),
                                     name=Symbol(
@@ -36,16 +35,15 @@ Module(
                                     )
                                 )
                             ),
-                            FunctionParameter(
+                            FunctionParameterTypeAnnotation(
                                 position=(1, 21, 0),
-                                param=SymbolPattern(
+                                name=FunctionParameterName(
                                     position=(1, 21, 0),
-                                    symbol=Symbol(
+                                    name=Symbol(
                                         position=(1, 21, 0),
                                         name="f"
                                     )
                                 ),
-                                variadic=false,
                                 type_annotation=FunctionType(
                                     position=(1, 25, 0),
                                     parameters=[

@@ -13,16 +13,15 @@ Module(
                     name="f"
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterPattern(
                         position=(1, 7, 0),
-                        param=NullLiteralPattern(
+                        pattern=NullLiteralPattern(
                             position=(1, 7, 0),
                             null=NullLiteral(
                                 position=(1, 7, 0),
                                 contents="null"
                             )
-                        ),
-                        variadic=false
+                        )
                     )
                 ],
                 body=NullLiteral(

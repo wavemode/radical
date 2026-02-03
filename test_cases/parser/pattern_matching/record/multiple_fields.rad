@@ -13,9 +13,9 @@ Module(
                     name="f"
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterPattern(
                         position=(1, 7, 0),
-                        param=RecordPattern(
+                        pattern=RecordPattern(
                             position=(1, 7, 0),
                             fields=[
                                 KeyValueFieldPattern(
@@ -57,8 +57,7 @@ Module(
                                     )
                                 )
                             ]
-                        ),
-                        variadic=false
+                        )
                     )
                 ],
                 body=Symbol(
