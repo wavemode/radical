@@ -509,7 +509,7 @@ class PatternAliasNode(Node):
 
 @dataclass(frozen=True)
 class TypeMatchPatternNode(Node):
-    symbol: SymbolPatternNode
+    pattern: "PatternNodeType"
     type_expression: "TypeExpressionNodeType"
 
 

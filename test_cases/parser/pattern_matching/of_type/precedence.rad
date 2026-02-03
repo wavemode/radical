@@ -29,7 +29,7 @@ Module(
                                     position=(2, 5, 4),
                                     pattern=TypeMatchPattern(
                                         position=(2, 5, 4),
-                                        symbol=SymbolPattern(
+                                        pattern=SymbolPattern(
                                             position=(2, 5, 4),
                                             symbol=Symbol(
                                                 position=(2, 5, 4),

@@ -1252,15 +1252,9 @@ class Parser(Unit):
             elif self.parse_token(TokenType.OF):
                 self.require_token(TokenType.TYPE)
                 type_expr = self.parse_type_expression()
-                if not isinstance(lhs, SymbolPatternNode):
-                    self._raise_parse_error(
-                        message="Left-hand side for 'of type' pattern must be a symbol",
-                        position=lhs.position,
-                    )
-                    raise RuntimeError("unreachable")  # appease typechecker
                 lhs = TypeMatchPatternNode(
                     position=lhs.position,
-                    symbol=lhs,
+                    pattern=lhs,
                     type_expression=type_expr,
                 )
             else:
