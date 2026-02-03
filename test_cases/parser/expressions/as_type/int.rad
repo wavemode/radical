@@ -1,5 +1,5 @@
-x = 4 + 5 as Int
-y = (4 + 5) as Int
+x = 4 + 5 :: Int
+y = (4 + 5) :: Int
 
 
 (*

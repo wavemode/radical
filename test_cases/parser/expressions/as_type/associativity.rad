@@ -1,4 +1,4 @@
-x = 4 as Float as Int as Float
+x = 4 :: Float :: Int :: Float
 
 (*
 Module(

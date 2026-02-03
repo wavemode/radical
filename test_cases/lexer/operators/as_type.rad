@@ -1,0 +1,8 @@
+5 :: Int
+
+(*
+Token(type=INTEGER_LITERAL, value="5", position=(1, 1, 0))
+Token(type=AS_TYPE, value="::", position=(1, 3, 0))
+Token(type=SYMBOL, value="Int", position=(1, 6, 0))
+Token(type=EOF, value="", position=(9, 1, 0))
+*)

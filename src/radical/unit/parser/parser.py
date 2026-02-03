@@ -1698,7 +1698,7 @@ class Parser(Unit):
         )
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_descend_expr_as()
+        lhs = self.parse_descend_expr_as_type()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -1709,9 +1709,9 @@ class Parser(Unit):
             )
         return lhs
 
-    def parse_descend_expr_as(self) -> ValueExpressionNodeType:
+    def parse_descend_expr_as_type(self) -> ValueExpressionNodeType:
         lhs = self.parse_descend_expr_postfix()
-        while self.parse_token(TokenType.AS):
+        while self.parse_token(TokenType.AS_TYPE):
             type_expression = self.parse_type_expression()
             lhs = TypeCastExpressionNode(
                 position=lhs.position,

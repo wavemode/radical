@@ -32,6 +32,7 @@ class TokenType(Enum):
 
     TILDE = "~"
     COMMA = ","
+    AS_TYPE = "::"
     COLON = ":"
     PIPE = "|>"
     VARIANT = "|"

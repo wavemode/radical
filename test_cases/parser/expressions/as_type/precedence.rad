@@ -1,4 +1,4 @@
-x = f@[Int](5) as List[Int]
+x = f@[Int](5) :: List[Int]
 
 (*
 Module(
