@@ -109,8 +109,15 @@ class SpreadTypeExpressionNode(Node):
 
 
 @dataclass(frozen=True)
+class RecordTypeFieldNode(Node):
+    name: "SymbolNode"
+    optional: bool
+    type_annotation: "TypeExpressionNodeType"
+
+
+@dataclass(frozen=True)
 class RecordTypeNode(Node):
-    fields: list["TypeAnnotationNode | SpreadTypeExpressionNode"]
+    fields: list["RecordTypeFieldNode | SpreadTypeExpressionNode"]
 
 
 @dataclass(frozen=True)
@@ -724,7 +731,7 @@ RecordLiteralEntryNodeType = (
 AssignmentBindingNodeType = (
     AssignmentNode | NamingAssignmentNode | DestructuringAssignmentNode
 )
-RecordTypeEntryNodeType = TypeAnnotationNode | SpreadTypeExpressionNode
+RecordTypeEntryNodeType = RecordTypeFieldNode | SpreadTypeExpressionNode
 ListLiteralElementNodeType = ValueExpressionNodeType | SpreadAssignmentNode
 TopLevelDeclarationNodeType = (
     LetExpressionDeclarationNodeType | ModuleNameNode | LocalDeclarationNode

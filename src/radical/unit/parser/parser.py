@@ -75,6 +75,7 @@ from radical.data.parser.ast import (
     ProcedureTypeNode,
     RecordPatternNode,
     RecordTypeEntryNodeType,
+    RecordTypeFieldNode,
     RecordTypeNode,
     RegexLiteralNode,
     RegexLiteralPatternNode,
@@ -1090,16 +1091,35 @@ class Parser(Unit):
         )
 
     def parse_record_type_entry(self) -> RecordTypeEntryNodeType:
-        entry: TypeAnnotationNode | SpreadTypeExpressionNode
+        entry: RecordTypeEntryNodeType
         if spread_type := self.parse_spread_type_expression():
             entry = spread_type
-        elif type_annotation := self.parse_type_annotation():
-            entry = type_annotation
+        elif field := self.parse_record_type_field():
+            entry = field
         else:
             self._raise_parse_error(
                 message=f"Expected record type entry. Unexpected token {self._peek().pretty()}"
             )
         return entry
+
+    def parse_record_type_field(self) -> RecordTypeFieldNode | None:
+        start_position = self._position
+        if not (name := self.parse_symbol()):
+            return None
+
+        optional = False
+        if self.parse_token(TokenType.QUESTION):
+            optional = True
+
+        self.require_token(TokenType.COLON)
+        type_annotation = self.parse_type_expression()
+
+        return RecordTypeFieldNode(
+            position=start_position,
+            name=name,
+            optional=optional,
+            type_annotation=type_annotation,
+        )
 
     def parse_function_type(
         self,

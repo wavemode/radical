@@ -18,13 +18,14 @@ Module(
                 type_expression=RecordType(
                     position=(1, 5, 0),
                     fields=[
-                        TypeAnnotation(
+                        RecordTypeField(
                             position=(2, 5, 4),
                             name=Symbol(
                                 position=(2, 5, 4),
                                 name="b"
                             ),
-                            type_expression=TypeName(
+                            optional=false,
+                            type_annotation=TypeName(
                                 position=(2, 9, 4),
                                 name=Symbol(
                                     position=(2, 9, 4),
@@ -32,13 +33,14 @@ Module(
                                 )
                             )
                         ),
-                        TypeAnnotation(
+                        RecordTypeField(
                             position=(3, 6, 3),
                             name=Symbol(
                                 position=(3, 6, 3),
                                 name="c"
                             ),
-                            type_expression=TypeName(
+                            optional=false,
+                            type_annotation=TypeName(
                                 position=(3, 8, 3),
                                 name=Symbol(
                                     position=(3, 8, 3),

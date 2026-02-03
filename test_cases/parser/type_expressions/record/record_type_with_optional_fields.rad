@@ -1,7 +1,6 @@
 a : {
-    b : Int ,
-    c : String
-    ...OtherType
+    b? : Int
+    c ?: String
 }
 
 (*
@@ -25,11 +24,11 @@ Module(
                                 position=(2, 5, 4),
                                 name="b"
                             ),
-                            optional=false,
+                            optional=true,
                             type_annotation=TypeName(
-                                position=(2, 9, 4),
+                                position=(2, 10, 4),
                                 name=Symbol(
-                                    position=(2, 9, 4),
+                                    position=(2, 10, 4),
                                     name="Int"
                                 )
                             )
@@ -40,22 +39,12 @@ Module(
                                 position=(3, 5, 4),
                                 name="c"
                             ),
-                            optional=false,
+                            optional=true,
                             type_annotation=TypeName(
-                                position=(3, 9, 4),
+                                position=(3, 10, 4),
                                 name=Symbol(
-                                    position=(3, 9, 4),
+                                    position=(3, 10, 4),
                                     name="String"
-                                )
-                            )
-                        ),
-                        SpreadTypeExpression(
-                            position=(4, 5, 4),
-                            expression=TypeName(
-                                position=(4, 8, 4),
-                                name=Symbol(
-                                    position=(4, 8, 4),
-                                    name="OtherType"
                                 )
                             )
                         )
