@@ -74,8 +74,7 @@ class Lexer(Unit):
             self._add_token(TokenType.QUESTION, char)
             self._advance_non_whitespace()
         elif char == "." and self._previous_char_was_expression():
-            self._add_token(TokenType.DOT, char)
-            self._advance_non_whitespace()
+            self._read_field_access()
         elif char == "*" and next_char == "*":
             self._add_token(TokenType.EXPONENTIATION, "**")
             self._advance_non_whitespace(2)
@@ -655,7 +654,37 @@ class Lexer(Unit):
         else:
             self._add_token(TokenType.SYMBOL, word, start_position)
 
+    def _read_field_access(self) -> None:
+        self._add_token(TokenType.DOT, ".")
+        self._advance_non_whitespace()  # Skip dot
+        start_position = self._position()
+        start_index = self._index
+
+        field_name: str
+        if self._peek_char() == "`":
+            field_name = self._get_quoted_symbol()
+        else:
+            if self._peek_char().isdigit():
+                while self._peek_char().isdigit():
+                    self._advance_non_whitespace()
+            elif self._peek_char().isalpha() or self._peek_char() == "_":
+                while (
+                    self._peek_char().isalnum()
+                    or self._peek_char() == "_"
+                    or self._peek_char() == "'"
+                ):
+                    self._advance_non_whitespace()
+            else:
+                self._raise_parse_error("Expected field name after '.'", start_position)
+            field_name = self._contents[start_index : self._index]
+        self._add_token(TokenType.SYMBOL, field_name, start_position)
+
     def _read_quoted_symbol(self) -> None:
+        start_position = self._position()
+        symbol = self._get_quoted_symbol()
+        self._add_token(TokenType.SYMBOL, symbol, start_position)
+
+    def _get_quoted_symbol(self) -> str:
         start_position = self._position()
         self._advance_non_whitespace()  # Skip opening backtick
         start_index = self._index
@@ -665,7 +694,7 @@ class Lexer(Unit):
             self._advance_non_whitespace()
         symbol = self._contents[start_index : self._index]
         self._advance_non_whitespace()  # Skip closing backtick
-        self._add_token(TokenType.SYMBOL, symbol, start_position)
+        return symbol
 
     def _read_multiline_comment(self) -> None:
         self._advance_whitespace(2)  # Skip '(*'

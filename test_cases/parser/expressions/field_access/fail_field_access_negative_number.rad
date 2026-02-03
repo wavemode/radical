@@ -1,5 +1,5 @@
 a = b.-9
 
 (*
-FAIL("Expected field name after '.' in field access expression. Unexpected token MINUS('-') at test_cases/parser/expressions/field_access/fail_field_access_negative_number.rad:1:7")
+FAIL("Expected field name after '.' at test_cases/parser/expressions/field_access/fail_field_access_negative_number.rad:1:7")
 *)

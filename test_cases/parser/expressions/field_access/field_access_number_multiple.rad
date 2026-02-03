@@ -1,0 +1,40 @@
+a = b.3.5
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            AssignmentStatement(
+                position=(1, 1, 0),
+                assignment=Assignment(
+                    position=(1, 1, 0),
+                    target=Symbol(
+                        position=(1, 1, 0),
+                        name="a"
+                    ),
+                    value=FieldAccessExpression(
+                        position=(1, 5, 0),
+                        object_expression=FieldAccessExpression(
+                            position=(1, 5, 0),
+                            object_expression=Symbol(
+                                position=(1, 5, 0),
+                                name="b"
+                            ),
+                            field=Symbol(
+                                position=(1, 7, 0),
+                                name="3"
+                            )
+                        ),
+                        field=Symbol(
+                            position=(1, 9, 0),
+                            name="5"
+                        )
+                    )
+                )
+            )
+        ]
+    )
+)
+*)

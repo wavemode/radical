@@ -1709,11 +1709,6 @@ class Parser(Unit):
                         position=property_token.position,
                         name=property_token,
                     )
-                elif property_token := self.parse_token(TokenType.INTEGER_LITERAL):
-                    field_name = SymbolNode(
-                        position=property_token.position,
-                        name=property_token,
-                    )
                 else:
                     self._raise_parse_error(
                         message=f"Expected field name after '.' in field access expression. Unexpected token {self._peek().pretty()}",
@@ -2097,7 +2092,7 @@ class Parser(Unit):
         )
 
     def parse_symbol(self) -> SymbolNode | None:
-        if not (token := self.parse_token(TokenType.SYMBOL)):
+        if not (token := self.parse_any_token([TokenType.SYMBOL, TokenType.SYMBOL])):
             return None
         return SymbolNode(
             position=token.position,
