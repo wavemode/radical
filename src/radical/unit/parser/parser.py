@@ -1645,7 +1645,7 @@ class Parser(Unit):
         )
 
     def parse_descend_expr_pow(self) -> ValueExpressionNodeType:
-        lhs = self.parse_descend_expr_module()
+        lhs = self.parse_descend_expr_postfix()
         while self.parse_token(TokenType.EXPONENTIATION):
             rhs = self.parse_descend_expr_pow()
             lhs = BinaryOperationNode(
@@ -1655,20 +1655,6 @@ class Parser(Unit):
                 right=rhs,
             )
         return lhs
-
-    def parse_descend_expr_module(self) -> ValueExpressionNodeType:
-        start_position = self._position
-        if not (
-            self._peek().type == TokenType.MODULE and self._peek(1).type != TokenType.OF
-        ):
-            return self.parse_descend_expr_postfix()
-        self._read()  # consume MODULE
-        expression = self.parse_descend_expr_module()
-        return UnaryOperationNode(
-            position=start_position,
-            operator=Operator.MODULE,
-            operand=expression,
-        )
 
     def parse_descend_expr_postfix(self) -> ValueExpressionNodeType:
         lhs = self.parse_atom()

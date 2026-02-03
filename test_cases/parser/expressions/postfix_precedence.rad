@@ -1,5 +1,5 @@
--- parsed as (module (((m.field)[4])@[Int]))
-a = module m.field[4]@[Int]
+-- parsed as ((m.field)[4])@[Int]
+a = m.field[4]@[Int]
 
 (*
 Module(
@@ -15,39 +15,35 @@ Module(
                         position=(2, 1, 0),
                         name="a"
                     ),
-                    value=UnaryOperation(
+                    value=TypeApplicationExpression(
                         position=(2, 5, 0),
-                        operator="module",
-                        operand=TypeApplicationExpression(
-                            position=(2, 12, 0),
-                            value_expression=IndexingExpression(
-                                position=(2, 12, 0),
-                                object_expression=FieldAccessExpression(
-                                    position=(2, 12, 0),
-                                    object_expression=Symbol(
-                                        position=(2, 12, 0),
-                                        name="m"
-                                    ),
-                                    field=Symbol(
-                                        position=(2, 14, 0),
-                                        name="field"
-                                    )
+                        value_expression=IndexingExpression(
+                            position=(2, 5, 0),
+                            object_expression=FieldAccessExpression(
+                                position=(2, 5, 0),
+                                object_expression=Symbol(
+                                    position=(2, 5, 0),
+                                    name="m"
                                 ),
-                                index_expression=NumberLiteral(
-                                    position=(2, 20, 0),
-                                    contents="4"
+                                field=Symbol(
+                                    position=(2, 7, 0),
+                                    name="field"
                                 )
                             ),
-                            type_arguments=[
-                                TypeName(
-                                    position=(2, 24, 0),
-                                    name=Symbol(
-                                        position=(2, 24, 0),
-                                        name="Int"
-                                    )
+                            index_expression=NumberLiteral(
+                                position=(2, 13, 0),
+                                contents="4"
+                            )
+                        ),
+                        type_arguments=[
+                            TypeName(
+                                position=(2, 17, 0),
+                                name=Symbol(
+                                    position=(2, 17, 0),
+                                    name="Int"
                                 )
-                            ]
-                        )
+                            )
+                        ]
                     )
                 )
             )
