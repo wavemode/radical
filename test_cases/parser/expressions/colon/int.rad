@@ -1,5 +1,5 @@
-x = 4 + 5 :: Int
-y = (4 + 5) :: Int
+x = 4 + 5 : Int
+y = (4 + 5) : Int
 
 
 (*
@@ -30,9 +30,9 @@ Module(
                                 contents="5"
                             ),
                             type_expression=TypeName(
-                                position=(1, 14, 0),
+                                position=(1, 13, 0),
                                 name=Symbol(
-                                    position=(1, 14, 0),
+                                    position=(1, 13, 0),
                                     name="Int"
                                 )
                             )
@@ -68,9 +68,9 @@ Module(
                             ]
                         ),
                         type_expression=TypeName(
-                            position=(2, 16, 0),
+                            position=(2, 15, 0),
                             name=Symbol(
-                                position=(2, 16, 0),
+                                position=(2, 15, 0),
                                 name="Int"
                             )
                         )

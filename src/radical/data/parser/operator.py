@@ -8,7 +8,7 @@ class Operator(Enum):
     Exponentiation is the only binary operator which is right-associative.
     """
 
-    AS_TYPE = "::"
+    COLON = ":"
 
     EXPONENTIATION = "**"
 

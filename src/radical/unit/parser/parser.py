@@ -1711,7 +1711,7 @@ class Parser(Unit):
 
     def parse_descend_expr_as_type(self) -> ValueExpressionNodeType:
         lhs = self.parse_descend_expr_postfix()
-        while self.parse_token(TokenType.AS_TYPE):
+        while self.parse_token(TokenType.COLON):
             type_expression = self.parse_type_expression()
             lhs = TypeCastExpressionNode(
                 position=lhs.position,

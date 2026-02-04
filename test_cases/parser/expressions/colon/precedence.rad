@@ -1,4 +1,4 @@
-x = f@[Int](5) :: List[Int]
+x = f@[Int](5) : List[Int]
 
 (*
 Module(
@@ -42,21 +42,21 @@ Module(
                             ]
                         ),
                         type_expression=GenericTypeApplication(
-                            position=(1, 19, 0),
+                            position=(1, 18, 0),
                             generic_type=TypeName(
-                                position=(1, 19, 0),
+                                position=(1, 18, 0),
                                 name=Symbol(
-                                    position=(1, 19, 0),
+                                    position=(1, 18, 0),
                                     name="List"
                                 )
                             ),
                             arguments=[
                                 GenericTypeArgument(
-                                    position=(1, 24, 0),
+                                    position=(1, 23, 0),
                                     argument=TypeName(
-                                        position=(1, 24, 0),
+                                        position=(1, 23, 0),
                                         name=Symbol(
-                                            position=(1, 24, 0),
+                                            position=(1, 23, 0),
                                             name="Int"
                                         )
                                     )

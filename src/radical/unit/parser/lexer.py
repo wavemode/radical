@@ -54,9 +54,6 @@ class Lexer(Unit):
         elif char == ",":
             self._add_token(TokenType.COMMA, char)
             self._advance_non_whitespace()
-        elif char == ":" and next_char == ":":
-            self._add_token(TokenType.AS_TYPE, "::")
-            self._advance_non_whitespace(2)
         elif char == ":":
             self._add_token(TokenType.COLON, char)
             self._advance_non_whitespace()

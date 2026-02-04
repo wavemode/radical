@@ -1,4 +1,4 @@
-x = 4 :: Float :: Int :: Float
+x = 4 : Float : Int : Float
 
 (*
 Module(
@@ -25,25 +25,25 @@ Module(
                                     contents="4"
                                 ),
                                 type_expression=TypeName(
-                                    position=(1, 10, 0),
+                                    position=(1, 9, 0),
                                     name=Symbol(
-                                        position=(1, 10, 0),
+                                        position=(1, 9, 0),
                                         name="Float"
                                     )
                                 )
                             ),
                             type_expression=TypeName(
-                                position=(1, 19, 0),
+                                position=(1, 17, 0),
                                 name=Symbol(
-                                    position=(1, 19, 0),
+                                    position=(1, 17, 0),
                                     name="Int"
                                 )
                             )
                         ),
                         type_expression=TypeName(
-                            position=(1, 26, 0),
+                            position=(1, 23, 0),
                             name=Symbol(
-                                position=(1, 26, 0),
+                                position=(1, 23, 0),
                                 name="Float"
                             )
                         )
