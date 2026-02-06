@@ -211,7 +211,7 @@ class UnaryOperationNode(Node):
 
 
 @dataclass(frozen=True)
-class TypeCastExpressionNode(Node):
+class TypeAnnotationExpressionNode(Node):
     value_expression: "ValueExpressionNodeType"
     type_expression: "TypeExpressionNodeType"
 
@@ -566,7 +566,7 @@ ValueExpressionNodeType = (
     AtomNodeType
     | BinaryOperationNode
     | UnaryOperationNode
-    | TypeCastExpressionNode
+    | TypeAnnotationExpressionNode
     | TypeApplicationExpressionNode
     | FieldAccessExpressionNode
     | IndexingExpressionNode

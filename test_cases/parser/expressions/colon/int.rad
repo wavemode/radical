@@ -23,7 +23,7 @@ Module(
                             contents="4"
                         ),
                         operator="+",
-                        right=TypeCastExpression(
+                        right=TypeAnnotationExpression(
                             position=(1, 9, 0),
                             value_expression=NumberLiteral(
                                 position=(1, 9, 0),
@@ -48,7 +48,7 @@ Module(
                         position=(2, 1, 0),
                         name="y"
                     ),
-                    value=TypeCastExpression(
+                    value=TypeAnnotationExpression(
                         position=(2, 5, 0),
                         value_expression=ParenthesizedExpression(
                             position=(2, 5, 0),

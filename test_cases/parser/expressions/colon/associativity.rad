@@ -14,11 +14,11 @@ Module(
                         position=(1, 1, 0),
                         name="x"
                     ),
-                    value=TypeCastExpression(
+                    value=TypeAnnotationExpression(
                         position=(1, 5, 0),
-                        value_expression=TypeCastExpression(
+                        value_expression=TypeAnnotationExpression(
                             position=(1, 5, 0),
-                            value_expression=TypeCastExpression(
+                            value_expression=TypeAnnotationExpression(
                                 position=(1, 5, 0),
                                 value_expression=NumberLiteral(
                                     position=(1, 5, 0),

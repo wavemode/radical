@@ -91,7 +91,7 @@ from radical.data.parser.ast import (
     TopLevelDeclarationNodeType,
     TypeAnnotationNode,
     TypeApplicationExpressionNode,
-    TypeCastExpressionNode,
+    TypeAnnotationExpressionNode,
     TypeDeclarationNode,
     TypeMatchPatternNode,
     TypeOfTypeExpressionNode,
@@ -1713,7 +1713,7 @@ class Parser(Unit):
         lhs = self.parse_descend_expr_postfix()
         while self.parse_token(TokenType.COLON):
             type_expression = self.parse_type_expression()
-            lhs = TypeCastExpressionNode(
+            lhs = TypeAnnotationExpressionNode(
                 position=lhs.position,
                 value_expression=lhs,
                 type_expression=type_expression,
