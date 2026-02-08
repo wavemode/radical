@@ -1,0 +1,6 @@
+z = module of
+    x = 5 y = 10
+
+(*
+FAIL("Block statements must be separated by semicolons or newlines at test_cases/parser/module/fail_module_of_multiple_definitions_on_same_line.rad:2:11")
+*)

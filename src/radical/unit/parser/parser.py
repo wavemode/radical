@@ -2188,7 +2188,7 @@ class Parser(Unit):
                     break
             elif isinstance(item, Node) and self._position.line == item.position.line:
                 self._raise_parse_error(
-                    message="Block items must be separated by semicolons or newlines",
+                    message="Block statements must be separated by semicolons or newlines",
                 )
 
         if not items and not ended_with_semicolon and start_position is not None:
