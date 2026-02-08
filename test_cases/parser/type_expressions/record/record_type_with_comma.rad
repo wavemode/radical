@@ -23,6 +23,7 @@ Module(
                                 name="b"
                             ),
                             optional=false,
+                            wildcard=false,
                             type_annotation=TypeName(
                                 position=(1, 11, 0),
                                 name=Symbol(
@@ -38,6 +39,7 @@ Module(
                                 name="c"
                             ),
                             optional=false,
+                            wildcard=false,
                             type_annotation=TypeName(
                                 position=(1, 19, 0),
                                 name=Symbol(

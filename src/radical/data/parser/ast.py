@@ -47,6 +47,7 @@ class SpreadTypeExpressionNode(Node):
 class RecordTypeFieldNode(Node):
     name: "SymbolNode"
     optional: bool
+    wildcard: bool
     type_annotation: "TypeExpressionNodeType"
 
 

@@ -1105,17 +1105,31 @@ class Parser(Unit):
         if not (name := self.parse_symbol()):
             return None
 
+        wildcard = False
+        if self.parse_token(TokenType.MULTIPLY):
+            wildcard = True
+
         optional = False
         if self.parse_token(TokenType.QUESTION):
             optional = True
 
+            if self.parse_token(TokenType.MULTIPLY):
+                wildcard = True
+
         self.require_token(TokenType.COLON)
         type_annotation = self.parse_type_expression()
+
+        if wildcard and optional:
+            self._raise_parse_error(
+                message="Record type field cannot be both wildcard and optional",
+                position=start_position,
+            )
 
         return RecordTypeFieldNode(
             position=start_position,
             name=name,
             optional=optional,
+            wildcard=wildcard,
             type_annotation=type_annotation,
         )
 

@@ -1,7 +1,7 @@
 a : {
-    b : Int
-   , c:String }
-
+    b* : Int
+    c *: String
+}
 
 (*
 Module(
@@ -25,27 +25,27 @@ Module(
                                 name="b"
                             ),
                             optional=false,
-                            wildcard=false,
+                            wildcard=true,
                             type_annotation=TypeName(
-                                position=(2, 9, 4),
+                                position=(2, 10, 4),
                                 name=Symbol(
-                                    position=(2, 9, 4),
+                                    position=(2, 10, 4),
                                     name="Int"
                                 )
                             )
                         ),
                         RecordTypeField(
-                            position=(3, 6, 3),
+                            position=(3, 5, 4),
                             name=Symbol(
-                                position=(3, 6, 3),
+                                position=(3, 5, 4),
                                 name="c"
                             ),
                             optional=false,
-                            wildcard=false,
+                            wildcard=true,
                             type_annotation=TypeName(
-                                position=(3, 8, 3),
+                                position=(3, 10, 4),
                                 name=Symbol(
-                                    position=(3, 8, 3),
+                                    position=(3, 10, 4),
                                     name="String"
                                 )
                             )

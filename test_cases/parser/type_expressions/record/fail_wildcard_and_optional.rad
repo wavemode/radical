@@ -1,0 +1,7 @@
+a : {
+    b*? : Int
+}
+
+(*
+FAIL("Record type field cannot be both wildcard and optional at test_cases/parser/type_expressions/record/fail_wildcard_and_optional.rad:2:5")
+*)

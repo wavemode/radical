@@ -27,6 +27,7 @@ Module(
                                 name="a"
                             ),
                             optional=false,
+                            wildcard=false,
                             type_annotation=TypeName(
                                 position=(1, 18, 0),
                                 name=Symbol(
