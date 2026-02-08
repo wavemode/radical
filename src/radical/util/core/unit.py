@@ -9,10 +9,6 @@ class Unit(ABC):
         return self
 
     def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None:
-        if not hasattr(self, "_children"):
-            self._children = []
-        for child in reversed(self._children):
-            child.close()
         self.close()
 
     def add_child[T: "Unit"](self, child: T) -> T:
@@ -22,4 +18,10 @@ class Unit(ABC):
         return child
 
     def close(self) -> None:
+        if hasattr(self, "_children"):
+            for child in reversed(self._children):
+                child.close()
+        self.destroy()
+
+    def destroy(self) -> None:
         pass
