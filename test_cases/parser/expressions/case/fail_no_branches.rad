@@ -1,5 +1,5 @@
 x = case y of
 
 (*
-FAIL("Case expression must have at least one branch at test_cases/parser/expressions/case/fail_no_branches.rad:1:5")
+FAIL("Blocks must have at least one item, or be terminated with a semicolon ';' at test_cases/parser/expressions/case/fail_no_branches.rad:1:12")
 *)

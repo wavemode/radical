@@ -1,0 +1,5 @@
+proc a(b : Int, c : List[Int] ) -> Int of;
+
+(*
+FAIL("Procedure body must have at least one statement at test_cases/parser/statements/proc/fail_body_is_empty_semicolon.rad:1:1")
+*)

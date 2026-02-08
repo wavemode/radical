@@ -251,12 +251,6 @@ class Parser(Unit):
         of_position = self._read().position  # consume OF
 
         body = self.parse_module_body(of_position)
-        for decl in body.declarations:
-            if isinstance(decl, ModuleNameNode):
-                self._raise_parse_error(
-                    message="Module name declaration is not allowed in module expression",
-                    position=decl.position,
-                )
         return ModuleExpressionNode(
             position=start_position,
             body=body,
@@ -297,7 +291,15 @@ class Parser(Unit):
             position=(
                 start_position
                 if start_position is not None
-                else (declarations[0].position if declarations else self._position)
+                else (
+                    declarations[0].position
+                    if declarations
+                    else Position(
+                        line=1,
+                        column=1,
+                        indent_level=0,
+                    )
+                )
             ),
             name=name,
             declarations=declarations,
@@ -2140,7 +2142,12 @@ class Parser(Unit):
                 and self._position.line != start_position.line
             )
 
+        ended_with_semicolon = False
         while not end_of_block():
+            if self.parse_multiple_tokens(TokenType.SEMICOLON):
+                if end_of_block():
+                    ended_with_semicolon = True
+                    break
             if start_position is None and self._position.indent_level != 0:
                 self._raise_parse_error(message="Top-level items must not be indented")
             elif (
@@ -2161,14 +2168,20 @@ class Parser(Unit):
             if end_of_block():
                 break
 
-            if self.parse_token(TokenType.SEMICOLON):
+            if self.parse_multiple_tokens(TokenType.SEMICOLON):
                 if end_of_block():
+                    ended_with_semicolon = True
                     break
             elif isinstance(item, Node) and self._position.line == item.position.line:
                 self._raise_parse_error(
                     message="Block items must be separated by semicolons or newlines",
                 )
 
+        if not items and not ended_with_semicolon and start_position is not None:
+            self._raise_parse_error(
+                message="Blocks must have at least one item, or be terminated with a semicolon ';'",
+                position=start_position,
+            )
         return items
 
     def parse_comma_or_newline_separated(
@@ -2226,6 +2239,12 @@ class Parser(Unit):
         if token.type != expected_type:
             return None
         return self._read()
+
+    def parse_multiple_tokens(self, expected_type: TokenType) -> list[Token]:
+        tokens: list[Token] = []
+        while token := self.parse_token(expected_type):
+            tokens.append(token)
+        return tokens
 
     def require_any_token(self, expected_types: list[TokenType]) -> Token:
         token = self.parse_any_token(expected_types)

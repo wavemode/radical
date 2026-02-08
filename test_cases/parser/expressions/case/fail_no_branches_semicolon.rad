@@ -1,0 +1,5 @@
+x = case y of;
+
+(*
+FAIL("Case expression must have at least one branch at test_cases/parser/expressions/case/fail_no_branches_semicolon.rad:1:5")
+*)

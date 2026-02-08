@@ -1,0 +1,6 @@
+x = module of
+
+
+(*
+FAIL("Blocks must have at least one item, or be terminated with a semicolon ';' at test_cases/parser/module/fail_module_of_empty.rad:1:12")
+*)
