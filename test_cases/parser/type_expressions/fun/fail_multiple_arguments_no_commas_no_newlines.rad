@@ -3,5 +3,5 @@ a : fun( a: Int
 ) -> Float
 
 (*
-FAIL("Elements separated by newlines must have the same indent level at test_cases/parser/type_expressions/fun/fail_multiple_arguments_no_commas_no_newlines.rad:2:5")
+FAIL("Elements must be separated by a comma and/or newline at test_cases/parser/type_expressions/fun/fail_multiple_arguments_no_commas_no_newlines.rad:2:20")
 *)

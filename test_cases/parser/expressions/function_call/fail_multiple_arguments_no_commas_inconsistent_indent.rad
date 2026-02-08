@@ -1,9 +1,0 @@
-a = f(
-  10
-    20
-    30
-)
-
-(*
-FAIL("Elements separated by newlines must have the same indent level at test_cases/parser/expressions/function_call/fail_multiple_arguments_no_commas_inconsistent_indent.rad:3:5")
-*)
