@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from radical.data.core.data import Data
 from radical.data.sema.constref import ConstRef
+from radical.data.sema.type import Type
 from radical.data.sema.typeref import TypeRef
 
 
@@ -12,9 +13,20 @@ class AddIntExpr(Data):
 
 
 @dataclass(frozen=True)
-class ConstExpr(Data):
-    type: TypeRef
+class ConstRefExpr(Data):
+    type: Type
     ref: ConstRef
 
 
-ExpressionType = AddIntExpr | ConstExpr
+@dataclass(frozen=True)
+class TypeUnionExpr(Data):
+    left: "ExpressionType"
+    right: "ExpressionType"
+
+
+@dataclass(frozen=True)
+class TypeRefExpr(Data):
+    ref: TypeRef
+
+
+ExpressionType = AddIntExpr | ConstRefExpr | TypeUnionExpr | TypeRefExpr

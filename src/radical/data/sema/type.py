@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from enum import Enum
 
 from radical.data.core.data import Data
 
@@ -38,4 +39,37 @@ class NullType(Type):
     pass
 
 
-TypeType = UnknownType | IntType | FloatType | StringType | BoolType | NullType
+@dataclass(frozen=True)
+class TypeType(Type):
+    kind: "TypeKind"
+
+
+@dataclass(frozen=True)
+class UnionType(Type):
+    types: set[Type]
+
+
+class TypeKind(Data, Enum):
+    UNKNOWN = "Unknown"
+    INT = "Int"
+    FLOAT = "Float"
+    STRING = "String"
+    BOOL = "Bool"
+    NULL = "Null"
+    TYPE = "Type"
+    UNION = "Union"
+
+    def format(self, indent_level: int = 0) -> str:
+        return self.value
+
+
+TypeKinds = (
+    UnknownType
+    | IntType
+    | FloatType
+    | StringType
+    | BoolType
+    | NullType
+    | TypeType
+    | UnionType
+)

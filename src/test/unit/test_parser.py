@@ -1,17 +1,10 @@
 from unittest import TestCase
 
-import os
 
 from radical.unit.parser.lexer import Lexer
 from radical.unit.parser.parser import Parser
 from radical.util.testutils import collect_test_cases
 import json
-
-if os.environ.get("RAD_DEBUG"):
-    import debugpy
-
-    debugpy.listen(5678)
-    debugpy.wait_for_client()
 
 
 class TestParser(TestCase):

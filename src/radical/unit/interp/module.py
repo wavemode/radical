@@ -1,6 +1,6 @@
 from radical.data.interp.value import Value
 from radical.data.sema.constref import ConstRef
-from radical.data.sema.type import TypeType
+from radical.data.sema.type import TypeKinds
 from radical.data.sema.typeref import TypeRef
 from radical.util.core.unit import Unit
 
@@ -12,7 +12,7 @@ class Module(Unit):
     _symbol_map: dict[str, int]
     _imports: list[str]
     _constants: list[Value]
-    _types: list[TypeType]
+    _types: list[TypeKinds]
     _bindings: dict[int, ConstRef]
     _type_bindings: dict[int, TypeRef]
 
@@ -62,10 +62,10 @@ class Module(Unit):
         self._constants.append(value)
         return id
 
-    def get_type(self, id: int) -> TypeType:
+    def get_type(self, id: int) -> TypeKinds:
         return self._types[id]
 
-    def add_type(self, type: TypeType) -> int:
+    def add_type(self, type: TypeKinds) -> int:
         id = len(self._types)
         self._types.append(type)
         return id
