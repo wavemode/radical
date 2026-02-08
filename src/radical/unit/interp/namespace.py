@@ -41,7 +41,7 @@ class Namespace(Unit):
     def mark_module_analyzed(self, module_id: int) -> None:
         self._modules[module_id].mark_analyzed()
 
-    def add_or_get_symbol(self, module_id: int, name: str) -> SymbolRef:
+    def intern_symbol(self, module_id: int, name: str) -> SymbolRef:
         module = self._get_module(module_id)
         symbol_id = module.add_or_get_symbol(name)
         return SymbolRef(module_id, symbol_id)

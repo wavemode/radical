@@ -16,7 +16,7 @@ def _add_builtin_type(
     namespace: Namespace, module_id: int, type_name: str, type: TypeKinds
 ) -> TypeRef:
     type_ref = namespace.intern_type(module_id, type)
-    symbol_id = namespace.add_or_get_symbol(module_id, type_name)
+    symbol_id = namespace.intern_symbol(module_id, type_name)
     namespace.bind_type(symbol_id, type_ref)
     return type_ref
 
