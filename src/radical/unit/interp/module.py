@@ -6,16 +6,19 @@ from radical.util.core.unit import Unit
 
 
 class Module(Unit):
+    _name: str
+    _analyzed: bool
     _symbols: list[str]
     _symbol_map: dict[str, int]
-    _imports: list[int]
-    _import_map: dict[int, int]
+    _imports: list[str]
     _constants: list[ValueType]
     _types: list[TypeType]
     _bindings: dict[int, ConstRef]
     _type_bindings: dict[int, TypeRef]
 
-    def __init__(self, id: int) -> None:
+    def __init__(self, name: str) -> None:
+        self._name = name
+        self._analyzed = False
         self._symbols = []
         self._symbol_map = {}
         self._imports = []
@@ -25,10 +28,19 @@ class Module(Unit):
         self._bindings = {}
         self._type_bindings = {}
 
+    def name(self) -> str:
+        return self._name
+
+    def is_analyzed(self) -> bool:
+        return self._analyzed
+
+    def mark_analyzed(self) -> None:
+        self._analyzed = True
+
     def get_symbol(self, id: int) -> str:
         return self._symbols[id]
 
-    def add_symbol(self, name: str) -> int:
+    def add_or_get_symbol(self, name: str) -> int:
         if name in self._symbol_map:
             return self._symbol_map[name]
         else:
@@ -37,14 +49,10 @@ class Module(Unit):
             self._symbol_map[name] = id
             return id
 
-    def add_import(self, symbol: int) -> int:
-        if symbol in self._import_map:
-            return self._import_map[symbol]
-        else:
-            import_id = len(self._imports)
-            self._imports.append(symbol)
-            self._import_map[symbol] = import_id
-            return import_id
+    def add_import(self, name: str) -> int:
+        id = len(self._imports)
+        self._imports.append(name)
+        return id
 
     def get_constant(self, id: int) -> ValueType:
         return self._constants[id]
