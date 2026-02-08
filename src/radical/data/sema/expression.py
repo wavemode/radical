@@ -44,4 +44,6 @@ class TypeRefExpr(Expression):
     ref: TypeRef
 
 
-ExpressionType = AddIntExpr | ConstRefExpr | TypeUnionExpr | TypeRefExpr
+ValueExpressionType = IntLiteralExpr | FloatLiteralExpr | ConstRefExpr | AddIntExpr
+TypeExpressionType = TypeRefExpr | TypeUnionExpr
+ExpressionType = ValueExpressionType | TypeExpressionType

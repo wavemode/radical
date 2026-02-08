@@ -4,6 +4,8 @@ from radical.data.sema.expression import (
     AddIntExpr,
     ConstRefExpr,
     ExpressionType,
+    FloatLiteralExpr,
+    IntLiteralExpr,
     TypeRefExpr,
     TypeUnionExpr,
 )
@@ -31,6 +33,10 @@ class Interpreter(Unit):
                 return Value(left_val.value + right_val.value)
             case ConstRefExpr(_type, ref):
                 return self._namespace.get_constant(ref)
+            case IntLiteralExpr(value):
+                return Value(value)
+            case FloatLiteralExpr(value):
+                return Value(value)
             case TypeRefExpr(ref):
                 return Value(self._namespace.get_type(ref))
             case TypeUnionExpr(left, right):
