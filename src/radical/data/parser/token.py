@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from radical.data.data import Data
+from radical.data.core.data import Data
 from radical.data.parser.position import Position
 import json
 

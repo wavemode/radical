@@ -1,4 +1,4 @@
-from radical.data.interp.value import ValueType
+from radical.data.interp.value import Value
 from radical.data.sema.constref import ConstRef
 from radical.data.sema.type import TypeType
 from radical.data.sema.typeref import TypeRef
@@ -11,7 +11,7 @@ class Module(Unit):
     _symbols: list[str]
     _symbol_map: dict[str, int]
     _imports: list[str]
-    _constants: list[ValueType]
+    _constants: list[Value]
     _types: list[TypeType]
     _bindings: dict[int, ConstRef]
     _type_bindings: dict[int, TypeRef]
@@ -54,10 +54,10 @@ class Module(Unit):
         self._imports.append(name)
         return id
 
-    def get_constant(self, id: int) -> ValueType:
+    def get_constant(self, id: int) -> Value:
         return self._constants[id]
 
-    def add_constant(self, value: ValueType) -> int:
+    def add_constant(self, value: Value) -> int:
         id = len(self._constants)
         self._constants.append(value)
         return id
@@ -70,8 +70,14 @@ class Module(Unit):
         self._types.append(type)
         return id
 
+    def lookup_binding(self, symbol: int) -> ConstRef:
+        return self._bindings[symbol]
+
     def bind_constant(self, symbol: int, const_ref: ConstRef) -> None:
         self._bindings[symbol] = const_ref
+
+    def lookup_type_binding(self, symbol: int) -> TypeRef:
+        return self._type_bindings[symbol]
 
     def bind_type(self, symbol: int, type_ref: TypeRef) -> None:
         self._type_bindings[symbol] = type_ref

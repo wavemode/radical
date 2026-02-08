@@ -5,5 +5,5 @@ from radical.data.core.data import Data
 
 @dataclass(frozen=True)
 class SymbolRef(Data):
-    module_id: int
-    symbol_id: int
+    moduleId: int
+    symbolId: int

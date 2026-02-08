@@ -1,35 +1,40 @@
 from dataclasses import dataclass
 
-from radical.data.data import Data
+from radical.data.core.data import Data
 
 
 @dataclass(frozen=True)
-class UnknownType(Data):
+class Type(Data):
     pass
 
 
 @dataclass(frozen=True)
-class IntType(Data):
+class UnknownType(Type):
     pass
 
 
 @dataclass(frozen=True)
-class FloatType(Data):
+class IntType(Type):
     pass
 
 
 @dataclass(frozen=True)
-class StringType(Data):
+class FloatType(Type):
     pass
 
 
 @dataclass(frozen=True)
-class BoolType(Data):
+class StringType(Type):
     pass
 
 
 @dataclass(frozen=True)
-class NullType(Data):
+class BoolType(Type):
+    pass
+
+
+@dataclass(frozen=True)
+class NullType(Type):
     pass
 
 

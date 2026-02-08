@@ -4,6 +4,6 @@ from radical.data.core.data import Data
 
 
 @dataclass(frozen=True)
-class SymbolRef(Data):
-    module_id: int
-    symbol_id: int
+class ConstRef(Data):
+    moduleId: int
+    constId: int

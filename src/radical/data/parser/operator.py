@@ -1,6 +1,6 @@
 from enum import Enum
 
-from radical.data.data import Data
+from radical.data.core.data import Data
 
 
 class Operator(Data, Enum):

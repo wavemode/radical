@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from radical.data.data import Data
+from radical.data.core.data import Data
 
 
 @dataclass(frozen=True)

@@ -1,9 +1,7 @@
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass(frozen=True)
-class IntValue:
-    value: int
-
-
-ValueType = IntValue
+class Value:
+    value: Any

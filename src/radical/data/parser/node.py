@@ -1,4 +1,4 @@
-from radical.data.data import Data
+from radical.data.core.data import Data
 from radical.data.parser.position import Position
 
 
