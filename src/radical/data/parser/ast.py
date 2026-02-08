@@ -163,6 +163,7 @@ class NullLiteralNode(Node):
 @dataclass(frozen=True)
 class AssignmentNode(Node):
     target: SymbolNode
+    type_annotation: "TypeExpressionNodeType | None"
     value: "ValueExpressionNodeType"
 
 

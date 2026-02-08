@@ -797,6 +797,7 @@ class Parser(Unit):
             return AssignmentNode(
                 position=start_position,
                 target=target,
+                type_annotation=None,
                 value=value,
             )
 
@@ -842,7 +843,9 @@ class Parser(Unit):
             expression=expression,
         )
 
-    def parse_type_annotation(self) -> TypeAnnotationNode | None:
+    def parse_type_annotation(
+        self,
+    ) -> TypeAnnotationNode | AssignmentStatementNode | None:
         start_position = self._position
         if not (
             self._peek().type == TokenType.SYMBOL
@@ -853,6 +856,18 @@ class Parser(Unit):
         assert (name := self.parse_symbol())
         self._read()  # consume COLON
         type_expression = self.parse_type_expression()
+
+        if self.parse_token(TokenType.ASSIGN):
+            value = self.parse_value_expression()
+            return AssignmentStatementNode(
+                position=start_position,
+                assignment=AssignmentNode(
+                    position=start_position,
+                    target=name,
+                    type_annotation=type_expression,
+                    value=value,
+                ),
+            )
 
         return TypeAnnotationNode(
             position=start_position,

@@ -1,0 +1,26 @@
+x : Int
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            TypeAnnotation(
+                position=(1, 1, 0),
+                name=Symbol(
+                    position=(1, 1, 0),
+                    name="x"
+                ),
+                type_expression=TypeName(
+                    position=(1, 5, 0),
+                    name=Symbol(
+                        position=(1, 5, 0),
+                        name="Int"
+                    )
+                )
+            )
+        ]
+    )
+)
+*)

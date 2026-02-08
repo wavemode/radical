@@ -1,0 +1,36 @@
+local a : Int = 5
+
+(*
+Module(
+    position=(1, 1, 0),
+    body=ModuleBody(
+        position=(1, 1, 0),
+        declarations=[
+            LocalDeclaration(
+                position=(1, 1, 0),
+                declaration=AssignmentStatement(
+                    position=(1, 7, 0),
+                    assignment=Assignment(
+                        position=(1, 7, 0),
+                        target=Symbol(
+                            position=(1, 7, 0),
+                            name="a"
+                        ),
+                        type_annotation=TypeName(
+                            position=(1, 11, 0),
+                            name=Symbol(
+                                position=(1, 11, 0),
+                                name="Int"
+                            )
+                        ),
+                        value=NumberLiteral(
+                            position=(1, 17, 0),
+                            contents="5"
+                        )
+                    )
+                )
+            )
+        ]
+    )
+)
+*)
