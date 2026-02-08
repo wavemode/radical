@@ -961,18 +961,11 @@ class Parser(Unit):
                 message=f"Expected generic type parameter name. Unexpected token {self._peek().pretty()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
-        constraints: list[TypeExpressionNodeType] | None = None
-
-        if self.parse_token(TokenType.COLON):
-            constraints = [self.parse_type_expression()]
-            while self.parse_token(TokenType.PLUS):
-                constraints.append(self.parse_type_expression())
 
         return GenericTypeParameterNode(
             position=start_position,
             name=name,
             variadic=variadic,
-            constraints=constraints,
         )
 
     def parse_type_atom(self) -> TypeExpressionNodeType:

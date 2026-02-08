@@ -79,7 +79,6 @@ class ProcedureTypeNode(Node):
 class GenericTypeParameterNode(Node):
     name: "SymbolNode"
     variadic: bool
-    constraints: list["TypeExpressionNodeType"] | None
 
 
 @dataclass(frozen=True)
