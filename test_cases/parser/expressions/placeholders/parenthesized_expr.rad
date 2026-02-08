@@ -12,15 +12,15 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=BinaryOperation(
                         position=(1, 5, 0),
                         left=Symbol(
                             position=(1, 5, 0),
-                            name="b"
+                            name=SYMBOL('b')
                         ),
-                        operator="|>",
+                        operator='|>',
                         right=PlaceholderExpression(
                             position=(1, 10, 0),
                             expression=ParenthesizedExpression(
@@ -32,23 +32,23 @@ Module(
                                             position=(1, 11, 0),
                                             object_expression=Symbol(
                                                 position=(1, 11, 0),
-                                                name="~"
+                                                name=TILDE('~')
                                             ),
                                             field=Symbol(
                                                 position=(1, 13, 0),
-                                                name="hello"
+                                                name=SYMBOL('hello')
                                             )
                                         ),
-                                        operator="+",
+                                        operator='+',
                                         right=FieldAccessExpression(
                                             position=(1, 21, 0),
                                             object_expression=Symbol(
                                                 position=(1, 21, 0),
-                                                name="~"
+                                                name=TILDE('~')
                                             ),
                                             field=Symbol(
                                                 position=(1, 23, 0),
-                                                name="foo"
+                                                name=SYMBOL('foo')
                                             )
                                         )
                                     )

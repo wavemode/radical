@@ -16,7 +16,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=ListLiteral(
                         position=(1, 5, 0),
@@ -25,14 +25,14 @@ Module(
                                 position=(2, 5, 4),
                                 expression=Symbol(
                                     position=(2, 8, 4),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 )
                             ),
                             SpreadAssignment(
                                 position=(3, 5, 4),
                                 expression=Symbol(
                                     position=(3, 8, 4),
-                                    name="c"
+                                    name=SYMBOL('c')
                                 )
                             )
                         ]

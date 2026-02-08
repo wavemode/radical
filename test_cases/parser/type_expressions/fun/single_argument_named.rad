@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=FunctionType(
                     position=(1, 5, 0),
@@ -19,7 +19,7 @@ Module(
                             position=(1, 9, 0),
                             name=Symbol(
                                 position=(1, 9, 0),
-                                name="a"
+                                name=SYMBOL('a')
                             ),
                             variadic=false,
                             optional=false,
@@ -27,7 +27,7 @@ Module(
                                 position=(1, 12, 0),
                                 name=Symbol(
                                     position=(1, 12, 0),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         )
@@ -36,7 +36,7 @@ Module(
                         position=(1, 20, 0),
                         name=Symbol(
                             position=(1, 20, 0),
-                            name="Int"
+                            name=SYMBOL('Int')
                         )
                     )
                 )

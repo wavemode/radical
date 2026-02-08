@@ -17,16 +17,16 @@ Module(
                                 position=(1, 2, 0),
                                 symbol=Symbol(
                                     position=(1, 2, 0),
-                                    name="a"
+                                    name=SYMBOL('a')
                                 )
                             )
                         ]
                     ),
                     value=StringLiteral(
                         position=(1, 8, 0),
-                        open_quote="\"",
-                        contents="c",
-                        close_quote="\""
+                        open_quote=STRING_LITERAL_START('"'),
+                        contents=STRING_CONTENTS('c'),
+                        close_quote=STRING_LITERAL_END('"')
                     )
                 )
             )

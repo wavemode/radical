@@ -12,11 +12,11 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=RegexLiteral(
                         position=(1, 5, 0),
-                        contents="slash/"
+                        contents=STRING_CONTENTS('slash/')
                     )
                 )
             )

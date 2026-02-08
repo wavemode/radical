@@ -12,24 +12,24 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=FunctionCallExpression(
                         position=(1, 5, 0),
                         function_expression=Symbol(
                             position=(1, 5, 0),
-                            name="f"
+                            name=SYMBOL('f')
                         ),
                         arguments=[
                             NamingAssignment(
                                 position=(1, 7, 0),
                                 name=Symbol(
                                     position=(1, 7, 0),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 ),
                                 value=NumberLiteral(
                                     position=(1, 9, 0),
-                                    contents="10"
+                                    contents=INTEGER_LITERAL('10')
                                 )
                             )
                         ]

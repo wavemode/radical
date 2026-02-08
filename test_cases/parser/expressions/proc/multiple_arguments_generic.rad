@@ -13,7 +13,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=ProcedureExpression(
                         position=(1, 5, 0),
@@ -24,7 +24,7 @@ Module(
                                     position=(1, 14, 0),
                                     symbol=Symbol(
                                         position=(1, 14, 0),
-                                        name="b"
+                                        name=SYMBOL('b')
                                     )
                                 ),
                                 variadic=false,
@@ -32,7 +32,7 @@ Module(
                                     position=(1, 18, 0),
                                     name=Symbol(
                                         position=(1, 18, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     )
                                 )
                             ),
@@ -42,7 +42,7 @@ Module(
                                     position=(1, 21, 0),
                                     symbol=Symbol(
                                         position=(1, 21, 0),
-                                        name="f"
+                                        name=SYMBOL('f')
                                     )
                                 ),
                                 variadic=false,
@@ -57,7 +57,7 @@ Module(
                                                 position=(1, 29, 0),
                                                 name=Symbol(
                                                     position=(1, 29, 0),
-                                                    name="T"
+                                                    name=SYMBOL('T')
                                                 )
                                             )
                                         )
@@ -66,7 +66,7 @@ Module(
                                         position=(1, 35, 0),
                                         name=Symbol(
                                             position=(1, 35, 0),
-                                            name="T"
+                                            name=SYMBOL('T')
                                         )
                                     )
                                 )
@@ -77,7 +77,7 @@ Module(
                                 position=(1, 10, 0),
                                 name=Symbol(
                                     position=(1, 10, 0),
-                                    name="T"
+                                    name=SYMBOL('T')
                                 ),
                                 variadic=false
                             )
@@ -89,12 +89,12 @@ Module(
                                     position=(2, 5, 4),
                                     function_expression=Symbol(
                                         position=(2, 5, 4),
-                                        name="f"
+                                        name=SYMBOL('f')
                                     ),
                                     arguments=[
                                         Symbol(
                                             position=(2, 7, 4),
-                                            name="b"
+                                            name=SYMBOL('b')
                                         )
                                     ]
                                 )

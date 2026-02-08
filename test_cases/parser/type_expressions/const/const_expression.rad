@@ -10,15 +10,15 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=ConstTypeExpression(
                     position=(1, 5, 0),
                     expression=StringLiteral(
                         position=(1, 11, 0),
-                        open_quote="\"",
-                        contents="hello",
-                        close_quote="\""
+                        open_quote=STRING_LITERAL_START('"'),
+                        contents=STRING_CONTENTS('hello'),
+                        close_quote=STRING_LITERAL_END('"')
                     )
                 )
             )

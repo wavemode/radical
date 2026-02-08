@@ -15,7 +15,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=ParenthesizedTypeExpression(
                     position=(1, 5, 0),
@@ -26,7 +26,7 @@ Module(
                                 position=(2, 8, 4),
                                 name=Symbol(
                                     position=(2, 8, 4),
-                                    name="T"
+                                    name=SYMBOL('T')
                                 )
                             )
                         ),
@@ -34,14 +34,14 @@ Module(
                             position=(3, 5, 4),
                             name=Symbol(
                                 position=(3, 5, 4),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         ),
                         TypeName(
                             position=(4, 5, 4),
                             name=Symbol(
                                 position=(4, 5, 4),
-                                name="String"
+                                name=SYMBOL('String')
                             )
                         ),
                         SpreadTypeExpression(
@@ -50,7 +50,7 @@ Module(
                                 position=(5, 8, 4),
                                 name=Symbol(
                                     position=(5, 8, 4),
-                                    name="U"
+                                    name=SYMBOL('U')
                                 )
                             )
                         )

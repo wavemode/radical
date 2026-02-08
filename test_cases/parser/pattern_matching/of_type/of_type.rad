@@ -15,13 +15,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=CaseExpression(
                         position=(1, 5, 0),
                         expression=Symbol(
                             position=(1, 10, 0),
-                            name="y"
+                            name=SYMBOL('y')
                         ),
                         branches=[
                             CaseBranch(
@@ -32,30 +32,30 @@ Module(
                                         position=(2, 5, 4),
                                         symbol=Symbol(
                                             position=(2, 5, 4),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         )
                                     ),
                                     type_expression=TypeName(
                                         position=(2, 15, 4),
                                         name=Symbol(
                                             position=(2, 15, 4),
-                                            name="Int"
+                                            name=SYMBOL('Int')
                                         )
                                     )
                                 ),
                                 expression=FormatStringLiteral(
                                     position=(2, 22, 4),
-                                    open_quote="f\"",
+                                    open_quote=FORMAT_STRING_START('f"'),
                                     contents=[
                                         FormatStringExpression(
                                             position=(2, 24, 4),
                                             expression=Symbol(
                                                 position=(2, 25, 4),
-                                                name="z"
+                                                name=SYMBOL('z')
                                             )
                                         )
                                     ],
-                                    close_quote="\""
+                                    close_quote=FORMAT_STRING_END('"')
                                 )
                             ),
                             CaseBranch(
@@ -66,14 +66,14 @@ Module(
                                         position=(3, 5, 4),
                                         symbol=Symbol(
                                             position=(3, 5, 4),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         )
                                     ),
                                     type_expression=TypeName(
                                         position=(3, 15, 4),
                                         name=Symbol(
                                             position=(3, 15, 4),
-                                            name="String"
+                                            name=SYMBOL('String')
                                         )
                                     )
                                 ),
@@ -81,14 +81,14 @@ Module(
                                     position=(3, 25, 4),
                                     left=Symbol(
                                         position=(3, 25, 4),
-                                        name="z"
+                                        name=SYMBOL('z')
                                     ),
-                                    operator="+",
+                                    operator='+',
                                     right=StringLiteral(
                                         position=(3, 29, 4),
-                                        open_quote="\"",
-                                        contents="!",
-                                        close_quote="\""
+                                        open_quote=STRING_LITERAL_START('"'),
+                                        contents=STRING_CONTENTS('!'),
+                                        close_quote=STRING_LITERAL_END('"')
                                     )
                                 )
                             ),
@@ -98,14 +98,14 @@ Module(
                                     position=(4, 5, 4),
                                     symbol=Symbol(
                                         position=(4, 5, 4),
-                                        name="_"
+                                        name=SYMBOL('_')
                                     )
                                 ),
                                 expression=StringLiteral(
                                     position=(4, 10, 4),
-                                    open_quote="\"",
-                                    contents="?",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('?'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             )
                         ]

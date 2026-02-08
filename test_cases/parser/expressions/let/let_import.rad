@@ -15,7 +15,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=LetExpression(
                         position=(1, 5, 0),
@@ -25,11 +25,11 @@ Module(
                                 module_parts=[
                                     Symbol(
                                         position=(2, 12, 4),
-                                        name="Module"
+                                        name=SYMBOL('Module')
                                     ),
                                     Symbol(
                                         position=(2, 19, 4),
-                                        name="Name"
+                                        name=SYMBOL('Name')
                                     )
                                 ],
                                 fields=[
@@ -39,7 +39,7 @@ Module(
                                 ],
                                 alias=Symbol(
                                     position=(2, 33, 4),
-                                    name="M"
+                                    name=SYMBOL('M')
                                 )
                             ),
                             AssignmentStatement(
@@ -48,18 +48,18 @@ Module(
                                     position=(3, 5, 4),
                                     target=Symbol(
                                         position=(3, 5, 4),
-                                        name="x"
+                                        name=SYMBOL('x')
                                     ),
                                     value=NumberLiteral(
                                         position=(3, 9, 4),
-                                        contents="5"
+                                        contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             )
                         ],
                         body=Symbol(
                             position=(4, 4, 0),
-                            name="x"
+                            name=SYMBOL('x')
                         )
                     )
                 )

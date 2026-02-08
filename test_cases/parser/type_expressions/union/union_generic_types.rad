@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=TypeUnion(
                     position=(1, 5, 0),
@@ -22,7 +22,7 @@ Module(
                                     position=(1, 6, 0),
                                     name=Symbol(
                                         position=(1, 6, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     ),
                                     variadic=false
                                 )
@@ -31,7 +31,7 @@ Module(
                                 position=(1, 8, 0),
                                 name=Symbol(
                                     position=(1, 8, 0),
-                                    name="T"
+                                    name=SYMBOL('T')
                                 )
                             )
                         ),
@@ -42,7 +42,7 @@ Module(
                                     position=(1, 13, 0),
                                     name=Symbol(
                                         position=(1, 13, 0),
-                                        name="U"
+                                        name=SYMBOL('U')
                                     ),
                                     variadic=false
                                 )
@@ -51,7 +51,7 @@ Module(
                                 position=(1, 15, 0),
                                 name=Symbol(
                                     position=(1, 15, 0),
-                                    name="U"
+                                    name=SYMBOL('U')
                                 )
                             )
                         )

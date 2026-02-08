@@ -12,20 +12,20 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=TypeApplicationExpression(
                         position=(1, 5, 0),
                         value_expression=Symbol(
                             position=(1, 5, 0),
-                            name="b"
+                            name=SYMBOL('b')
                         ),
                         type_arguments=[
                             TypeName(
                                 position=(1, 8, 0),
                                 name=Symbol(
                                     position=(1, 8, 0),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         ]

@@ -12,7 +12,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -21,7 +21,7 @@ Module(
                             position=(1, 8, 0),
                             symbol=Symbol(
                                 position=(1, 8, 0),
-                                name="b"
+                                name=SYMBOL('b')
                             )
                         ),
                         variadic=false,
@@ -29,7 +29,7 @@ Module(
                             position=(1, 12, 0),
                             name=Symbol(
                                 position=(1, 12, 0),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         )
                     ),
@@ -39,7 +39,7 @@ Module(
                             position=(1, 17, 0),
                             symbol=Symbol(
                                 position=(1, 17, 0),
-                                name="c"
+                                name=SYMBOL('c')
                             )
                         ),
                         variadic=false,
@@ -49,7 +49,7 @@ Module(
                                 position=(1, 21, 0),
                                 name=Symbol(
                                     position=(1, 21, 0),
-                                    name="List"
+                                    name=SYMBOL('List')
                                 )
                             ),
                             arguments=[
@@ -59,7 +59,7 @@ Module(
                                         position=(1, 26, 0),
                                         name=Symbol(
                                             position=(1, 26, 0),
-                                            name="Int"
+                                            name=SYMBOL('Int')
                                         )
                                     )
                                 )
@@ -71,7 +71,7 @@ Module(
                     position=(1, 36, 0),
                     name=Symbol(
                         position=(1, 36, 0),
-                        name="Int"
+                        name=SYMBOL('Int')
                     )
                 ),
                 body=[
@@ -85,17 +85,17 @@ Module(
                                     position=(2, 11, 4),
                                     target=Symbol(
                                         position=(2, 11, 4),
-                                        name="d"
+                                        name=SYMBOL('d')
                                     ),
                                     value=IndexingExpression(
                                         position=(2, 15, 4),
                                         object_expression=Symbol(
                                             position=(2, 15, 4),
-                                            name="c"
+                                            name=SYMBOL('c')
                                         ),
                                         index_expression=NumberLiteral(
                                             position=(2, 17, 4),
-                                            contents="0"
+                                            contents=INTEGER_LITERAL('0')
                                         )
                                     )
                                 )
@@ -108,12 +108,12 @@ Module(
                             position=(3, 5, 4),
                             left=Symbol(
                                 position=(3, 5, 4),
-                                name="b"
+                                name=SYMBOL('b')
                             ),
-                            operator="+",
+                            operator='+',
                             right=Symbol(
                                 position=(3, 9, 4),
-                                name="d"
+                                name=SYMBOL('d')
                             )
                         )
                     )

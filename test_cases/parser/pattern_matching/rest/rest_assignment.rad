@@ -23,15 +23,15 @@ Module(
                         elements=[
                             NumberLiteral(
                                 position=(1, 11, 0),
-                                contents="1"
+                                contents=INTEGER_LITERAL('1')
                             ),
                             NumberLiteral(
                                 position=(1, 14, 0),
-                                contents="2"
+                                contents=INTEGER_LITERAL('2')
                             ),
                             NumberLiteral(
                                 position=(1, 17, 0),
-                                contents="3"
+                                contents=INTEGER_LITERAL('3')
                             )
                         ]
                     )

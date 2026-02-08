@@ -13,7 +13,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="z"
+                        name=SYMBOL('z')
                     ),
                     value=ModuleExpression(
                         position=(1, 5, 0),
@@ -26,11 +26,11 @@ Module(
                                         position=(1, 15, 0),
                                         target=Symbol(
                                             position=(1, 15, 0),
-                                            name="a"
+                                            name=SYMBOL('a')
                                         ),
                                         value=NumberLiteral(
                                             position=(1, 19, 0),
-                                            contents="15"
+                                            contents=INTEGER_LITERAL('15')
                                         )
                                     )
                                 ),
@@ -40,11 +40,11 @@ Module(
                                         position=(1, 23, 0),
                                         target=Symbol(
                                             position=(1, 23, 0),
-                                            name="b"
+                                            name=SYMBOL('b')
                                         ),
                                         value=NumberLiteral(
                                             position=(1, 27, 0),
-                                            contents="20"
+                                            contents=INTEGER_LITERAL('20')
                                         )
                                     )
                                 )
@@ -59,11 +59,11 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="c"
+                        name=SYMBOL('c')
                     ),
                     value=NumberLiteral(
                         position=(2, 5, 0),
-                        contents="25"
+                        contents=INTEGER_LITERAL('25')
                     )
                 )
             )

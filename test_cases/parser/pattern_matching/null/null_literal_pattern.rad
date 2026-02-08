@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 5, 0),
-                    name="f"
+                    name=SYMBOL('f')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -19,7 +19,7 @@ Module(
                             position=(1, 7, 0),
                             null=NullLiteral(
                                 position=(1, 7, 0),
-                                contents="null"
+                                contents=NULL('null')
                             )
                         ),
                         variadic=false
@@ -27,7 +27,7 @@ Module(
                 ],
                 body=NullLiteral(
                     position=(1, 15, 0),
-                    contents="null"
+                    contents=NULL('null')
                 )
             )
         ]

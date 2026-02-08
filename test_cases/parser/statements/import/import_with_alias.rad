@@ -11,16 +11,16 @@ Module(
                 module_parts=[
                     Symbol(
                         position=(1, 8, 0),
-                        name="Module"
+                        name=SYMBOL('Module')
                     ),
                     Symbol(
                         position=(1, 15, 0),
-                        name="Name"
+                        name=SYMBOL('Name')
                     )
                 ],
                 alias=Symbol(
                     position=(1, 23, 0),
-                    name="Alias"
+                    name=SYMBOL('Alias')
                 )
             )
         ]

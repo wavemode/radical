@@ -13,13 +13,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=CaseExpression(
                         position=(1, 5, 0),
                         expression=Symbol(
                             position=(1, 10, 0),
-                            name="y"
+                            name=SYMBOL('y')
                         ),
                         branches=[
                             CaseBranch(
@@ -30,27 +30,27 @@ Module(
                                         position=(2, 5, 4),
                                         symbol=Symbol(
                                             position=(2, 5, 4),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         )
                                     ),
                                     condition=BinaryOperation(
                                         position=(2, 10, 4),
                                         left=Symbol(
                                             position=(2, 10, 4),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         ),
-                                        operator="==",
+                                        operator='==',
                                         right=NumberLiteral(
                                             position=(2, 15, 4),
-                                            contents="5"
+                                            contents=INTEGER_LITERAL('5')
                                         )
                                     )
                                 ),
                                 expression=StringLiteral(
                                     position=(2, 20, 4),
-                                    open_quote="\"",
-                                    contents="five",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('five'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             )
                         ]

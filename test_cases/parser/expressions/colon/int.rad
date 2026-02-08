@@ -14,26 +14,26 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=BinaryOperation(
                         position=(1, 5, 0),
                         left=NumberLiteral(
                             position=(1, 5, 0),
-                            contents="4"
+                            contents=INTEGER_LITERAL('4')
                         ),
-                        operator="+",
+                        operator='+',
                         right=TypeAnnotationExpression(
                             position=(1, 9, 0),
                             value_expression=NumberLiteral(
                                 position=(1, 9, 0),
-                                contents="5"
+                                contents=INTEGER_LITERAL('5')
                             ),
                             type_expression=TypeName(
                                 position=(1, 13, 0),
                                 name=Symbol(
                                     position=(1, 13, 0),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         )
@@ -46,7 +46,7 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="y"
+                        name=SYMBOL('y')
                     ),
                     value=TypeAnnotationExpression(
                         position=(2, 5, 0),
@@ -57,12 +57,12 @@ Module(
                                     position=(2, 6, 0),
                                     left=NumberLiteral(
                                         position=(2, 6, 0),
-                                        contents="4"
+                                        contents=INTEGER_LITERAL('4')
                                     ),
-                                    operator="+",
+                                    operator='+',
                                     right=NumberLiteral(
                                         position=(2, 10, 0),
-                                        contents="5"
+                                        contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             ]
@@ -71,7 +71,7 @@ Module(
                             position=(2, 15, 0),
                             name=Symbol(
                                 position=(2, 15, 0),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         )
                     )

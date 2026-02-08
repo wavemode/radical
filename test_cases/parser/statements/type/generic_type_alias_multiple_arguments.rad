@@ -12,7 +12,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="M"
+                    name=SYMBOL('M')
                 ),
                 type_expression=GenericTypeApplication(
                     position=(3, 10, 4),
@@ -20,7 +20,7 @@ Module(
                         position=(3, 10, 4),
                         name=Symbol(
                             position=(3, 10, 4),
-                            name="Map"
+                            name=SYMBOL('Map')
                         )
                     ),
                     arguments=[
@@ -30,7 +30,7 @@ Module(
                                 position=(3, 14, 4),
                                 name=Symbol(
                                     position=(3, 14, 4),
-                                    name="K"
+                                    name=SYMBOL('K')
                                 )
                             )
                         ),
@@ -40,7 +40,7 @@ Module(
                                 position=(3, 17, 4),
                                 name=Symbol(
                                     position=(3, 17, 4),
-                                    name="V"
+                                    name=SYMBOL('V')
                                 )
                             )
                         )
@@ -51,7 +51,7 @@ Module(
                         position=(2, 5, 4),
                         name=Symbol(
                             position=(2, 5, 4),
-                            name="K"
+                            name=SYMBOL('K')
                         ),
                         variadic=false
                     ),
@@ -59,7 +59,7 @@ Module(
                         position=(3, 5, 4),
                         name=Symbol(
                             position=(3, 5, 4),
-                            name="V"
+                            name=SYMBOL('V')
                         ),
                         variadic=false
                     )

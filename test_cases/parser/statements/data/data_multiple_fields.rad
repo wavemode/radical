@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="A"
+                    name=SYMBOL('A')
                 ),
                 fields=[
                     DataField(
@@ -19,7 +19,7 @@ Module(
                             position=(1, 8, 0),
                             name=Symbol(
                                 position=(1, 8, 0),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         )
                     ),
@@ -29,7 +29,7 @@ Module(
                             position=(1, 13, 0),
                             name=Symbol(
                                 position=(1, 13, 0),
-                                name="String"
+                                name=SYMBOL('String')
                             )
                         )
                     ),
@@ -41,7 +41,7 @@ Module(
                                 position=(1, 21, 0),
                                 name=Symbol(
                                     position=(1, 21, 0),
-                                    name="Map"
+                                    name=SYMBOL('Map')
                                 )
                             ),
                             arguments=[
@@ -51,7 +51,7 @@ Module(
                                         position=(1, 25, 0),
                                         name=Symbol(
                                             position=(1, 25, 0),
-                                            name="Int"
+                                            name=SYMBOL('Int')
                                         )
                                     )
                                 ),
@@ -63,7 +63,7 @@ Module(
                                             position=(1, 30, 0),
                                             name=Symbol(
                                                 position=(1, 30, 0),
-                                                name="List"
+                                                name=SYMBOL('List')
                                             )
                                         ),
                                         arguments=[
@@ -73,7 +73,7 @@ Module(
                                                     position=(1, 35, 0),
                                                     name=Symbol(
                                                         position=(1, 35, 0),
-                                                        name="String"
+                                                        name=SYMBOL('String')
                                                     )
                                                 )
                                             )

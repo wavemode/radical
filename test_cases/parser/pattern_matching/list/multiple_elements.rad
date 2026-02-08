@@ -17,21 +17,21 @@ Module(
                                 position=(1, 2, 0),
                                 symbol=Symbol(
                                     position=(1, 2, 0),
-                                    name="a"
+                                    name=SYMBOL('a')
                                 )
                             ),
                             SymbolPattern(
                                 position=(1, 5, 0),
                                 symbol=Symbol(
                                     position=(1, 5, 0),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 )
                             ),
                             SymbolPattern(
                                 position=(1, 8, 0),
                                 symbol=Symbol(
                                     position=(1, 8, 0),
-                                    name="c"
+                                    name=SYMBOL('c')
                                 )
                             )
                         ]
@@ -41,15 +41,15 @@ Module(
                         elements=[
                             NumberLiteral(
                                 position=(1, 15, 0),
-                                contents="1"
+                                contents=INTEGER_LITERAL('1')
                             ),
                             NumberLiteral(
                                 position=(1, 18, 0),
-                                contents="2"
+                                contents=INTEGER_LITERAL('2')
                             ),
                             NumberLiteral(
                                 position=(1, 21, 0),
-                                contents="3"
+                                contents=INTEGER_LITERAL('3')
                             )
                         ]
                     )

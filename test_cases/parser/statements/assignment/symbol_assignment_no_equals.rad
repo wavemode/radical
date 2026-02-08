@@ -12,13 +12,13 @@ Module(
                     position=(1, 1, 0),
                     name=Symbol(
                         position=(1, 1, 0),
-                        name="var"
+                        name=SYMBOL('var')
                     ),
                     value=StringLiteral(
                         position=(1, 5, 0),
-                        open_quote="\"",
-                        contents="value",
-                        close_quote="\""
+                        open_quote=STRING_LITERAL_START('"'),
+                        contents=STRING_CONTENTS('value'),
+                        close_quote=STRING_LITERAL_END('"')
                     )
                 )
             )

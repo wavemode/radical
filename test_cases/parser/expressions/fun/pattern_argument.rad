@@ -12,7 +12,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="flip"
+                        name=SYMBOL('flip')
                     ),
                     value=FunctionExpression(
                         position=(1, 8, 0),
@@ -26,14 +26,14 @@ Module(
                                             position=(1, 13, 0),
                                             symbol=Symbol(
                                                 position=(1, 13, 0),
-                                                name="a"
+                                                name=SYMBOL('a')
                                             )
                                         ),
                                         SymbolPattern(
                                             position=(1, 16, 0),
                                             symbol=Symbol(
                                                 position=(1, 16, 0),
-                                                name="b"
+                                                name=SYMBOL('b')
                                             )
                                         )
                                     ]
@@ -46,11 +46,11 @@ Module(
                             elements=[
                                 Symbol(
                                     position=(1, 24, 0),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 ),
                                 Symbol(
                                     position=(1, 27, 0),
-                                    name="a"
+                                    name=SYMBOL('a')
                                 )
                             ]
                         )

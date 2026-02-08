@@ -11,7 +11,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 5, 0),
-                    name="x"
+                    name=SYMBOL('x')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -20,9 +20,9 @@ Module(
                             position=(1, 7, 0),
                             string=StringLiteral(
                                 position=(1, 7, 0),
-                                open_quote="\"",
-                                contents="hello",
-                                close_quote="\""
+                                open_quote=STRING_LITERAL_START('"'),
+                                contents=STRING_CONTENTS('hello'),
+                                close_quote=STRING_LITERAL_END('"')
                             )
                         ),
                         variadic=false
@@ -30,16 +30,16 @@ Module(
                 ],
                 body=StringLiteral(
                     position=(1, 18, 0),
-                    open_quote="\"",
-                    contents="goodbye",
-                    close_quote="\""
+                    open_quote=STRING_LITERAL_START('"'),
+                    contents=STRING_CONTENTS('goodbye'),
+                    close_quote=STRING_LITERAL_END('"')
                 )
             ),
             FunctionDeclaration(
                 position=(2, 1, 0),
                 name=Symbol(
                     position=(2, 5, 0),
-                    name="x"
+                    name=SYMBOL('x')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -48,7 +48,7 @@ Module(
                             position=(2, 7, 0),
                             symbol=Symbol(
                                 position=(2, 7, 0),
-                                name="y"
+                                name=SYMBOL('y')
                             )
                         ),
                         variadic=false
@@ -56,9 +56,9 @@ Module(
                 ],
                 body=StringLiteral(
                     position=(2, 12, 0),
-                    open_quote="\"",
-                    contents="hello",
-                    close_quote="\""
+                    open_quote=STRING_LITERAL_START('"'),
+                    contents=STRING_CONTENTS('hello'),
+                    close_quote=STRING_LITERAL_END('"')
                 )
             )
         ]

@@ -12,19 +12,19 @@ Module(
                     position=(1, 15, 0),
                     left=NumberLiteral(
                         position=(1, 15, 0),
-                        contents="1"
+                        contents=INTEGER_LITERAL('1')
                     ),
-                    operator="+",
+                    operator='+',
                     right=BinaryOperation(
                         position=(1, 19, 0),
                         left=NumberLiteral(
                             position=(1, 19, 0),
-                            contents="2"
+                            contents=INTEGER_LITERAL('2')
                         ),
-                        operator="*",
+                        operator='*',
                         right=NumberLiteral(
                             position=(1, 23, 0),
-                            contents="3"
+                            contents=INTEGER_LITERAL('3')
                         )
                     )
                 ),
@@ -33,20 +33,20 @@ Module(
                         position=(1, 26, 0),
                         name=Symbol(
                             position=(1, 26, 0),
-                            name="a"
+                            name=SYMBOL('a')
                         )
                     ),
                     ImportStatementField(
                         position=(1, 29, 0),
                         name=Symbol(
                             position=(1, 29, 0),
-                            name="b"
+                            name=SYMBOL('b')
                         )
                     )
                 ],
                 alias=Symbol(
                     position=(1, 35, 0),
-                    name="M"
+                    name=SYMBOL('M')
                 )
             )
         ]

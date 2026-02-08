@@ -14,7 +14,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=GenericTypeApplication(
                     position=(1, 5, 0),
@@ -22,7 +22,7 @@ Module(
                         position=(1, 5, 0),
                         name=Symbol(
                             position=(1, 5, 0),
-                            name="Map"
+                            name=SYMBOL('Map')
                         )
                     ),
                     arguments=[
@@ -32,7 +32,7 @@ Module(
                                 position=(2, 8, 4),
                                 name=Symbol(
                                     position=(2, 8, 4),
-                                    name="TupleType1"
+                                    name=SYMBOL('TupleType1')
                                 )
                             )
                         ),
@@ -42,7 +42,7 @@ Module(
                                 position=(3, 5, 4),
                                 name=Symbol(
                                     position=(3, 5, 4),
-                                    name="String"
+                                    name=SYMBOL('String')
                                 )
                             )
                         ),
@@ -52,7 +52,7 @@ Module(
                                 position=(3, 17, 4),
                                 name=Symbol(
                                     position=(3, 17, 4),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         ),
@@ -62,7 +62,7 @@ Module(
                                 position=(4, 8, 4),
                                 name=Symbol(
                                     position=(4, 8, 4),
-                                    name="TupleType2"
+                                    name=SYMBOL('TupleType2')
                                 )
                             )
                         )

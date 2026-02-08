@@ -12,7 +12,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=TypeAnnotationExpression(
                         position=(1, 5, 0),
@@ -22,13 +22,13 @@ Module(
                                 position=(1, 5, 0),
                                 value_expression=NumberLiteral(
                                     position=(1, 5, 0),
-                                    contents="4"
+                                    contents=INTEGER_LITERAL('4')
                                 ),
                                 type_expression=TypeName(
                                     position=(1, 9, 0),
                                     name=Symbol(
                                         position=(1, 9, 0),
-                                        name="Float"
+                                        name=SYMBOL('Float')
                                     )
                                 )
                             ),
@@ -36,7 +36,7 @@ Module(
                                 position=(1, 17, 0),
                                 name=Symbol(
                                     position=(1, 17, 0),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         ),
@@ -44,7 +44,7 @@ Module(
                             position=(1, 23, 0),
                             name=Symbol(
                                 position=(1, 23, 0),
-                                name="Float"
+                                name=SYMBOL('Float')
                             )
                         )
                     )

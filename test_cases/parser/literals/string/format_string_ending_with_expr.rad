@@ -13,13 +13,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="name"
+                        name=SYMBOL('name')
                     ),
                     value=StringLiteral(
                         position=(1, 8, 0),
-                        open_quote="\"",
-                        contents="world",
-                        close_quote="\""
+                        open_quote=STRING_LITERAL_START('"'),
+                        contents=STRING_CONTENTS('world'),
+                        close_quote=STRING_LITERAL_END('"')
                     )
                 )
             ),
@@ -29,25 +29,25 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=FormatStringLiteral(
                         position=(2, 5, 0),
-                        open_quote="f\"",
+                        open_quote=FORMAT_STRING_START('f"'),
                         contents=[
                             FormatStringTextSection(
                                 position=(2, 7, 0),
-                                string_contents="hello "
+                                string_contents=STRING_CONTENTS('hello ')
                             ),
                             FormatStringExpression(
                                 position=(2, 13, 0),
                                 expression=Symbol(
                                     position=(2, 14, 0),
-                                    name="name"
+                                    name=SYMBOL('name')
                                 )
                             )
                         ],
-                        close_quote="\""
+                        close_quote=FORMAT_STRING_END('"')
                     )
                 )
             )

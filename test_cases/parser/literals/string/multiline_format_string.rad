@@ -15,13 +15,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="name"
+                        name=SYMBOL('name')
                     ),
                     value=StringLiteral(
                         position=(1, 8, 0),
-                        open_quote="\"",
-                        contents="world",
-                        close_quote="\""
+                        open_quote=STRING_LITERAL_START('"'),
+                        contents=STRING_CONTENTS('world'),
+                        close_quote=STRING_LITERAL_END('"')
                     )
                 )
             ),
@@ -31,29 +31,31 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=FormatStringLiteral(
                         position=(2, 5, 0),
-                        open_quote="f\"\"\"",
+                        open_quote=MULTILINE_FORMAT_STRING_START('f"""'),
                         contents=[
                             FormatStringTextSection(
                                 position=(2, 9, 0),
-                                string_contents="\n    hello "
+                                string_contents=STRING_CONTENTS('
+    hello ')
                             ),
                             FormatStringExpression(
                                 position=(3, 11, 0),
                                 expression=Symbol(
                                     position=(3, 12, 0),
-                                    name="name"
+                                    name=SYMBOL('name')
                                 )
                             ),
                             FormatStringTextSection(
                                 position=(3, 17, 0),
-                                string_contents="!\n"
+                                string_contents=STRING_CONTENTS('!
+')
                             )
                         ],
-                        close_quote="\"\"\""
+                        close_quote=MULTILINE_FORMAT_STRING_END('"""')
                     )
                 )
             )

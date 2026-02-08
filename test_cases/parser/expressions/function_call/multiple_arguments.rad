@@ -15,26 +15,26 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=FunctionCallExpression(
                         position=(1, 5, 0),
                         function_expression=Symbol(
                             position=(1, 5, 0),
-                            name="f"
+                            name=SYMBOL('f')
                         ),
                         arguments=[
                             NumberLiteral(
                                 position=(1, 7, 0),
-                                contents="10"
+                                contents=INTEGER_LITERAL('10')
                             ),
                             NumberLiteral(
                                 position=(2, 6, 4),
-                                contents="20"
+                                contents=INTEGER_LITERAL('20')
                             ),
                             NumberLiteral(
                                 position=(3, 7, 4),
-                                contents="30"
+                                contents=INTEGER_LITERAL('30')
                             )
                         ]
                     )

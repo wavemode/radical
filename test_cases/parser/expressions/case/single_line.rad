@@ -13,13 +13,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=CaseExpression(
                         position=(1, 5, 0),
                         expression=Symbol(
                             position=(1, 10, 0),
-                            name="y"
+                            name=SYMBOL('y')
                         ),
                         branches=[
                             CaseBranch(
@@ -30,27 +30,27 @@ Module(
                                         position=(1, 15, 0),
                                         symbol=Symbol(
                                             position=(1, 15, 0),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         )
                                     ),
                                     condition=BinaryOperation(
                                         position=(1, 20, 0),
                                         left=Symbol(
                                             position=(1, 20, 0),
-                                            name="z"
+                                            name=SYMBOL('z')
                                         ),
-                                        operator="==",
+                                        operator='==',
                                         right=NumberLiteral(
                                             position=(1, 25, 0),
-                                            contents="5"
+                                            contents=INTEGER_LITERAL('5')
                                         )
                                     )
                                 ),
                                 expression=StringLiteral(
                                     position=(1, 30, 0),
-                                    open_quote="\"",
-                                    contents="five",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('five'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             )
                         ]
@@ -63,13 +63,13 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="t"
+                        name=SYMBOL('t')
                     ),
                     value=CaseExpression(
                         position=(2, 5, 0),
                         expression=Symbol(
                             position=(2, 10, 0),
-                            name="u"
+                            name=SYMBOL('u')
                         ),
                         branches=[
                             CaseBranch(
@@ -80,27 +80,27 @@ Module(
                                         position=(2, 15, 0),
                                         symbol=Symbol(
                                             position=(2, 15, 0),
-                                            name="v"
+                                            name=SYMBOL('v')
                                         )
                                     ),
                                     condition=BinaryOperation(
                                         position=(2, 20, 0),
                                         left=Symbol(
                                             position=(2, 20, 0),
-                                            name="v"
+                                            name=SYMBOL('v')
                                         ),
-                                        operator="==",
+                                        operator='==',
                                         right=NumberLiteral(
                                             position=(2, 25, 0),
-                                            contents="6"
+                                            contents=INTEGER_LITERAL('6')
                                         )
                                     )
                                 ),
                                 expression=StringLiteral(
                                     position=(2, 30, 0),
-                                    open_quote="\"",
-                                    contents="six",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('six'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             ),
                             CaseBranch(
@@ -109,14 +109,14 @@ Module(
                                     position=(2, 37, 0),
                                     symbol=Symbol(
                                         position=(2, 37, 0),
-                                        name="_"
+                                        name=SYMBOL('_')
                                     )
                                 ),
                                 expression=StringLiteral(
                                     position=(2, 42, 0),
-                                    open_quote="\"",
-                                    contents="other",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('other'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             )
                         ]

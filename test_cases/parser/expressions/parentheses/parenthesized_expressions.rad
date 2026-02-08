@@ -23,7 +23,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="parenthesizedExpr"
+                        name=SYMBOL('parenthesizedExpr')
                     ),
                     value=ParenthesizedExpression(
                         position=(1, 21, 0),
@@ -32,9 +32,9 @@ Module(
                                 position=(1, 22, 0),
                                 left=NumberLiteral(
                                     position=(1, 22, 0),
-                                    contents="1"
+                                    contents=INTEGER_LITERAL('1')
                                 ),
-                                operator="*",
+                                operator='*',
                                 right=ParenthesizedExpression(
                                     position=(1, 26, 0),
                                     elements=[
@@ -42,12 +42,12 @@ Module(
                                             position=(1, 27, 0),
                                             left=NumberLiteral(
                                                 position=(1, 27, 0),
-                                                contents="2"
+                                                contents=INTEGER_LITERAL('2')
                                             ),
-                                            operator="+",
+                                            operator='+',
                                             right=NumberLiteral(
                                                 position=(1, 31, 0),
-                                                contents="3"
+                                                contents=INTEGER_LITERAL('3')
                                             )
                                         )
                                     ]
@@ -63,7 +63,7 @@ Module(
                     position=(3, 1, 0),
                     target=Symbol(
                         position=(3, 1, 0),
-                        name="emptyTuple"
+                        name=SYMBOL('emptyTuple')
                     ),
                     value=ParenthesizedExpression(
                         position=(3, 14, 0),
@@ -79,22 +79,22 @@ Module(
                     position=(4, 1, 0),
                     target=Symbol(
                         position=(4, 1, 0),
-                        name="tupleExpr"
+                        name=SYMBOL('tupleExpr')
                     ),
                     value=ParenthesizedExpression(
                         position=(4, 13, 0),
                         elements=[
                             NumberLiteral(
                                 position=(4, 14, 0),
-                                contents="1"
+                                contents=INTEGER_LITERAL('1')
                             ),
                             NumberLiteral(
                                 position=(4, 17, 0),
-                                contents="2"
+                                contents=INTEGER_LITERAL('2')
                             ),
                             NumberLiteral(
                                 position=(4, 20, 0),
-                                contents="3"
+                                contents=INTEGER_LITERAL('3')
                             )
                         ]
                     )
@@ -106,22 +106,22 @@ Module(
                     position=(5, 1, 0),
                     target=Symbol(
                         position=(5, 1, 0),
-                        name="tupleExpr2"
+                        name=SYMBOL('tupleExpr2')
                     ),
                     value=ParenthesizedExpression(
                         position=(5, 14, 0),
                         elements=[
                             NumberLiteral(
                                 position=(5, 15, 0),
-                                contents="1"
+                                contents=INTEGER_LITERAL('1')
                             ),
                             NumberLiteral(
                                 position=(6, 1, 0),
-                                contents="2"
+                                contents=INTEGER_LITERAL('2')
                             ),
                             NumberLiteral(
                                 position=(7, 1, 0),
-                                contents="3"
+                                contents=INTEGER_LITERAL('3')
                             )
                         ]
                     )
@@ -133,22 +133,22 @@ Module(
                     position=(8, 1, 0),
                     target=Symbol(
                         position=(8, 1, 0),
-                        name="tupleExprNoCommas"
+                        name=SYMBOL('tupleExprNoCommas')
                     ),
                     value=ParenthesizedExpression(
                         position=(8, 21, 0),
                         elements=[
                             NumberLiteral(
                                 position=(9, 5, 4),
-                                contents="4"
+                                contents=INTEGER_LITERAL('4')
                             ),
                             NumberLiteral(
                                 position=(10, 5, 4),
-                                contents="5"
+                                contents=INTEGER_LITERAL('5')
                             ),
                             NumberLiteral(
                                 position=(11, 5, 4),
-                                contents="6"
+                                contents=INTEGER_LITERAL('6')
                             )
                         ]
                     )

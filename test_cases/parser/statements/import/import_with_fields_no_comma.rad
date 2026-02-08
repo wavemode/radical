@@ -15,11 +15,11 @@ Module(
                 module_parts=[
                     Symbol(
                         position=(1, 8, 0),
-                        name="Module"
+                        name=SYMBOL('Module')
                     ),
                     Symbol(
                         position=(1, 15, 0),
-                        name="Name"
+                        name=SYMBOL('Name')
                     )
                 ],
                 fields=[
@@ -27,18 +27,18 @@ Module(
                         position=(2, 5, 4),
                         name=Symbol(
                             position=(2, 5, 4),
-                            name="field1"
+                            name=SYMBOL('field1')
                         )
                     ),
                     ImportStatementField(
                         position=(3, 5, 4),
                         name=Symbol(
                             position=(3, 5, 4),
-                            name="field2"
+                            name=SYMBOL('field2')
                         ),
                         alias=Symbol(
                             position=(3, 15, 4),
-                            name="alias2"
+                            name=SYMBOL('alias2')
                         )
                     ),
                     ImportStatementEllipsis(

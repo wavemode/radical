@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 5, 0),
-                    name="f"
+                    name=SYMBOL('f')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -19,7 +19,7 @@ Module(
                             position=(1, 7, 0),
                             regex=RegexLiteral(
                                 position=(1, 7, 0),
-                                contents="\\d+"
+                                contents=STRING_CONTENTS('\d+')
                             )
                         ),
                         variadic=false
@@ -27,9 +27,9 @@ Module(
                 ],
                 body=StringLiteral(
                     position=(1, 16, 0),
-                    open_quote="\"",
-                    contents="empty",
-                    close_quote="\""
+                    open_quote=STRING_LITERAL_START('"'),
+                    contents=STRING_CONTENTS('empty'),
+                    close_quote=STRING_LITERAL_END('"')
                 )
             )
         ]

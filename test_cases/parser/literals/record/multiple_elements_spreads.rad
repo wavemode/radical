@@ -12,7 +12,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=RecordLiteral(
                         position=(1, 5, 0),
@@ -21,29 +21,29 @@ Module(
                                 position=(1, 7, 0),
                                 target=Symbol(
                                     position=(1, 7, 0),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 ),
                                 value=NumberLiteral(
                                     position=(1, 11, 0),
-                                    contents="10"
+                                    contents=INTEGER_LITERAL('10')
                                 )
                             ),
                             Assignment(
                                 position=(1, 15, 0),
                                 target=Symbol(
                                     position=(1, 15, 0),
-                                    name="c"
+                                    name=SYMBOL('c')
                                 ),
                                 value=NumberLiteral(
                                     position=(1, 19, 0),
-                                    contents="20"
+                                    contents=INTEGER_LITERAL('20')
                                 )
                             ),
                             SpreadAssignment(
                                 position=(1, 23, 0),
                                 expression=Symbol(
                                     position=(1, 26, 0),
-                                    name="d"
+                                    name=SYMBOL('d')
                                 )
                             )
                         ]

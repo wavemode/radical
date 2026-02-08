@@ -19,19 +19,19 @@ Module(
                                     position=(1, 2, 0),
                                     value=Symbol(
                                         position=(1, 8, 0),
-                                        name="myValue"
+                                        name=SYMBOL('myValue')
                                     )
                                 )
                             ]
                         ),
                         condition=BooleanLiteral(
                             position=(1, 20, 0),
-                            contents="true"
+                            contents=TRUE('true')
                         )
                     ),
                     value=Symbol(
                         position=(1, 28, 0),
-                        name="myValue"
+                        name=SYMBOL('myValue')
                     )
                 )
             )

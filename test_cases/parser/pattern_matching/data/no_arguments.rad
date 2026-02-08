@@ -12,13 +12,13 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=CaseExpression(
                         position=(1, 5, 0),
                         expression=Symbol(
                             position=(1, 10, 0),
-                            name="y"
+                            name=SYMBOL('y')
                         ),
                         branches=[
                             CaseBranch(
@@ -27,7 +27,7 @@ Module(
                                     position=(1, 15, 0),
                                     name=Symbol(
                                         position=(1, 15, 0),
-                                        name="DataType"
+                                        name=SYMBOL('DataType')
                                     ),
                                     fields=[
 
@@ -35,9 +35,9 @@ Module(
                                 ),
                                 expression=StringLiteral(
                                     position=(1, 29, 0),
-                                    open_quote="\"",
-                                    contents="It's a DataType!",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('It's a DataType!'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 )
                             )
                         ]

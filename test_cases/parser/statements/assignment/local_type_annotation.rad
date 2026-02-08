@@ -12,13 +12,13 @@ Module(
                     position=(1, 7, 0),
                     name=Symbol(
                         position=(1, 7, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     type_expression=TypeName(
                         position=(1, 11, 0),
                         name=Symbol(
                             position=(1, 11, 0),
-                            name="Int"
+                            name=SYMBOL('Int')
                         )
                     )
                 )

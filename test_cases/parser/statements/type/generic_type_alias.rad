@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="L"
+                    name=SYMBOL('L')
                 ),
                 type_expression=GenericTypeApplication(
                     position=(1, 13, 0),
@@ -18,7 +18,7 @@ Module(
                         position=(1, 13, 0),
                         name=Symbol(
                             position=(1, 13, 0),
-                            name="List"
+                            name=SYMBOL('List')
                         )
                     ),
                     arguments=[
@@ -28,7 +28,7 @@ Module(
                                 position=(1, 18, 0),
                                 name=Symbol(
                                     position=(1, 18, 0),
-                                    name="T"
+                                    name=SYMBOL('T')
                                 )
                             )
                         )
@@ -39,7 +39,7 @@ Module(
                         position=(1, 8, 0),
                         name=Symbol(
                             position=(1, 8, 0),
-                            name="T"
+                            name=SYMBOL('T')
                         ),
                         variadic=false
                     )

@@ -18,60 +18,60 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=FunctionCallExpression(
                         position=(1, 5, 0),
                         function_expression=Symbol(
                             position=(1, 5, 0),
-                            name="f"
+                            name=SYMBOL('f')
                         ),
                         arguments=[
                             SpreadAssignment(
                                 position=(2, 5, 4),
                                 expression=Symbol(
                                     position=(2, 8, 4),
-                                    name="e"
+                                    name=SYMBOL('e')
                                 )
                             ),
                             Assignment(
                                 position=(3, 5, 4),
                                 target=Symbol(
                                     position=(3, 5, 4),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 ),
                                 value=NumberLiteral(
                                     position=(3, 7, 4),
-                                    contents="10"
+                                    contents=INTEGER_LITERAL('10')
                                 )
                             ),
                             Assignment(
                                 position=(4, 5, 4),
                                 target=Symbol(
                                     position=(4, 5, 4),
-                                    name="c"
+                                    name=SYMBOL('c')
                                 ),
                                 value=NumberLiteral(
                                     position=(4, 7, 4),
-                                    contents="20"
+                                    contents=INTEGER_LITERAL('20')
                                 )
                             ),
                             Assignment(
                                 position=(5, 5, 4),
                                 target=Symbol(
                                     position=(5, 5, 4),
-                                    name="d"
+                                    name=SYMBOL('d')
                                 ),
                                 value=NumberLiteral(
                                     position=(5, 7, 4),
-                                    contents="30"
+                                    contents=INTEGER_LITERAL('30')
                                 )
                             ),
                             SpreadAssignment(
                                 position=(6, 5, 4),
                                 expression=Symbol(
                                     position=(6, 8, 4),
-                                    name="f"
+                                    name=SYMBOL('f')
                                 )
                             )
                         ]

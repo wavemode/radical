@@ -18,7 +18,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=RecordLiteral(
                         position=(1, 5, 0),
@@ -27,49 +27,49 @@ Module(
                                 position=(2, 5, 4),
                                 name=Symbol(
                                     position=(2, 5, 4),
-                                    name="b"
+                                    name=SYMBOL('b')
                                 ),
                                 value=NumberLiteral(
                                     position=(2, 7, 4),
-                                    contents="10"
+                                    contents=INTEGER_LITERAL('10')
                                 )
                             ),
                             Assignment(
                                 position=(3, 5, 4),
                                 target=Symbol(
                                     position=(3, 5, 4),
-                                    name="c"
+                                    name=SYMBOL('c')
                                 ),
                                 value=NumberLiteral(
                                     position=(3, 9, 4),
-                                    contents="20"
+                                    contents=INTEGER_LITERAL('20')
                                 )
                             ),
                             MappingAssignment(
                                 position=(4, 5, 4),
                                 key=StringLiteral(
                                     position=(4, 5, 4),
-                                    open_quote="\"",
-                                    contents="d",
-                                    close_quote="\""
+                                    open_quote=STRING_LITERAL_START('"'),
+                                    contents=STRING_CONTENTS('d'),
+                                    close_quote=STRING_LITERAL_END('"')
                                 ),
                                 value=NumberLiteral(
                                     position=(4, 12, 4),
-                                    contents="30"
+                                    contents=INTEGER_LITERAL('30')
                                 )
                             ),
                             ShorthandAssignment(
                                 position=(5, 5, 4),
                                 name=Symbol(
                                     position=(5, 5, 4),
-                                    name="e"
+                                    name=SYMBOL('e')
                                 )
                             ),
                             SpreadAssignment(
                                 position=(6, 5, 4),
                                 expression=Symbol(
                                     position=(6, 8, 4),
-                                    name="f"
+                                    name=SYMBOL('f')
                                 )
                             )
                         ]

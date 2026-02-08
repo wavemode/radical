@@ -13,7 +13,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=RecordType(
                     position=(1, 5, 0),
@@ -22,7 +22,7 @@ Module(
                             position=(2, 5, 4),
                             name=Symbol(
                                 position=(2, 5, 4),
-                                name="b"
+                                name=SYMBOL('b')
                             ),
                             optional=false,
                             wildcard=false,
@@ -30,7 +30,7 @@ Module(
                                 position=(2, 9, 4),
                                 name=Symbol(
                                     position=(2, 9, 4),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         ),
@@ -38,7 +38,7 @@ Module(
                             position=(3, 6, 3),
                             name=Symbol(
                                 position=(3, 6, 3),
-                                name="c"
+                                name=SYMBOL('c')
                             ),
                             optional=false,
                             wildcard=false,
@@ -46,7 +46,7 @@ Module(
                                 position=(3, 8, 3),
                                 name=Symbol(
                                     position=(3, 8, 3),
-                                    name="String"
+                                    name=SYMBOL('String')
                                 )
                             )
                         )

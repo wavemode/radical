@@ -12,7 +12,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=IfExpression(
                         position=(1, 5, 0),
@@ -20,25 +20,25 @@ Module(
                             position=(1, 8, 0),
                             left=NumberLiteral(
                                 position=(1, 8, 0),
-                                contents="6"
+                                contents=INTEGER_LITERAL('6')
                             ),
-                            operator=">",
+                            operator='>',
                             right=NumberLiteral(
                                 position=(1, 12, 0),
-                                contents="5"
+                                contents=INTEGER_LITERAL('5')
                             )
                         ),
                         then_branch=StringLiteral(
                             position=(1, 19, 0),
-                            open_quote="\"",
-                            contents="yes",
-                            close_quote="\""
+                            open_quote=STRING_LITERAL_START('"'),
+                            contents=STRING_CONTENTS('yes'),
+                            close_quote=STRING_LITERAL_END('"')
                         ),
                         else_branch=StringLiteral(
                             position=(1, 30, 0),
-                            open_quote="\"",
-                            contents="no",
-                            close_quote="\""
+                            open_quote=STRING_LITERAL_START('"'),
+                            contents=STRING_CONTENTS('no'),
+                            close_quote=STRING_LITERAL_END('"')
                         )
                     )
                 )

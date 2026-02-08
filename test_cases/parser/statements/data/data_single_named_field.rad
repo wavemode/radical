@@ -10,20 +10,20 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="A"
+                    name=SYMBOL('A')
                 ),
                 fields=[
                     DataField(
                         position=(1, 8, 0),
                         name=Symbol(
                             position=(1, 8, 0),
-                            name="a"
+                            name=SYMBOL('a')
                         ),
                         type_annotation=TypeName(
                             position=(1, 11, 0),
                             name=Symbol(
                                 position=(1, 11, 0),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         )
                     )

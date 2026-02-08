@@ -15,7 +15,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=ProcedureType(
                     position=(1, 5, 0),
@@ -24,7 +24,7 @@ Module(
                             position=(2, 5, 4),
                             name=Symbol(
                                 position=(2, 5, 4),
-                                name="a"
+                                name=SYMBOL('a')
                             ),
                             variadic=false,
                             optional=false,
@@ -32,7 +32,7 @@ Module(
                                 position=(2, 8, 4),
                                 name=Symbol(
                                     position=(2, 8, 4),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         ),
@@ -40,7 +40,7 @@ Module(
                             position=(3, 6, 4),
                             name=Symbol(
                                 position=(3, 6, 4),
-                                name="b"
+                                name=SYMBOL('b')
                             ),
                             variadic=false,
                             optional=true,
@@ -48,7 +48,7 @@ Module(
                                 position=(3, 10, 4),
                                 name=Symbol(
                                     position=(3, 10, 4),
-                                    name="String"
+                                    name=SYMBOL('String')
                                 )
                             )
                         ),
@@ -56,7 +56,7 @@ Module(
                             position=(4, 6, 4),
                             name=Symbol(
                                 position=(4, 6, 4),
-                                name="c"
+                                name=SYMBOL('c')
                             ),
                             variadic=false,
                             optional=false,
@@ -64,7 +64,7 @@ Module(
                                 position=(4, 9, 4),
                                 name=Symbol(
                                     position=(4, 9, 4),
-                                    name="Bool"
+                                    name=SYMBOL('Bool')
                                 )
                             )
                         ),
@@ -76,7 +76,7 @@ Module(
                                 position=(5, 6, 4),
                                 name=Symbol(
                                     position=(5, 6, 4),
-                                    name="Float"
+                                    name=SYMBOL('Float')
                                 )
                             )
                         )
@@ -85,7 +85,7 @@ Module(
                         position=(6, 6, 0),
                         name=Symbol(
                             position=(6, 6, 0),
-                            name="Float"
+                            name=SYMBOL('Float')
                         )
                     )
                 )

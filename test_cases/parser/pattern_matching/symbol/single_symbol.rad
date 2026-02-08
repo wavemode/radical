@@ -17,14 +17,14 @@ Module(
                                 position=(1, 2, 0),
                                 symbol=Symbol(
                                     position=(1, 2, 0),
-                                    name="x"
+                                    name=SYMBOL('x')
                                 )
                             )
                         ]
                     ),
                     value=Symbol(
                         position=(1, 8, 0),
-                        name="y"
+                        name=SYMBOL('y')
                     )
                 )
             )

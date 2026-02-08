@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=TypeUnion(
                     position=(1, 5, 0),
@@ -19,7 +19,7 @@ Module(
                             position=(1, 5, 0),
                             name=Symbol(
                                 position=(1, 5, 0),
-                                name="Int"
+                                name=SYMBOL('Int')
                             )
                         ),
                         ParenthesizedTypeExpression(
@@ -32,14 +32,14 @@ Module(
                                             position=(1, 12, 0),
                                             name=Symbol(
                                                 position=(1, 12, 0),
-                                                name="String"
+                                                name=SYMBOL('String')
                                             )
                                         ),
                                         TypeName(
                                             position=(1, 21, 0),
                                             name=Symbol(
                                                 position=(1, 21, 0),
-                                                name="Bool"
+                                                name=SYMBOL('Bool')
                                             )
                                         )
                                     ]
@@ -50,7 +50,7 @@ Module(
                             position=(1, 29, 0),
                             name=Symbol(
                                 position=(1, 29, 0),
-                                name="Float"
+                                name=SYMBOL('Float')
                             )
                         )
                     ]

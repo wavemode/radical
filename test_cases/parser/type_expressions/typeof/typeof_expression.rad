@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=TypeOfTypeExpression(
                     position=(1, 5, 0),
@@ -21,12 +21,12 @@ Module(
                                 position=(1, 13, 0),
                                 left=NumberLiteral(
                                     position=(1, 13, 0),
-                                    contents="5"
+                                    contents=INTEGER_LITERAL('5')
                                 ),
-                                operator="+",
+                                operator='+',
                                 right=NumberLiteral(
                                     position=(1, 17, 0),
-                                    contents="6"
+                                    contents=INTEGER_LITERAL('6')
                                 )
                             )
                         ]

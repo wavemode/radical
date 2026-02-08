@@ -12,18 +12,18 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     type_annotation=TypeName(
                         position=(1, 5, 0),
                         name=Symbol(
                             position=(1, 5, 0),
-                            name="Int"
+                            name=SYMBOL('Int')
                         )
                     ),
                     value=NumberLiteral(
                         position=(1, 11, 0),
-                        contents="5"
+                        contents=INTEGER_LITERAL('5')
                     )
                 )
             )

@@ -12,27 +12,27 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=BinaryOperation(
                         position=(1, 5, 0),
                         left=Symbol(
                             position=(1, 5, 0),
-                            name="b"
+                            name=SYMBOL('b')
                         ),
-                        operator="|>",
+                        operator='|>',
                         right=PlaceholderExpression(
                             position=(1, 10, 0),
                             expression=FunctionCallExpression(
                                 position=(1, 10, 0),
                                 function_expression=Symbol(
                                     position=(1, 10, 0),
-                                    name="f"
+                                    name=SYMBOL('f')
                                 ),
                                 arguments=[
                                     Symbol(
                                         position=(1, 12, 0),
-                                        name="~"
+                                        name=TILDE('~')
                                     )
                                 ]
                             )

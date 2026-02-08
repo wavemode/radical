@@ -17,7 +17,7 @@ Module(
                 position=(8, 1, 0),
                 name=Symbol(
                     position=(8, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=TypeUnion(
                     position=(8, 5, 0),
@@ -26,7 +26,7 @@ Module(
                             position=(8, 5, 0),
                             name=Symbol(
                                 position=(8, 5, 0),
-                                name="A"
+                                name=SYMBOL('A')
                             )
                         ),
                         GenericTypeApplication(
@@ -35,7 +35,7 @@ Module(
                                 position=(8, 7, 0),
                                 name=Symbol(
                                     position=(8, 7, 0),
-                                    name="B"
+                                    name=SYMBOL('B')
                                 )
                             ),
                             arguments=[
@@ -45,7 +45,7 @@ Module(
                                         position=(8, 9, 0),
                                         name=Symbol(
                                             position=(8, 9, 0),
-                                            name="C"
+                                            name=SYMBOL('C')
                                         )
                                     )
                                 )
@@ -60,7 +60,7 @@ Module(
                                         position=(8, 13, 0),
                                         name=Symbol(
                                             position=(8, 13, 0),
-                                            name="D"
+                                            name=SYMBOL('D')
                                         ),
                                         variadic=false
                                     )
@@ -69,7 +69,7 @@ Module(
                                     position=(8, 15, 0),
                                     name=Symbol(
                                         position=(8, 15, 0),
-                                        name="E"
+                                        name=SYMBOL('E')
                                     )
                                 )
                             ),
@@ -80,7 +80,7 @@ Module(
                                         position=(8, 17, 0),
                                         name=Symbol(
                                             position=(8, 17, 0),
-                                            name="F"
+                                            name=SYMBOL('F')
                                         )
                                     )
                                 )

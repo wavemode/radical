@@ -14,11 +14,11 @@ Module(
                         position=(1, 7, 0),
                         name=Symbol(
                             position=(1, 7, 0),
-                            name="x"
+                            name=SYMBOL('x')
                         ),
                         value=NumberLiteral(
                             position=(1, 9, 0),
-                            contents="10.5"
+                            contents=FLOAT_LITERAL('10.5')
                         )
                     )
                 )

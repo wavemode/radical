@@ -15,7 +15,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=LetExpression(
                         position=(1, 5, 0),
@@ -31,23 +31,23 @@ Module(
                                                 position=(2, 6, 4),
                                                 symbol=Symbol(
                                                     position=(2, 6, 4),
-                                                    name="a"
+                                                    name=SYMBOL('a')
                                                 )
                                             )
                                         ]
                                     ),
                                     value=StringLiteral(
                                         position=(2, 12, 4),
-                                        open_quote="\"",
-                                        contents="c",
-                                        close_quote="\""
+                                        open_quote=STRING_LITERAL_START('"'),
+                                        contents=STRING_CONTENTS('c'),
+                                        close_quote=STRING_LITERAL_END('"')
                                     )
                                 )
                             )
                         ],
                         body=Symbol(
                             position=(4, 5, 4),
-                            name="a"
+                            name=SYMBOL('a')
                         )
                     )
                 )

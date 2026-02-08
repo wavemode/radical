@@ -16,7 +16,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=LetExpression(
                         position=(1, 5, 0),
@@ -25,7 +25,7 @@ Module(
                                 position=(2, 9, 8),
                                 name=Symbol(
                                     position=(2, 13, 8),
-                                    name="add"
+                                    name=SYMBOL('add')
                                 ),
                                 parameters=[
                                     FunctionParameter(
@@ -34,7 +34,7 @@ Module(
                                             position=(2, 17, 8),
                                             symbol=Symbol(
                                                 position=(2, 17, 8),
-                                                name="a"
+                                                name=SYMBOL('a')
                                             )
                                         ),
                                         variadic=false,
@@ -42,7 +42,7 @@ Module(
                                             position=(2, 20, 8),
                                             name=Symbol(
                                                 position=(2, 20, 8),
-                                                name="Int"
+                                                name=SYMBOL('Int')
                                             )
                                         )
                                     ),
@@ -52,7 +52,7 @@ Module(
                                             position=(2, 25, 8),
                                             symbol=Symbol(
                                                 position=(2, 25, 8),
-                                                name="b"
+                                                name=SYMBOL('b')
                                             )
                                         ),
                                         variadic=false,
@@ -60,7 +60,7 @@ Module(
                                             position=(2, 28, 8),
                                             name=Symbol(
                                                 position=(2, 28, 8),
-                                                name="Int"
+                                                name=SYMBOL('Int')
                                             )
                                         )
                                     )
@@ -69,19 +69,19 @@ Module(
                                     position=(2, 36, 8),
                                     name=Symbol(
                                         position=(2, 36, 8),
-                                        name="Int"
+                                        name=SYMBOL('Int')
                                     )
                                 ),
                                 body=BinaryOperation(
                                     position=(3, 13, 12),
                                     left=Symbol(
                                         position=(3, 13, 12),
-                                        name="a"
+                                        name=SYMBOL('a')
                                     ),
-                                    operator="+",
+                                    operator='+',
                                     right=Symbol(
                                         position=(3, 17, 12),
-                                        name="b"
+                                        name=SYMBOL('b')
                                     )
                                 )
                             )
@@ -90,16 +90,16 @@ Module(
                             position=(5, 9, 8),
                             function_expression=Symbol(
                                 position=(5, 9, 8),
-                                name="add"
+                                name=SYMBOL('add')
                             ),
                             arguments=[
                                 NumberLiteral(
                                     position=(5, 13, 8),
-                                    contents="2"
+                                    contents=INTEGER_LITERAL('2')
                                 ),
                                 NumberLiteral(
                                     position=(5, 16, 8),
-                                    contents="3"
+                                    contents=INTEGER_LITERAL('3')
                                 )
                             ]
                         )

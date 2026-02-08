@@ -12,7 +12,7 @@ Module(
                     position=(1, 1, 0),
                     pattern=FormatStringLiteralPattern(
                         position=(1, 1, 0),
-                        open_quote="f\"",
+                        open_quote=FORMAT_STRING_START('f"'),
                         contents=[
                             FormatStringExpressionPattern(
                                 position=(1, 3, 0),
@@ -20,16 +20,16 @@ Module(
                                     position=(1, 4, 0),
                                     symbol=Symbol(
                                         position=(1, 4, 0),
-                                        name="a"
+                                        name=SYMBOL('a')
                                     )
                                 )
                             )
                         ],
-                        close_quote="\""
+                        close_quote=FORMAT_STRING_END('"')
                     ),
                     value=Symbol(
                         position=(1, 11, 0),
-                        name="expr"
+                        name=SYMBOL('expr')
                     )
                 )
             )

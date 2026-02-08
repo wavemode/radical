@@ -8,14 +8,14 @@ Module(
         position=(1, 1, 0),
         name=Symbol(
             position=(1, 8, 0),
-            name="A"
+            name=SYMBOL('A')
         ),
         declarations=[
             ModuleName(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 8, 0),
-                    name="A"
+                    name=SYMBOL('A')
                 ),
                 type_annotation=RecordType(
                     position=(1, 12, 0),
@@ -24,7 +24,7 @@ Module(
                             position=(1, 14, 0),
                             name=Symbol(
                                 position=(1, 14, 0),
-                                name="a"
+                                name=SYMBOL('a')
                             ),
                             optional=false,
                             wildcard=false,
@@ -32,7 +32,7 @@ Module(
                                 position=(1, 18, 0),
                                 name=Symbol(
                                     position=(1, 18, 0),
-                                    name="Int"
+                                    name=SYMBOL('Int')
                                 )
                             )
                         )
@@ -45,11 +45,11 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=NumberLiteral(
                         position=(2, 5, 0),
-                        contents="5"
+                        contents=INTEGER_LITERAL('5')
                     )
                 )
             )

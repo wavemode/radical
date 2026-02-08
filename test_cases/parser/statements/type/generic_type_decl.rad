@@ -10,14 +10,14 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 6, 0),
-                    name="L"
+                    name=SYMBOL('L')
                 ),
                 parameters=[
                     GenericTypeParameter(
                         position=(1, 8, 0),
                         name=Symbol(
                             position=(1, 8, 0),
-                            name="T"
+                            name=SYMBOL('T')
                         ),
                         variadic=false
                     )

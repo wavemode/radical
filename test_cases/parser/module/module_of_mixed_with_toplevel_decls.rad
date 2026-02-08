@@ -15,7 +15,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="x"
+                        name=SYMBOL('x')
                     ),
                     value=ModuleExpression(
                         position=(1, 5, 0),
@@ -28,11 +28,11 @@ Module(
                                         position=(2, 5, 4),
                                         target=Symbol(
                                             position=(2, 5, 4),
-                                            name="a"
+                                            name=SYMBOL('a')
                                         ),
                                         value=NumberLiteral(
                                             position=(2, 9, 4),
-                                            contents="5"
+                                            contents=INTEGER_LITERAL('5')
                                         )
                                     )
                                 )
@@ -47,11 +47,11 @@ Module(
                     position=(4, 1, 0),
                     target=Symbol(
                         position=(4, 1, 0),
-                        name="b"
+                        name=SYMBOL('b')
                     ),
                     value=NumberLiteral(
                         position=(4, 5, 0),
-                        contents="5"
+                        contents=INTEGER_LITERAL('5')
                     )
                 )
             )

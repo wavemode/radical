@@ -12,15 +12,15 @@ Module(
                     position=(1, 1, 0),
                     pattern=FormatStringLiteralPattern(
                         position=(1, 1, 0),
-                        open_quote="f\"",
+                        open_quote=FORMAT_STRING_START('f"'),
                         contents=[
 
                         ],
-                        close_quote="\""
+                        close_quote=FORMAT_STRING_END('"')
                     ),
                     value=Symbol(
                         position=(1, 8, 0),
-                        name="expr"
+                        name=SYMBOL('expr')
                     )
                 )
             )

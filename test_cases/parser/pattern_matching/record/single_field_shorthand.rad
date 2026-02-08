@@ -10,7 +10,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 5, 0),
-                    name="f"
+                    name=SYMBOL('f')
                 ),
                 parameters=[
                     FunctionParameter(
@@ -24,7 +24,7 @@ Module(
                                         position=(1, 9, 0),
                                         symbol=Symbol(
                                             position=(1, 9, 0),
-                                            name="a"
+                                            name=SYMBOL('a')
                                         )
                                     )
                                 )
@@ -35,7 +35,7 @@ Module(
                 ],
                 body=Symbol(
                     position=(1, 16, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 )
             )
         ]

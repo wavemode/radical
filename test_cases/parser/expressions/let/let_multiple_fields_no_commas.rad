@@ -17,7 +17,7 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=LetExpression(
                         position=(2, 5, 4),
@@ -28,11 +28,11 @@ Module(
                                     position=(3, 9, 8),
                                     target=Symbol(
                                         position=(3, 9, 8),
-                                        name="x"
+                                        name=SYMBOL('x')
                                     ),
                                     value=NumberLiteral(
                                         position=(3, 13, 8),
-                                        contents="5"
+                                        contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             ),
@@ -42,11 +42,11 @@ Module(
                                     position=(4, 9, 8),
                                     target=Symbol(
                                         position=(4, 9, 8),
-                                        name="y"
+                                        name=SYMBOL('y')
                                     ),
                                     value=NumberLiteral(
                                         position=(4, 13, 8),
-                                        contents="10"
+                                        contents=INTEGER_LITERAL('10')
                                     )
                                 )
                             )
@@ -55,12 +55,12 @@ Module(
                             position=(6, 9, 8),
                             left=Symbol(
                                 position=(6, 9, 8),
-                                name="x"
+                                name=SYMBOL('x')
                             ),
-                            operator="+",
+                            operator='+',
                             right=Symbol(
                                 position=(6, 13, 8),
-                                name="y"
+                                name=SYMBOL('y')
                             )
                         )
                     )

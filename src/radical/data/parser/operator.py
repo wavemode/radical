@@ -1,7 +1,9 @@
 from enum import Enum
 
+from radical.data.data import Data
 
-class Operator(Enum):
+
+class Operator(Data, Enum):
     """
     Grouped by precedence level.
 
@@ -37,3 +39,6 @@ class Operator(Enum):
     OR = "or"
 
     PIPE = "|>"
+
+    def format(self, indent_level: int = 0) -> str:
+        return f"'{self.value}'"

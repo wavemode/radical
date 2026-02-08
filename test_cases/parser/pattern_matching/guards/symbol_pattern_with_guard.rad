@@ -19,19 +19,19 @@ Module(
                                     position=(1, 2, 0),
                                     symbol=Symbol(
                                         position=(1, 2, 0),
-                                        name="a"
+                                        name=SYMBOL('a')
                                     )
                                 ),
                                 condition=BinaryOperation(
                                     position=(1, 7, 0),
                                     left=Symbol(
                                         position=(1, 7, 0),
-                                        name="a"
+                                        name=SYMBOL('a')
                                     ),
-                                    operator=">",
+                                    operator='>',
                                     right=NumberLiteral(
                                         position=(1, 11, 0),
-                                        contents="10"
+                                        contents=INTEGER_LITERAL('10')
                                     )
                                 )
                             )
@@ -39,7 +39,7 @@ Module(
                     ),
                     value=NumberLiteral(
                         position=(1, 18, 0),
-                        contents="20"
+                        contents=INTEGER_LITERAL('20')
                     )
                 )
             )

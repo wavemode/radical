@@ -12,17 +12,17 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=FieldAccessExpression(
                         position=(1, 5, 0),
                         object_expression=Symbol(
                             position=(1, 5, 0),
-                            name="b"
+                            name=SYMBOL('b')
                         ),
                         field=Symbol(
                             position=(1, 7, 0),
-                            name="0"
+                            name=SYMBOL('0')
                         )
                     )
                 )

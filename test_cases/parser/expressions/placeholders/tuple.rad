@@ -11,7 +11,7 @@ Module(
                 position=(1, 1, 0),
                 name=Symbol(
                     position=(1, 1, 0),
-                    name="a"
+                    name=SYMBOL('a')
                 ),
                 type_expression=GenericTypeExpression(
                     position=(1, 5, 0),
@@ -20,7 +20,7 @@ Module(
                             position=(1, 9, 0),
                             name=Symbol(
                                 position=(1, 9, 0),
-                                name="T"
+                                name=SYMBOL('T')
                             ),
                             variadic=false
                         )
@@ -36,7 +36,7 @@ Module(
                                     position=(1, 12, 0),
                                     name=Symbol(
                                         position=(1, 12, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     )
                                 )
                             )
@@ -48,21 +48,21 @@ Module(
                                     position=(1, 19, 0),
                                     name=Symbol(
                                         position=(1, 19, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     )
                                 ),
                                 TypeName(
                                     position=(1, 22, 0),
                                     name=Symbol(
                                         position=(1, 22, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     )
                                 ),
                                 TypeName(
                                     position=(1, 25, 0),
                                     name=Symbol(
                                         position=(1, 25, 0),
-                                        name="T"
+                                        name=SYMBOL('T')
                                     )
                                 )
                             ]
@@ -76,7 +76,7 @@ Module(
                     position=(2, 1, 0),
                     target=Symbol(
                         position=(2, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=PlaceholderExpression(
                         position=(2, 5, 0),
@@ -85,15 +85,15 @@ Module(
                             elements=[
                                 Symbol(
                                     position=(2, 6, 0),
-                                    name="~"
+                                    name=TILDE('~')
                                 ),
                                 Symbol(
                                     position=(2, 9, 0),
-                                    name="~"
+                                    name=TILDE('~')
                                 ),
                                 Symbol(
                                     position=(2, 12, 0),
-                                    name="~"
+                                    name=TILDE('~')
                                 )
                             ]
                         )

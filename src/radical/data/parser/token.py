@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from radical.data.data import Data
 from radical.data.parser.position import Position
 import json
 
 
-class TokenType(Enum):
+class TokenType(Data, Enum):
     IF = "if"
     THEN = "then"
     ELSE = "else"
@@ -110,6 +111,9 @@ class TokenType(Enum):
 
     EOF = "EOF"
 
+    def format(self, indent_level: int = 0) -> str:
+        return f"'{self.value}'"
+
 
 EXPR_START_TOKENS = {
     TokenType.IF,
@@ -165,13 +169,16 @@ EXPR_END_TOKENS = {
 
 
 @dataclass(frozen=True)
-class Token:
+class Token(Data):
     position: Position
     type: TokenType
     value: str
 
     def __str__(self) -> str:
-        return f"Token(type={self.type.name}, value={json.dumps(self.value)}, position=({self.position.line}, {self.position.column}, {self.position.indent_level}))"
+        return self.pretty()
+
+    def format(self, indent_level: int = 0) -> str:
+        return f"{self.type.name}('{self.value}')"
 
     def pretty(self) -> str:
-        return f"{self.type.name}('{self.value}')"
+        return f"Token(type={self.type.name}, value={json.dumps(self.value)}, position={self.position})"

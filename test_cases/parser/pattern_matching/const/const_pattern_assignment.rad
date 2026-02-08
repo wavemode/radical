@@ -17,7 +17,7 @@ Module(
                                 position=(1, 2, 0),
                                 value=Symbol(
                                     position=(1, 8, 0),
-                                    name="Data"
+                                    name=SYMBOL('Data')
                                 )
                             )
                         ]
@@ -26,7 +26,7 @@ Module(
                         position=(1, 17, 0),
                         function_expression=Symbol(
                             position=(1, 17, 0),
-                            name="myFunc"
+                            name=SYMBOL('myFunc')
                         ),
                         arguments=[
 

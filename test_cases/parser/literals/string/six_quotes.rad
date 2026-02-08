@@ -14,13 +14,15 @@ Module(
                     position=(1, 1, 0),
                     target=Symbol(
                         position=(1, 1, 0),
-                        name="a"
+                        name=SYMBOL('a')
                     ),
                     value=StringLiteral(
                         position=(1, 5, 0),
-                        open_quote="\"\"\"\"\"\"",
-                        contents="\nsix quotes\n",
-                        close_quote="\"\"\"\"\"\""
+                        open_quote=MULTILINE_STRING_LITERAL_START('""""""'),
+                        contents=STRING_CONTENTS('
+six quotes
+'),
+                        close_quote=MULTILINE_STRING_LITERAL_END('""""""')
                     )
                 )
             )

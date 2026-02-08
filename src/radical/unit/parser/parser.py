@@ -222,7 +222,7 @@ class Parser(Unit):
             if declaration := declaration_parser():
                 return declaration
         self._raise_parse_error(
-            message=f"Expected declaration. Unexpected token {self._peek().pretty()}"
+            message=f"Expected declaration. Unexpected token {self._peek().format()}"
         )
 
     def parse_module(self) -> ModuleNode:
@@ -307,7 +307,7 @@ class Parser(Unit):
             if declaration := declaration_parser():
                 return declaration
         self._raise_parse_error(
-            message=f"Expected top level declaration. Unexpected token {self._peek().pretty()}"
+            message=f"Expected top level declaration. Unexpected token {self._peek().format()}"
         )
 
     def parse_function_declaration(self) -> FunctionDeclarationNode | None:
@@ -318,7 +318,7 @@ class Parser(Unit):
         name = self.parse_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected function name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected function name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -360,7 +360,7 @@ class Parser(Unit):
         name = self.parse_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected procedure name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected procedure name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -484,7 +484,7 @@ class Parser(Unit):
         name = self.parse_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected module name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -514,7 +514,7 @@ class Parser(Unit):
         name = self.parse_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected module name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -559,7 +559,7 @@ class Parser(Unit):
         name = self.parse_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected module name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected module name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -581,7 +581,7 @@ class Parser(Unit):
         name = self.parse_type_name_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected data type name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected data type name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -642,7 +642,7 @@ class Parser(Unit):
         name = self.parse_type_name_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected type name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected type name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -685,7 +685,7 @@ class Parser(Unit):
                     module_parts.append(part)
                 else:
                     self._raise_parse_error(
-                        message=f"Expected module name after '.' in import statement. Unexpected token {self._peek().pretty()}",
+                        message=f"Expected module name after '.' in import statement. Unexpected token {self._peek().format()}",
                         position=dot.position,
                     )
         elif filename := self.parse_string_literal():
@@ -695,7 +695,7 @@ class Parser(Unit):
             module_expr = self.parse_value_expression()
         else:
             self._raise_parse_error(
-                message=f"Expected module name or filename in import statement. Unexpected token {self._peek().pretty()}"
+                message=f"Expected module name or filename in import statement. Unexpected token {self._peek().format()}"
             )
 
         if self._peek().type in (
@@ -712,7 +712,7 @@ class Parser(Unit):
             alias = self.parse_symbol()
             if not alias:
                 self._raise_parse_error(
-                    message=f"Expected import alias. Unexpected token {self._peek().pretty()}"
+                    message=f"Expected import alias. Unexpected token {self._peek().format()}"
                 )
                 raise RuntimeError("unreachable")  # appease typechecker
         elif module_expr:
@@ -747,7 +747,7 @@ class Parser(Unit):
             name = self.parse_symbol()
             if not name:
                 self._raise_parse_error(
-                    message=f"Expected import field name. Unexpected token {self._peek().pretty()}"
+                    message=f"Expected import field name. Unexpected token {self._peek().format()}"
                 )
                 raise RuntimeError("unreachable")  # appease typechecker
             alias: SymbolNode | None = None
@@ -755,7 +755,7 @@ class Parser(Unit):
                 alias = self.parse_symbol()
                 if not alias:
                     self._raise_parse_error(
-                        message=f"Expected import field alias. Unexpected token {self._peek().pretty()}"
+                        message=f"Expected import field alias. Unexpected token {self._peek().format()}"
                     )
             field = ImportStatementFieldNode(
                 position=name.position,
@@ -823,7 +823,7 @@ class Parser(Unit):
         if pattern := self.parse_pattern():
             if not self.parse_token(TokenType.LEFT_ARROW):
                 self._raise_parse_error(
-                    message=f"Expected '=' after pattern. Unexpected token {self._peek().pretty()}",
+                    message=f"Expected '=' after pattern. Unexpected token {self._peek().format()}",
                     position=start_position,
                 )
             value = self.parse_value_expression()
@@ -974,7 +974,7 @@ class Parser(Unit):
         name = self.parse_type_name_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected generic type parameter name. Unexpected token {self._peek().pretty()}"
+                message=f"Expected generic type parameter name. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -989,7 +989,7 @@ class Parser(Unit):
             if type_expr := type_atom_parser():
                 return type_expr
         self._raise_parse_error(
-            message=f"Expected type expression. Unexpected token {self._peek().pretty()}"
+            message=f"Expected type expression. Unexpected token {self._peek().format()}"
         )
 
     def parse_type_name(self) -> TypeExpressionNodeType | None:
@@ -1108,7 +1108,7 @@ class Parser(Unit):
             entry = field
         else:
             self._raise_parse_error(
-                message=f"Expected record type entry. Unexpected token {self._peek().pretty()}"
+                message=f"Expected record type entry. Unexpected token {self._peek().format()}"
             )
         return entry
 
@@ -1167,7 +1167,7 @@ class Parser(Unit):
 
         if not self.parse_token(TokenType.RIGHT_ARROW):
             self._raise_parse_error(
-                message=f"Expected '->' after function parameter list in function type. Unexpected token {self._peek().pretty()}",
+                message=f"Expected '->' after function parameter list in function type. Unexpected token {self._peek().format()}",
                 position=start_position,
             )
 
@@ -1207,7 +1207,7 @@ class Parser(Unit):
 
         if not self.parse_token(TokenType.RIGHT_ARROW):
             self._raise_parse_error(
-                message=f"Expected '->' after procedure parameter list in procedure type. Unexpected token {self._peek().pretty()}",
+                message=f"Expected '->' after procedure parameter list in procedure type. Unexpected token {self._peek().format()}",
                 position=start_position,
             )
 
@@ -1251,7 +1251,7 @@ class Parser(Unit):
             self._read()  # consume COLON
         elif name:
             self._raise_parse_error(
-                message=f"Expected ':' after parameter name in function type. Unexpected token {self._peek().pretty()}",
+                message=f"Expected ':' after parameter name in function type. Unexpected token {self._peek().format()}",
             )
 
         type_annotation: TypeExpressionNodeType | SpreadTypeExpressionNode
@@ -1287,7 +1287,7 @@ class Parser(Unit):
                 alias = self.parse_symbol()
                 if not alias:
                     self._raise_parse_error(
-                        message=f"Expected pattern alias name after 'as'. Unexpected token {self._peek().pretty()}"
+                        message=f"Expected pattern alias name after 'as'. Unexpected token {self._peek().format()}"
                     )
                     raise RuntimeError("unreachable")  # appease typechecker
                 lhs = PatternAliasNode(
@@ -1311,7 +1311,7 @@ class Parser(Unit):
         if pattern := self.parse_pattern():
             return pattern
         self._raise_parse_error(
-            message=f"Expected pattern. Unexpected token {self._peek().pretty()}"
+            message=f"Expected pattern. Unexpected token {self._peek().format()}"
         )
 
     def parse_pattern_atom(self) -> PatternAtomNodeType | None:
@@ -1436,7 +1436,7 @@ class Parser(Unit):
             return expression_section
 
         self._raise_parse_error(
-            message=f"Expected format string pattern part. Unexpected token {self._peek().pretty()}"
+            message=f"Expected format string pattern part. Unexpected token {self._peek().format()}"
         )
 
     def parse_format_string_pattern_direction_indicator(
@@ -1492,7 +1492,7 @@ class Parser(Unit):
         name = self.parse_type_name_symbol()
         if not name:
             self._raise_parse_error(
-                message=f"Expected data type name in pattern. Unexpected token {self._peek().pretty()}"
+                message=f"Expected data type name in pattern. Unexpected token {self._peek().format()}"
             )
             raise RuntimeError("unreachable")  # appease typechecker
 
@@ -1777,7 +1777,7 @@ class Parser(Unit):
                     )
                 else:
                     self._raise_parse_error(
-                        message=f"Expected field name after '.' in field access expression. Unexpected token {self._peek().pretty()}",
+                        message=f"Expected field name after '.' in field access expression. Unexpected token {self._peek().format()}",
                     )
                 lhs = FieldAccessExpressionNode(
                     position=lhs.position,
@@ -1821,7 +1821,7 @@ class Parser(Unit):
             if value := atom_parser():
                 return value
         self._raise_parse_error(
-            message=f"Expected expression. Unexpected token {self._peek().pretty()}"
+            message=f"Expected expression. Unexpected token {self._peek().format()}"
         )
 
     def parse_function_expression(self) -> FunctionExpressionNode | None:
@@ -2272,7 +2272,7 @@ class Parser(Unit):
         if token is None:
             expected_names = ", ".join(t.name for t in expected_types)
             message = (
-                f"Expected token of type {expected_names}. Unexpected token {self._peek().pretty()}"
+                f"Expected token of type {expected_names}. Unexpected token {self._peek().format()}"
                 if self._peek().type != TokenType.EOF
                 else f"Expected token of type {expected_names}. Unexpected end of file"
             )
@@ -2284,7 +2284,7 @@ class Parser(Unit):
         token = self.parse_token(expected_type)
         if token is None:
             message = (
-                f"Expected token of type {expected_type.name}. Unexpected token {self._peek().pretty()}"
+                f"Expected token of type {expected_type.name}. Unexpected token {self._peek().format()}"
                 if self._peek().type != TokenType.EOF
                 else f"Expected token of type {expected_type.name}. Unexpected end of file"
             )
