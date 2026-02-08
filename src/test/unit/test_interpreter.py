@@ -10,6 +10,7 @@ from radical.data.sema.type import UnionType
 from radical.unit.interp.namespace import Namespace
 from radical.unit.interp.interpreter import Interpreter
 from radical.data.interp.value import Value
+from radical.unit.interp.builtins import setup_builtins
 
 
 class TestInterpreter(TestCase):
@@ -17,6 +18,7 @@ class TestInterpreter(TestCase):
 
     def test_simple_expr(self) -> None:
         namespace = Namespace()
+        setup_builtins(namespace)
         interpreter = Interpreter(namespace)
 
         builtin_module_id = namespace.add_or_get_module("Core.Builtin")
@@ -37,6 +39,7 @@ class TestInterpreter(TestCase):
 
     def test_type_union_expr(self) -> None:
         namespace = Namespace()
+        setup_builtins(namespace)
         interpreter = Interpreter(namespace)
 
         builtin_module_id = namespace.add_or_get_module("Core.Builtin")

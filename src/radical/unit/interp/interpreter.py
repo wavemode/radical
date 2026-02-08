@@ -8,7 +8,6 @@ from radical.data.sema.expression import (
     TypeUnionExpr,
 )
 from radical.data.sema.type import Type, UnionType
-from radical.unit.interp.builtins import setup_builtins
 from radical.util.core.unit import Unit
 from radical.unit.interp.namespace import Namespace
 
@@ -21,7 +20,6 @@ class Interpreter(Unit):
 
     def __init__(self, namespace: Namespace) -> None:
         self._namespace = namespace
-        self._builtins = setup_builtins(self._namespace)
 
     def eval(self, expr: ExpressionType) -> Value:
         match expr:
