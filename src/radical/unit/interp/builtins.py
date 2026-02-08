@@ -9,7 +9,7 @@ from radical.data.sema.type import (
     UnknownType,
 )
 from radical.data.sema.typeref import TypeRef
-from radical.unit.interp.namespace import Namespace
+from radical.unit.sema.namespace import Namespace
 
 
 def _add_builtin_type(

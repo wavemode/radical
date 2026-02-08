@@ -3,7 +3,7 @@ from radical.data.sema.constref import ConstRef
 from radical.data.sema.symbolref import SymbolRef
 from radical.data.sema.type import TypeKinds
 from radical.data.sema.typeref import TypeRef
-from radical.unit.interp.module import Module
+from radical.unit.sema.module import Module
 from radical.util.core.unit import Unit
 
 

@@ -13,7 +13,7 @@ from radical.data.sema.expression import (
 )
 from radical.data.sema.type import Type, UnionType
 from radical.util.core.unit import Unit
-from radical.unit.interp.namespace import Namespace
+from radical.unit.sema.namespace import Namespace
 
 from typing import assert_never
 
