@@ -1,22 +1,16 @@
-period = "\u{2E}"
-umbrella = "\u{2602}"
-cardIndexDiv = "\u{1F5C2}"
+"\u{2E}" --period
+"\u{2602}" -- umbrella
+"\u{1F5C2}" -- card index divider
 
 (*
-Token(type=SYMBOL, value="period", position=(1, 1, 0))
-Token(type=ASSIGN, value="=", position=(1, 8, 0))
-Token(type=STRING_LITERAL_START, value="\"", position=(1, 10, 0))
-Token(type=STRING_CONTENTS, value=".", position=(1, 11, 0))
-Token(type=STRING_LITERAL_END, value="\"", position=(1, 17, 0))
-Token(type=SYMBOL, value="umbrella", position=(2, 1, 0))
-Token(type=ASSIGN, value="=", position=(2, 10, 0))
-Token(type=STRING_LITERAL_START, value="\"", position=(2, 12, 0))
-Token(type=STRING_CONTENTS, value="\u2602", position=(2, 13, 0))
-Token(type=STRING_LITERAL_END, value="\"", position=(2, 21, 0))
-Token(type=SYMBOL, value="cardIndexDiv", position=(3, 1, 0))
-Token(type=ASSIGN, value="=", position=(3, 14, 0))
-Token(type=STRING_LITERAL_START, value="\"", position=(3, 16, 0))
-Token(type=STRING_CONTENTS, value="\ud83d\uddc2", position=(3, 17, 0))
-Token(type=STRING_LITERAL_END, value="\"", position=(3, 26, 0))
-Token(type=EOF, value="", position=(23, 1, 0))
+Token(type=STRING_LITERAL_START, value="\"", position=(1, 1, 0))
+Token(type=STRING_CONTENTS, value=".", position=(1, 2, 0))
+Token(type=STRING_LITERAL_END, value="\"", position=(1, 8, 0))
+Token(type=STRING_LITERAL_START, value="\"", position=(2, 1, 0))
+Token(type=STRING_CONTENTS, value="\u2602", position=(2, 2, 0))
+Token(type=STRING_LITERAL_END, value="\"", position=(2, 10, 0))
+Token(type=STRING_LITERAL_START, value="\"", position=(3, 1, 0))
+Token(type=STRING_CONTENTS, value="\ud83d\uddc2", position=(3, 2, 0))
+Token(type=STRING_LITERAL_END, value="\"", position=(3, 11, 0))
+Token(type=EOF, value="", position=(17, 1, 0))
 *)

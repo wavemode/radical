@@ -753,6 +753,8 @@ class Lexer(Unit):
             elif self._peek_char(1) == "`":
                 self._advance_non_whitespace(2)
                 return "`"
+            elif next_char == "u":
+                return self._get_unicode_escape_sequence()
             else:
                 self._raise_parse_error(
                     f"Invalid escape sequence in quoted symbol: '\\{next_char}'"

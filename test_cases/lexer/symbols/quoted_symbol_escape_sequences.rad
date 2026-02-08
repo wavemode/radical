@@ -3,6 +3,9 @@
 `\t`
 `\\`
 `\``
+`\u{2E}` --period
+`\u{2602}` -- umbrella
+`\u{1F5C2}` -- card index divider
 
 (*
 Token(type=SYMBOL, value="\n", position=(1, 1, 0))
@@ -10,5 +13,8 @@ Token(type=SYMBOL, value="\r", position=(2, 1, 0))
 Token(type=SYMBOL, value="\t", position=(3, 1, 0))
 Token(type=SYMBOL, value="\\", position=(4, 1, 0))
 Token(type=SYMBOL, value="`", position=(5, 1, 0))
-Token(type=EOF, value="", position=(15, 1, 0))
+Token(type=SYMBOL, value=".", position=(6, 1, 0))
+Token(type=SYMBOL, value="\u2602", position=(7, 1, 0))
+Token(type=SYMBOL, value="\ud83d\uddc2", position=(8, 1, 0))
+Token(type=EOF, value="", position=(21, 1, 0))
 *)
