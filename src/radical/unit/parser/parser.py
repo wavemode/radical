@@ -651,8 +651,10 @@ class Parser(Unit):
         if self._peek().type in (TokenType.LIST_START, TokenType.INDEXING_START):
             parameters = self.parse_generic_type_parameter_list()
 
-        self.require_token(TokenType.ASSIGN)
-        type_expr = self.parse_type_expression()
+        type_expr: TypeExpressionNodeType | None = None
+        if self.parse_token(TokenType.ASSIGN):
+            type_expr = self.parse_type_expression()
+
         return TypeDeclarationNode(
             position=start_position,
             name=name,

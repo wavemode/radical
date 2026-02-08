@@ -464,7 +464,7 @@ class ImportStatementNode(Node):
 @dataclass(frozen=True)
 class TypeDeclarationNode(Node):
     name: SymbolNode
-    type_expression: "TypeExpressionNodeType"
+    type_expression: "TypeExpressionNodeType | None"
     parameters: list[GenericTypeParameterNode] | None
 
 
