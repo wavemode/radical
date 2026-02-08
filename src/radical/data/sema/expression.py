@@ -24,6 +24,16 @@ class ConstRefExpr(Expression):
 
 
 @dataclass(frozen=True)
+class BoolLiteralExpr(Expression):
+    value: bool
+
+
+@dataclass(frozen=True)
+class NullLiteralExpr(Expression):
+    pass
+
+
+@dataclass(frozen=True)
 class IntLiteralExpr(Expression):
     value: int
 
@@ -44,6 +54,13 @@ class TypeRefExpr(Expression):
     ref: TypeRef
 
 
-ValueExpressionType = IntLiteralExpr | FloatLiteralExpr | ConstRefExpr | AddIntExpr
+ValueExpressionType = (
+    NullLiteralExpr
+    | BoolLiteralExpr
+    | IntLiteralExpr
+    | FloatLiteralExpr
+    | ConstRefExpr
+    | AddIntExpr
+)
 TypeExpressionType = TypeRefExpr | TypeUnionExpr
 ExpressionType = ValueExpressionType | TypeExpressionType

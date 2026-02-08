@@ -2,10 +2,12 @@ from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.interp.value import Value
 from radical.data.sema.expression import (
     AddIntExpr,
+    BoolLiteralExpr,
     ConstRefExpr,
     ExpressionType,
     FloatLiteralExpr,
     IntLiteralExpr,
+    NullLiteralExpr,
     TypeRefExpr,
     TypeUnionExpr,
 )
@@ -37,6 +39,10 @@ class Interpreter(Unit):
                 return Value(value)
             case FloatLiteralExpr(value):
                 return Value(value)
+            case BoolLiteralExpr(value):
+                return Value(value)
+            case NullLiteralExpr():
+                return Value(None)
             case TypeRefExpr(ref):
                 return Value(self._namespace.get_type(ref))
             case TypeUnionExpr(left, right):
