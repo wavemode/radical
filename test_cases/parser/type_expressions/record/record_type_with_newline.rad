@@ -6,47 +6,47 @@ a : {
 
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=RecordType(
+                type_expression=RecordTypeNode(
                     position=(1, 5, 0),
                     fields=[
-                        RecordTypeField(
+                        RecordTypeFieldNode(
                             position=(2, 7, 6),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(2, 7, 6),
                                 name=SYMBOL('b')
                             ),
                             optional=false,
                             wildcard=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(4, 9, 8),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(4, 9, 8),
                                     name=SYMBOL('Int')
                                 )
                             )
                         ),
-                        RecordTypeField(
+                        RecordTypeFieldNode(
                             position=(5, 7, 6),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(5, 7, 6),
                                 name=SYMBOL('c')
                             ),
                             optional=false,
                             wildcard=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(5, 9, 6),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(5, 9, 6),
                                     name=SYMBOL('String')
                                 )

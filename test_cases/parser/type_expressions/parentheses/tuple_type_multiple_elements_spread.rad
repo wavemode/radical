@@ -6,49 +6,49 @@ a : (
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=ParenthesizedTypeExpression(
+                type_expression=ParenthesizedTypeExpressionNode(
                     position=(1, 5, 0),
                     expressions=[
-                        SpreadTypeExpression(
+                        SpreadTypeExpressionNode(
                             position=(2, 5, 4),
-                            expression=TypeName(
+                            expression=TypeNameNode(
                                 position=(2, 8, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 8, 4),
                                     name=SYMBOL('T')
                                 )
                             )
                         ),
-                        TypeName(
+                        TypeNameNode(
                             position=(3, 5, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(3, 5, 4),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        TypeName(
+                        TypeNameNode(
                             position=(4, 5, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(4, 5, 4),
                                 name=SYMBOL('String')
                             )
                         ),
-                        SpreadTypeExpression(
+                        SpreadTypeExpressionNode(
                             position=(5, 5, 4),
-                            expression=TypeName(
+                            expression=TypeNameNode(
                                 position=(5, 8, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(5, 8, 4),
                                     name=SYMBOL('U')
                                 )

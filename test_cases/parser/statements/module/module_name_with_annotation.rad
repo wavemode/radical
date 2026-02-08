@@ -2,35 +2,35 @@ module A : { a : Int }
 a = 5
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
-        name=Symbol(
+        name=SymbolNode(
             position=(1, 8, 0),
             name=SYMBOL('A')
         ),
         declarations=[
-            ModuleName(
+            ModuleNameNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 8, 0),
                     name=SYMBOL('A')
                 ),
-                type_annotation=RecordType(
+                type_annotation=RecordTypeNode(
                     position=(1, 12, 0),
                     fields=[
-                        RecordTypeField(
+                        RecordTypeFieldNode(
                             position=(1, 14, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 14, 0),
                                 name=SYMBOL('a')
                             ),
                             optional=false,
                             wildcard=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 18, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 18, 0),
                                     name=SYMBOL('Int')
                                 )
@@ -39,15 +39,15 @@ Module(
                     ]
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=NumberLiteral(
+                    value=NumberLiteralNode(
                         position=(2, 5, 0),
                         contents=INTEGER_LITERAL('5')
                     )

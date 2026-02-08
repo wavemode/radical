@@ -9,53 +9,53 @@
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=ParenthesizedPattern(
+                    pattern=ParenthesizedPatternNode(
                         position=(1, 1, 0),
                         elements=[
-                            SymbolPattern(
+                            SymbolPatternNode(
                                 position=(2, 5, 4),
-                                symbol=Symbol(
+                                symbol=SymbolNode(
                                     position=(2, 5, 4),
                                     name=SYMBOL('a')
                                 )
                             ),
-                            SymbolPattern(
+                            SymbolPatternNode(
                                 position=(3, 5, 4),
-                                symbol=Symbol(
+                                symbol=SymbolNode(
                                     position=(3, 5, 4),
                                     name=SYMBOL('b')
                                 )
                             ),
-                            SymbolPattern(
+                            SymbolPatternNode(
                                 position=(4, 5, 4),
-                                symbol=Symbol(
+                                symbol=SymbolNode(
                                     position=(4, 5, 4),
                                     name=SYMBOL('c')
                                 )
                             )
                         ]
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(5, 6, 0),
                         elements=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(6, 5, 4),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(7, 5, 4),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(8, 5, 4),
                                 contents=INTEGER_LITERAL('3')
                             )

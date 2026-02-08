@@ -1,43 +1,43 @@
 import Module.Name (field1, field2 as alias2, ... )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ImportStatement(
+            ImportStatementNode(
                 position=(1, 1, 0),
                 module_parts=[
-                    Symbol(
+                    SymbolNode(
                         position=(1, 8, 0),
                         name=SYMBOL('Module')
                     ),
-                    Symbol(
+                    SymbolNode(
                         position=(1, 15, 0),
                         name=SYMBOL('Name')
                     )
                 ],
                 fields=[
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(1, 21, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 21, 0),
                             name=SYMBOL('field1')
                         )
                     ),
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(1, 29, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 29, 0),
                             name=SYMBOL('field2')
                         ),
-                        alias=Symbol(
+                        alias=SymbolNode(
                             position=(1, 39, 0),
                             name=SYMBOL('alias2')
                         )
                     ),
-                    ImportStatementEllipsis(
+                    ImportStatementEllipsisNode(
                         position=(1, 51, 0)
                     )
                 ]

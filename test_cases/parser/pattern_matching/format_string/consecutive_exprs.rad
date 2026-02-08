@@ -1,61 +1,61 @@
 f"{ start }{ next }Hello, {name}!" <- expr
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=FormatStringLiteralPattern(
+                    pattern=FormatStringLiteralPatternNode(
                         position=(1, 1, 0),
                         open_quote=FORMAT_STRING_START('f"'),
                         contents=[
-                            FormatStringExpressionPattern(
+                            FormatStringExpressionPatternNode(
                                 position=(1, 3, 0),
-                                pattern=SymbolPattern(
+                                pattern=SymbolPatternNode(
                                     position=(1, 5, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 5, 0),
                                         name=SYMBOL('start')
                                     )
                                 )
                             ),
-                            FormatStringExpressionPattern(
+                            FormatStringExpressionPatternNode(
                                 position=(1, 12, 0),
-                                pattern=SymbolPattern(
+                                pattern=SymbolPatternNode(
                                     position=(1, 14, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 14, 0),
                                         name=SYMBOL('next')
                                     )
                                 )
                             ),
-                            FormatStringTextSectionPattern(
+                            FormatStringTextSectionPatternNode(
                                 position=(1, 20, 0),
                                 string_contents=STRING_CONTENTS('Hello, ')
                             ),
-                            FormatStringExpressionPattern(
+                            FormatStringExpressionPatternNode(
                                 position=(1, 27, 0),
-                                pattern=SymbolPattern(
+                                pattern=SymbolPatternNode(
                                     position=(1, 28, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 28, 0),
                                         name=SYMBOL('name')
                                     )
                                 )
                             ),
-                            FormatStringTextSectionPattern(
+                            FormatStringTextSectionPatternNode(
                                 position=(1, 33, 0),
                                 string_contents=STRING_CONTENTS('!')
                             )
                         ],
                         close_quote=FORMAT_STRING_END('"')
                     ),
-                    value=Symbol(
+                    value=SymbolNode(
                         position=(1, 39, 0),
                         name=SYMBOL('expr')
                     )

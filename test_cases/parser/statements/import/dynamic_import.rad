@@ -1,50 +1,50 @@
 import module 1 + 2 * 3 (a, b) as M
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ImportStatement(
+            ImportStatementNode(
                 position=(1, 1, 0),
-                module_expr=BinaryOperation(
+                module_expr=BinaryOperationNode(
                     position=(1, 15, 0),
-                    left=NumberLiteral(
+                    left=NumberLiteralNode(
                         position=(1, 15, 0),
                         contents=INTEGER_LITERAL('1')
                     ),
                     operator='+',
-                    right=BinaryOperation(
+                    right=BinaryOperationNode(
                         position=(1, 19, 0),
-                        left=NumberLiteral(
+                        left=NumberLiteralNode(
                             position=(1, 19, 0),
                             contents=INTEGER_LITERAL('2')
                         ),
                         operator='*',
-                        right=NumberLiteral(
+                        right=NumberLiteralNode(
                             position=(1, 23, 0),
                             contents=INTEGER_LITERAL('3')
                         )
                     )
                 ),
                 fields=[
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(1, 26, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 26, 0),
                             name=SYMBOL('a')
                         )
                     ),
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(1, 29, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 29, 0),
                             name=SYMBOL('b')
                         )
                     )
                 ],
-                alias=Symbol(
+                alias=SymbolNode(
                     position=(1, 35, 0),
                     name=SYMBOL('M')
                 )

@@ -1,40 +1,40 @@
 a = if 6 > 5 then "yes" else "no"
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=IfExpression(
+                    value=IfExpressionNode(
                         position=(1, 5, 0),
-                        condition=BinaryOperation(
+                        condition=BinaryOperationNode(
                             position=(1, 8, 0),
-                            left=NumberLiteral(
+                            left=NumberLiteralNode(
                                 position=(1, 8, 0),
                                 contents=INTEGER_LITERAL('6')
                             ),
                             operator='>',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(1, 12, 0),
                                 contents=INTEGER_LITERAL('5')
                             )
                         ),
-                        then_branch=StringLiteral(
+                        then_branch=StringLiteralNode(
                             position=(1, 19, 0),
                             open_quote=STRING_LITERAL_START('"'),
                             contents=STRING_CONTENTS('yes'),
                             close_quote=STRING_LITERAL_END('"')
                         ),
-                        else_branch=StringLiteral(
+                        else_branch=StringLiteralNode(
                             position=(1, 30, 0),
                             open_quote=STRING_LITERAL_START('"'),
                             contents=STRING_CONTENTS('no'),

@@ -5,43 +5,43 @@ import Module.Name (
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ImportStatement(
+            ImportStatementNode(
                 position=(1, 1, 0),
                 module_parts=[
-                    Symbol(
+                    SymbolNode(
                         position=(1, 8, 0),
                         name=SYMBOL('Module')
                     ),
-                    Symbol(
+                    SymbolNode(
                         position=(1, 15, 0),
                         name=SYMBOL('Name')
                     )
                 ],
                 fields=[
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(2, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(2, 5, 4),
                             name=SYMBOL('field1')
                         )
                     ),
-                    ImportStatementField(
+                    ImportStatementFieldNode(
                         position=(3, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(3, 5, 4),
                             name=SYMBOL('field2')
                         ),
-                        alias=Symbol(
+                        alias=SymbolNode(
                             position=(3, 15, 4),
                             name=SYMBOL('alias2')
                         )
                     ),
-                    ImportStatementEllipsis(
+                    ImportStatementEllipsisNode(
                         position=(5, 1, 0)
                     )
                 ]

@@ -2,47 +2,47 @@ a : [...T]T
 a = undefined
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=GenericTypeExpression(
+                type_expression=GenericTypeExpressionNode(
                     position=(1, 5, 0),
                     parameters=[
-                        GenericTypeParameter(
+                        GenericTypeParameterNode(
                             position=(1, 6, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 9, 0),
                                 name=SYMBOL('T')
                             ),
                             variadic=true
                         )
                     ],
-                    expression=TypeName(
+                    expression=TypeNameNode(
                         position=(1, 11, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 11, 0),
                             name=SYMBOL('T')
                         )
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=Symbol(
+                    value=SymbolNode(
                         position=(2, 5, 0),
                         name=SYMBOL('undefined')
                     )

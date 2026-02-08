@@ -5,35 +5,35 @@ x =
         "hi"
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(2, 5, 4),
                         declarations=[
-                            ModuleAssignmentDeclaration(
+                            ModuleAssignmentDeclarationNode(
                                 position=(3, 9, 8),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(3, 16, 8),
                                     name=SYMBOL('A')
                                 ),
-                                value=Symbol(
+                                value=SymbolNode(
                                     position=(3, 20, 8),
                                     name=SYMBOL('expr')
                                 )
                             )
                         ],
-                        body=StringLiteral(
+                        body=StringLiteralNode(
                             position=(5, 9, 8),
                             open_quote=STRING_LITERAL_START('"'),
                             contents=STRING_CONTENTS('hi'),

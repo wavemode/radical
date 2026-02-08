@@ -2,73 +2,73 @@ a = fun(b : Int, ...c: Int ) ->
     b + c[0]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=FunctionExpression(
+                    value=FunctionExpressionNode(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(1, 9, 0),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(1, 9, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 9, 0),
                                         name=SYMBOL('b')
                                     )
                                 ),
                                 variadic=false,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(1, 13, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 13, 0),
                                         name=SYMBOL('Int')
                                     )
                                 )
                             ),
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(1, 18, 0),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(1, 21, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 21, 0),
                                         name=SYMBOL('c')
                                     )
                                 ),
                                 variadic=true,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(1, 24, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 24, 0),
                                         name=SYMBOL('Int')
                                     )
                                 )
                             )
                         ],
-                        body=BinaryOperation(
+                        body=BinaryOperationNode(
                             position=(2, 5, 4),
-                            left=Symbol(
+                            left=SymbolNode(
                                 position=(2, 5, 4),
                                 name=SYMBOL('b')
                             ),
                             operator='+',
-                            right=IndexingExpression(
+                            right=IndexingExpressionNode(
                                 position=(2, 9, 4),
-                                object_expression=Symbol(
+                                object_expression=SymbolNode(
                                     position=(2, 9, 4),
                                     name=SYMBOL('c')
                                 ),
-                                index_expression=NumberLiteral(
+                                index_expression=NumberLiteralNode(
                                     position=(2, 11, 4),
                                     contents=INTEGER_LITERAL('0')
                                 )

@@ -5,77 +5,77 @@ data A(
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            DataDeclaration(
+            DataDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('A')
                 ),
                 fields=[
-                    DataField(
+                    DataFieldNode(
                         position=(2, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(2, 5, 4),
                             name=SYMBOL('a')
                         ),
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(2, 8, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(2, 8, 4),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        default_value=NumberLiteral(
+                        default_value=NumberLiteralNode(
                             position=(2, 14, 4),
                             contents=INTEGER_LITERAL('10')
                         )
                     ),
-                    DataField(
+                    DataFieldNode(
                         position=(3, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(3, 5, 4),
                             name=SYMBOL('b')
                         ),
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(3, 8, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(3, 8, 4),
                                 name=SYMBOL('String')
                             )
                         ),
-                        default_value=StringLiteral(
+                        default_value=StringLiteralNode(
                             position=(3, 17, 4),
                             open_quote=STRING_LITERAL_START('"'),
                             contents=STRING_CONTENTS('default'),
                             close_quote=STRING_LITERAL_END('"')
                         )
                     ),
-                    DataField(
+                    DataFieldNode(
                         position=(4, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(4, 5, 4),
                             name=SYMBOL('c')
                         ),
-                        type_annotation=GenericTypeApplication(
+                        type_annotation=GenericTypeApplicationNode(
                             position=(4, 8, 4),
-                            generic_type=TypeName(
+                            generic_type=TypeNameNode(
                                 position=(4, 8, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(4, 8, 4),
                                     name=SYMBOL('List')
                                 )
                             ),
                             arguments=[
-                                GenericTypeArgument(
+                                GenericTypeArgumentNode(
                                     position=(4, 13, 4),
-                                    argument=TypeName(
+                                    argument=TypeNameNode(
                                         position=(4, 13, 4),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(4, 13, 4),
                                             name=SYMBOL('String')
                                         )
@@ -83,16 +83,16 @@ Module(
                                 )
                             ]
                         ),
-                        default_value=ListLiteral(
+                        default_value=ListLiteralNode(
                             position=(4, 23, 4),
                             elements=[
-                                StringLiteral(
+                                StringLiteralNode(
                                     position=(4, 24, 4),
                                     open_quote=STRING_LITERAL_START('"'),
                                     contents=STRING_CONTENTS('one'),
                                     close_quote=STRING_LITERAL_END('"')
                                 ),
-                                StringLiteral(
+                                StringLiteralNode(
                                     position=(4, 31, 4),
                                     open_quote=STRING_LITERAL_START('"'),
                                     contents=STRING_CONTENTS('two'),

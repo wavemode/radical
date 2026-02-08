@@ -1,18 +1,18 @@
 module A = expr
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ModuleAssignmentDeclaration(
+            ModuleAssignmentDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 8, 0),
                     name=SYMBOL('A')
                 ),
-                value=Symbol(
+                value=SymbolNode(
                     position=(1, 12, 0),
                     name=SYMBOL('expr')
                 )

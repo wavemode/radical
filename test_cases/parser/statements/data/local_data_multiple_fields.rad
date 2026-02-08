@@ -1,79 +1,79 @@
 local data A(Int, String, Map[Int, List[String]])
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            LocalDeclaration(
+            LocalDeclarationNode(
                 position=(1, 1, 0),
-                declaration=DataDeclaration(
+                declaration=DataDeclarationNode(
                     position=(1, 7, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 12, 0),
                         name=SYMBOL('A')
                     ),
                     fields=[
-                        DataField(
+                        DataFieldNode(
                             position=(1, 14, 0),
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 14, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 14, 0),
                                     name=SYMBOL('Int')
                                 )
                             )
                         ),
-                        DataField(
+                        DataFieldNode(
                             position=(1, 19, 0),
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 19, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 19, 0),
                                     name=SYMBOL('String')
                                 )
                             )
                         ),
-                        DataField(
+                        DataFieldNode(
                             position=(1, 27, 0),
-                            type_annotation=GenericTypeApplication(
+                            type_annotation=GenericTypeApplicationNode(
                                 position=(1, 27, 0),
-                                generic_type=TypeName(
+                                generic_type=TypeNameNode(
                                     position=(1, 27, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 27, 0),
                                         name=SYMBOL('Map')
                                     )
                                 ),
                                 arguments=[
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(1, 31, 0),
-                                        argument=TypeName(
+                                        argument=TypeNameNode(
                                             position=(1, 31, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 31, 0),
                                                 name=SYMBOL('Int')
                                             )
                                         )
                                     ),
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(1, 36, 0),
-                                        argument=GenericTypeApplication(
+                                        argument=GenericTypeApplicationNode(
                                             position=(1, 36, 0),
-                                            generic_type=TypeName(
+                                            generic_type=TypeNameNode(
                                                 position=(1, 36, 0),
-                                                name=Symbol(
+                                                name=SymbolNode(
                                                     position=(1, 36, 0),
                                                     name=SYMBOL('List')
                                                 )
                                             ),
                                             arguments=[
-                                                GenericTypeArgument(
+                                                GenericTypeArgumentNode(
                                                     position=(1, 41, 0),
-                                                    argument=TypeName(
+                                                    argument=TypeNameNode(
                                                         position=(1, 41, 0),
-                                                        name=Symbol(
+                                                        name=SymbolNode(
                                                             position=(1, 41, 0),
                                                             name=SYMBOL('String')
                                                         )

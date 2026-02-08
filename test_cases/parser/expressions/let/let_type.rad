@@ -3,38 +3,38 @@ a = let
 in 10
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            TypeDeclaration(
+                            TypeDeclarationNode(
                                 position=(2, 5, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 10, 4),
                                     name=SYMBOL('A')
                                 ),
-                                type_expression=TypeName(
+                                type_expression=TypeNameNode(
                                     position=(2, 14, 4),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(2, 14, 4),
                                         name=SYMBOL('Int')
                                     )
                                 )
                             )
                         ],
-                        body=NumberLiteral(
+                        body=NumberLiteralNode(
                             position=(3, 4, 0),
                             contents=INTEGER_LITERAL('10')
                         )

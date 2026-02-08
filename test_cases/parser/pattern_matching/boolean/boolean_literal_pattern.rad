@@ -2,23 +2,23 @@ fun invert(true) = false
 fun invert(false) = true
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('invert')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 12, 0),
-                        param=BooleanLiteralPattern(
+                        param=BooleanLiteralPatternNode(
                             position=(1, 12, 0),
-                            boolean=BooleanLiteral(
+                            boolean=BooleanLiteralNode(
                                 position=(1, 12, 0),
                                 contents=TRUE('true')
                             )
@@ -26,23 +26,23 @@ Module(
                         variadic=false
                     )
                 ],
-                body=BooleanLiteral(
+                body=BooleanLiteralNode(
                     position=(1, 20, 0),
                     contents=FALSE('false')
                 )
             ),
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(2, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(2, 5, 0),
                     name=SYMBOL('invert')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(2, 12, 0),
-                        param=BooleanLiteralPattern(
+                        param=BooleanLiteralPatternNode(
                             position=(2, 12, 0),
-                            boolean=BooleanLiteral(
+                            boolean=BooleanLiteralNode(
                                 position=(2, 12, 0),
                                 contents=FALSE('false')
                             )
@@ -50,7 +50,7 @@ Module(
                         variadic=false
                     )
                 ],
-                body=BooleanLiteral(
+                body=BooleanLiteralNode(
                     position=(2, 21, 0),
                     contents=TRUE('true')
                 )

@@ -1,35 +1,35 @@
 (a if a > 10) <- 20
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=ParenthesizedPattern(
+                    pattern=ParenthesizedPatternNode(
                         position=(1, 1, 0),
                         elements=[
-                            PatternGuard(
+                            PatternGuardNode(
                                 position=(1, 2, 0),
-                                pattern=SymbolPattern(
+                                pattern=SymbolPatternNode(
                                     position=(1, 2, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 2, 0),
                                         name=SYMBOL('a')
                                     )
                                 ),
-                                condition=BinaryOperation(
+                                condition=BinaryOperationNode(
                                     position=(1, 7, 0),
-                                    left=Symbol(
+                                    left=SymbolNode(
                                         position=(1, 7, 0),
                                         name=SYMBOL('a')
                                     ),
                                     operator='>',
-                                    right=NumberLiteral(
+                                    right=NumberLiteralNode(
                                         position=(1, 11, 0),
                                         contents=INTEGER_LITERAL('10')
                                     )
@@ -37,7 +37,7 @@ Module(
                             )
                         ]
                     ),
-                    value=NumberLiteral(
+                    value=NumberLiteralNode(
                         position=(1, 18, 0),
                         contents=INTEGER_LITERAL('20')
                     )

@@ -1,55 +1,55 @@
 a  : fun(fun[T](T) -> T) -> Bool
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=FunctionType(
+                type_expression=FunctionTypeNode(
                     position=(1, 6, 0),
                     parameters=[
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(1, 10, 0),
                             variadic=false,
                             optional=false,
-                            type_annotation=GenericTypeExpression(
+                            type_annotation=GenericTypeExpressionNode(
                                 position=(1, 10, 0),
                                 parameters=[
-                                    GenericTypeParameter(
+                                    GenericTypeParameterNode(
                                         position=(1, 14, 0),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(1, 14, 0),
                                             name=SYMBOL('T')
                                         ),
                                         variadic=false
                                     )
                                 ],
-                                expression=FunctionType(
+                                expression=FunctionTypeNode(
                                     position=(1, 10, 0),
                                     parameters=[
-                                        FunctionTypeParameter(
+                                        FunctionTypeParameterNode(
                                             position=(1, 17, 0),
                                             variadic=false,
                                             optional=false,
-                                            type_annotation=TypeName(
+                                            type_annotation=TypeNameNode(
                                                 position=(1, 17, 0),
-                                                name=Symbol(
+                                                name=SymbolNode(
                                                     position=(1, 17, 0),
                                                     name=SYMBOL('T')
                                                 )
                                             )
                                         )
                                     ],
-                                    return_type=TypeName(
+                                    return_type=TypeNameNode(
                                         position=(1, 23, 0),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(1, 23, 0),
                                             name=SYMBOL('T')
                                         )
@@ -58,9 +58,9 @@ Module(
                             )
                         )
                     ],
-                    return_type=TypeName(
+                    return_type=TypeNameNode(
                         position=(1, 29, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 29, 0),
                             name=SYMBOL('Bool')
                         )

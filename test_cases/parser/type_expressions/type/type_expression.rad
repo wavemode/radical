@@ -1,20 +1,20 @@
 a : type typeObject
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=TypeTypeExpression(
+                type_expression=TypeTypeExpressionNode(
                     position=(1, 5, 0),
-                    expression=Symbol(
+                    expression=SymbolNode(
                         position=(1, 10, 0),
                         name=SYMBOL('typeObject')
                     )

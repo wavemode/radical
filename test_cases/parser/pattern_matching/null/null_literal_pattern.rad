@@ -1,23 +1,23 @@
 fun f(null) = null
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('f')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=NullLiteralPattern(
+                        param=NullLiteralPatternNode(
                             position=(1, 7, 0),
-                            null=NullLiteral(
+                            null=NullLiteralNode(
                                 position=(1, 7, 0),
                                 contents=NULL('null')
                             )
@@ -25,7 +25,7 @@ Module(
                         variadic=false
                     )
                 ],
-                body=NullLiteral(
+                body=NullLiteralNode(
                     position=(1, 15, 0),
                     contents=NULL('null')
                 )

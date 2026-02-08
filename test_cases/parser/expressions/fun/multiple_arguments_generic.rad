@@ -2,69 +2,69 @@ a = fun[T,](b : T, f : fun(T) -> T ) ->
     f(b)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=FunctionExpression(
+                    value=FunctionExpressionNode(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(1, 13, 0),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(1, 13, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 13, 0),
                                         name=SYMBOL('b')
                                     )
                                 ),
                                 variadic=false,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(1, 17, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 17, 0),
                                         name=SYMBOL('T')
                                     )
                                 )
                             ),
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(1, 20, 0),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(1, 20, 0),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(1, 20, 0),
                                         name=SYMBOL('f')
                                     )
                                 ),
                                 variadic=false,
-                                type_annotation=FunctionType(
+                                type_annotation=FunctionTypeNode(
                                     position=(1, 24, 0),
                                     parameters=[
-                                        FunctionTypeParameter(
+                                        FunctionTypeParameterNode(
                                             position=(1, 28, 0),
                                             variadic=false,
                                             optional=false,
-                                            type_annotation=TypeName(
+                                            type_annotation=TypeNameNode(
                                                 position=(1, 28, 0),
-                                                name=Symbol(
+                                                name=SymbolNode(
                                                     position=(1, 28, 0),
                                                     name=SYMBOL('T')
                                                 )
                                             )
                                         )
                                     ],
-                                    return_type=TypeName(
+                                    return_type=TypeNameNode(
                                         position=(1, 34, 0),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(1, 34, 0),
                                             name=SYMBOL('T')
                                         )
@@ -73,23 +73,23 @@ Module(
                             )
                         ],
                         generic_parameters=[
-                            GenericTypeParameter(
+                            GenericTypeParameterNode(
                                 position=(1, 9, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 9, 0),
                                     name=SYMBOL('T')
                                 ),
                                 variadic=false
                             )
                         ],
-                        body=FunctionCallExpression(
+                        body=FunctionCallExpressionNode(
                             position=(2, 5, 4),
-                            function_expression=Symbol(
+                            function_expression=SymbolNode(
                                 position=(2, 5, 4),
                                 name=SYMBOL('f')
                             ),
                             arguments=[
-                                Symbol(
+                                SymbolNode(
                                     position=(2, 7, 4),
                                     name=SYMBOL('b')
                                 )

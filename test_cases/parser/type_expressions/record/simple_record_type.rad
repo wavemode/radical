@@ -1,31 +1,31 @@
 a : { b : Int }
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=RecordType(
+                type_expression=RecordTypeNode(
                     position=(1, 5, 0),
                     fields=[
-                        RecordTypeField(
+                        RecordTypeFieldNode(
                             position=(1, 7, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 7, 0),
                                 name=SYMBOL('b')
                             ),
                             optional=false,
                             wildcard=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 11, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 11, 0),
                                     name=SYMBOL('Int')
                                 )

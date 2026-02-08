@@ -2,52 +2,52 @@ fun a(b : Int) -> Int =
     b + 3
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('a')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=SymbolPattern(
+                        param=SymbolPatternNode(
                             position=(1, 7, 0),
-                            symbol=Symbol(
+                            symbol=SymbolNode(
                                 position=(1, 7, 0),
                                 name=SYMBOL('b')
                             )
                         ),
                         variadic=false,
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(1, 11, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 11, 0),
                                 name=SYMBOL('Int')
                             )
                         )
                     )
                 ],
-                return_type=TypeName(
+                return_type=TypeNameNode(
                     position=(1, 19, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 19, 0),
                         name=SYMBOL('Int')
                     )
                 ),
-                body=BinaryOperation(
+                body=BinaryOperationNode(
                     position=(2, 5, 4),
-                    left=Symbol(
+                    left=SymbolNode(
                         position=(2, 5, 4),
                         name=SYMBOL('b')
                     ),
                     operator='+',
-                    right=NumberLiteral(
+                    right=NumberLiteralNode(
                         position=(2, 9, 4),
                         contents=INTEGER_LITERAL('3')
                     )

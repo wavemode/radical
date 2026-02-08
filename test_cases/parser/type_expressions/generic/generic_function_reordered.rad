@@ -1,48 +1,48 @@
 a : fun[T](T) -> T
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=GenericTypeExpression(
+                type_expression=GenericTypeExpressionNode(
                     position=(1, 5, 0),
                     parameters=[
-                        GenericTypeParameter(
+                        GenericTypeParameterNode(
                             position=(1, 9, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 9, 0),
                                 name=SYMBOL('T')
                             ),
                             variadic=false
                         )
                     ],
-                    expression=FunctionType(
+                    expression=FunctionTypeNode(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionTypeParameter(
+                            FunctionTypeParameterNode(
                                 position=(1, 12, 0),
                                 variadic=false,
                                 optional=false,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(1, 12, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 12, 0),
                                         name=SYMBOL('T')
                                     )
                                 )
                             )
                         ],
-                        return_type=TypeName(
+                        return_type=TypeNameNode(
                             position=(1, 18, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 18, 0),
                                 name=SYMBOL('T')
                             )

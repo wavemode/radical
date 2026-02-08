@@ -2,43 +2,43 @@
 a = m.field[4]@[Int]
 
 (*
-Module(
+ModuleNode(
     position=(2, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(2, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=TypeApplicationExpression(
+                    value=TypeApplicationExpressionNode(
                         position=(2, 5, 0),
-                        value_expression=IndexingExpression(
+                        value_expression=IndexingExpressionNode(
                             position=(2, 5, 0),
-                            object_expression=FieldAccessExpression(
+                            object_expression=FieldAccessExpressionNode(
                                 position=(2, 5, 0),
-                                object_expression=Symbol(
+                                object_expression=SymbolNode(
                                     position=(2, 5, 0),
                                     name=SYMBOL('m')
                                 ),
-                                field=Symbol(
+                                field=SymbolNode(
                                     position=(2, 7, 0),
                                     name=SYMBOL('field')
                                 )
                             ),
-                            index_expression=NumberLiteral(
+                            index_expression=NumberLiteralNode(
                                 position=(2, 13, 0),
                                 contents=INTEGER_LITERAL('4')
                             )
                         ),
                         type_arguments=[
-                            TypeName(
+                            TypeNameNode(
                                 position=(2, 17, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 17, 0),
                                     name=SYMBOL('Int')
                                 )

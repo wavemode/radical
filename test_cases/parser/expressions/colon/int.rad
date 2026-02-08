@@ -3,35 +3,35 @@ y = (4 + 5) : Int
 
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(1, 5, 0),
-                        left=NumberLiteral(
+                        left=NumberLiteralNode(
                             position=(1, 5, 0),
                             contents=INTEGER_LITERAL('4')
                         ),
                         operator='+',
-                        right=TypeAnnotationExpression(
+                        right=TypeAnnotationExpressionNode(
                             position=(1, 9, 0),
-                            value_expression=NumberLiteral(
+                            value_expression=NumberLiteralNode(
                                 position=(1, 9, 0),
                                 contents=INTEGER_LITERAL('5')
                             ),
-                            type_expression=TypeName(
+                            type_expression=TypeNameNode(
                                 position=(1, 13, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 13, 0),
                                     name=SYMBOL('Int')
                                 )
@@ -40,36 +40,36 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('y')
                     ),
-                    value=TypeAnnotationExpression(
+                    value=TypeAnnotationExpressionNode(
                         position=(2, 5, 0),
-                        value_expression=ParenthesizedExpression(
+                        value_expression=ParenthesizedExpressionNode(
                             position=(2, 5, 0),
                             elements=[
-                                BinaryOperation(
+                                BinaryOperationNode(
                                     position=(2, 6, 0),
-                                    left=NumberLiteral(
+                                    left=NumberLiteralNode(
                                         position=(2, 6, 0),
                                         contents=INTEGER_LITERAL('4')
                                     ),
                                     operator='+',
-                                    right=NumberLiteral(
+                                    right=NumberLiteralNode(
                                         position=(2, 10, 0),
                                         contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             ]
                         ),
-                        type_expression=TypeName(
+                        type_expression=TypeNameNode(
                             position=(2, 15, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(2, 15, 0),
                                 name=SYMBOL('Int')
                             )

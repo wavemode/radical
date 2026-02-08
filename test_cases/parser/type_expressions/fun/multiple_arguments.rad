@@ -5,84 +5,84 @@ a : fun(  a: Int
 ) -> Float
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=FunctionType(
+                type_expression=FunctionTypeNode(
                     position=(1, 5, 0),
                     parameters=[
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(1, 11, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 11, 0),
                                 name=SYMBOL('a')
                             ),
                             variadic=false,
                             optional=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 14, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 14, 0),
                                     name=SYMBOL('Int')
                                 )
                             )
                         ),
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(2, 4, 2),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(2, 4, 2),
                                 name=SYMBOL('b')
                             ),
                             variadic=false,
                             optional=true,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(2, 8, 2),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 8, 2),
                                     name=SYMBOL('String')
                                 )
                             )
                         ),
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(3, 6, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(3, 6, 4),
                                 name=SYMBOL('c')
                             ),
                             variadic=false,
                             optional=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(3, 9, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(3, 9, 4),
                                     name=SYMBOL('Bool')
                                 )
                             )
                         ),
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(4, 6, 4),
                             variadic=false,
                             optional=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(4, 6, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(4, 6, 4),
                                     name=SYMBOL('Float')
                                 )
                             )
                         )
                     ],
-                    return_type=TypeName(
+                    return_type=TypeNameNode(
                         position=(5, 6, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(5, 6, 0),
                             name=SYMBOL('Float')
                         )

@@ -1,43 +1,43 @@
 a = f((~ + ~) + ~)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=PlaceholderExpression(
+                    value=PlaceholderExpressionNode(
                         position=(1, 5, 0),
-                        expression=FunctionCallExpression(
+                        expression=FunctionCallExpressionNode(
                             position=(1, 5, 0),
-                            function_expression=Symbol(
+                            function_expression=SymbolNode(
                                 position=(1, 5, 0),
                                 name=SYMBOL('f')
                             ),
                             arguments=[
-                                BinaryOperation(
+                                BinaryOperationNode(
                                     position=(1, 7, 0),
-                                    left=PlaceholderExpression(
+                                    left=PlaceholderExpressionNode(
                                         position=(1, 7, 0),
-                                        expression=ParenthesizedExpression(
+                                        expression=ParenthesizedExpressionNode(
                                             position=(1, 7, 0),
                                             elements=[
-                                                BinaryOperation(
+                                                BinaryOperationNode(
                                                     position=(1, 8, 0),
-                                                    left=Symbol(
+                                                    left=SymbolNode(
                                                         position=(1, 8, 0),
                                                         name=TILDE('~')
                                                     ),
                                                     operator='+',
-                                                    right=Symbol(
+                                                    right=SymbolNode(
                                                         position=(1, 12, 0),
                                                         name=TILDE('~')
                                                     )
@@ -46,7 +46,7 @@ Module(
                                         )
                                     ),
                                     operator='+',
-                                    right=Symbol(
+                                    right=SymbolNode(
                                         position=(1, 17, 0),
                                         name=TILDE('~')
                                     )

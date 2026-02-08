@@ -1,39 +1,39 @@
 a = [1, 2, 3][0]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=IndexingExpression(
+                    value=IndexingExpressionNode(
                         position=(1, 5, 0),
-                        object_expression=ListLiteral(
+                        object_expression=ListLiteralNode(
                             position=(1, 5, 0),
                             elements=[
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 6, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 9, 0),
                                     contents=INTEGER_LITERAL('2')
                                 ),
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 12, 0),
                                     contents=INTEGER_LITERAL('3')
                                 )
                             ]
                         ),
-                        index_expression=NumberLiteral(
+                        index_expression=NumberLiteralNode(
                             position=(1, 15, 0),
                             contents=INTEGER_LITERAL('0')
                         )

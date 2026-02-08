@@ -1,44 +1,44 @@
 x = case y of DataType(v = 5) -> 5
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=CaseExpression(
+                    value=CaseExpressionNode(
                         position=(1, 5, 0),
-                        expression=Symbol(
+                        expression=SymbolNode(
                             position=(1, 10, 0),
                             name=SYMBOL('y')
                         ),
                         branches=[
-                            CaseBranch(
+                            CaseBranchNode(
                                 position=(1, 15, 0),
-                                pattern=DataTypePattern(
+                                pattern=DataTypePatternNode(
                                     position=(1, 15, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 15, 0),
                                         name=SYMBOL('DataType')
                                     ),
                                     fields=[
-                                        KeyValueFieldPattern(
+                                        KeyValueFieldPatternNode(
                                             position=(1, 24, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 24, 0),
                                                 name=SYMBOL('v')
                                             ),
-                                            pattern=NumberLiteralPattern(
+                                            pattern=NumberLiteralPatternNode(
                                                 position=(1, 28, 0),
-                                                number=NumberLiteral(
+                                                number=NumberLiteralNode(
                                                     position=(1, 28, 0),
                                                     contents=INTEGER_LITERAL('5')
                                                 )
@@ -46,7 +46,7 @@ Module(
                                         )
                                     ]
                                 ),
-                                expression=NumberLiteral(
+                                expression=NumberLiteralNode(
                                     position=(1, 34, 0),
                                     contents=INTEGER_LITERAL('5')
                                 )

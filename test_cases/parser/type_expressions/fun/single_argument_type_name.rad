@@ -1,36 +1,36 @@
 a : fun(Int) -> Int
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=FunctionType(
+                type_expression=FunctionTypeNode(
                     position=(1, 5, 0),
                     parameters=[
-                        FunctionTypeParameter(
+                        FunctionTypeParameterNode(
                             position=(1, 9, 0),
                             variadic=false,
                             optional=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 9, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 9, 0),
                                     name=SYMBOL('Int')
                                 )
                             )
                         )
                     ],
-                    return_type=TypeName(
+                    return_type=TypeNameNode(
                         position=(1, 17, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 17, 0),
                             name=SYMBOL('Int')
                         )

@@ -6,54 +6,54 @@ x = let
     "hi"
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            ModuleBodyDeclaration(
+                            ModuleBodyDeclarationNode(
                                 position=(2, 3, 2),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 10, 2),
                                     name=SYMBOL('A')
                                 ),
-                                body=ModuleBody(
+                                body=ModuleBodyNode(
                                     position=(2, 12, 2),
                                     declarations=[
-                                        AssignmentStatement(
+                                        AssignmentStatementNode(
                                             position=(3, 5, 4),
-                                            assignment=Assignment(
+                                            assignment=AssignmentNode(
                                                 position=(3, 5, 4),
-                                                target=Symbol(
+                                                target=SymbolNode(
                                                     position=(3, 5, 4),
                                                     name=SYMBOL('a')
                                                 ),
-                                                value=NumberLiteral(
+                                                value=NumberLiteralNode(
                                                     position=(3, 9, 4),
                                                     contents=INTEGER_LITERAL('5')
                                                 )
                                             )
                                         ),
-                                        AssignmentStatement(
+                                        AssignmentStatementNode(
                                             position=(4, 5, 4),
-                                            assignment=Assignment(
+                                            assignment=AssignmentNode(
                                                 position=(4, 5, 4),
-                                                target=Symbol(
+                                                target=SymbolNode(
                                                     position=(4, 5, 4),
                                                     name=SYMBOL('b')
                                                 ),
-                                                value=NumberLiteral(
+                                                value=NumberLiteralNode(
                                                     position=(4, 9, 4),
                                                     contents=INTEGER_LITERAL('10')
                                                 )
@@ -63,7 +63,7 @@ Module(
                                 )
                             )
                         ],
-                        body=StringLiteral(
+                        body=StringLiteralNode(
                             position=(6, 5, 4),
                             open_quote=STRING_LITERAL_START('"'),
                             contents=STRING_CONTENTS('hi'),

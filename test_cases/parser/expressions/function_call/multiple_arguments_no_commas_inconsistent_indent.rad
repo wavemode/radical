@@ -5,35 +5,35 @@ a = f(
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=FunctionCallExpression(
+                    value=FunctionCallExpressionNode(
                         position=(1, 5, 0),
-                        function_expression=Symbol(
+                        function_expression=SymbolNode(
                             position=(1, 5, 0),
                             name=SYMBOL('f')
                         ),
                         arguments=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(2, 3, 2),
                                 contents=INTEGER_LITERAL('10')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(3, 5, 4),
                                 contents=INTEGER_LITERAL('20')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(4, 5, 4),
                                 contents=INTEGER_LITERAL('30')
                             )

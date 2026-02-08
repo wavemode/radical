@@ -1,33 +1,33 @@
 x = f@[Int](5) : List[Int]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=TypeAnnotationExpression(
+                    value=TypeAnnotationExpressionNode(
                         position=(1, 5, 0),
-                        value_expression=FunctionCallExpression(
+                        value_expression=FunctionCallExpressionNode(
                             position=(1, 5, 0),
-                            function_expression=TypeApplicationExpression(
+                            function_expression=TypeApplicationExpressionNode(
                                 position=(1, 5, 0),
-                                value_expression=Symbol(
+                                value_expression=SymbolNode(
                                     position=(1, 5, 0),
                                     name=SYMBOL('f')
                                 ),
                                 type_arguments=[
-                                    TypeName(
+                                    TypeNameNode(
                                         position=(1, 8, 0),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(1, 8, 0),
                                             name=SYMBOL('Int')
                                         )
@@ -35,27 +35,27 @@ Module(
                                 ]
                             ),
                             arguments=[
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 13, 0),
                                     contents=INTEGER_LITERAL('5')
                                 )
                             ]
                         ),
-                        type_expression=GenericTypeApplication(
+                        type_expression=GenericTypeApplicationNode(
                             position=(1, 18, 0),
-                            generic_type=TypeName(
+                            generic_type=TypeNameNode(
                                 position=(1, 18, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 18, 0),
                                     name=SYMBOL('List')
                                 )
                             ),
                             arguments=[
-                                GenericTypeArgument(
+                                GenericTypeArgumentNode(
                                     position=(1, 23, 0),
-                                    argument=TypeName(
+                                    argument=TypeNameNode(
                                         position=(1, 23, 0),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(1, 23, 0),
                                             name=SYMBOL('Int')
                                         )

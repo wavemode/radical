@@ -1,32 +1,32 @@
 data A(a: Int = 5)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            DataDeclaration(
+            DataDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('A')
                 ),
                 fields=[
-                    DataField(
+                    DataFieldNode(
                         position=(1, 8, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 8, 0),
                             name=SYMBOL('a')
                         ),
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(1, 11, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 11, 0),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        default_value=NumberLiteral(
+                        default_value=NumberLiteralNode(
                             position=(1, 17, 0),
                             contents=INTEGER_LITERAL('5')
                         )

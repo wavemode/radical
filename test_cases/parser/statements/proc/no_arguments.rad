@@ -2,31 +2,31 @@ proc a() -> Int of
     42
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ProcedureDeclaration(
+            ProcedureDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('a')
                 ),
                 parameters=[
 
                 ],
-                return_type=TypeName(
+                return_type=TypeNameNode(
                     position=(1, 13, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 13, 0),
                         name=SYMBOL('Int')
                     )
                 ),
                 body=[
-                    ProcedureBodyStatement(
+                    ProcedureBodyStatementNode(
                         position=(2, 5, 4),
-                        expression=NumberLiteral(
+                        expression=NumberLiteralNode(
                             position=(2, 5, 4),
                             contents=INTEGER_LITERAL('42')
                         )

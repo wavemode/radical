@@ -2,63 +2,63 @@ local fun a(b : Int, c : List[Int] ) -> Int =
     b + c[0]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            LocalDeclaration(
+            LocalDeclarationNode(
                 position=(1, 1, 0),
-                declaration=FunctionDeclaration(
+                declaration=FunctionDeclarationNode(
                     position=(1, 7, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 11, 0),
                         name=SYMBOL('a')
                     ),
                     parameters=[
-                        FunctionParameter(
+                        FunctionParameterNode(
                             position=(1, 13, 0),
-                            param=SymbolPattern(
+                            param=SymbolPatternNode(
                                 position=(1, 13, 0),
-                                symbol=Symbol(
+                                symbol=SymbolNode(
                                     position=(1, 13, 0),
                                     name=SYMBOL('b')
                                 )
                             ),
                             variadic=false,
-                            type_annotation=TypeName(
+                            type_annotation=TypeNameNode(
                                 position=(1, 17, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 17, 0),
                                     name=SYMBOL('Int')
                                 )
                             )
                         ),
-                        FunctionParameter(
+                        FunctionParameterNode(
                             position=(1, 22, 0),
-                            param=SymbolPattern(
+                            param=SymbolPatternNode(
                                 position=(1, 22, 0),
-                                symbol=Symbol(
+                                symbol=SymbolNode(
                                     position=(1, 22, 0),
                                     name=SYMBOL('c')
                                 )
                             ),
                             variadic=false,
-                            type_annotation=GenericTypeApplication(
+                            type_annotation=GenericTypeApplicationNode(
                                 position=(1, 26, 0),
-                                generic_type=TypeName(
+                                generic_type=TypeNameNode(
                                     position=(1, 26, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 26, 0),
                                         name=SYMBOL('List')
                                     )
                                 ),
                                 arguments=[
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(1, 31, 0),
-                                        argument=TypeName(
+                                        argument=TypeNameNode(
                                             position=(1, 31, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 31, 0),
                                                 name=SYMBOL('Int')
                                             )
@@ -68,27 +68,27 @@ Module(
                             )
                         )
                     ],
-                    return_type=TypeName(
+                    return_type=TypeNameNode(
                         position=(1, 41, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 41, 0),
                             name=SYMBOL('Int')
                         )
                     ),
-                    body=BinaryOperation(
+                    body=BinaryOperationNode(
                         position=(2, 5, 4),
-                        left=Symbol(
+                        left=SymbolNode(
                             position=(2, 5, 4),
                             name=SYMBOL('b')
                         ),
                         operator='+',
-                        right=IndexingExpression(
+                        right=IndexingExpressionNode(
                             position=(2, 9, 4),
-                            object_expression=Symbol(
+                            object_expression=SymbolNode(
                                 position=(2, 9, 4),
                                 name=SYMBOL('c')
                             ),
-                            index_expression=NumberLiteral(
+                            index_expression=NumberLiteralNode(
                                 position=(2, 11, 4),
                                 contents=INTEGER_LITERAL('0')
                             )

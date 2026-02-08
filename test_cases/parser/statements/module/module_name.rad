@@ -1,18 +1,18 @@
 module A
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
-        name=Symbol(
+        name=SymbolNode(
             position=(1, 8, 0),
             name=SYMBOL('A')
         ),
         declarations=[
-            ModuleName(
+            ModuleNameNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 8, 0),
                     name=SYMBOL('A')
                 )

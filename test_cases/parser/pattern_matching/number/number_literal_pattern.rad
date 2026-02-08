@@ -2,23 +2,23 @@ fun x(5) = 10
 fun x(y) = 11
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('x')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=NumberLiteralPattern(
+                        param=NumberLiteralPatternNode(
                             position=(1, 7, 0),
-                            number=NumberLiteral(
+                            number=NumberLiteralNode(
                                 position=(1, 7, 0),
                                 contents=INTEGER_LITERAL('5')
                             )
@@ -26,23 +26,23 @@ Module(
                         variadic=false
                     )
                 ],
-                body=NumberLiteral(
+                body=NumberLiteralNode(
                     position=(1, 12, 0),
                     contents=INTEGER_LITERAL('10')
                 )
             ),
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(2, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(2, 5, 0),
                     name=SYMBOL('x')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(2, 7, 0),
-                        param=SymbolPattern(
+                        param=SymbolPatternNode(
                             position=(2, 7, 0),
-                            symbol=Symbol(
+                            symbol=SymbolNode(
                                 position=(2, 7, 0),
                                 name=SYMBOL('y')
                             )
@@ -50,7 +50,7 @@ Module(
                         variadic=false
                     )
                 ],
-                body=NumberLiteral(
+                body=NumberLiteralNode(
                     position=(2, 12, 0),
                     contents=INTEGER_LITERAL('11')
                 )

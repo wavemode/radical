@@ -3,42 +3,42 @@ type M[
     V] = Map[K, V]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeDeclaration(
+            TypeDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('M')
                 ),
-                type_expression=GenericTypeApplication(
+                type_expression=GenericTypeApplicationNode(
                     position=(3, 10, 4),
-                    generic_type=TypeName(
+                    generic_type=TypeNameNode(
                         position=(3, 10, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(3, 10, 4),
                             name=SYMBOL('Map')
                         )
                     ),
                     arguments=[
-                        GenericTypeArgument(
+                        GenericTypeArgumentNode(
                             position=(3, 14, 4),
-                            argument=TypeName(
+                            argument=TypeNameNode(
                                 position=(3, 14, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(3, 14, 4),
                                     name=SYMBOL('K')
                                 )
                             )
                         ),
-                        GenericTypeArgument(
+                        GenericTypeArgumentNode(
                             position=(3, 17, 4),
-                            argument=TypeName(
+                            argument=TypeNameNode(
                                 position=(3, 17, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(3, 17, 4),
                                     name=SYMBOL('V')
                                 )
@@ -47,17 +47,17 @@ Module(
                     ]
                 ),
                 parameters=[
-                    GenericTypeParameter(
+                    GenericTypeParameterNode(
                         position=(2, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(2, 5, 4),
                             name=SYMBOL('K')
                         ),
                         variadic=false
                     ),
-                    GenericTypeParameter(
+                    GenericTypeParameterNode(
                         position=(3, 5, 4),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(3, 5, 4),
                             name=SYMBOL('V')
                         ),

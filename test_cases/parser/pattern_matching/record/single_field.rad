@@ -1,32 +1,32 @@
 fun f({ a = a }) = a
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('f')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=RecordPattern(
+                        param=RecordPatternNode(
                             position=(1, 7, 0),
                             fields=[
-                                KeyValueFieldPattern(
+                                KeyValueFieldPatternNode(
                                     position=(1, 9, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 9, 0),
                                         name=SYMBOL('a')
                                     ),
-                                    pattern=SymbolPattern(
+                                    pattern=SymbolPatternNode(
                                         position=(1, 13, 0),
-                                        symbol=Symbol(
+                                        symbol=SymbolNode(
                                             position=(1, 13, 0),
                                             name=SYMBOL('a')
                                         )
@@ -37,7 +37,7 @@ Module(
                         variadic=false
                     )
                 ],
-                body=Symbol(
+                body=SymbolNode(
                     position=(1, 20, 0),
                     name=SYMBOL('a')
                 )

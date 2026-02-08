@@ -3,29 +3,29 @@ a = {
 }
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=RecordLiteral(
+                    value=RecordLiteralNode(
                         position=(1, 5, 0),
                         entries=[
-                            NamingAssignment(
+                            NamingAssignmentNode(
                                 position=(2, 5, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 5, 4),
                                     name=SYMBOL('b')
                                 ),
-                                value=NumberLiteral(
+                                value=NumberLiteralNode(
                                     position=(2, 7, 4),
                                     contents=INTEGER_LITERAL('10')
                                 )

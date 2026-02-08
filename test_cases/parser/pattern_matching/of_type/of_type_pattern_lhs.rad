@@ -4,67 +4,67 @@ x = case y of
     _ -> "?"
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=CaseExpression(
+                    value=CaseExpressionNode(
                         position=(1, 5, 0),
-                        expression=Symbol(
+                        expression=SymbolNode(
                             position=(1, 10, 0),
                             name=SYMBOL('y')
                         ),
                         branches=[
-                            CaseBranch(
+                            CaseBranchNode(
                                 position=(2, 5, 4),
-                                pattern=TypeMatchPattern(
+                                pattern=TypeMatchPatternNode(
                                     position=(2, 5, 4),
-                                    pattern=PatternGuard(
+                                    pattern=PatternGuardNode(
                                         position=(2, 5, 4),
-                                        pattern=SymbolPattern(
+                                        pattern=SymbolPatternNode(
                                             position=(2, 5, 4),
-                                            symbol=Symbol(
+                                            symbol=SymbolNode(
                                                 position=(2, 5, 4),
                                                 name=SYMBOL('x')
                                             )
                                         ),
-                                        condition=BinaryOperation(
+                                        condition=BinaryOperationNode(
                                             position=(2, 10, 4),
-                                            left=Symbol(
+                                            left=SymbolNode(
                                                 position=(2, 10, 4),
                                                 name=SYMBOL('x')
                                             ),
                                             operator='>',
-                                            right=NumberLiteral(
+                                            right=NumberLiteralNode(
                                                 position=(2, 14, 4),
                                                 contents=INTEGER_LITERAL('5')
                                             )
                                         )
                                     ),
-                                    type_expression=TypeName(
+                                    type_expression=TypeNameNode(
                                         position=(2, 24, 4),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(2, 24, 4),
                                             name=SYMBOL('Int')
                                         )
                                     )
                                 ),
-                                expression=FormatStringLiteral(
+                                expression=FormatStringLiteralNode(
                                     position=(2, 31, 4),
                                     open_quote=FORMAT_STRING_START('f"'),
                                     contents=[
-                                        FormatStringExpression(
+                                        FormatStringExpressionNode(
                                             position=(2, 33, 4),
-                                            expression=Symbol(
+                                            expression=SymbolNode(
                                                 position=(2, 34, 4),
                                                 name=SYMBOL('x')
                                             )
@@ -73,33 +73,33 @@ Module(
                                     close_quote=FORMAT_STRING_END('"')
                                 )
                             ),
-                            CaseBranch(
+                            CaseBranchNode(
                                 position=(3, 5, 4),
-                                pattern=TypeMatchPattern(
+                                pattern=TypeMatchPatternNode(
                                     position=(3, 5, 4),
-                                    pattern=SymbolPattern(
+                                    pattern=SymbolPatternNode(
                                         position=(3, 5, 4),
-                                        symbol=Symbol(
+                                        symbol=SymbolNode(
                                             position=(3, 5, 4),
                                             name=SYMBOL('z')
                                         )
                                     ),
-                                    type_expression=TypeName(
+                                    type_expression=TypeNameNode(
                                         position=(3, 15, 4),
-                                        name=Symbol(
+                                        name=SymbolNode(
                                             position=(3, 15, 4),
                                             name=SYMBOL('String')
                                         )
                                     )
                                 ),
-                                expression=BinaryOperation(
+                                expression=BinaryOperationNode(
                                     position=(3, 25, 4),
-                                    left=Symbol(
+                                    left=SymbolNode(
                                         position=(3, 25, 4),
                                         name=SYMBOL('z')
                                     ),
                                     operator='+',
-                                    right=StringLiteral(
+                                    right=StringLiteralNode(
                                         position=(3, 29, 4),
                                         open_quote=STRING_LITERAL_START('"'),
                                         contents=STRING_CONTENTS('!'),
@@ -107,16 +107,16 @@ Module(
                                     )
                                 )
                             ),
-                            CaseBranch(
+                            CaseBranchNode(
                                 position=(4, 5, 4),
-                                pattern=SymbolPattern(
+                                pattern=SymbolPatternNode(
                                     position=(4, 5, 4),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(4, 5, 4),
                                         name=SYMBOL('_')
                                     )
                                 ),
-                                expression=StringLiteral(
+                                expression=StringLiteralNode(
                                     position=(4, 10, 4),
                                     open_quote=STRING_LITERAL_START('"'),
                                     contents=STRING_CONTENTS('?'),

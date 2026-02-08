@@ -5,76 +5,76 @@ a :  fun [
 ] (A, B)  -> C
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=GenericTypeExpression(
+                type_expression=GenericTypeExpressionNode(
                     position=(1, 6, 0),
                     parameters=[
-                        GenericTypeParameter(
+                        GenericTypeParameterNode(
                             position=(2, 5, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(2, 5, 4),
                                 name=SYMBOL('A')
                             ),
                             variadic=false
                         ),
-                        GenericTypeParameter(
+                        GenericTypeParameterNode(
                             position=(3, 5, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(3, 5, 4),
                                 name=SYMBOL('B')
                             ),
                             variadic=false
                         ),
-                        GenericTypeParameter(
+                        GenericTypeParameterNode(
                             position=(4, 5, 4),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(4, 5, 4),
                                 name=SYMBOL('C')
                             ),
                             variadic=false
                         )
                     ],
-                    expression=FunctionType(
+                    expression=FunctionTypeNode(
                         position=(1, 6, 0),
                         parameters=[
-                            FunctionTypeParameter(
+                            FunctionTypeParameterNode(
                                 position=(5, 4, 0),
                                 variadic=false,
                                 optional=false,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(5, 4, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(5, 4, 0),
                                         name=SYMBOL('A')
                                     )
                                 )
                             ),
-                            FunctionTypeParameter(
+                            FunctionTypeParameterNode(
                                 position=(5, 7, 0),
                                 variadic=false,
                                 optional=false,
-                                type_annotation=TypeName(
+                                type_annotation=TypeNameNode(
                                     position=(5, 7, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(5, 7, 0),
                                         name=SYMBOL('B')
                                     )
                                 )
                             )
                         ],
-                        return_type=TypeName(
+                        return_type=TypeNameNode(
                             position=(5, 14, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(5, 14, 0),
                                 name=SYMBOL('C')
                             )

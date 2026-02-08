@@ -1,35 +1,35 @@
 (...) <- (1, 2, 3)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=ParenthesizedPattern(
+                    pattern=ParenthesizedPatternNode(
                         position=(1, 1, 0),
                         elements=[
-                            RestPattern(
+                            RestPatternNode(
                                 position=(1, 2, 0)
                             )
                         ]
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(1, 10, 0),
                         elements=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(1, 11, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(1, 14, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(1, 17, 0),
                                 contents=INTEGER_LITERAL('3')
                             )

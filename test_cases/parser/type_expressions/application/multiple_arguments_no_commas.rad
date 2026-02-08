@@ -4,54 +4,54 @@ a : Map[
 ]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=GenericTypeApplication(
+                type_expression=GenericTypeApplicationNode(
                     position=(1, 5, 0),
-                    generic_type=TypeName(
+                    generic_type=TypeNameNode(
                         position=(1, 5, 0),
-                        name=Symbol(
+                        name=SymbolNode(
                             position=(1, 5, 0),
                             name=SYMBOL('Map')
                         )
                     ),
                     arguments=[
-                        GenericTypeArgument(
+                        GenericTypeArgumentNode(
                             position=(2, 5, 4),
-                            argument=TypeName(
+                            argument=TypeNameNode(
                                 position=(2, 5, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 5, 4),
                                     name=SYMBOL('String')
                                 )
                             )
                         ),
-                        GenericTypeArgument(
+                        GenericTypeArgumentNode(
                             position=(3, 5, 4),
-                            argument=GenericTypeApplication(
+                            argument=GenericTypeApplicationNode(
                                 position=(3, 5, 4),
-                                generic_type=TypeName(
+                                generic_type=TypeNameNode(
                                     position=(3, 5, 4),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(3, 5, 4),
                                         name=SYMBOL('List')
                                     )
                                 ),
                                 arguments=[
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(3, 13, 4),
-                                        argument=TypeName(
+                                        argument=TypeNameNode(
                                             position=(3, 13, 4),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(3, 13, 4),
                                                 name=SYMBOL('Int')
                                             )

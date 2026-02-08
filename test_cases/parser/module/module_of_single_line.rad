@@ -3,47 +3,47 @@ x = module
 z = module of module Z; t = 20
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=ModuleExpression(
+                    value=ModuleExpressionNode(
                         position=(1, 5, 0),
-                        body=ModuleBody(
+                        body=ModuleBodyNode(
                             position=(2, 5, 4),
                             declarations=[
-                                AssignmentStatement(
+                                AssignmentStatementNode(
                                     position=(2, 8, 4),
-                                    assignment=Assignment(
+                                    assignment=AssignmentNode(
                                         position=(2, 8, 4),
-                                        target=Symbol(
+                                        target=SymbolNode(
                                             position=(2, 8, 4),
                                             name=SYMBOL('y')
                                         ),
-                                        value=NumberLiteral(
+                                        value=NumberLiteralNode(
                                             position=(2, 12, 4),
                                             contents=INTEGER_LITERAL('10')
                                         )
                                     )
                                 ),
-                                AssignmentStatement(
+                                AssignmentStatementNode(
                                     position=(2, 16, 4),
-                                    assignment=Assignment(
+                                    assignment=AssignmentNode(
                                         position=(2, 16, 4),
-                                        target=Symbol(
+                                        target=SymbolNode(
                                             position=(2, 16, 4),
                                             name=SYMBOL('z')
                                         ),
-                                        value=NumberLiteral(
+                                        value=NumberLiteralNode(
                                             position=(2, 20, 4),
                                             contents=INTEGER_LITERAL('30')
                                         )
@@ -54,39 +54,39 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(3, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(3, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(3, 1, 0),
                         name=SYMBOL('z')
                     ),
-                    value=ModuleExpression(
+                    value=ModuleExpressionNode(
                         position=(3, 5, 0),
-                        body=ModuleBody(
+                        body=ModuleBodyNode(
                             position=(3, 12, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(3, 22, 0),
                                 name=SYMBOL('Z')
                             ),
                             declarations=[
-                                ModuleName(
+                                ModuleNameNode(
                                     position=(3, 15, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(3, 22, 0),
                                         name=SYMBOL('Z')
                                     )
                                 ),
-                                AssignmentStatement(
+                                AssignmentStatementNode(
                                     position=(3, 25, 0),
-                                    assignment=Assignment(
+                                    assignment=AssignmentNode(
                                         position=(3, 25, 0),
-                                        target=Symbol(
+                                        target=SymbolNode(
                                             position=(3, 25, 0),
                                             name=SYMBOL('t')
                                         ),
-                                        value=NumberLiteral(
+                                        value=NumberLiteralNode(
                                             position=(3, 29, 0),
                                             contents=INTEGER_LITERAL('20')
                                         )

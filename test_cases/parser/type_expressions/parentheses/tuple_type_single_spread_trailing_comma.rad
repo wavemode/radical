@@ -3,25 +3,25 @@ a : (
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=ParenthesizedTypeExpression(
+                type_expression=ParenthesizedTypeExpressionNode(
                     position=(1, 5, 0),
                     expressions=[
-                        SpreadTypeExpression(
+                        SpreadTypeExpressionNode(
                             position=(2, 5, 4),
-                            expression=TypeName(
+                            expression=TypeNameNode(
                                 position=(2, 8, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 8, 4),
                                     name=SYMBOL('T')
                                 )

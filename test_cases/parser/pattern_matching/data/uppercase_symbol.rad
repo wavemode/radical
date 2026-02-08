@@ -1,28 +1,28 @@
 (X) <- y
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=ParenthesizedPattern(
+                    pattern=ParenthesizedPatternNode(
                         position=(1, 1, 0),
                         elements=[
-                            DataTypePattern(
+                            DataTypePatternNode(
                                 position=(1, 2, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 2, 0),
                                     name=SYMBOL('X')
                                 )
                             )
                         ]
                     ),
-                    value=Symbol(
+                    value=SymbolNode(
                         position=(1, 8, 0),
                         name=SYMBOL('y')
                     )

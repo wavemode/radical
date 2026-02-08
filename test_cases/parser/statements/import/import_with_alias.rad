@@ -1,24 +1,24 @@
 import Module.Name as Alias
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ImportStatement(
+            ImportStatementNode(
                 position=(1, 1, 0),
                 module_parts=[
-                    Symbol(
+                    SymbolNode(
                         position=(1, 8, 0),
                         name=SYMBOL('Module')
                     ),
-                    Symbol(
+                    SymbolNode(
                         position=(1, 15, 0),
                         name=SYMBOL('Name')
                     )
                 ],
-                alias=Symbol(
+                alias=SymbolNode(
                     position=(1, 23, 0),
                     name=SYMBOL('Alias')
                 )

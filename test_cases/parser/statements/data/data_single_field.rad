@@ -1,23 +1,23 @@
 data A(Int)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            DataDeclaration(
+            DataDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('A')
                 ),
                 fields=[
-                    DataField(
+                    DataFieldNode(
                         position=(1, 8, 0),
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(1, 8, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 8, 0),
                                 name=SYMBOL('Int')
                             )

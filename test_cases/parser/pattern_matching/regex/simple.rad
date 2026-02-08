@@ -1,23 +1,23 @@
 fun f(/\d+/) = "empty"
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            FunctionDeclaration(
+            FunctionDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 5, 0),
                     name=SYMBOL('f')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=RegexLiteralPattern(
+                        param=RegexLiteralPatternNode(
                             position=(1, 7, 0),
-                            regex=RegexLiteral(
+                            regex=RegexLiteralNode(
                                 position=(1, 7, 0),
                                 contents=STRING_CONTENTS('\d+')
                             )
@@ -25,7 +25,7 @@ Module(
                         variadic=false
                     )
                 ],
-                body=StringLiteral(
+                body=StringLiteralNode(
                     position=(1, 16, 0),
                     open_quote=STRING_LITERAL_START('"'),
                     contents=STRING_CONTENTS('empty'),

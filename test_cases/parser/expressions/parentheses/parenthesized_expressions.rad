@@ -12,40 +12,40 @@ tupleExprNoCommas = (
 )
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('parenthesizedExpr')
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(1, 21, 0),
                         elements=[
-                            BinaryOperation(
+                            BinaryOperationNode(
                                 position=(1, 22, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(1, 22, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
                                 operator='*',
-                                right=ParenthesizedExpression(
+                                right=ParenthesizedExpressionNode(
                                     position=(1, 26, 0),
                                     elements=[
-                                        BinaryOperation(
+                                        BinaryOperationNode(
                                             position=(1, 27, 0),
-                                            left=NumberLiteral(
+                                            left=NumberLiteralNode(
                                                 position=(1, 27, 0),
                                                 contents=INTEGER_LITERAL('2')
                                             ),
                                             operator='+',
-                                            right=NumberLiteral(
+                                            right=NumberLiteralNode(
                                                 position=(1, 31, 0),
                                                 contents=INTEGER_LITERAL('3')
                                             )
@@ -57,15 +57,15 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(3, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(3, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(3, 1, 0),
                         name=SYMBOL('emptyTuple')
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(3, 14, 0),
                         elements=[
 
@@ -73,26 +73,26 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(4, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(4, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(4, 1, 0),
                         name=SYMBOL('tupleExpr')
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(4, 13, 0),
                         elements=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(4, 14, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(4, 17, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(4, 20, 0),
                                 contents=INTEGER_LITERAL('3')
                             )
@@ -100,26 +100,26 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(5, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(5, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(5, 1, 0),
                         name=SYMBOL('tupleExpr2')
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(5, 14, 0),
                         elements=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(5, 15, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(6, 1, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(7, 1, 0),
                                 contents=INTEGER_LITERAL('3')
                             )
@@ -127,26 +127,26 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(8, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(8, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(8, 1, 0),
                         name=SYMBOL('tupleExprNoCommas')
                     ),
-                    value=ParenthesizedExpression(
+                    value=ParenthesizedExpressionNode(
                         position=(8, 21, 0),
                         elements=[
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(9, 5, 4),
                                 contents=INTEGER_LITERAL('4')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(10, 5, 4),
                                 contents=INTEGER_LITERAL('5')
                             ),
-                            NumberLiteral(
+                            NumberLiteralNode(
                                 position=(11, 5, 4),
                                 contents=INTEGER_LITERAL('6')
                             )

@@ -1,43 +1,43 @@
 a : Int | (String | Bool) | Float
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=TypeUnion(
+                type_expression=TypeUnionNode(
                     position=(1, 5, 0),
                     elements=[
-                        TypeName(
+                        TypeNameNode(
                             position=(1, 5, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 5, 0),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        ParenthesizedTypeExpression(
+                        ParenthesizedTypeExpressionNode(
                             position=(1, 11, 0),
                             expressions=[
-                                TypeUnion(
+                                TypeUnionNode(
                                     position=(1, 12, 0),
                                     elements=[
-                                        TypeName(
+                                        TypeNameNode(
                                             position=(1, 12, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 12, 0),
                                                 name=SYMBOL('String')
                                             )
                                         ),
-                                        TypeName(
+                                        TypeNameNode(
                                             position=(1, 21, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 21, 0),
                                                 name=SYMBOL('Bool')
                                             )
@@ -46,9 +46,9 @@ Module(
                                 )
                             ]
                         ),
-                        TypeName(
+                        TypeNameNode(
                             position=(1, 29, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 29, 0),
                                 name=SYMBOL('Float')
                             )

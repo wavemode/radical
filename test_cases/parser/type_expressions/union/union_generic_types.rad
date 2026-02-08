@@ -1,55 +1,55 @@
 a : [T]T | [U]U
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=TypeUnion(
+                type_expression=TypeUnionNode(
                     position=(1, 5, 0),
                     elements=[
-                        GenericTypeExpression(
+                        GenericTypeExpressionNode(
                             position=(1, 5, 0),
                             parameters=[
-                                GenericTypeParameter(
+                                GenericTypeParameterNode(
                                     position=(1, 6, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 6, 0),
                                         name=SYMBOL('T')
                                     ),
                                     variadic=false
                                 )
                             ],
-                            expression=TypeName(
+                            expression=TypeNameNode(
                                 position=(1, 8, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 8, 0),
                                     name=SYMBOL('T')
                                 )
                             )
                         ),
-                        GenericTypeExpression(
+                        GenericTypeExpressionNode(
                             position=(1, 12, 0),
                             parameters=[
-                                GenericTypeParameter(
+                                GenericTypeParameterNode(
                                     position=(1, 13, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 13, 0),
                                         name=SYMBOL('U')
                                     ),
                                     variadic=false
                                 )
                             ],
-                            expression=TypeName(
+                            expression=TypeNameNode(
                                 position=(1, 15, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 15, 0),
                                     name=SYMBOL('U')
                                 )

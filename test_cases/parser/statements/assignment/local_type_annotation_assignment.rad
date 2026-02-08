@@ -1,29 +1,29 @@
 local a : Int = 5
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            LocalDeclaration(
+            LocalDeclarationNode(
                 position=(1, 1, 0),
-                declaration=AssignmentStatement(
+                declaration=AssignmentStatementNode(
                     position=(1, 7, 0),
-                    assignment=Assignment(
+                    assignment=AssignmentNode(
                         position=(1, 7, 0),
-                        target=Symbol(
+                        target=SymbolNode(
                             position=(1, 7, 0),
                             name=SYMBOL('a')
                         ),
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(1, 11, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 11, 0),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        value=NumberLiteral(
+                        value=NumberLiteralNode(
                             position=(1, 17, 0),
                             contents=INTEGER_LITERAL('5')
                         )

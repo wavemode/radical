@@ -1,26 +1,26 @@
 a = b.c
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=FieldAccessExpression(
+                    value=FieldAccessExpressionNode(
                         position=(1, 5, 0),
-                        object_expression=Symbol(
+                        object_expression=SymbolNode(
                             position=(1, 5, 0),
                             name=SYMBOL('b')
                         ),
-                        field=Symbol(
+                        field=SymbolNode(
                             position=(1, 7, 0),
                             name=SYMBOL('c')
                         )

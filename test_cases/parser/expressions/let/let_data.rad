@@ -3,34 +3,34 @@ a = let
 in 5 + 4
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            DataDeclaration(
+                            DataDeclarationNode(
                                 position=(2, 5, 4),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(2, 10, 4),
                                     name=SYMBOL('A')
                                 ),
                                 fields=[
-                                    DataField(
+                                    DataFieldNode(
                                         position=(2, 12, 4),
-                                        type_annotation=TypeName(
+                                        type_annotation=TypeNameNode(
                                             position=(2, 12, 4),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(2, 12, 4),
                                                 name=SYMBOL('Int')
                                             )
@@ -39,14 +39,14 @@ Module(
                                 ]
                             )
                         ],
-                        body=BinaryOperation(
+                        body=BinaryOperationNode(
                             position=(3, 4, 0),
-                            left=NumberLiteral(
+                            left=NumberLiteralNode(
                                 position=(3, 4, 0),
                                 contents=INTEGER_LITERAL('5')
                             ),
                             operator='+',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(3, 8, 0),
                                 contents=INTEGER_LITERAL('4')
                             )

@@ -23,86 +23,86 @@ allOperators =
 *)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('binaryAnd')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(1, 13, 0),
-                        left=BooleanLiteral(
+                        left=BooleanLiteralNode(
                             position=(1, 13, 0),
                             contents=TRUE('true')
                         ),
                         operator='and',
-                        right=BooleanLiteral(
+                        right=BooleanLiteralNode(
                             position=(1, 22, 0),
                             contents=FALSE('false')
                         )
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('binaryAndOr')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(2, 15, 0),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(2, 15, 0),
-                            left=BooleanLiteral(
+                            left=BooleanLiteralNode(
                                 position=(2, 15, 0),
                                 contents=TRUE('true')
                             ),
                             operator='and',
-                            right=BooleanLiteral(
+                            right=BooleanLiteralNode(
                                 position=(2, 24, 0),
                                 contents=FALSE('false')
                             )
                         ),
                         operator='or',
-                        right=BooleanLiteral(
+                        right=BooleanLiteralNode(
                             position=(2, 33, 0),
                             contents=TRUE('true')
                         )
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(3, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(3, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(3, 1, 0),
                         name=SYMBOL('binaryOrAnd')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(3, 15, 0),
-                        left=BooleanLiteral(
+                        left=BooleanLiteralNode(
                             position=(3, 15, 0),
                             contents=FALSE('false')
                         ),
                         operator='or',
-                        right=BinaryOperation(
+                        right=BinaryOperationNode(
                             position=(3, 24, 0),
-                            left=BooleanLiteral(
+                            left=BooleanLiteralNode(
                                 position=(3, 24, 0),
                                 contents=TRUE('true')
                             ),
                             operator='and',
-                            right=BooleanLiteral(
+                            right=BooleanLiteralNode(
                                 position=(3, 33, 0),
                                 contents=FALSE('false')
                             )
@@ -110,143 +110,143 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(5, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(5, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(5, 1, 0),
                         name=SYMBOL('plusMinus')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(5, 13, 0),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(5, 13, 0),
-                            left=NumberLiteral(
+                            left=NumberLiteralNode(
                                 position=(5, 13, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
                             operator='+',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(5, 17, 0),
                                 contents=INTEGER_LITERAL('2')
                             )
                         ),
                         operator='-',
-                        right=NumberLiteral(
+                        right=NumberLiteralNode(
                             position=(5, 21, 0),
                             contents=INTEGER_LITERAL('3')
                         )
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(6, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(6, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(6, 1, 0),
                         name=SYMBOL('minusPlus')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(6, 13, 0),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(6, 13, 0),
-                            left=NumberLiteral(
+                            left=NumberLiteralNode(
                                 position=(6, 13, 0),
                                 contents=INTEGER_LITERAL('4')
                             ),
                             operator='-',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(6, 17, 0),
                                 contents=INTEGER_LITERAL('5')
                             )
                         ),
                         operator='+',
-                        right=NumberLiteral(
+                        right=NumberLiteralNode(
                             position=(6, 21, 0),
                             contents=INTEGER_LITERAL('6')
                         )
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(7, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(7, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(7, 1, 0),
                         name=SYMBOL('mixedArithmetic')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(7, 19, 0),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(7, 19, 0),
-                            left=BinaryOperation(
+                            left=BinaryOperationNode(
                                 position=(7, 19, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(7, 19, 0),
                                     contents=INTEGER_LITERAL('7')
                                 ),
                                 operator='+',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(7, 23, 0),
                                     contents=INTEGER_LITERAL('8')
                                 )
                             ),
                             operator='-',
-                            right=BinaryOperation(
+                            right=BinaryOperationNode(
                                 position=(7, 27, 0),
-                                left=BinaryOperation(
+                                left=BinaryOperationNode(
                                     position=(7, 27, 0),
-                                    left=NumberLiteral(
+                                    left=NumberLiteralNode(
                                         position=(7, 27, 0),
                                         contents=INTEGER_LITERAL('9')
                                     ),
                                     operator='*',
-                                    right=NumberLiteral(
+                                    right=NumberLiteralNode(
                                         position=(7, 31, 0),
                                         contents=INTEGER_LITERAL('10')
                                     )
                                 ),
                                 operator='/',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(7, 36, 0),
                                     contents=INTEGER_LITERAL('11')
                                 )
                             )
                         ),
                         operator='+',
-                        right=BinaryOperation(
+                        right=BinaryOperationNode(
                             position=(7, 41, 0),
-                            left=BinaryOperation(
+                            left=BinaryOperationNode(
                                 position=(7, 41, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(7, 41, 0),
                                     contents=INTEGER_LITERAL('12')
                                 ),
                                 operator='//',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(7, 47, 0),
                                     contents=INTEGER_LITERAL('13')
                                 )
                             ),
                             operator='%',
-                            right=BinaryOperation(
+                            right=BinaryOperationNode(
                                 position=(7, 52, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(7, 52, 0),
                                     contents=INTEGER_LITERAL('14')
                                 ),
                                 operator='**',
-                                right=BinaryOperation(
+                                right=BinaryOperationNode(
                                     position=(7, 58, 0),
-                                    left=NumberLiteral(
+                                    left=NumberLiteralNode(
                                         position=(7, 58, 0),
                                         contents=INTEGER_LITERAL('15')
                                     ),
                                     operator='**',
-                                    right=NumberLiteral(
+                                    right=NumberLiteralNode(
                                         position=(7, 64, 0),
                                         contents=INTEGER_LITERAL('16')
                                     )
@@ -256,151 +256,151 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(9, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(9, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(9, 1, 0),
                         name=SYMBOL('allOperators')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(10, 5, 4),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(10, 5, 4),
-                            left=BinaryOperation(
+                            left=BinaryOperationNode(
                                 position=(10, 5, 4),
-                                left=BinaryOperation(
+                                left=BinaryOperationNode(
                                     position=(10, 5, 4),
-                                    left=BinaryOperation(
+                                    left=BinaryOperationNode(
                                         position=(10, 5, 4),
-                                        left=BinaryOperation(
+                                        left=BinaryOperationNode(
                                             position=(10, 5, 4),
-                                            left=BinaryOperation(
+                                            left=BinaryOperationNode(
                                                 position=(10, 5, 4),
-                                                left=BinaryOperation(
+                                                left=BinaryOperationNode(
                                                     position=(10, 5, 4),
-                                                    left=BinaryOperation(
+                                                    left=BinaryOperationNode(
                                                         position=(10, 5, 4),
-                                                        left=BinaryOperation(
+                                                        left=BinaryOperationNode(
                                                             position=(10, 5, 4),
-                                                            left=BinaryOperation(
+                                                            left=BinaryOperationNode(
                                                                 position=(10, 5, 4),
-                                                                left=BinaryOperation(
+                                                                left=BinaryOperationNode(
                                                                     position=(10, 5, 4),
-                                                                    left=NumberLiteral(
+                                                                    left=NumberLiteralNode(
                                                                         position=(10, 5, 4),
                                                                         contents=INTEGER_LITERAL('1')
                                                                     ),
                                                                     operator='*',
-                                                                    right=NumberLiteral(
+                                                                    right=NumberLiteralNode(
                                                                         position=(10, 9, 4),
                                                                         contents=INTEGER_LITERAL('2')
                                                                     )
                                                                 ),
                                                                 operator='+',
-                                                                right=NumberLiteral(
+                                                                right=NumberLiteralNode(
                                                                     position=(10, 13, 4),
                                                                     contents=INTEGER_LITERAL('3')
                                                                 )
                                                             ),
                                                             operator='-',
-                                                            right=BinaryOperation(
+                                                            right=BinaryOperationNode(
                                                                 position=(10, 17, 4),
-                                                                left=NumberLiteral(
+                                                                left=NumberLiteralNode(
                                                                     position=(10, 17, 4),
                                                                     contents=INTEGER_LITERAL('4')
                                                                 ),
                                                                 operator='/',
-                                                                right=NumberLiteral(
+                                                                right=NumberLiteralNode(
                                                                     position=(10, 21, 4),
                                                                     contents=INTEGER_LITERAL('5')
                                                                 )
                                                             )
                                                         ),
                                                         operator='==',
-                                                        right=NumberLiteral(
+                                                        right=NumberLiteralNode(
                                                             position=(10, 26, 4),
                                                             contents=INTEGER_LITERAL('6')
                                                         )
                                                     ),
                                                     operator='!=',
-                                                    right=NumberLiteral(
+                                                    right=NumberLiteralNode(
                                                         position=(10, 31, 4),
                                                         contents=INTEGER_LITERAL('7')
                                                     )
                                                 ),
                                                 operator='<',
-                                                right=NumberLiteral(
+                                                right=NumberLiteralNode(
                                                     position=(10, 35, 4),
                                                     contents=INTEGER_LITERAL('8')
                                                 )
                                             ),
                                             operator='<=',
-                                            right=NumberLiteral(
+                                            right=NumberLiteralNode(
                                                 position=(10, 40, 4),
                                                 contents=INTEGER_LITERAL('9')
                                             )
                                         ),
                                         operator='>',
-                                        right=NumberLiteral(
+                                        right=NumberLiteralNode(
                                             position=(10, 44, 4),
                                             contents=INTEGER_LITERAL('10')
                                         )
                                     ),
                                     operator='and',
-                                    right=NumberLiteral(
+                                    right=NumberLiteralNode(
                                         position=(11, 5, 4),
                                         contents=INTEGER_LITERAL('11')
                                     )
                                 ),
                                 operator='or',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(11, 11, 4),
                                     contents=INTEGER_LITERAL('12')
                                 )
                             ),
                             operator='|>',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(11, 17, 4),
                                 contents=INTEGER_LITERAL('13')
                             )
                         ),
                         operator='|>',
-                        right=BinaryOperation(
+                        right=BinaryOperationNode(
                             position=(11, 23, 4),
-                            left=BinaryOperation(
+                            left=BinaryOperationNode(
                                 position=(11, 23, 4),
-                                left=BinaryOperation(
+                                left=BinaryOperationNode(
                                     position=(11, 23, 4),
-                                    left=BinaryOperation(
+                                    left=BinaryOperationNode(
                                         position=(11, 23, 4),
-                                        left=NumberLiteral(
+                                        left=NumberLiteralNode(
                                             position=(11, 23, 4),
                                             contents=INTEGER_LITERAL('15')
                                         ),
                                         operator='//',
-                                        right=NumberLiteral(
+                                        right=NumberLiteralNode(
                                             position=(11, 29, 4),
                                             contents=INTEGER_LITERAL('16')
                                         )
                                     ),
                                     operator='%',
-                                    right=BinaryOperation(
+                                    right=BinaryOperationNode(
                                         position=(11, 34, 4),
-                                        left=NumberLiteral(
+                                        left=NumberLiteralNode(
                                             position=(11, 34, 4),
                                             contents=INTEGER_LITERAL('17')
                                         ),
                                         operator='**',
-                                        right=BinaryOperation(
+                                        right=BinaryOperationNode(
                                             position=(11, 40, 4),
-                                            left=NumberLiteral(
+                                            left=NumberLiteralNode(
                                                 position=(11, 40, 4),
                                                 contents=INTEGER_LITERAL('18')
                                             ),
                                             operator='**',
-                                            right=NumberLiteral(
+                                            right=NumberLiteralNode(
                                                 position=(11, 47, 4),
                                                 contents=INTEGER_LITERAL('19')
                                             )
@@ -408,24 +408,24 @@ Module(
                                     )
                                 ),
                                 operator='>=',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(11, 53, 4),
                                     contents=INTEGER_LITERAL('20')
                                 )
                             ),
                             operator='or',
-                            right=BinaryOperation(
+                            right=BinaryOperationNode(
                                 position=(12, 5, 4),
-                                left=UnaryOperation(
+                                left=UnaryOperationNode(
                                     position=(12, 5, 4),
                                     operator='not',
-                                    operand=UnaryOperation(
+                                    operand=UnaryOperationNode(
                                         position=(12, 9, 4),
                                         operator='not',
-                                        operand=UnaryOperation(
+                                        operand=UnaryOperationNode(
                                             position=(13, 5, 4),
                                             operator='not',
-                                            operand=Symbol(
+                                            operand=SymbolNode(
                                                 position=(13, 9, 4),
                                                 name=SYMBOL('notand')
                                             )
@@ -433,48 +433,48 @@ Module(
                                     )
                                 ),
                                 operator='and',
-                                right=UnaryOperation(
+                                right=UnaryOperationNode(
                                     position=(14, 5, 4),
                                     operator='not',
-                                    operand=BinaryOperation(
+                                    operand=BinaryOperationNode(
                                         position=(14, 9, 4),
-                                        left=BinaryOperation(
+                                        left=BinaryOperationNode(
                                             position=(14, 9, 4),
-                                            left=UnaryOperation(
+                                            left=UnaryOperationNode(
                                                 position=(14, 9, 4),
                                                 operator='-x',
-                                                operand=NumberLiteral(
+                                                operand=NumberLiteralNode(
                                                     position=(14, 11, 4),
                                                     contents=INTEGER_LITERAL('22')
                                                 )
                                             ),
                                             operator='-',
-                                            right=UnaryOperation(
+                                            right=UnaryOperationNode(
                                                 position=(14, 16, 4),
                                                 operator='-x',
-                                                operand=NumberLiteral(
+                                                operand=NumberLiteralNode(
                                                     position=(14, 17, 4),
                                                     contents=INTEGER_LITERAL('23')
                                                 )
                                             )
                                         ),
                                         operator='+',
-                                        right=UnaryOperation(
+                                        right=UnaryOperationNode(
                                             position=(14, 21, 4),
                                             operator='-x',
-                                            operand=UnaryOperation(
+                                            operand=UnaryOperationNode(
                                                 position=(14, 22, 4),
                                                 operator='+x',
-                                                operand=UnaryOperation(
+                                                operand=UnaryOperationNode(
                                                     position=(14, 23, 4),
                                                     operator='-x',
-                                                    operand=UnaryOperation(
+                                                    operand=UnaryOperationNode(
                                                         position=(14, 24, 4),
                                                         operator='+x',
-                                                        operand=UnaryOperation(
+                                                        operand=UnaryOperationNode(
                                                             position=(14, 25, 4),
                                                             operator='-x',
-                                                            operand=NumberLiteral(
+                                                            operand=NumberLiteralNode(
                                                                 position=(14, 26, 4),
                                                                 contents=INTEGER_LITERAL('24')
                                                             )
@@ -490,38 +490,38 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(536, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(536, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(536, 1, 0),
                         name=SYMBOL('plusMinusPlus')
                     ),
-                    value=BinaryOperation(
+                    value=BinaryOperationNode(
                         position=(536, 17, 0),
-                        left=BinaryOperation(
+                        left=BinaryOperationNode(
                             position=(536, 17, 0),
-                            left=BinaryOperation(
+                            left=BinaryOperationNode(
                                 position=(536, 17, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(536, 17, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
                                 operator='+',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(536, 21, 0),
                                     contents=INTEGER_LITERAL('2')
                                 )
                             ),
                             operator='-',
-                            right=NumberLiteral(
+                            right=NumberLiteralNode(
                                 position=(536, 25, 0),
                                 contents=INTEGER_LITERAL('3')
                             )
                         ),
                         operator='+',
-                        right=NumberLiteral(
+                        right=NumberLiteralNode(
                             position=(536, 29, 0),
                             contents=INTEGER_LITERAL('4')
                         )

@@ -4,60 +4,60 @@ a = let
 in x
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            ImportStatement(
+                            ImportStatementNode(
                                 position=(2, 5, 4),
                                 module_parts=[
-                                    Symbol(
+                                    SymbolNode(
                                         position=(2, 12, 4),
                                         name=SYMBOL('Module')
                                     ),
-                                    Symbol(
+                                    SymbolNode(
                                         position=(2, 19, 4),
                                         name=SYMBOL('Name')
                                     )
                                 ],
                                 fields=[
-                                    ImportStatementEllipsis(
+                                    ImportStatementEllipsisNode(
                                         position=(2, 28, 4)
                                     )
                                 ],
-                                alias=Symbol(
+                                alias=SymbolNode(
                                     position=(2, 33, 4),
                                     name=SYMBOL('M')
                                 )
                             ),
-                            AssignmentStatement(
+                            AssignmentStatementNode(
                                 position=(3, 5, 4),
-                                assignment=Assignment(
+                                assignment=AssignmentNode(
                                     position=(3, 5, 4),
-                                    target=Symbol(
+                                    target=SymbolNode(
                                         position=(3, 5, 4),
                                         name=SYMBOL('x')
                                     ),
-                                    value=NumberLiteral(
+                                    value=NumberLiteralNode(
                                         position=(3, 9, 4),
                                         contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             )
                         ],
-                        body=Symbol(
+                        body=SymbolNode(
                             position=(4, 4, 0),
                             name=SYMBOL('x')
                         )

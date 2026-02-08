@@ -1,30 +1,30 @@
 a : typeof (5 + 6)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=TypeOfTypeExpression(
+                type_expression=TypeOfTypeExpressionNode(
                     position=(1, 5, 0),
-                    expression=ParenthesizedExpression(
+                    expression=ParenthesizedExpressionNode(
                         position=(1, 12, 0),
                         elements=[
-                            BinaryOperation(
+                            BinaryOperationNode(
                                 position=(1, 13, 0),
-                                left=NumberLiteral(
+                                left=NumberLiteralNode(
                                     position=(1, 13, 0),
                                     contents=INTEGER_LITERAL('5')
                                 ),
                                 operator='+',
-                                right=NumberLiteral(
+                                right=NumberLiteralNode(
                                     position=(1, 17, 0),
                                     contents=INTEGER_LITERAL('6')
                                 )

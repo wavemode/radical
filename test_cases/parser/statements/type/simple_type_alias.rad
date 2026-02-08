@@ -1,20 +1,20 @@
 type A = Int
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeDeclaration(
+            TypeDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('A')
                 ),
-                type_expression=TypeName(
+                type_expression=TypeNameNode(
                     position=(1, 10, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 10, 0),
                         name=SYMBOL('Int')
                     )

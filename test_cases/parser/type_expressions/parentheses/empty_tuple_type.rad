@@ -2,33 +2,33 @@ a : ()
 a = null
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            TypeAnnotation(
+            TypeAnnotationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 1, 0),
                     name=SYMBOL('a')
                 ),
-                type_expression=ParenthesizedTypeExpression(
+                type_expression=ParenthesizedTypeExpressionNode(
                     position=(1, 5, 0),
                     expressions=[
 
                     ]
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=NullLiteral(
+                    value=NullLiteralNode(
                         position=(2, 5, 0),
                         contents=NULL('null')
                     )

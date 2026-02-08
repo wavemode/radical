@@ -1,20 +1,20 @@
 import "filename.txt" as F
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ImportStatement(
+            ImportStatementNode(
                 position=(1, 1, 0),
-                filename=StringLiteral(
+                filename=StringLiteralNode(
                     position=(1, 8, 0),
                     open_quote=STRING_LITERAL_START('"'),
                     contents=STRING_CONTENTS('filename.txt'),
                     close_quote=STRING_LITERAL_END('"')
                 ),
-                alias=Symbol(
+                alias=SymbolNode(
                     position=(1, 26, 0),
                     name=SYMBOL('F')
                 )

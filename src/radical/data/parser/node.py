@@ -11,10 +11,3 @@ class Node(Data):
 
     def __str__(self) -> str:
         return self.format()
-
-    def format_name(self) -> str:
-        return (
-            self.__class__.__name__[:-4]
-            if self.__class__.__name__.endswith("Node")
-            else self.__class__.__name__
-        )

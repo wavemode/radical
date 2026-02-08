@@ -3,62 +3,62 @@ proc a (b : Int = 5, c = [1, 2, 3] ) -> Int of
     b + d
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ProcedureDeclaration(
+            ProcedureDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 6, 0),
                     name=SYMBOL('a')
                 ),
                 parameters=[
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 9, 0),
-                        param=SymbolPattern(
+                        param=SymbolPatternNode(
                             position=(1, 9, 0),
-                            symbol=Symbol(
+                            symbol=SymbolNode(
                                 position=(1, 9, 0),
                                 name=SYMBOL('b')
                             )
                         ),
                         variadic=false,
-                        type_annotation=TypeName(
+                        type_annotation=TypeNameNode(
                             position=(1, 13, 0),
-                            name=Symbol(
+                            name=SymbolNode(
                                 position=(1, 13, 0),
                                 name=SYMBOL('Int')
                             )
                         ),
-                        default_value=NumberLiteral(
+                        default_value=NumberLiteralNode(
                             position=(1, 19, 0),
                             contents=INTEGER_LITERAL('5')
                         )
                     ),
-                    FunctionParameter(
+                    FunctionParameterNode(
                         position=(1, 22, 0),
-                        param=SymbolPattern(
+                        param=SymbolPatternNode(
                             position=(1, 22, 0),
-                            symbol=Symbol(
+                            symbol=SymbolNode(
                                 position=(1, 22, 0),
                                 name=SYMBOL('c')
                             )
                         ),
                         variadic=false,
-                        default_value=ListLiteral(
+                        default_value=ListLiteralNode(
                             position=(1, 26, 0),
                             elements=[
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 27, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 30, 0),
                                     contents=INTEGER_LITERAL('2')
                                 ),
-                                NumberLiteral(
+                                NumberLiteralNode(
                                     position=(1, 33, 0),
                                     contents=INTEGER_LITERAL('3')
                                 )
@@ -66,33 +66,33 @@ Module(
                         )
                     )
                 ],
-                return_type=TypeName(
+                return_type=TypeNameNode(
                     position=(1, 41, 0),
-                    name=Symbol(
+                    name=SymbolNode(
                         position=(1, 41, 0),
                         name=SYMBOL('Int')
                     )
                 ),
                 body=[
-                    ProcedureBodyStatement(
+                    ProcedureBodyStatementNode(
                         position=(2, 5, 4),
-                        declaration=LocalDeclaration(
+                        declaration=LocalDeclarationNode(
                             position=(2, 5, 4),
-                            declaration=AssignmentStatement(
+                            declaration=AssignmentStatementNode(
                                 position=(2, 11, 4),
-                                assignment=Assignment(
+                                assignment=AssignmentNode(
                                     position=(2, 11, 4),
-                                    target=Symbol(
+                                    target=SymbolNode(
                                         position=(2, 11, 4),
                                         name=SYMBOL('d')
                                     ),
-                                    value=IndexingExpression(
+                                    value=IndexingExpressionNode(
                                         position=(2, 15, 4),
-                                        object_expression=Symbol(
+                                        object_expression=SymbolNode(
                                             position=(2, 15, 4),
                                             name=SYMBOL('c')
                                         ),
-                                        index_expression=NumberLiteral(
+                                        index_expression=NumberLiteralNode(
                                             position=(2, 17, 4),
                                             contents=INTEGER_LITERAL('0')
                                         )
@@ -101,16 +101,16 @@ Module(
                             )
                         )
                     ),
-                    ProcedureBodyStatement(
+                    ProcedureBodyStatementNode(
                         position=(3, 5, 4),
-                        expression=BinaryOperation(
+                        expression=BinaryOperationNode(
                             position=(3, 5, 4),
-                            left=Symbol(
+                            left=SymbolNode(
                                 position=(3, 5, 4),
                                 name=SYMBOL('b')
                             ),
                             operator='+',
-                            right=Symbol(
+                            right=SymbolNode(
                                 position=(3, 9, 4),
                                 name=SYMBOL('d')
                             )

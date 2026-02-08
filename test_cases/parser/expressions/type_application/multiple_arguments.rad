@@ -1,65 +1,65 @@
 a = b@[Int, String, Map[Int, String]]
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=TypeApplicationExpression(
+                    value=TypeApplicationExpressionNode(
                         position=(1, 5, 0),
-                        value_expression=Symbol(
+                        value_expression=SymbolNode(
                             position=(1, 5, 0),
                             name=SYMBOL('b')
                         ),
                         type_arguments=[
-                            TypeName(
+                            TypeNameNode(
                                 position=(1, 8, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 8, 0),
                                     name=SYMBOL('Int')
                                 )
                             ),
-                            TypeName(
+                            TypeNameNode(
                                 position=(1, 13, 0),
-                                name=Symbol(
+                                name=SymbolNode(
                                     position=(1, 13, 0),
                                     name=SYMBOL('String')
                                 )
                             ),
-                            GenericTypeApplication(
+                            GenericTypeApplicationNode(
                                 position=(1, 21, 0),
-                                generic_type=TypeName(
+                                generic_type=TypeNameNode(
                                     position=(1, 21, 0),
-                                    name=Symbol(
+                                    name=SymbolNode(
                                         position=(1, 21, 0),
                                         name=SYMBOL('Map')
                                     )
                                 ),
                                 arguments=[
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(1, 25, 0),
-                                        argument=TypeName(
+                                        argument=TypeNameNode(
                                             position=(1, 25, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 25, 0),
                                                 name=SYMBOL('Int')
                                             )
                                         )
                                     ),
-                                    GenericTypeArgument(
+                                    GenericTypeArgumentNode(
                                         position=(1, 30, 0),
-                                        argument=TypeName(
+                                        argument=TypeNameNode(
                                             position=(1, 30, 0),
-                                            name=Symbol(
+                                            name=SymbolNode(
                                                 position=(1, 30, 0),
                                                 name=SYMBOL('String')
                                             )

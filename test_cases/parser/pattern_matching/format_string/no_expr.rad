@@ -1,27 +1,27 @@
 f"hello" <- expr
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=DestructuringAssignment(
+                assignment=DestructuringAssignmentNode(
                     position=(1, 1, 0),
-                    pattern=FormatStringLiteralPattern(
+                    pattern=FormatStringLiteralPatternNode(
                         position=(1, 1, 0),
                         open_quote=FORMAT_STRING_START('f"'),
                         contents=[
-                            FormatStringTextSectionPattern(
+                            FormatStringTextSectionPatternNode(
                                 position=(1, 3, 0),
                                 string_contents=STRING_CONTENTS('hello')
                             )
                         ],
                         close_quote=FORMAT_STRING_END('"')
                     ),
-                    value=Symbol(
+                    value=SymbolNode(
                         position=(1, 13, 0),
                         name=SYMBOL('expr')
                     )

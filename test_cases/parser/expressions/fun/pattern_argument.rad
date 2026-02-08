@@ -1,37 +1,37 @@
 flip = fun((a, b)) -> (b, a)
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('flip')
                     ),
-                    value=FunctionExpression(
+                    value=FunctionExpressionNode(
                         position=(1, 8, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(1, 12, 0),
-                                param=ParenthesizedPattern(
+                                param=ParenthesizedPatternNode(
                                     position=(1, 12, 0),
                                     elements=[
-                                        SymbolPattern(
+                                        SymbolPatternNode(
                                             position=(1, 13, 0),
-                                            symbol=Symbol(
+                                            symbol=SymbolNode(
                                                 position=(1, 13, 0),
                                                 name=SYMBOL('a')
                                             )
                                         ),
-                                        SymbolPattern(
+                                        SymbolPatternNode(
                                             position=(1, 16, 0),
-                                            symbol=Symbol(
+                                            symbol=SymbolNode(
                                                 position=(1, 16, 0),
                                                 name=SYMBOL('b')
                                             )
@@ -41,14 +41,14 @@ Module(
                                 variadic=false
                             )
                         ],
-                        body=ParenthesizedExpression(
+                        body=ParenthesizedExpressionNode(
                             position=(1, 23, 0),
                             elements=[
-                                Symbol(
+                                SymbolNode(
                                     position=(1, 24, 0),
                                     name=SYMBOL('b')
                                 ),
-                                Symbol(
+                                SymbolNode(
                                     position=(1, 27, 0),
                                     name=SYMBOL('a')
                                 )

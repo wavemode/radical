@@ -4,38 +4,38 @@ a = proc(
  ) of b + c
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=ProcedureExpression(
+                    value=ProcedureExpressionNode(
                         position=(1, 5, 0),
                         parameters=[
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(2, 9, 8),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(2, 9, 8),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(2, 9, 8),
                                         name=SYMBOL('b')
                                     )
                                 ),
                                 variadic=false
                             ),
-                            FunctionParameter(
+                            FunctionParameterNode(
                                 position=(3, 9, 8),
-                                param=SymbolPattern(
+                                param=SymbolPatternNode(
                                     position=(3, 9, 8),
-                                    symbol=Symbol(
+                                    symbol=SymbolNode(
                                         position=(3, 9, 8),
                                         name=SYMBOL('c')
                                     )
@@ -44,16 +44,16 @@ Module(
                             )
                         ],
                         body=[
-                            ProcedureBodyStatement(
+                            ProcedureBodyStatementNode(
                                 position=(4, 7, 1),
-                                expression=BinaryOperation(
+                                expression=BinaryOperationNode(
                                     position=(4, 7, 1),
-                                    left=Symbol(
+                                    left=SymbolNode(
                                         position=(4, 7, 1),
                                         name=SYMBOL('b')
                                     ),
                                     operator='+',
-                                    right=Symbol(
+                                    right=SymbolNode(
                                         position=(4, 11, 1),
                                         name=SYMBOL('c')
                                     )

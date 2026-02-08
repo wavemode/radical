@@ -2,59 +2,59 @@ a = let x = 5, y = 10
     in x + y
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('a')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            AssignmentStatement(
+                            AssignmentStatementNode(
                                 position=(1, 9, 0),
-                                assignment=Assignment(
+                                assignment=AssignmentNode(
                                     position=(1, 9, 0),
-                                    target=Symbol(
+                                    target=SymbolNode(
                                         position=(1, 9, 0),
                                         name=SYMBOL('x')
                                     ),
-                                    value=NumberLiteral(
+                                    value=NumberLiteralNode(
                                         position=(1, 13, 0),
                                         contents=INTEGER_LITERAL('5')
                                     )
                                 )
                             ),
-                            AssignmentStatement(
+                            AssignmentStatementNode(
                                 position=(1, 16, 0),
-                                assignment=Assignment(
+                                assignment=AssignmentNode(
                                     position=(1, 16, 0),
-                                    target=Symbol(
+                                    target=SymbolNode(
                                         position=(1, 16, 0),
                                         name=SYMBOL('y')
                                     ),
-                                    value=NumberLiteral(
+                                    value=NumberLiteralNode(
                                         position=(1, 20, 0),
                                         contents=INTEGER_LITERAL('10')
                                     )
                                 )
                             )
                         ],
-                        body=BinaryOperation(
+                        body=BinaryOperationNode(
                             position=(2, 8, 4),
-                            left=Symbol(
+                            left=SymbolNode(
                                 position=(2, 8, 4),
                                 name=SYMBOL('x')
                             ),
                             operator='+',
-                            right=Symbol(
+                            right=SymbolNode(
                                 position=(2, 12, 4),
                                 name=SYMBOL('y')
                             )

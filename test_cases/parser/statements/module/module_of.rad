@@ -3,43 +3,43 @@ module A of
     b = 10
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            ModuleBodyDeclaration(
+            ModuleBodyDeclarationNode(
                 position=(1, 1, 0),
-                name=Symbol(
+                name=SymbolNode(
                     position=(1, 8, 0),
                     name=SYMBOL('A')
                 ),
-                body=ModuleBody(
+                body=ModuleBodyNode(
                     position=(1, 10, 0),
                     declarations=[
-                        AssignmentStatement(
+                        AssignmentStatementNode(
                             position=(2, 5, 4),
-                            assignment=Assignment(
+                            assignment=AssignmentNode(
                                 position=(2, 5, 4),
-                                target=Symbol(
+                                target=SymbolNode(
                                     position=(2, 5, 4),
                                     name=SYMBOL('a')
                                 ),
-                                value=NumberLiteral(
+                                value=NumberLiteralNode(
                                     position=(2, 9, 4),
                                     contents=INTEGER_LITERAL('5')
                                 )
                             )
                         ),
-                        AssignmentStatement(
+                        AssignmentStatementNode(
                             position=(3, 5, 4),
-                            assignment=Assignment(
+                            assignment=AssignmentNode(
                                 position=(3, 5, 4),
-                                target=Symbol(
+                                target=SymbolNode(
                                     position=(3, 5, 4),
                                     name=SYMBOL('b')
                                 ),
-                                value=NumberLiteral(
+                                value=NumberLiteralNode(
                                     position=(3, 9, 4),
                                     contents=INTEGER_LITERAL('10')
                                 )

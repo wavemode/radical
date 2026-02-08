@@ -4,39 +4,39 @@ x = let
     a
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=LetExpression(
+                    value=LetExpressionNode(
                         position=(1, 5, 0),
                         declarations=[
-                            AssignmentStatement(
+                            AssignmentStatementNode(
                                 position=(2, 5, 4),
-                                assignment=DestructuringAssignment(
+                                assignment=DestructuringAssignmentNode(
                                     position=(2, 5, 4),
-                                    pattern=ParenthesizedPattern(
+                                    pattern=ParenthesizedPatternNode(
                                         position=(2, 5, 4),
                                         elements=[
-                                            SymbolPattern(
+                                            SymbolPatternNode(
                                                 position=(2, 6, 4),
-                                                symbol=Symbol(
+                                                symbol=SymbolNode(
                                                     position=(2, 6, 4),
                                                     name=SYMBOL('a')
                                                 )
                                             )
                                         ]
                                     ),
-                                    value=StringLiteral(
+                                    value=StringLiteralNode(
                                         position=(2, 12, 4),
                                         open_quote=STRING_LITERAL_START('"'),
                                         contents=STRING_CONTENTS('c'),
@@ -45,7 +45,7 @@ Module(
                                 )
                             )
                         ],
-                        body=Symbol(
+                        body=SymbolNode(
                             position=(4, 5, 4),
                             name=SYMBOL('a')
                         )

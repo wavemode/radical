@@ -4,20 +4,20 @@ x = f""""""
 """"""
 
 (*
-Module(
+ModuleNode(
     position=(1, 1, 0),
-    body=ModuleBody(
+    body=ModuleBodyNode(
         position=(1, 1, 0),
         declarations=[
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(1, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(1, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('name')
                     ),
-                    value=StringLiteral(
+                    value=StringLiteralNode(
                         position=(1, 8, 0),
                         open_quote=STRING_LITERAL_START('"'),
                         contents=STRING_CONTENTS('world'),
@@ -25,31 +25,31 @@ Module(
                     )
                 )
             ),
-            AssignmentStatement(
+            AssignmentStatementNode(
                 position=(2, 1, 0),
-                assignment=Assignment(
+                assignment=AssignmentNode(
                     position=(2, 1, 0),
-                    target=Symbol(
+                    target=SymbolNode(
                         position=(2, 1, 0),
                         name=SYMBOL('x')
                     ),
-                    value=FormatStringLiteral(
+                    value=FormatStringLiteralNode(
                         position=(2, 5, 0),
                         open_quote=MULTILINE_FORMAT_STRING_START('f""""""'),
                         contents=[
-                            FormatStringTextSection(
+                            FormatStringTextSectionNode(
                                 position=(2, 12, 0),
                                 string_contents=STRING_CONTENTS('
     hello ')
                             ),
-                            FormatStringExpression(
+                            FormatStringExpressionNode(
                                 position=(3, 11, 0),
-                                expression=Symbol(
+                                expression=SymbolNode(
                                     position=(3, 12, 0),
                                     name=SYMBOL('name')
                                 )
                             ),
-                            FormatStringTextSection(
+                            FormatStringTextSectionNode(
                                 position=(3, 17, 0),
                                 string_contents=STRING_CONTENTS('!
 ')
