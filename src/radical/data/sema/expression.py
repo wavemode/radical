@@ -7,25 +7,40 @@ from radical.data.sema.typeref import TypeRef
 
 
 @dataclass(frozen=True)
-class AddIntExpr(Data):
+class Expression(Data):
+    pass
+
+
+@dataclass(frozen=True)
+class AddIntExpr(Expression):
     left: "ExpressionType"
     right: "ExpressionType"
 
 
 @dataclass(frozen=True)
-class ConstRefExpr(Data):
+class ConstRefExpr(Expression):
     type: Type
     ref: ConstRef
 
 
 @dataclass(frozen=True)
-class TypeUnionExpr(Data):
+class IntLiteralExpr(Expression):
+    value: int
+
+
+@dataclass(frozen=True)
+class FloatLiteralExpr(Expression):
+    value: float
+
+
+@dataclass(frozen=True)
+class TypeUnionExpr(Expression):
     left: "ExpressionType"
     right: "ExpressionType"
 
 
 @dataclass(frozen=True)
-class TypeRefExpr(Data):
+class TypeRefExpr(Expression):
     ref: TypeRef
 
 
