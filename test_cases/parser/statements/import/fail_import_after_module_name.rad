@@ -1,0 +1,7 @@
+module Name
+
+import A.B.C
+
+(*
+FAIL("Import statements must appear before any other declarations at test_cases/parser/statements/import/fail_import_after_module_name.rad:3:1")
+*)

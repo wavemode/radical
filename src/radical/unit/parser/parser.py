@@ -233,13 +233,6 @@ class Parser(Unit):
             body=body,
         )
 
-    def _is_local_toplevel_declaration(
-        self, declaration: TopLevelDeclarationNodeType
-    ) -> bool:
-        return isinstance(
-            declaration, (LocalDeclarationNode, ImportStatementNode, ModuleNameNode)
-        )
-
     def parse_module_expression(self) -> ModuleExpressionNode | None:
         start_position = self._position
         if not (
@@ -263,29 +256,33 @@ class Parser(Unit):
             start_position=start_position,
             item_parser=self.parse_top_level_declaration,
         )
-        seen_nonlocal_declaration = False
+        seen_non_import = False
+        seen_decl = False
         name: SymbolNode | None = None
 
         for decl in declarations:
-            if not self._is_local_toplevel_declaration(decl):
-                seen_nonlocal_declaration = True
-            elif isinstance(decl, ImportStatementNode) and seen_nonlocal_declaration:
-                self._raise_parse_error(
-                    message="Import statements must appear before any nonlocal declarations",
-                    position=decl.position,
-                )
-            elif isinstance(decl, ModuleNameNode):
-                if name is not None:
+            if isinstance(decl, ImportStatementNode):
+                if seen_non_import:
                     self._raise_parse_error(
-                        message="Multiple module name declarations are not allowed",
+                        message="Import statements must appear before any other declarations",
                         position=decl.position,
                     )
-                elif seen_nonlocal_declaration:
-                    self._raise_parse_error(
-                        message="Module name must be the first nonlocal declaration",
-                        position=decl.position,
-                    )
-                name = decl.name
+            else:
+                seen_non_import = True
+                if isinstance(decl, ModuleNameNode):
+                    if seen_decl:
+                        self._raise_parse_error(
+                            message="Module name declaration must appear after imports and before any other declarations",
+                            position=decl.position,
+                        )
+                    if name is not None:
+                        self._raise_parse_error(
+                            message="Multiple module name declarations are not allowed",
+                            position=decl.position,
+                        )
+                    name = decl.name
+                else:
+                    seen_decl = True
 
         return ModuleBodyNode(
             position=(

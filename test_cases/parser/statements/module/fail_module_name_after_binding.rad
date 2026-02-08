@@ -3,5 +3,5 @@ x = 5
 module A
 
 (*
-FAIL("Module name must be the first nonlocal declaration at test_cases/parser/statements/module/fail_module_name_after_binding.rad:3:1")
+FAIL("Module name declaration must appear after imports and before any other declarations at test_cases/parser/statements/module/fail_module_name_after_binding.rad:3:1")
 *)

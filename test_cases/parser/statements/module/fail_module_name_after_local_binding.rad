@@ -1,0 +1,7 @@
+local x = 5
+
+module A
+
+(*
+FAIL("Module name declaration must appear after imports and before any other declarations at test_cases/parser/statements/module/fail_module_name_after_local_binding.rad:3:1")
+*)
