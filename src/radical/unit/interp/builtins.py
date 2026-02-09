@@ -1,3 +1,4 @@
+from radical.data.compiler.analysis_result import AnalysisResult
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.sema.type import (
     BooleanType,
@@ -6,35 +7,44 @@ from radical.data.sema.type import (
     NullType,
     StringType,
     TypeKinds,
+    TypeType,
     UnknownType,
 )
-from radical.unit.sema.namespace import Namespace
+from radical.data.sema.value import Value
+from radical.unit.compiler.analysis_scope import AnalysisScope
 
 from typing import TypeVar
 
 T = TypeVar("T", bound=TypeKinds)
 
 
-def _add_builtin_type(
-    namespace: Namespace, module_id: int, type_name: str, type: T
-) -> T:
-    type_ref = namespace.intern_type(module_id, type)
-    symbol_id = namespace.intern_symbol(module_id, type_name)
-    namespace.bind_type(symbol_id, type_ref)
-    return type
-
-
-def setup_builtins(namespace: Namespace) -> BuiltinLookup:
-    module_id = namespace.add_or_get_module("Core.Builtin")
-
-    unknown_type = _add_builtin_type(namespace, module_id, "Unknown", UnknownType())
-    int_type = _add_builtin_type(namespace, module_id, "Int", IntType())
-    float_type = _add_builtin_type(namespace, module_id, "Float", FloatType())
-    bool_type = _add_builtin_type(namespace, module_id, "Bool", BooleanType())
-    string_type = _add_builtin_type(namespace, module_id, "String", StringType())
-    null_type = _add_builtin_type(namespace, module_id, "Null", NullType())
-
-    namespace.mark_module_analyzed(module_id)
+def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
+    unknown_type = UnknownType()
+    int_type = IntType()
+    float_type = FloatType()
+    bool_type = BooleanType()
+    string_type = StringType()
+    null_type = NullType()
+    type_type = TypeType()
+    for type in (
+        unknown_type,
+        int_type,
+        float_type,
+        bool_type,
+        string_type,
+        null_type,
+        type_type,
+    ):
+        type_name = type.__class__.__name__.removesuffix("Type")
+        symbol_id = scope.intern_symbol(type_name)
+        scope.add_type_binding(
+            symbol_id,
+            AnalysisResult(
+                scope=scope,
+                type=Value(type_type),
+                value=Value(type),
+            ),
+        )
 
     return BuiltinLookup(
         unknown_type=unknown_type,
@@ -43,4 +53,5 @@ def setup_builtins(namespace: Namespace) -> BuiltinLookup:
         bool_type=bool_type,
         string_type=string_type,
         null_type=null_type,
+        type_type=type_type,
     )

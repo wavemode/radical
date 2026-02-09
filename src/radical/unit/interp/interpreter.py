@@ -1,14 +1,9 @@
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.sema.value import Value
 from radical.data.sema.expression import (
-    AddIntExpr,
-    BoolLiteralExpr,
-    ConstRefExpr,
+    AddExpr,
     ExpressionType,
-    FloatLiteralExpr,
-    IntLiteralExpr,
-    NullLiteralExpr,
-    TypeRefExpr,
+    LiteralExpr,
     TypeUnionExpr,
 )
 from radical.data.sema.type import Type, UnionType
@@ -27,25 +22,13 @@ class Interpreter(Unit):
 
     def eval(self, expr: ExpressionType) -> Value:
         match expr:
-            case AddIntExpr(left, right):
+            case AddExpr(_type, left, right):
                 left_val = self.eval(left)
                 assert isinstance(left_val.value, int)
                 right_val = self.eval(right)
                 assert isinstance(right_val.value, int)
                 return Value(left_val.value + right_val.value)
-            case ConstRefExpr(_type, ref):
-                return self._namespace.get_constant(ref)
-            case IntLiteralExpr(value):
-                return Value(value)
-            case FloatLiteralExpr(value):
-                return Value(value)
-            case BoolLiteralExpr(value):
-                return Value(value)
-            case NullLiteralExpr():
-                return Value(None)
-            case TypeRefExpr(ref):
-                return Value(self._namespace.get_type(ref))
-            case TypeUnionExpr(left, right):
+            case TypeUnionExpr(_type, left, right):
                 types: set[Type] = set()
 
                 left_type = self.eval(left)
@@ -62,5 +45,7 @@ class Interpreter(Unit):
                     types.add(right_type.value)
 
                 return Value(UnionType(types=types))
+            case LiteralExpr(_type, value):
+                return value
 
         assert_never(expr)

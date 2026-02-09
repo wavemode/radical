@@ -6,6 +6,7 @@ from radical.data.sema.type import (
     IntType,
     NullType,
     StringType,
+    TypeType,
     UnknownType,
 )
 
@@ -18,3 +19,4 @@ class BuiltinLookup:
     bool_type: BooleanType
     string_type: StringType
     null_type: NullType
+    type_type: TypeType

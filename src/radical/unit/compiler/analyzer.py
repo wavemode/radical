@@ -5,7 +5,7 @@ from radical.data.parser.ast import ModuleNode
 from radical.data.sema.expression import ExpressionType
 from radical.data.sema.type import Type
 from radical.unit.compiler.loader import Loader
-from radical.unit.compiler.extract_decls import extract_decls
+from radical.unit.compiler.scope_tools import populate_decls
 from radical.unit.compiler.analysis_scope import AnalysisScope
 from radical.unit.interp.builtins import setup_builtins
 from radical.unit.parser.lexer import Lexer
@@ -22,7 +22,6 @@ class Analyzer(Unit):
     def __init__(self, namespace: Namespace, loader: Loader) -> None:
         self._namespace = namespace
         self._loader = loader
-        self._builtin_lookup = setup_builtins(self._namespace)
 
     def load_module(self, module_name: str) -> None:
         module_id = self._namespace.add_or_get_module(module_name)
@@ -46,14 +45,15 @@ class Analyzer(Unit):
             namespace=self._namespace,
             parent=None,
         )
-        extract_decls(root_scope, module_ast.body.declarations)
+        self._builtin_lookup = setup_builtins(root_scope)
+        populate_decls(root_scope, module_ast.body.declarations)
 
     def _check(self, result: AnalysisResult, bound: Type | None = None) -> None:
         if not result.type:
             self._infer(result)
         if bound and not result.error:
-            assert result.type
-            result.error = result.type.unify(bound)
+            assert result.type and isinstance(result.type.value, Type)
+            result.error = result.type.value.unify(bound)
 
     def _infer(self, result: AnalysisResult) -> None:
         raise NotImplementedError()

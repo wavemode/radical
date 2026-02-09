@@ -18,7 +18,7 @@ from radical.unit.compiler.analysis_scope import AnalysisScope
 from typing import assert_never
 
 
-def extract_decls(
+def populate_decls(
     scope: AnalysisScope, decls: list[TopLevelDeclarationNodeType]
 ) -> None:
     for decl in decls:
@@ -63,8 +63,8 @@ def _populate_decl(scope: AnalysisScope, decl: TopLevelDeclarationNodeType) -> N
     else:
         assert_never(decl)
 
-    symbol_ref = scope.intern_symbol(name)
+    symbol_id = scope.intern_symbol(name)
     if is_value:
-        scope.add_binding(symbol_ref)
+        scope.add_binding(symbol_id)
     if is_type:
-        scope.add_type_binding(symbol_ref)
+        scope.add_type_binding(symbol_id)
