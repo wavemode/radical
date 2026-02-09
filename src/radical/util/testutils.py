@@ -131,9 +131,9 @@ def evaluate_sema_test_case(test_case: CompilerTestCase) -> str:
             module_id = analyzer.load_module(
                 str(test_case.path).replace("/", ".").removesuffix(".rad")
             )
-            expected_output = str(
-                list(namespace.type_bindings(module_id))
-                + list(namespace.bindings(module_id))
+            expected_output = "\n".join(
+                list(b.format() for b in namespace.type_bindings(module_id))
+                + list(b.format() for b in namespace.bindings(module_id))
             )
     except Exception as e:
         if "Fail" not in test_case.path.stem:

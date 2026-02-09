@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class AnalysisResult(Data):
+    name: str
     scope: "AnalysisScope"
     value_node: Node | None = None
     value_expr: Expression | None = None
@@ -20,3 +21,7 @@ class AnalysisResult(Data):
     type_annotation_node: Node | None = None
     type_annotation_expr: Expression | None = None
     type_annotation: Value | None = None
+
+    def format_field(self, name: str, indent_level: int = 0) -> str | None:
+        if name != "scope":
+            return super().format_field(name, indent_level=indent_level)

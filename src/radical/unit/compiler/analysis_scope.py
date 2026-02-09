@@ -34,13 +34,15 @@ class AnalysisScope(Unit):
         return self._namespace.intern_symbol(self._module_id, name)
 
     def add_binding(
-        self, symbol_id: int, value: AnalysisResult | None = None, local: bool = False
+        self, name: str, value: AnalysisResult | None = None, local: bool = False
     ) -> AnalysisResult:
-        result = value or AnalysisResult(scope=self)
-        self._bindings[symbol_id] = result
-        if not local and self._parent is not None:
-            self._namespace.add_binding(self._module_id, symbol_id, result)
-        return result
+        if not value:
+            value = AnalysisResult(name=name, scope=self)
+        symbol_id = self.intern_symbol(name)
+        self._bindings[symbol_id] = value
+        if not local:
+            self._namespace.add_binding(self._module_id, symbol_id, value)
+        return value
 
     def lookup_binding(self, symbol_id: int) -> AnalysisResult | None:
         if symbol_id in self._bindings:
@@ -52,13 +54,15 @@ class AnalysisScope(Unit):
         return self._bindings.values()
 
     def add_type_binding(
-        self, symbol_id: int, value: AnalysisResult | None = None, local: bool = False
+        self, name: str, value: AnalysisResult | None = None, local: bool = False
     ) -> AnalysisResult:
-        result = value or AnalysisResult(scope=self)
-        self._type_bindings[symbol_id] = result
-        if not local and self._parent is not None:
-            self._namespace.add_type_binding(self._module_id, symbol_id, result)
-        return result
+        if not value:
+            value = AnalysisResult(name=name, scope=self)
+        symbol_id = self.intern_symbol(name)
+        self._type_bindings[symbol_id] = value
+        if not local:
+            self._namespace.add_type_binding(self._module_id, symbol_id, value)
+        return value
 
     def lookup_type_binding(self, symbol_id: int) -> AnalysisResult | None:
         if symbol_id in self._type_bindings:

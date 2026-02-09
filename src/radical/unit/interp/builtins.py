@@ -36,14 +36,15 @@ def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
         type_type,
     ):
         type_name = type.__class__.__name__.removesuffix("Type")
-        symbol_id = scope.intern_symbol(type_name)
         scope.add_type_binding(
-            symbol_id,
+            type_name,
             AnalysisResult(
+                name=type_name,
                 scope=scope,
                 type_annotation=Value(type_type),
                 value=Value(type),
             ),
+            local=True,
         )
 
     return BuiltinLookup(

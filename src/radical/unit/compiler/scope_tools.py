@@ -77,12 +77,12 @@ def _populate_decl(scope: AnalysisScope, decl: TopLevelDeclarationNodeType) -> N
     if is_value:
         result = scope.lookup_binding(symbol_id)
         if not result:
-            result = scope.add_binding(symbol_id)
+            result = scope.add_binding(name)
         result.value_node = expr_node
         result.type_annotation_node = type_node
     if is_type:
         result = scope.lookup_type_binding(symbol_id)
         if not result:
-            result = scope.add_type_binding(symbol_id)
+            result = scope.add_type_binding(name)
         result.value_node = expr_node
         result.type_annotation_node = type_node
