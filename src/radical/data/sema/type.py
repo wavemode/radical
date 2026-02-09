@@ -6,7 +6,12 @@ from radical.data.core.data import Data
 
 @dataclass(frozen=True)
 class Type(Data):
-    pass
+    def unify(self, other: "Type") -> str | None:
+        # TODO: subtyping
+        if self == other:
+            return None
+        else:
+            return f"Type mismatch: {self} not assignable to value of type {other}"
 
 
 @dataclass(frozen=True)
@@ -30,7 +35,7 @@ class StringType(Type):
 
 
 @dataclass(frozen=True)
-class BoolType(Type):
+class BooleanType(Type):
     pass
 
 
@@ -68,7 +73,7 @@ TypeKinds = (
     | IntType
     | FloatType
     | StringType
-    | BoolType
+    | BooleanType
     | NullType
     | TypeType
     | UnionType

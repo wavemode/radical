@@ -1,6 +1,6 @@
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.sema.type import (
-    BoolType,
+    BooleanType,
     FloatType,
     IntType,
     NullType,
@@ -8,17 +8,20 @@ from radical.data.sema.type import (
     TypeKinds,
     UnknownType,
 )
-from radical.data.sema.typeref import TypeRef
 from radical.unit.sema.namespace import Namespace
+
+from typing import TypeVar
+
+T = TypeVar("T", bound=TypeKinds)
 
 
 def _add_builtin_type(
-    namespace: Namespace, module_id: int, type_name: str, type: TypeKinds
-) -> TypeRef:
+    namespace: Namespace, module_id: int, type_name: str, type: T
+) -> T:
     type_ref = namespace.intern_type(module_id, type)
     symbol_id = namespace.intern_symbol(module_id, type_name)
     namespace.bind_type(symbol_id, type_ref)
-    return type_ref
+    return type
 
 
 def setup_builtins(namespace: Namespace) -> BuiltinLookup:
@@ -27,7 +30,7 @@ def setup_builtins(namespace: Namespace) -> BuiltinLookup:
     unknown_type = _add_builtin_type(namespace, module_id, "Unknown", UnknownType())
     int_type = _add_builtin_type(namespace, module_id, "Int", IntType())
     float_type = _add_builtin_type(namespace, module_id, "Float", FloatType())
-    bool_type = _add_builtin_type(namespace, module_id, "Bool", BoolType())
+    bool_type = _add_builtin_type(namespace, module_id, "Bool", BooleanType())
     string_type = _add_builtin_type(namespace, module_id, "String", StringType())
     null_type = _add_builtin_type(namespace, module_id, "Null", NullType())
 

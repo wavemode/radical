@@ -1,13 +1,20 @@
 from dataclasses import dataclass
 
-from radical.data.sema.typeref import TypeRef
+from radical.data.sema.type import (
+    BooleanType,
+    FloatType,
+    IntType,
+    NullType,
+    StringType,
+    UnknownType,
+)
 
 
 @dataclass(frozen=True)
 class BuiltinLookup:
-    unknown_type: TypeRef
-    int_type: TypeRef
-    float_type: TypeRef
-    bool_type: TypeRef
-    string_type: TypeRef
-    null_type: TypeRef
+    unknown_type: UnknownType
+    int_type: IntType
+    float_type: FloatType
+    bool_type: BooleanType
+    string_type: StringType
+    null_type: NullType

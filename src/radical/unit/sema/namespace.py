@@ -1,4 +1,4 @@
-from radical.data.interp.value import Value
+from radical.data.sema.value import Value
 from radical.data.sema.constref import ConstRef
 from radical.data.sema.symbolref import SymbolRef
 from radical.data.sema.type import TypeKinds

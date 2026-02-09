@@ -1,0 +1,58 @@
+from radical.data.compiler.analysis_result import AnalysisResult
+from radical.data.sema.symbolref import SymbolRef
+from radical.unit.sema.namespace import Namespace
+from radical.util.core.unit import Unit
+
+
+class AnalysisScope(Unit):
+    _module_id: int
+    _namespace: Namespace
+    _parent: "AnalysisScope | None"
+    _bindings: dict[SymbolRef, AnalysisResult]
+    _type_bindings: dict[SymbolRef, AnalysisResult]
+    _captures: list[SymbolRef] | None
+
+    def __init__(
+        self,
+        module_id: int,
+        namespace: Namespace,
+        parent: "AnalysisScope | None",
+    ) -> None:
+        self._module_id = module_id
+        self._namespace = namespace
+        self._parent = parent
+        self._bindings = {}
+        self._type_bindings = {}
+        self._value_decls = {}
+        self._type_decls = {}
+        self._captures = None
+
+    def module_id(self) -> int:
+        return self._module_id
+
+    def intern_symbol(self, name: str) -> SymbolRef:
+        return self._namespace.intern_symbol(self._module_id, name)
+
+    def add_binding(
+        self, symbol_ref: SymbolRef, value: AnalysisResult | None = None
+    ) -> SymbolRef:
+        self._bindings[symbol_ref] = value or AnalysisResult(scope=self)
+        return symbol_ref
+
+    def lookup_binding(self, symbol_ref: SymbolRef) -> AnalysisResult | None:
+        if symbol_ref in self._bindings:
+            return self._bindings[symbol_ref]
+        elif self._parent is not None:
+            return self._parent.lookup_binding(symbol_ref)
+
+    def add_type_binding(
+        self, symbol_ref: SymbolRef, value: AnalysisResult | None = None
+    ) -> SymbolRef:
+        self._type_bindings[symbol_ref] = value or AnalysisResult(scope=self)
+        return symbol_ref
+
+    def lookup_type_binding(self, symbol_ref: SymbolRef) -> AnalysisResult | None:
+        if symbol_ref in self._type_bindings:
+            return self._type_bindings[symbol_ref]
+        elif self._parent is not None:
+            return self._parent.lookup_type_binding(symbol_ref)

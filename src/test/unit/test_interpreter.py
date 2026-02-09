@@ -9,7 +9,7 @@ from radical.data.sema.expression import (
 from radical.data.sema.type import UnionType
 from radical.unit.sema.namespace import Namespace
 from radical.unit.interp.interpreter import Interpreter
-from radical.data.interp.value import Value
+from radical.data.sema.value import Value
 from radical.unit.interp.builtins import setup_builtins
 
 

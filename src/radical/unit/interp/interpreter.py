@@ -1,5 +1,5 @@
 from radical.data.interp.builtin_lookup import BuiltinLookup
-from radical.data.interp.value import Value
+from radical.data.sema.value import Value
 from radical.data.sema.expression import (
     AddIntExpr,
     BoolLiteralExpr,
