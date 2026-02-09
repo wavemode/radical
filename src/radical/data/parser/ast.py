@@ -169,7 +169,7 @@ class AssignmentNode(Node):
 
 @dataclass(frozen=True)
 class NamingAssignmentNode(Node):
-    name: SymbolNode
+    target: SymbolNode
     value: "ValueExpressionNodeType"
 
 
@@ -638,6 +638,17 @@ AssignmentBindingNodeType = (
 )
 RecordTypeEntryNodeType = RecordTypeFieldNode | SpreadTypeExpressionNode
 ListLiteralElementNodeType = ValueExpressionNodeType | SpreadAssignmentNode
+# AssignmentStatementNode
+# | TypeAnnotationNode
+# | ImportStatementNode
+# | TypeDeclarationNode
+# | DataDeclarationNode
+# | ModuleBodyDeclarationNode
+# | ModuleAssignmentDeclarationNode
+# | FunctionDeclarationNode
+# | ProcedureDeclarationNode
+# | ModuleNameNode
+# | LocalDeclarationNode
 TopLevelDeclarationNodeType = (
     LetExpressionDeclarationNodeType | ModuleNameNode | LocalDeclarationNode
 )

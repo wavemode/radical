@@ -814,7 +814,7 @@ class Parser(Unit):
                 value = self.parse_value_expression()
                 return NamingAssignmentNode(
                     position=start_position,
-                    name=name,
+                    target=name,
                     value=value,
                 )
 

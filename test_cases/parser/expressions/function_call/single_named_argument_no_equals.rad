@@ -23,7 +23,7 @@ ModuleNode(
                         arguments=[
                             NamingAssignmentNode(
                                 position=(1, 7, 0),
-                                name=SymbolNode(
+                                target=SymbolNode(
                                     position=(1, 7, 0),
                                     name=SYMBOL('b')
                                 ),

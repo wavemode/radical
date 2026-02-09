@@ -10,7 +10,7 @@ ModuleNode(
                 position=(1, 1, 0),
                 assignment=NamingAssignmentNode(
                     position=(1, 1, 0),
-                    name=SymbolNode(
+                    target=SymbolNode(
                         position=(1, 1, 0),
                         name=SYMBOL('var')
                     ),
