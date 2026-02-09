@@ -32,46 +32,44 @@ def _populate_decl(scope: AnalysisScope, decl: TopLevelDeclarationNodeType) -> N
     type_node: Node | None = None
     is_value = False
     is_type = False
-    if isinstance(decl, (ImportStatementNode, ModuleNameNode)):
-        # TODO: handle imports
-        # TODO: handle module name constraint checking
-        return
-    elif isinstance(decl, AssignmentStatementNode):
-        is_value = True
-        assignment = decl.assignment
-        # TODO: not yet supporting destructing assignment
-        assert isinstance(assignment, (AssignmentNode, NamingAssignmentNode))
-        name = assignment.target.name.value
-        expr_node = assignment.value
-    elif isinstance(decl, TypeAnnotationNode):
-        is_value = True
-        name = decl.name.name.value
-        type_node = decl.type_expression
-    elif isinstance(decl, TypeDeclarationNode):
-        is_type = True
-        name = decl.name.name.value
-        expr_node = decl
-    elif isinstance(
-        decl,
-        (
-            DataDeclarationNode,
-            ModuleBodyDeclarationNode,
-            ModuleAssignmentDeclarationNode,
-        ),
-    ):
-        is_value = True
-        is_type = True
-        name = decl.name.name.value
-        expr_node = decl
-    elif isinstance(decl, (FunctionDeclarationNode, ProcedureDeclarationNode)):
-        is_value = True
-        name = decl.name.name.value
-        expr_node = decl
-    elif isinstance(decl, LocalDeclarationNode):
-        _populate_decl(scope, decl.declaration)
-        return
-    else:
-        assert_never(decl)
+    match decl:
+        case ImportStatementNode() | ModuleNameNode():
+            # TODO: handle imports
+            # TODO: handle module name constraint checking
+            return
+        case AssignmentStatementNode():
+            is_value = True
+            assignment = decl.assignment
+            # TODO: not yet supporting destructing assignment
+            assert isinstance(assignment, (AssignmentNode, NamingAssignmentNode))
+            name = assignment.target.name.value
+            expr_node = assignment.value
+        case TypeAnnotationNode():
+            is_value = True
+            name = decl.name.name.value
+            type_node = decl.type_expression
+        case TypeDeclarationNode():
+            is_type = True
+            name = decl.name.name.value
+            expr_node = decl
+        case (
+            DataDeclarationNode()
+            | ModuleBodyDeclarationNode()
+            | ModuleAssignmentDeclarationNode()
+        ):
+            is_value = True
+            is_type = True
+            name = decl.name.name.value
+            expr_node = decl
+        case FunctionDeclarationNode() | ProcedureDeclarationNode():
+            is_value = True
+            name = decl.name.name.value
+            expr_node = decl
+        case LocalDeclarationNode():
+            _populate_decl(scope, decl.declaration)
+            return
+        case _:
+            assert_never(decl)
 
     symbol_id = scope.intern_symbol(name)
     if is_value:
