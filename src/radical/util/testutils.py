@@ -1,10 +1,21 @@
 from dataclasses import dataclass
 import os
+from pathlib import Path
+
+from radical.effect.filesystem.file_reader import FileReader
+from radical.unit.compiler.analyzer import Analyzer
+from radical.unit.compiler.loader import Loader
+from radical.unit.interp.interpreter import Interpreter
+from radical.unit.parser.lexer import Lexer
+import json
+
+from radical.unit.parser.parser import Parser
+from radical.unit.sema.namespace import Namespace
 
 
 @dataclass(frozen=True)
 class CompilerTestCase:
-    path: str
+    path: Path
     contents: str
     expected_output: str | None
 
@@ -69,9 +80,66 @@ def collect_test_cases(directory: str) -> list[CompilerTestCase]:
                 expected_output = text[test_case_start + 2 : test_case_end].strip()
             result.append(
                 CompilerTestCase(
-                    path=file_path,
+                    path=Path(file_path),
                     contents=text,
                     expected_output=expected_output,
                 )
             )
     return result
+
+
+def evaluate_lexer_test_case(test_case: CompilerTestCase) -> str:
+    try:
+        with Lexer(test_case.contents, filename=str(test_case.path)) as lexer:
+            formatted = "\n".join(str(token) for token in lexer.read_all())
+    except Exception as e:
+        if "fail_" not in test_case.path.stem:
+            raise
+        formatted = f"FAIL({json.dumps(str(e))})"
+    else:
+        if "fail_" in Path(test_case.path).stem:
+            print(f"Test case {test_case.path} was expected to fail but succeeded")
+    return formatted
+
+
+def evaluate_parser_test_case(test_case: CompilerTestCase) -> str:
+    try:
+        with (
+            Lexer(test_case.contents, filename=str(test_case.path)) as lexer,
+            Parser(lexer=lexer, filename=str(test_case.path)) as parser,
+        ):
+            formatted = parser.parse_module().format()
+    except Exception as e:
+        if "fail_" not in test_case.path.stem:
+            raise
+        formatted = f"FAIL({json.dumps(str(e))})"
+    else:
+        if "fail_" in test_case.path.stem:
+            print(f"Test case {test_case.path} was expected to fail but succeeded")
+    return formatted
+
+
+def evaluate_sema_test_case(test_case: CompilerTestCase) -> str:
+    try:
+        with (
+            FileReader() as file_reader,
+            Loader(file_reader) as loader,
+            Namespace() as namespace,
+            Interpreter(namespace) as interpreter,
+            Analyzer(namespace, loader, interpreter) as analyzer,
+        ):
+            module_id = analyzer.load_module(
+                str(test_case.path).replace("/", ".").removesuffix(".rad")
+            )
+            expected_output = str(
+                list(namespace.type_bindings(module_id))
+                + list(namespace.bindings(module_id))
+            )
+    except Exception as e:
+        if "Fail" not in test_case.path.stem:
+            raise
+        expected_output = f"FAIL({json.dumps(str(e))})"
+    else:
+        if "Fail" in test_case.path.stem:
+            print(f"Test case {test_case.path} was expected to fail but succeeded")
+    return expected_output

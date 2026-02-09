@@ -2,6 +2,7 @@ from typing import NoReturn
 from radical.data.parser.errors import ParseError
 from radical.data.parser.position import Position
 from radical.data.parser.token import EXPR_END_TOKENS, Token, TokenType
+from radical.unit.parser.number_parsing import NumberFormat, identify_number_literal
 from radical.util.core.unit import Unit
 
 
@@ -595,61 +596,22 @@ class Lexer(Unit):
         ):
             self._advance_non_whitespace()
         number = self._contents[start_index : self._index]
-        if "." in number or "e" in number or "E" in number:
-            try:
-                float(number)
-            except ValueError:
-                self._raise_parse_error(
-                    f"Invalid float number format: '{number}'", start_position
-                )
-            else:
-                if "e" in number or "E" in number:
-                    self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
-                else:
-                    self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
-                return
-
-        if number.startswith("0b") or number.startswith("0B"):
-            try:
-                int(number, 2)
-            except ValueError:
-                self._raise_parse_error(
-                    f"Invalid binary number format: '{number}'", start_position
-                )
-            else:
+        match identify_number_literal(number):
+            case (
+                NumberFormat.DECIMAL
+                | NumberFormat.BINARY
+                | NumberFormat.OCTAL
+                | NumberFormat.HEXADECIMAL
+            ):
                 self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
-                return
-
-        if number.startswith("0o") or number.startswith("0O"):
-            try:
-                int(number, 8)
-            except ValueError:
+            case NumberFormat.FLOAT:
+                self._add_token(TokenType.FLOAT_LITERAL, number, start_position)
+            case NumberFormat.SCI_FLOAT:
+                self._add_token(TokenType.SCI_FLOAT_LITERAL, number, start_position)
+            case NumberFormat.UNKNOWN:
                 self._raise_parse_error(
-                    f"Invalid octal number format: '{number}'", start_position
+                    f"Invalid number format: '{number}'", start_position
                 )
-            else:
-                self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
-                return
-
-        if number.startswith("0x") or number.startswith("0X"):
-            try:
-                int(number, 16)
-            except ValueError:
-                self._raise_parse_error(
-                    f"Invalid hexadecimal number format: '{number}'", start_position
-                )
-            else:
-                self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
-                return
-
-        try:
-            int(number, 10)
-        except ValueError:
-            self._raise_parse_error(
-                f"Invalid integer number format: '{number}'", start_position
-            )
-        else:
-            self._add_token(TokenType.INTEGER_LITERAL, number, start_position)
 
     _KEYWORDS = {
         "if",

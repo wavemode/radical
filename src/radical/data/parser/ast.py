@@ -638,17 +638,6 @@ AssignmentBindingNodeType = (
 )
 RecordTypeEntryNodeType = RecordTypeFieldNode | SpreadTypeExpressionNode
 ListLiteralElementNodeType = ValueExpressionNodeType | SpreadAssignmentNode
-# AssignmentStatementNode
-# | TypeAnnotationNode
-# | ImportStatementNode
-# | TypeDeclarationNode
-# | DataDeclarationNode
-# | ModuleBodyDeclarationNode
-# | ModuleAssignmentDeclarationNode
-# | FunctionDeclarationNode
-# | ProcedureDeclarationNode
-# | ModuleNameNode
-# | LocalDeclarationNode
 TopLevelDeclarationNodeType = (
     LetExpressionDeclarationNodeType | ModuleNameNode | LocalDeclarationNode
 )

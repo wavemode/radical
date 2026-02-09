@@ -34,33 +34,37 @@ class AnalysisScope(Unit):
         return self._namespace.intern_symbol(self._module_id, name)
 
     def add_binding(
-        self, symbol_ref: int, value: AnalysisResult | None = None
+        self, symbol_id: int, value: AnalysisResult | None = None, local: bool = False
     ) -> AnalysisResult:
         result = value or AnalysisResult(scope=self)
-        self._bindings[symbol_ref] = result
+        self._bindings[symbol_id] = result
+        if not local and self._parent is not None:
+            self._namespace.add_binding(self._module_id, symbol_id, result)
         return result
 
-    def lookup_binding(self, symbol_ref: int) -> AnalysisResult | None:
-        if symbol_ref in self._bindings:
-            return self._bindings[symbol_ref]
+    def lookup_binding(self, symbol_id: int) -> AnalysisResult | None:
+        if symbol_id in self._bindings:
+            return self._bindings[symbol_id]
         elif self._parent is not None:
-            return self._parent.lookup_binding(symbol_ref)
+            return self._parent.lookup_binding(symbol_id)
 
     def bindings(self) -> Iterable[AnalysisResult]:
         return self._bindings.values()
 
     def add_type_binding(
-        self, symbol_ref: int, value: AnalysisResult | None = None
+        self, symbol_id: int, value: AnalysisResult | None = None, local: bool = False
     ) -> AnalysisResult:
         result = value or AnalysisResult(scope=self)
-        self._type_bindings[symbol_ref] = result
+        self._type_bindings[symbol_id] = result
+        if not local and self._parent is not None:
+            self._namespace.add_type_binding(self._module_id, symbol_id, result)
         return result
 
-    def lookup_type_binding(self, symbol_ref: int) -> AnalysisResult | None:
-        if symbol_ref in self._type_bindings:
-            return self._type_bindings[symbol_ref]
+    def lookup_type_binding(self, symbol_id: int) -> AnalysisResult | None:
+        if symbol_id in self._type_bindings:
+            return self._type_bindings[symbol_id]
         elif self._parent is not None:
-            return self._parent.lookup_type_binding(symbol_ref)
+            return self._parent.lookup_type_binding(symbol_id)
 
     def type_bindings(self) -> Iterable[AnalysisResult]:
         return self._type_bindings.values()

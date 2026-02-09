@@ -8,7 +8,7 @@ from radical.data.sema.expression import (
     SuspendedExpr,
     TypeUnionExpr,
 )
-from radical.data.sema.type import Type, UnionType
+from radical.data.sema.type import IntType, Type, UnionType
 from radical.util.core.unit import Unit
 from radical.unit.sema.namespace import Namespace
 
@@ -25,6 +25,8 @@ class Interpreter(Unit):
     def eval(self, expr: ExpressionType) -> Value:
         match expr:
             case AddExpr(_type, left, right):
+                # TODO: support addition for more data types
+                assert isinstance(_type, IntType)
                 left_val = self.eval(left)
                 assert isinstance(left_val.value, int)
                 right_val = self.eval(right)

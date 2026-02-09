@@ -1,4 +1,5 @@
-from radical.data.sema.value import Value
+from collections.abc import Iterable
+from radical.data.compiler.analysis_result import AnalysisResult
 from radical.util.core.unit import Unit
 
 
@@ -7,8 +8,8 @@ class Module(Unit):
     _analyzed: bool
     _symbols: list[str]
     _symbol_map: dict[str, int]
-    _bindings: dict[int, Value]
-    _type_bindings: dict[int, Value]
+    _bindings: dict[int, AnalysisResult]
+    _type_bindings: dict[int, AnalysisResult]
 
     def __init__(self, name: str) -> None:
         self._name = name
@@ -38,3 +39,25 @@ class Module(Unit):
             self._symbols.append(name)
             self._symbol_map[name] = id
             return id
+
+    def add_binding(self, symbol_id: int, value: AnalysisResult) -> None:
+        result = value
+        self._bindings[symbol_id] = result
+
+    def lookup_binding(self, symbol_id: int) -> AnalysisResult | None:
+        if symbol_id in self._bindings:
+            return self._bindings[symbol_id]
+
+    def bindings(self) -> Iterable[AnalysisResult]:
+        return self._bindings.values()
+
+    def add_type_binding(self, symbol_id: int, value: AnalysisResult) -> None:
+        result = value
+        self._type_bindings[symbol_id] = result
+
+    def lookup_type_binding(self, symbol_id: int) -> AnalysisResult | None:
+        if symbol_id in self._type_bindings:
+            return self._type_bindings[symbol_id]
+
+    def type_bindings(self) -> Iterable[AnalysisResult]:
+        return self._type_bindings.values()

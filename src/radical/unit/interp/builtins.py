@@ -41,7 +41,7 @@ def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
             symbol_id,
             AnalysisResult(
                 scope=scope,
-                type=Value(type_type),
+                type_annotation=Value(type_type),
                 value=Value(type),
             ),
         )
