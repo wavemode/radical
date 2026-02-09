@@ -1,16 +1,15 @@
 from dataclasses import dataclass
 
+from radical.data.compiler.errors import CompileError
 from radical.data.core.data import Data
 
 
 @dataclass(frozen=True)
 class Type(Data):
-    def unify(self, other: "Type") -> str | None:
+    def unify(self, other: "Type") -> None:
         # TODO: subtyping
-        if self == other:
-            return None
-        else:
-            return f"Type mismatch: {self} not assignable to value of type {other}"
+        if self != other:
+            raise CompileError(f"Type mismatch: {self} != {other}")
 
 
 @dataclass(frozen=True)

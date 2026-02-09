@@ -13,8 +13,9 @@ if TYPE_CHECKING:
 @dataclass
 class AnalysisResult:
     scope: "AnalysisScope"
-    node: Node | None = None
-    expr: Expression | None = None
-    type: Value | None = None
+    value_node: Node | None = None
+    value_expr: Expression | None = None
     value: Value | None = None
-    error: str | None = None
+    type_node: Node | None = None
+    type_expr: Expression | None = None
+    type: Value | None = None

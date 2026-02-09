@@ -1,13 +1,16 @@
 from pathlib import Path
 from radical.data.compiler.analysis_result import AnalysisResult
+from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.parser.ast import ModuleNode
-from radical.data.sema.expression import ExpressionType
+from radical.data.parser.node import Node
+from radical.data.sema.expression import ExpressionType, SuspendedExpr
 from radical.data.sema.type import Type
 from radical.unit.compiler.loader import Loader
 from radical.unit.compiler.scope_tools import populate_decls
 from radical.unit.compiler.analysis_scope import AnalysisScope
 from radical.unit.interp.builtins import setup_builtins
+from radical.unit.interp.interpreter import Interpreter
 from radical.unit.parser.lexer import Lexer
 from radical.unit.parser.parser import Parser
 from radical.unit.sema.namespace import Namespace
@@ -17,11 +20,15 @@ from radical.util.core.unit import Unit
 class Analyzer(Unit):
     _namespace: Namespace
     _loader: Loader
+    _interpreter: Interpreter
     _builtin_lookup: BuiltinLookup
 
-    def __init__(self, namespace: Namespace, loader: Loader) -> None:
+    def __init__(
+        self, namespace: Namespace, loader: Loader, interpreter: Interpreter
+    ) -> None:
         self._namespace = namespace
         self._loader = loader
+        self._interpreter = interpreter
 
     def load_module(self, module_name: str) -> None:
         module_id = self._namespace.add_or_get_module(module_name)
@@ -47,16 +54,52 @@ class Analyzer(Unit):
         )
         self._builtin_lookup = setup_builtins(root_scope)
         populate_decls(root_scope, module_ast.body.declarations)
+        for result in root_scope.type_bindings():
+            self._check_value_assignment(result)
+        for result in root_scope.bindings():
+            self._check_type_annotation(result)
+            self._check_value_assignment(result)
 
-    def _check(self, result: AnalysisResult, bound: Type | None = None) -> None:
-        if not result.type:
-            self._infer(result)
-        if bound and not result.error:
-            assert result.type and isinstance(result.type.value, Type)
-            result.error = result.type.value.unify(bound)
+    def _check_value(
+        self, scope: AnalysisScope, name: str, bound: Type | None = None
+    ) -> AnalysisResult:
+        symbol_id = scope.intern_symbol(name)
+        result = scope.lookup_binding(symbol_id)
+        if not result:
+            raise CompileError(f"Undefined symbol: {name}")
+        self._check_type_annotation(result)
+        self._check_value_assignment(result, bound)
+        return result
 
-    def _infer(self, result: AnalysisResult) -> None:
-        raise NotImplementedError()
+    def _check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult:
+        symbol_id = scope.intern_symbol(name)
+        result = scope.lookup_type_binding(symbol_id)
+        if not result:
+            raise CompileError(f"Undefined type: {name}")
+        self._check_value_assignment(result)
+        return result
 
-    def _type_of(self, expr: ExpressionType) -> Type:
+    def _check_type_annotation(self, result: AnalysisResult) -> None:
+        if result.type_node and not result.type_expr:
+            result.type_expr = self._infer(result.scope, result.type_node)
+            type_value = self._interpreter.eval(result.type_expr)
+            result.type = type_value
+
+    def _check_value_assignment(
+        self, result: AnalysisResult, bound: Type | None = None
+    ) -> None:
+        if result.value_node and not result.value_expr:
+            result.value_expr = self._infer(result.scope, result.value_node, bound)
+            if not isinstance(result.value_expr, SuspendedExpr):
+                value = self._interpreter.eval(result.value_expr)
+                result.value = value
+        if bound:
+            assert result.value_expr
+            # TODO: improve unification error messages
+            # TODO: unify should be a standalone function
+            result.value_expr.type.unify(bound)
+
+    def _infer(
+        self, scope: AnalysisScope, node: Node, bound: Type | None = None
+    ) -> ExpressionType:
         raise NotImplementedError()

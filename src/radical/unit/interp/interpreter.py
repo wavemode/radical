@@ -1,9 +1,11 @@
 from radical.data.interp.builtin_lookup import BuiltinLookup
+from radical.data.interp.errors import InterpreterError
 from radical.data.sema.value import Value
 from radical.data.sema.expression import (
     AddExpr,
     ExpressionType,
     LiteralExpr,
+    SuspendedExpr,
     TypeUnionExpr,
 )
 from radical.data.sema.type import Type, UnionType
@@ -47,5 +49,7 @@ class Interpreter(Unit):
                 return Value(UnionType(types=types))
             case LiteralExpr(_type, value):
                 return value
+            case SuspendedExpr(_type, expr):
+                raise InterpreterError("Cannot evaluate suspended expression")
 
         assert_never(expr)

@@ -27,6 +27,11 @@ class TypeUnionExpr(Expression):
     right: "ExpressionType"
 
 
-ValueExpressionType = LiteralExpr | AddExpr
-TypeExpressionType = LiteralExpr | TypeUnionExpr
+@dataclass(frozen=True)
+class SuspendedExpr(Expression):
+    expr: "ExpressionType"
+
+
+ValueExpressionType = LiteralExpr | SuspendedExpr | AddExpr
+TypeExpressionType = LiteralExpr | SuspendedExpr | TypeUnionExpr
 ExpressionType = ValueExpressionType | TypeExpressionType
