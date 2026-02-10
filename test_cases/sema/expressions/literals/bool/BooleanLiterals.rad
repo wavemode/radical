@@ -1,0 +1,29 @@
+x = true
+y = false
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=BooleanType(),
+        value=Value(
+            value=true
+        )
+    ),
+    value=Value(
+        value=true
+    )
+)
+AnalysisResult(
+    name="y",
+    value_expr=LiteralExpr(
+        type=BooleanType(),
+        value=Value(
+            value=false
+        )
+    ),
+    value=Value(
+        value=false
+    )
+)
+*)

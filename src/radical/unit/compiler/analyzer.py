@@ -5,6 +5,7 @@ from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.parser.ast import (
     BinaryOperationNode,
+    BooleanLiteralNode,
     FloatLiteralNode,
     IntegerLiteralNode,
     ModuleNode,
@@ -14,6 +15,7 @@ from radical.data.parser.ast import (
 )
 from radical.data.parser.node import Node
 from radical.data.parser.operator import Operator
+from radical.data.parser.token import TokenType
 from radical.data.sema.expression import (
     AddExpr,
     ExpressionType,
@@ -127,6 +129,8 @@ class Analyzer(Unit):
             expr = self._infer_string_literal(node)
         elif isinstance(node, RegexLiteralNode):
             expr = self._infer_regex_literal(node)
+        elif isinstance(node, BooleanLiteralNode):
+            expr = self._infer_boolean_literal(node)
         else:
             self._raise_compile_error(
                 scope, f"Unsupported syntax: {type(node).__name__}", node
@@ -139,6 +143,12 @@ class Analyzer(Unit):
                 node,
             )
         return expr
+
+    def _infer_boolean_literal(self, node: BooleanLiteralNode) -> ExpressionType:
+        value = node.contents.type == TokenType.TRUE
+        return LiteralExpr(
+            type=self._builtin_lookup.bool_type, node=node, value=Value(value)
+        )
 
     def _infer_regex_literal(self, node: RegexLiteralNode) -> ExpressionType:
         return LiteralExpr(
