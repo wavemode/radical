@@ -75,7 +75,7 @@ class Analyzer(Unit):
             self._check_type_annotation(result)
             self._check_value_assignment(result)
 
-    def check_value(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
+    def _check_value(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
         symbol_id = scope.intern_symbol(name)
         result = scope.lookup_binding(symbol_id)
         if not result:
@@ -84,7 +84,7 @@ class Analyzer(Unit):
         self._check_value_assignment(result)
         return result
 
-    def check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
+    def _check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
         symbol_id = scope.intern_symbol(name)
         result = scope.lookup_type_binding(symbol_id)
         if not result:
@@ -94,7 +94,7 @@ class Analyzer(Unit):
 
     def _check_type_annotation(self, result: AnalysisResult) -> None:
         if result.type_annotation_node and not result.type_annotation_expr:
-            result.type_annotation_expr = self.infer(
+            result.type_annotation_expr = self._infer(
                 result.scope, result.type_annotation_node
             )
             type_value = self._interpreter.eval(result.type_annotation_expr)
@@ -102,12 +102,12 @@ class Analyzer(Unit):
 
     def _check_value_assignment(self, result: AnalysisResult) -> None:
         if result.value_node and not result.value_expr:
-            result.value_expr = self.infer(result.scope, result.value_node)
+            result.value_expr = self._infer(result.scope, result.value_node)
             if not isinstance(result.value_expr, SuspendedExpr):
                 value = self._interpreter.eval(result.value_expr)
                 result.value = value
 
-    def infer(
+    def _infer(
         self, scope: AnalysisScope, node: Node, bound: Type | None = None
     ) -> ExpressionType:
         expr: ExpressionType
@@ -130,8 +130,8 @@ class Analyzer(Unit):
     def _infer_int_addition(
         self, scope: AnalysisScope, node: BinaryOperationNode
     ) -> ExpressionType:
-        left_expr = self.infer(scope, node.left, self._builtin_lookup.int_type)
-        right_expr = self.infer(scope, node.right, self._builtin_lookup.int_type)
+        left_expr = self._infer(scope, node.left, self._builtin_lookup.int_type)
+        right_expr = self._infer(scope, node.right, self._builtin_lookup.int_type)
         return AddExpr(
             type=self._builtin_lookup.int_type,
             node=node,
