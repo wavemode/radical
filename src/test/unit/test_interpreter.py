@@ -28,11 +28,12 @@ class TestInterpreter(TestCase):
         self.interpreter = Interpreter(self.namespace)
 
     def test_simple_expr(self) -> None:
-        const_1 = LiteralExpr(self.builtins.int_type, Value(1))
-        const_2 = LiteralExpr(self.builtins.int_type, Value(2))
+        const_1 = LiteralExpr(self.builtins.int_type, None, Value(1))
+        const_2 = LiteralExpr(self.builtins.int_type, None, Value(2))
         result = self.interpreter.eval(
             AddExpr(
                 self.builtins.int_type,
+                None,
                 const_1,
                 const_2,
             )
@@ -49,8 +50,13 @@ class TestInterpreter(TestCase):
         result = self.interpreter.eval(
             TypeUnionExpr(
                 self.builtins.type_type,
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.string_type)),
+                None,
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.int_type)
+                ),
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.string_type)
+                ),
             )
         )
         self.assertEqual(result, expected_result)
@@ -59,8 +65,13 @@ class TestInterpreter(TestCase):
         result = self.interpreter.eval(
             TypeUnionExpr(
                 self.builtins.type_type,
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.string_type)),
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                None,
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.string_type)
+                ),
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.int_type)
+                ),
             )
         )
         self.assertEqual(result, expected_result)
@@ -69,14 +80,20 @@ class TestInterpreter(TestCase):
         result = self.interpreter.eval(
             TypeUnionExpr(
                 self.builtins.type_type,
+                None,
                 TypeUnionExpr(
                     self.builtins.type_type,
-                    LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                    None,
                     LiteralExpr(
-                        self.builtins.type_type, Value(self.builtins.string_type)
+                        self.builtins.type_type, None, Value(self.builtins.int_type)
+                    ),
+                    LiteralExpr(
+                        self.builtins.type_type, None, Value(self.builtins.string_type)
                     ),
                 ),
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.int_type)
+                ),
             )
         )
         self.assertEqual(result, expected_result)
@@ -85,13 +102,19 @@ class TestInterpreter(TestCase):
         result = self.interpreter.eval(
             TypeUnionExpr(
                 self.builtins.type_type,
-                LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                None,
+                LiteralExpr(
+                    self.builtins.type_type, None, Value(self.builtins.int_type)
+                ),
                 TypeUnionExpr(
                     self.builtins.type_type,
+                    None,
                     LiteralExpr(
-                        self.builtins.type_type, Value(self.builtins.string_type)
+                        self.builtins.type_type, None, Value(self.builtins.string_type)
                     ),
-                    LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                    LiteralExpr(
+                        self.builtins.type_type, None, Value(self.builtins.int_type)
+                    ),
                 ),
             )
         )
@@ -101,19 +124,26 @@ class TestInterpreter(TestCase):
         result = self.interpreter.eval(
             TypeUnionExpr(
                 self.builtins.type_type,
+                None,
                 TypeUnionExpr(
                     self.builtins.type_type,
-                    LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                    None,
                     LiteralExpr(
-                        self.builtins.type_type, Value(self.builtins.string_type)
+                        self.builtins.type_type, None, Value(self.builtins.int_type)
+                    ),
+                    LiteralExpr(
+                        self.builtins.type_type, None, Value(self.builtins.string_type)
                     ),
                 ),
                 TypeUnionExpr(
                     self.builtins.type_type,
+                    None,
                     LiteralExpr(
-                        self.builtins.type_type, Value(self.builtins.string_type)
+                        self.builtins.type_type, None, Value(self.builtins.string_type)
                     ),
-                    LiteralExpr(self.builtins.type_type, Value(self.builtins.int_type)),
+                    LiteralExpr(
+                        self.builtins.type_type, None, Value(self.builtins.int_type)
+                    ),
                 ),
             )
         )

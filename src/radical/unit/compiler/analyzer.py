@@ -126,7 +126,10 @@ class Analyzer(Unit):
         left_expr = self.infer(scope, node.left, self._builtin_lookup.int_type)
         right_expr = self.infer(scope, node.right, self._builtin_lookup.int_type)
         return AddExpr(
-            type=self._builtin_lookup.int_type, left=left_expr, right=right_expr
+            type=self._builtin_lookup.int_type,
+            node=node,
+            left=left_expr,
+            right=right_expr,
         )
 
     def _infer_int_literal(self, node: NumberLiteralNode) -> ExpressionType:
@@ -146,4 +149,6 @@ class Analyzer(Unit):
                 )
             case NumberFormat.UNKNOWN:
                 raise CompileError(f"Invalid integer literal: '{node.contents.value}'")
-        return LiteralExpr(type=self._builtin_lookup.int_type, value=Value(value))
+        return LiteralExpr(
+            type=self._builtin_lookup.int_type, node=node, value=Value(value)
+        )

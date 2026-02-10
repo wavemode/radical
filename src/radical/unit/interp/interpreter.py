@@ -24,7 +24,7 @@ class Interpreter(Unit):
 
     def eval(self, expr: ExpressionType) -> Value:
         match expr:
-            case AddExpr(_type, left, right):
+            case AddExpr(_type, _node, left, right):
                 # TODO: support addition for more data types
                 assert isinstance(_type, IntType)
                 left_val = self.eval(left)
@@ -32,7 +32,7 @@ class Interpreter(Unit):
                 right_val = self.eval(right)
                 assert isinstance(right_val.value, int)
                 return Value(left_val.value + right_val.value)
-            case TypeUnionExpr(_type, left, right):
+            case TypeUnionExpr(_type, _node, left, right):
                 types: set[Type] = set()
 
                 left_type = self.eval(left)
@@ -49,9 +49,9 @@ class Interpreter(Unit):
                     types.add(right_type.value)
 
                 return Value(UnionType(types=types))
-            case LiteralExpr(_type, value):
+            case LiteralExpr(_type, _node, value):
                 return value
-            case SuspendedExpr(_type, expr):
+            case SuspendedExpr(_type, _node, expr):
                 raise InterpreterError("Cannot evaluate suspended expression")
 
         assert_never(expr)
