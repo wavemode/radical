@@ -1,0 +1,16 @@
+x = 10
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=IntType(),
+        value=Value(
+            value=10
+        )
+    ),
+    value=Value(
+        value=10
+    )
+)
+*)

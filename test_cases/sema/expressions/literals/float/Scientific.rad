@@ -1,0 +1,16 @@
+x = 1.5e10
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=FloatType(),
+        value=Value(
+            value=15000000000.0
+        )
+    ),
+    value=Value(
+        value=15000000000.0
+    )
+)
+*)

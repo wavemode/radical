@@ -1,0 +1,16 @@
+x = 0xFF
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=IntType(),
+        value=Value(
+            value=255
+        )
+    ),
+    value=Value(
+        value=255
+    )
+)
+*)

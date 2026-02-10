@@ -5,6 +5,7 @@ from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.parser.ast import (
     BinaryOperationNode,
+    FloatLiteralNode,
     IntegerLiteralNode,
     ModuleNode,
     RegexLiteralNode,
@@ -122,6 +123,8 @@ class Analyzer(Unit):
             expr = self._infer_int_addition(scope, node)
         elif isinstance(node, IntegerLiteralNode):
             expr = self._infer_int_literal(node)
+        elif isinstance(node, FloatLiteralNode):
+            expr = self._infer_float_literal(node)
         elif isinstance(node, SymbolNode):
             expr = self._infer_symbol(scope, node)
         elif isinstance(node, StringLiteralNode):
@@ -178,6 +181,12 @@ class Analyzer(Unit):
             right=right_expr,
         )
 
+    def _infer_float_literal(self, node: FloatLiteralNode) -> ExpressionType:
+        value = float(node.contents.value)
+        return LiteralExpr(
+            type=self._builtin_lookup.float_type, node=node, value=Value(value)
+        )
+
     def _infer_int_literal(self, node: IntegerLiteralNode) -> ExpressionType:
         value: int
         match identify_number_literal(node.contents.value):
@@ -189,15 +198,8 @@ class Analyzer(Unit):
                 value = int(node.contents.value, 8)
             case NumberFormat.HEXADECIMAL:
                 value = int(node.contents.value, 16)
-            case NumberFormat.FLOAT | NumberFormat.SCI_FLOAT:
-                self._raise_compile_error(
-                    f"Expected integer literal, got float literal: '{node.contents.value}'",
-                    node,
-                )
-            case NumberFormat.UNKNOWN:
-                self._raise_compile_error(
-                    f"Invalid number literal: '{node.contents.value}'", node
-                )
+            case _:
+                raise RuntimeError("unreachable")
         return LiteralExpr(
             type=self._builtin_lookup.int_type, node=node, value=Value(value)
         )
