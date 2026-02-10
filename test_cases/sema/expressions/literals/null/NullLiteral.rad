@@ -1,0 +1,12 @@
+x = null
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=NullType(),
+        value=Value()
+    ),
+    value=Value()
+)
+*)

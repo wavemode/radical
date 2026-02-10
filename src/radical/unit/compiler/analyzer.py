@@ -9,6 +9,7 @@ from radical.data.parser.ast import (
     FloatLiteralNode,
     IntegerLiteralNode,
     ModuleNode,
+    NullLiteralNode,
     RegexLiteralNode,
     StringLiteralNode,
     SymbolNode,
@@ -131,6 +132,8 @@ class Analyzer(Unit):
             expr = self._infer_regex_literal(node)
         elif isinstance(node, BooleanLiteralNode):
             expr = self._infer_boolean_literal(node)
+        elif isinstance(node, NullLiteralNode):
+            expr = self._infer_null_literal(node)
         else:
             self._raise_compile_error(
                 scope, f"Unsupported syntax: {type(node).__name__}", node
@@ -143,6 +146,11 @@ class Analyzer(Unit):
                 node,
             )
         return expr
+
+    def _infer_null_literal(self, node: NullLiteralNode) -> ExpressionType:
+        return LiteralExpr(
+            type=self._builtin_lookup.null_type, node=node, value=Value(None)
+        )
 
     def _infer_boolean_literal(self, node: BooleanLiteralNode) -> ExpressionType:
         value = node.contents.type == TokenType.TRUE
