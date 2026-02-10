@@ -1,0 +1,16 @@
+x = /^.*$/
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=RegexType(),
+        value=Value(
+            value="^.*$"
+        )
+    ),
+    value=Value(
+        value="^.*$"
+    )
+)
+*)

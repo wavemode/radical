@@ -5,6 +5,7 @@ from radical.data.sema.type import (
     FloatType,
     IntType,
     NullType,
+    RegexType,
     StringType,
     TypeKinds,
     TypeType,
@@ -25,6 +26,7 @@ def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
     bool_type = BooleanType()
     string_type = StringType()
     null_type = NullType()
+    regex_type = RegexType()
     type_type = TypeType()
     for type in (
         unknown_type,
@@ -33,6 +35,7 @@ def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
         bool_type,
         string_type,
         null_type,
+        regex_type,
         type_type,
     ):
         type_name = type.__class__.__name__.removesuffix("Type")
@@ -54,5 +57,6 @@ def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
         bool_type=bool_type,
         string_type=string_type,
         null_type=null_type,
+        regex_type=regex_type,
         type_type=type_type,
     )

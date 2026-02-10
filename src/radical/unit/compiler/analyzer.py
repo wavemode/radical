@@ -7,6 +7,7 @@ from radical.data.parser.ast import (
     BinaryOperationNode,
     ModuleNode,
     NumberLiteralNode,
+    RegexLiteralNode,
     StringLiteralNode,
     SymbolNode,
 )
@@ -125,6 +126,8 @@ class Analyzer(Unit):
             expr = self._infer_symbol(scope, node)
         elif isinstance(node, StringLiteralNode):
             expr = self._infer_string_literal(node)
+        elif isinstance(node, RegexLiteralNode):
+            expr = self._infer_regex_literal(node)
         else:
             self._raise_compile_error(
                 f"Unsupported syntax: {type(node).__name__}", node
@@ -136,6 +139,13 @@ class Analyzer(Unit):
                 node,
             )
         return expr
+
+    def _infer_regex_literal(self, node: RegexLiteralNode) -> ExpressionType:
+        return LiteralExpr(
+            type=self._builtin_lookup.regex_type,
+            node=node,
+            value=Value(node.contents.value),
+        )
 
     def _infer_string_literal(self, node: StringLiteralNode) -> ExpressionType:
         return LiteralExpr(

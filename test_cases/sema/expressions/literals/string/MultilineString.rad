@@ -1,0 +1,19 @@
+x = """
+hello, world!
+goodbye, world...
+"""
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=StringType(),
+        value=Value(
+            value="\nhello, world!\ngoodbye, world...\n"
+        )
+    ),
+    value=Value(
+        value="\nhello, world!\ngoodbye, world...\n"
+    )
+)
+*)

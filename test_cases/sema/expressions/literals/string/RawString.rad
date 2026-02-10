@@ -1,0 +1,16 @@
+x = r"hello, world!\n\r\t\\"
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=StringType(),
+        value=Value(
+            value="hello, world!\\n\\r\\t\\\\"
+        )
+    ),
+    value=Value(
+        value="hello, world!\\n\\r\\t\\\\"
+    )
+)
+*)

@@ -1,0 +1,16 @@
+x = "hello, world!"
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=LiteralExpr(
+        type=StringType(),
+        value=Value(
+            value="hello, world!"
+        )
+    ),
+    value=Value(
+        value="hello, world!"
+    )
+)
+*)

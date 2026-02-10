@@ -34,6 +34,11 @@ class StringType(Type):
 
 
 @dataclass(frozen=True)
+class RegexType(Type):
+    pass
+
+
+@dataclass(frozen=True)
 class BooleanType(Type):
     pass
 
@@ -45,7 +50,8 @@ class NullType(Type):
 
 @dataclass(frozen=True)
 class TypeType(Type):
-    pass
+    def name(self) -> str:
+        return "Type"
 
 
 @dataclass(frozen=True)
@@ -64,5 +70,6 @@ TypeKinds = (
     | BooleanType
     | NullType
     | TypeType
+    | RegexType
     | UnionType
 )
