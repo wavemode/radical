@@ -30,7 +30,7 @@ ModuleNode(
                                     name=SYMBOL('field')
                                 )
                             ),
-                            index_expression=NumberLiteralNode(
+                            index_expression=IntegerLiteralNode(
                                 position=(2, 13, 0),
                                 contents=INTEGER_LITERAL('4')
                             )

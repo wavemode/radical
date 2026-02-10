@@ -44,7 +44,7 @@ ModuleNode(
                                 name=SYMBOL('b')
                             ),
                             operator='+',
-                            right=NumberLiteralNode(
+                            right=IntegerLiteralNode(
                                 position=(2, 9, 4),
                                 contents=INTEGER_LITERAL('3')
                             )

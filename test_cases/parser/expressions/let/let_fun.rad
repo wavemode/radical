@@ -93,11 +93,11 @@ ModuleNode(
                                 name=SYMBOL('add')
                             ),
                             arguments=[
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(5, 13, 8),
                                     contents=INTEGER_LITERAL('2')
                                 ),
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(5, 16, 8),
                                     contents=INTEGER_LITERAL('3')
                                 )

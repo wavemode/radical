@@ -29,7 +29,7 @@ ModuleNode(
                                     position=(2, 5, 4),
                                     name=SYMBOL('b')
                                 ),
-                                value=NumberLiteralNode(
+                                value=IntegerLiteralNode(
                                     position=(2, 7, 4),
                                     contents=INTEGER_LITERAL('10')
                                 )
@@ -40,7 +40,7 @@ ModuleNode(
                                     position=(3, 5, 4),
                                     name=SYMBOL('c')
                                 ),
-                                value=NumberLiteralNode(
+                                value=IntegerLiteralNode(
                                     position=(3, 9, 4),
                                     contents=INTEGER_LITERAL('20')
                                 )
@@ -53,7 +53,7 @@ ModuleNode(
                                     contents=STRING_CONTENTS('d'),
                                     close_quote=STRING_LITERAL_END('"')
                                 ),
-                                value=NumberLiteralNode(
+                                value=IntegerLiteralNode(
                                     position=(4, 12, 4),
                                     contents=INTEGER_LITERAL('30')
                                 )

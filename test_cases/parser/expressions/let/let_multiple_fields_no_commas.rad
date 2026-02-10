@@ -30,7 +30,7 @@ ModuleNode(
                                         position=(3, 9, 8),
                                         name=SYMBOL('x')
                                     ),
-                                    value=NumberLiteralNode(
+                                    value=IntegerLiteralNode(
                                         position=(3, 13, 8),
                                         contents=INTEGER_LITERAL('5')
                                     )
@@ -44,7 +44,7 @@ ModuleNode(
                                         position=(4, 9, 8),
                                         name=SYMBOL('y')
                                     ),
-                                    value=NumberLiteralNode(
+                                    value=IntegerLiteralNode(
                                         position=(4, 13, 8),
                                         contents=INTEGER_LITERAL('10')
                                     )

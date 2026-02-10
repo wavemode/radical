@@ -29,7 +29,7 @@ ModuleNode(
                                         name=SYMBOL('a')
                                     ),
                                     operator='>',
-                                    right=NumberLiteralNode(
+                                    right=IntegerLiteralNode(
                                         position=(1, 11, 0),
                                         contents=INTEGER_LITERAL('10')
                                     )
@@ -37,7 +37,7 @@ ModuleNode(
                             )
                         ]
                     ),
-                    value=NumberLiteralNode(
+                    value=IntegerLiteralNode(
                         position=(1, 18, 0),
                         contents=INTEGER_LITERAL('20')
                     )

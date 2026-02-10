@@ -16,7 +16,7 @@ ModuleNode(
                             position=(1, 7, 0),
                             name=SYMBOL('x')
                         ),
-                        value=NumberLiteralNode(
+                        value=FloatLiteralNode(
                             position=(1, 9, 0),
                             contents=FLOAT_LITERAL('10.5')
                         )

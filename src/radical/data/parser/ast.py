@@ -143,7 +143,12 @@ class RegexLiteralNode(Node):
 
 
 @dataclass(frozen=True)
-class NumberLiteralNode(Node):
+class IntegerLiteralNode(Node):
+    contents: Token
+
+
+@dataclass(frozen=True)
+class FloatLiteralNode(Node):
     contents: Token
 
 
@@ -338,8 +343,13 @@ class ListPatternNode(Node):
 
 
 @dataclass(frozen=True)
-class NumberLiteralPatternNode(Node):
-    number: NumberLiteralNode
+class IntegerLiteralPatternNode(Node):
+    number: IntegerLiteralNode
+
+
+@dataclass(frozen=True)
+class FloatLiteralPatternNode(Node):
+    number: FloatLiteralNode
 
 
 @dataclass(frozen=True)
@@ -549,7 +559,8 @@ AtomNodeType = (
     | StringLiteralNode
     | FormatStringLiteralNode
     | RegexLiteralNode
-    | NumberLiteralNode
+    | IntegerLiteralNode
+    | FloatLiteralNode
     | BooleanLiteralNode
     | NullLiteralNode
     | ParenthesizedExpressionNode
@@ -580,7 +591,8 @@ PatternAtomNodeType = (
     | RestPatternNode
     | ParenthesizedPatternNode
     | ListPatternNode
-    | NumberLiteralPatternNode
+    | IntegerLiteralPatternNode
+    | FloatLiteralPatternNode
     | StringLiteralPatternNode
     | RegexLiteralPatternNode
     | FormatStringLiteralPatternNode

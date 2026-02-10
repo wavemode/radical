@@ -23,7 +23,7 @@ ModuleNode(
                         name=SYMBOL('Int')
                     )
                 ),
-                body=NumberLiteralNode(
+                body=IntegerLiteralNode(
                     position=(2, 5, 4),
                     contents=INTEGER_LITERAL('42')
                 )

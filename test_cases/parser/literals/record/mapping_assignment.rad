@@ -27,7 +27,7 @@ ModuleNode(
                                     contents=STRING_CONTENTS('b'),
                                     close_quote=STRING_LITERAL_END('"')
                                 ),
-                                value=NumberLiteralNode(
+                                value=IntegerLiteralNode(
                                     position=(2, 12, 4),
                                     contents=INTEGER_LITERAL('10')
                                 )

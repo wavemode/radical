@@ -68,7 +68,7 @@ ModuleNode(
                                     position=(2, 9, 4),
                                     name=SYMBOL('c')
                                 ),
-                                index_expression=NumberLiteralNode(
+                                index_expression=IntegerLiteralNode(
                                     position=(2, 11, 4),
                                     contents=INTEGER_LITERAL('0')
                                 )

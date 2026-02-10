@@ -30,7 +30,7 @@ ModuleNode(
                                 name=SYMBOL('Int')
                             )
                         ),
-                        default_value=NumberLiteralNode(
+                        default_value=IntegerLiteralNode(
                             position=(2, 14, 4),
                             contents=INTEGER_LITERAL('10')
                         )

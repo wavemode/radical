@@ -39,23 +39,23 @@ ModuleNode(
                     value=ListLiteralNode(
                         position=(1, 17, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 18, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 21, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 24, 0),
                                 contents=INTEGER_LITERAL('3')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 27, 0),
                                 contents=INTEGER_LITERAL('4')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 30, 0),
                                 contents=INTEGER_LITERAL('5')
                             )

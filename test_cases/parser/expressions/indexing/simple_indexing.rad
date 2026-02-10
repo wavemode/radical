@@ -19,21 +19,21 @@ ModuleNode(
                         object_expression=ListLiteralNode(
                             position=(1, 5, 0),
                             elements=[
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 6, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 9, 0),
                                     contents=INTEGER_LITERAL('2')
                                 ),
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 12, 0),
                                     contents=INTEGER_LITERAL('3')
                                 )
                             ]
                         ),
-                        index_expression=NumberLiteralNode(
+                        index_expression=IntegerLiteralNode(
                             position=(1, 15, 0),
                             contents=INTEGER_LITERAL('0')
                         )

@@ -21,15 +21,15 @@ ModuleNode(
                     value=ParenthesizedExpressionNode(
                         position=(1, 10, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 11, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 14, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 17, 0),
                                 contents=INTEGER_LITERAL('3')
                             )

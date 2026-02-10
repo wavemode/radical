@@ -39,15 +39,15 @@ ModuleNode(
                     value=ListLiteralNode(
                         position=(1, 14, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 15, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 18, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(1, 21, 0),
                                 contents=INTEGER_LITERAL('3')
                             )

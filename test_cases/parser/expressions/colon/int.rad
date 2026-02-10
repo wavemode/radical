@@ -18,14 +18,14 @@ ModuleNode(
                     ),
                     value=BinaryOperationNode(
                         position=(1, 5, 0),
-                        left=NumberLiteralNode(
+                        left=IntegerLiteralNode(
                             position=(1, 5, 0),
                             contents=INTEGER_LITERAL('4')
                         ),
                         operator='+',
                         right=TypeAnnotationExpressionNode(
                             position=(1, 9, 0),
-                            value_expression=NumberLiteralNode(
+                            value_expression=IntegerLiteralNode(
                                 position=(1, 9, 0),
                                 contents=INTEGER_LITERAL('5')
                             ),
@@ -55,12 +55,12 @@ ModuleNode(
                             elements=[
                                 BinaryOperationNode(
                                     position=(2, 6, 0),
-                                    left=NumberLiteralNode(
+                                    left=IntegerLiteralNode(
                                         position=(2, 6, 0),
                                         contents=INTEGER_LITERAL('4')
                                     ),
                                     operator='+',
-                                    right=NumberLiteralNode(
+                                    right=IntegerLiteralNode(
                                         position=(2, 10, 0),
                                         contents=INTEGER_LITERAL('5')
                                     )

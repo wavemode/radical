@@ -5,8 +5,8 @@ from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
 from radical.data.parser.ast import (
     BinaryOperationNode,
+    IntegerLiteralNode,
     ModuleNode,
-    NumberLiteralNode,
     RegexLiteralNode,
     StringLiteralNode,
     SymbolNode,
@@ -120,7 +120,7 @@ class Analyzer(Unit):
         expr: ExpressionType
         if isinstance(node, BinaryOperationNode) and node.operator == Operator.PLUS:
             expr = self._infer_int_addition(scope, node)
-        elif isinstance(node, NumberLiteralNode):
+        elif isinstance(node, IntegerLiteralNode):
             expr = self._infer_int_literal(node)
         elif isinstance(node, SymbolNode):
             expr = self._infer_symbol(scope, node)
@@ -178,7 +178,7 @@ class Analyzer(Unit):
             right=right_expr,
         )
 
-    def _infer_int_literal(self, node: NumberLiteralNode) -> ExpressionType:
+    def _infer_int_literal(self, node: IntegerLiteralNode) -> ExpressionType:
         value: int
         match identify_number_literal(node.contents.value):
             case NumberFormat.DECIMAL:

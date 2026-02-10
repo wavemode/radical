@@ -36,9 +36,9 @@ ModuleNode(
                                                 position=(1, 24, 0),
                                                 name=SYMBOL('v')
                                             ),
-                                            pattern=NumberLiteralPatternNode(
+                                            pattern=IntegerLiteralPatternNode(
                                                 position=(1, 28, 0),
-                                                number=NumberLiteralNode(
+                                                number=IntegerLiteralNode(
                                                     position=(1, 28, 0),
                                                     contents=INTEGER_LITERAL('5')
                                                 )
@@ -46,7 +46,7 @@ ModuleNode(
                                         )
                                     ]
                                 ),
-                                expression=NumberLiteralNode(
+                                expression=IntegerLiteralNode(
                                     position=(1, 34, 0),
                                     contents=INTEGER_LITERAL('5')
                                 )

@@ -25,15 +25,15 @@ ModuleNode(
                             name=SYMBOL('f')
                         ),
                         arguments=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(2, 3, 2),
                                 contents=INTEGER_LITERAL('10')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(3, 5, 4),
                                 contents=INTEGER_LITERAL('20')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(4, 5, 4),
                                 contents=INTEGER_LITERAL('30')
                             )

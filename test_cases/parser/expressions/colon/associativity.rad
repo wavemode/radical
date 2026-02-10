@@ -20,7 +20,7 @@ ModuleNode(
                             position=(1, 5, 0),
                             value_expression=TypeAnnotationExpressionNode(
                                 position=(1, 5, 0),
-                                value_expression=NumberLiteralNode(
+                                value_expression=IntegerLiteralNode(
                                     position=(1, 5, 0),
                                     contents=INTEGER_LITERAL('4')
                                 ),

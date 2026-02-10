@@ -67,7 +67,7 @@ ModuleNode(
                                                         position=(3, 15, 8),
                                                         name=SYMBOL('c')
                                                     ),
-                                                    value=NumberLiteralNode(
+                                                    value=IntegerLiteralNode(
                                                         position=(3, 19, 8),
                                                         contents=INTEGER_LITERAL('2')
                                                     )
@@ -100,7 +100,7 @@ ModuleNode(
                                 name=SYMBOL('a')
                             ),
                             arguments=[
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(5, 11, 8),
                                     contents=INTEGER_LITERAL('3')
                                 )

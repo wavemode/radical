@@ -22,15 +22,15 @@ ModuleNode(
                     value=ListLiteralNode(
                         position=(1, 5, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(2, 5, 4),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(3, 5, 4),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(4, 5, 4),
                                 contents=INTEGER_LITERAL('3')
                             )

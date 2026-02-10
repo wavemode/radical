@@ -10,19 +10,19 @@ ModuleNode(
                 position=(1, 1, 0),
                 module_expr=BinaryOperationNode(
                     position=(1, 15, 0),
-                    left=NumberLiteralNode(
+                    left=IntegerLiteralNode(
                         position=(1, 15, 0),
                         contents=INTEGER_LITERAL('1')
                     ),
                     operator='+',
                     right=BinaryOperationNode(
                         position=(1, 19, 0),
-                        left=NumberLiteralNode(
+                        left=IntegerLiteralNode(
                             position=(1, 19, 0),
                             contents=INTEGER_LITERAL('2')
                         ),
                         operator='*',
-                        right=NumberLiteralNode(
+                        right=IntegerLiteralNode(
                             position=(1, 23, 0),
                             contents=INTEGER_LITERAL('3')
                         )

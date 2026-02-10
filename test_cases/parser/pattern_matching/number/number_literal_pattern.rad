@@ -16,9 +16,9 @@ ModuleNode(
                 parameters=[
                     FunctionParameterNode(
                         position=(1, 7, 0),
-                        param=NumberLiteralPatternNode(
+                        param=IntegerLiteralPatternNode(
                             position=(1, 7, 0),
-                            number=NumberLiteralNode(
+                            number=IntegerLiteralNode(
                                 position=(1, 7, 0),
                                 contents=INTEGER_LITERAL('5')
                             )
@@ -26,7 +26,7 @@ ModuleNode(
                         variadic=false
                     )
                 ],
-                body=NumberLiteralNode(
+                body=IntegerLiteralNode(
                     position=(1, 12, 0),
                     contents=INTEGER_LITERAL('10')
                 )
@@ -50,7 +50,7 @@ ModuleNode(
                         variadic=false
                     )
                 ],
-                body=NumberLiteralNode(
+                body=IntegerLiteralNode(
                     position=(2, 12, 0),
                     contents=INTEGER_LITERAL('11')
                 )

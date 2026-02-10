@@ -29,7 +29,7 @@ ModuleNode(
                                             position=(2, 8, 4),
                                             name=SYMBOL('y')
                                         ),
-                                        value=NumberLiteralNode(
+                                        value=IntegerLiteralNode(
                                             position=(2, 12, 4),
                                             contents=INTEGER_LITERAL('10')
                                         )
@@ -43,7 +43,7 @@ ModuleNode(
                                             position=(2, 16, 4),
                                             name=SYMBOL('z')
                                         ),
-                                        value=NumberLiteralNode(
+                                        value=IntegerLiteralNode(
                                             position=(2, 20, 4),
                                             contents=INTEGER_LITERAL('30')
                                         )
@@ -86,7 +86,7 @@ ModuleNode(
                                             position=(3, 25, 0),
                                             name=SYMBOL('t')
                                         ),
-                                        value=NumberLiteralNode(
+                                        value=IntegerLiteralNode(
                                             position=(3, 29, 0),
                                             contents=INTEGER_LITERAL('20')
                                         )

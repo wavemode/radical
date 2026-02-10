@@ -40,7 +40,7 @@ ModuleNode(
                                             name=SYMBOL('z')
                                         ),
                                         operator='==',
-                                        right=NumberLiteralNode(
+                                        right=IntegerLiteralNode(
                                             position=(2, 15, 4),
                                             contents=INTEGER_LITERAL('5')
                                         )

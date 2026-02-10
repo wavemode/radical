@@ -30,7 +30,7 @@ ModuleNode(
                         elements=[
                             BinaryOperationNode(
                                 position=(1, 22, 0),
-                                left=NumberLiteralNode(
+                                left=IntegerLiteralNode(
                                     position=(1, 22, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
@@ -40,12 +40,12 @@ ModuleNode(
                                     elements=[
                                         BinaryOperationNode(
                                             position=(1, 27, 0),
-                                            left=NumberLiteralNode(
+                                            left=IntegerLiteralNode(
                                                 position=(1, 27, 0),
                                                 contents=INTEGER_LITERAL('2')
                                             ),
                                             operator='+',
-                                            right=NumberLiteralNode(
+                                            right=IntegerLiteralNode(
                                                 position=(1, 31, 0),
                                                 contents=INTEGER_LITERAL('3')
                                             )
@@ -84,15 +84,15 @@ ModuleNode(
                     value=ParenthesizedExpressionNode(
                         position=(4, 13, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(4, 14, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(4, 17, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(4, 20, 0),
                                 contents=INTEGER_LITERAL('3')
                             )
@@ -111,15 +111,15 @@ ModuleNode(
                     value=ParenthesizedExpressionNode(
                         position=(5, 14, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(5, 15, 0),
                                 contents=INTEGER_LITERAL('1')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(6, 1, 0),
                                 contents=INTEGER_LITERAL('2')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(7, 1, 0),
                                 contents=INTEGER_LITERAL('3')
                             )
@@ -138,15 +138,15 @@ ModuleNode(
                     value=ParenthesizedExpressionNode(
                         position=(8, 21, 0),
                         elements=[
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(9, 5, 4),
                                 contents=INTEGER_LITERAL('4')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(10, 5, 4),
                                 contents=INTEGER_LITERAL('5')
                             ),
-                            NumberLiteralNode(
+                            IntegerLiteralNode(
                                 position=(11, 5, 4),
                                 contents=INTEGER_LITERAL('6')
                             )

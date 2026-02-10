@@ -31,7 +31,7 @@ ModuleNode(
                                 name=SYMBOL('Int')
                             )
                         ),
-                        default_value=NumberLiteralNode(
+                        default_value=IntegerLiteralNode(
                             position=(1, 18, 0),
                             contents=INTEGER_LITERAL('5')
                         )
@@ -49,15 +49,15 @@ ModuleNode(
                         default_value=ListLiteralNode(
                             position=(1, 25, 0),
                             elements=[
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 26, 0),
                                     contents=INTEGER_LITERAL('1')
                                 ),
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 29, 0),
                                     contents=INTEGER_LITERAL('2')
                                 ),
-                                NumberLiteralNode(
+                                IntegerLiteralNode(
                                     position=(1, 32, 0),
                                     contents=INTEGER_LITERAL('3')
                                 )
@@ -85,7 +85,7 @@ ModuleNode(
                             position=(2, 9, 4),
                             name=SYMBOL('c')
                         ),
-                        index_expression=NumberLiteralNode(
+                        index_expression=IntegerLiteralNode(
                             position=(2, 11, 4),
                             contents=INTEGER_LITERAL('0')
                         )

@@ -50,7 +50,7 @@ ModuleNode(
                                         position=(3, 5, 4),
                                         name=SYMBOL('x')
                                     ),
-                                    value=NumberLiteralNode(
+                                    value=IntegerLiteralNode(
                                         position=(3, 9, 4),
                                         contents=INTEGER_LITERAL('5')
                                     )

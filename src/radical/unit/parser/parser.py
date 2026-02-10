@@ -50,7 +50,10 @@ from radical.data.parser.ast import (
     MappingAssignmentNode,
     NamingAssignmentNode,
     NullLiteralPatternNode,
-    NumberLiteralPatternNode,
+    IntegerLiteralNode,
+    IntegerLiteralPatternNode,
+    FloatLiteralNode,
+    FloatLiteralPatternNode,
     PatternAliasNode,
     RecordLiteralEntryNodeType,
     RecordLiteralNode,
@@ -61,7 +64,6 @@ from radical.data.parser.ast import (
     ModuleNameNode,
     ModuleNode,
     NullLiteralNode,
-    NumberLiteralNode,
     ParenthesizedExpressionNode,
     ParenthesizedPatternNode,
     ParenthesizedTypeExpressionNode,
@@ -1347,11 +1349,18 @@ class Parser(Unit):
             value=value,
         )
 
-    def parse_number_literal_pattern(self) -> NumberLiteralPatternNode | None:
+    def parse_number_literal_pattern(
+        self,
+    ) -> IntegerLiteralPatternNode | FloatLiteralPatternNode | None:
         start_position = self._position
         if not (number_literal := self.parse_number_literal()):
             return None
-        return NumberLiteralPatternNode(
+        if isinstance(number_literal, IntegerLiteralNode):
+            return IntegerLiteralPatternNode(
+                position=start_position,
+                number=number_literal,
+            )
+        return FloatLiteralPatternNode(
             position=start_position,
             number=number_literal,
         )
@@ -2061,18 +2070,19 @@ class Parser(Unit):
             name=token,
         )
 
-    def parse_number_literal(self) -> NumberLiteralNode | None:
-        if self._peek().type not in {
-            TokenType.INTEGER_LITERAL,
-            TokenType.FLOAT_LITERAL,
-            TokenType.SCI_FLOAT_LITERAL,
-        }:
-            return None
-        token = self._read()
-        return NumberLiteralNode(
-            position=token.position,
-            contents=token,
-        )
+    def parse_number_literal(self) -> IntegerLiteralNode | FloatLiteralNode | None:
+        if token := self.parse_token(TokenType.INTEGER_LITERAL):
+            return IntegerLiteralNode(
+                position=token.position,
+                contents=token,
+            )
+        if token := self.parse_any_token(
+            [TokenType.FLOAT_LITERAL, TokenType.SCI_FLOAT_LITERAL]
+        ):
+            return FloatLiteralNode(
+                position=token.position,
+                contents=token,
+            )
 
     def parse_string_literal(self) -> StringLiteralNode | None:
         start_position = self._position

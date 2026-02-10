@@ -19,12 +19,12 @@ ModuleNode(
                         elements=[
                             BinaryOperationNode(
                                 position=(1, 13, 0),
-                                left=NumberLiteralNode(
+                                left=IntegerLiteralNode(
                                     position=(1, 13, 0),
                                     contents=INTEGER_LITERAL('5')
                                 ),
                                 operator='+',
-                                right=NumberLiteralNode(
+                                right=IntegerLiteralNode(
                                     position=(1, 17, 0),
                                     contents=INTEGER_LITERAL('6')
                                 )
