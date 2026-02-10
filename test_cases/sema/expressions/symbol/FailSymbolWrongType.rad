@@ -1,0 +1,6 @@
+x = y + 1
+y = "2"
+
+(*
+FAIL("Type mismatch: expected Int, got String at test_cases/sema/expressions/symbol/FailSymbolWrongType.rad:1:5")
+*)

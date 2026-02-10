@@ -1,0 +1,5 @@
+x = "1" + 2
+
+(*
+FAIL("Type mismatch: expected Int, got String at test_cases/sema/expressions/operators/plus/FailStringPlusInt.rad:1:5")
+*)

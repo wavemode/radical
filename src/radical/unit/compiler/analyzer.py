@@ -7,6 +7,7 @@ from radical.data.parser.ast import (
     BinaryOperationNode,
     ModuleNode,
     NumberLiteralNode,
+    StringLiteralNode,
     SymbolNode,
 )
 from radical.data.parser.node import Node
@@ -122,6 +123,8 @@ class Analyzer(Unit):
             expr = self._infer_int_literal(node)
         elif isinstance(node, SymbolNode):
             expr = self._infer_symbol(scope, node)
+        elif isinstance(node, StringLiteralNode):
+            expr = self._infer_string_literal(node)
         else:
             self._raise_compile_error(
                 f"Unsupported syntax: {type(node).__name__}", node
@@ -129,10 +132,17 @@ class Analyzer(Unit):
 
         if bound and not expr.type.unify(bound):
             self._raise_compile_error(
-                f"Type mismatch: expected {bound.__class__.__name__}, got {expr.type.__class__.__name__}",
+                f"Type mismatch: expected {bound.name()}, got {expr.type.name()}",
                 node,
             )
         return expr
+
+    def _infer_string_literal(self, node: StringLiteralNode) -> ExpressionType:
+        return LiteralExpr(
+            type=self._builtin_lookup.string_type,
+            node=node,
+            value=Value(node.contents.value),
+        )
 
     def _infer_symbol(self, scope: AnalysisScope, node: SymbolNode) -> ExpressionType:
         result = self._check_value(scope, node.name.value)
