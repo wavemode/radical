@@ -1,0 +1,54 @@
+x = y + 2
+y = 1
+
+(*
+AnalysisResult(
+    name="x",
+    value_node=BinaryOperationNode(
+        position=(1, 5, 0),
+        left=SymbolNode(
+            position=(1, 5, 0),
+            name=SYMBOL('y')
+        ),
+        operator='+',
+        right=NumberLiteralNode(
+            position=(1, 9, 0),
+            contents=INTEGER_LITERAL('2')
+        )
+    ),
+    value_expr=AddExpr(
+        type=IntType(),
+        left=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=1
+            )
+        ),
+        right=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=2
+            )
+        )
+    ),
+    value=Value(
+        value=3
+    )
+)
+AnalysisResult(
+    name="y",
+    value_node=NumberLiteralNode(
+        position=(2, 5, 0),
+        contents=INTEGER_LITERAL('1')
+    ),
+    value_expr=LiteralExpr(
+        type=IntType(),
+        value=Value(
+            value=1
+        )
+    ),
+    value=Value(
+        value=1
+    )
+)
+*)

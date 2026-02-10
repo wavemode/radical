@@ -3,7 +3,12 @@ from typing import NoReturn
 from radical.data.compiler.analysis_result import AnalysisResult
 from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
-from radical.data.parser.ast import BinaryOperationNode, ModuleNode, NumberLiteralNode
+from radical.data.parser.ast import (
+    BinaryOperationNode,
+    ModuleNode,
+    NumberLiteralNode,
+    SymbolNode,
+)
 from radical.data.parser.node import Node
 from radical.data.parser.operator import Operator
 from radical.data.sema.expression import (
@@ -115,6 +120,8 @@ class Analyzer(Unit):
             expr = self._infer_int_addition(scope, node)
         elif isinstance(node, NumberLiteralNode):
             expr = self._infer_int_literal(node)
+        elif isinstance(node, SymbolNode):
+            expr = self._infer_symbol(scope, node)
         else:
             self._raise_compile_error(
                 f"Unsupported syntax: {type(node).__name__}", node
@@ -126,6 +133,18 @@ class Analyzer(Unit):
                 node,
             )
         return expr
+
+    def _infer_symbol(self, scope: AnalysisScope, node: SymbolNode) -> ExpressionType:
+        result = self._check_value(scope, node.name.value)
+        if not result:
+            self._raise_compile_error(f"Undefined variable: '{node.name.value}'", node)
+            raise RuntimeError("unreachable")  # appease type checker
+        if not result.value_expr:
+            self._raise_compile_error(
+                f"Variable '{node.name.value}' has no value assigned", node
+            )
+            raise RuntimeError("unreachable")  # appease type checker
+        return result.value_expr
 
     def _infer_int_addition(
         self, scope: AnalysisScope, node: BinaryOperationNode
