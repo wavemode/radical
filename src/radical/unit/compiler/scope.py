@@ -4,31 +4,33 @@ from radical.unit.sema.namespace import Namespace
 from radical.util.core.unit import Unit
 
 
-class AnalysisScope(Unit):
+class Scope(Unit):
     _module_id: int
+    _filename: str
     _namespace: Namespace
-    _parent: "AnalysisScope | None"
+    _parent: "Scope | None"
     _bindings: dict[int, AnalysisResult]
     _type_bindings: dict[int, AnalysisResult]
-    _captures: list[int] | None
 
     def __init__(
         self,
         module_id: int,
+        filename: str,
         namespace: Namespace,
-        parent: "AnalysisScope | None",
+        parent: "Scope | None",
     ) -> None:
         self._module_id = module_id
+        self._filename = filename
         self._namespace = namespace
         self._parent = parent
         self._bindings = {}
         self._type_bindings = {}
-        self._value_decls = {}
-        self._type_decls = {}
-        self._captures = None
 
     def module_id(self) -> int:
         return self._module_id
+
+    def filename(self) -> str:
+        return self._filename
 
     def intern_symbol(self, name: str) -> int:
         return self._namespace.intern_symbol(self._module_id, name)

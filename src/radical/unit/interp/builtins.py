@@ -12,14 +12,14 @@ from radical.data.sema.type import (
     UnknownType,
 )
 from radical.data.sema.value import Value
-from radical.unit.compiler.analysis_scope import AnalysisScope
+from radical.unit.compiler.scope import Scope
 
 from typing import TypeVar
 
 T = TypeVar("T", bound=TypeKinds)
 
 
-def setup_builtins(scope: AnalysisScope) -> BuiltinLookup:
+def setup_builtins(scope: Scope) -> BuiltinLookup:
     unknown_type = UnknownType()
     int_type = IntType()
     float_type = FloatType()

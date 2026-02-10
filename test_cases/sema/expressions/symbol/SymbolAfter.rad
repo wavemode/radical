@@ -6,11 +6,9 @@ AnalysisResult(
     name="x",
     value_expr=AddExpr(
         type=IntType(),
-        left=LiteralExpr(
+        left=LocalVarExpr(
             type=IntType(),
-            value=Value(
-                value=1
-            )
+            symbol_id=9
         ),
         right=LiteralExpr(
             type=IntType(),

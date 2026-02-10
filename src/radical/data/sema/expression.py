@@ -22,6 +22,11 @@ class LiteralExpr(Expression):
 
 
 @dataclass(frozen=True)
+class LocalVarExpr(Expression):
+    symbol_id: int
+
+
+@dataclass(frozen=True)
 class AddExpr(Expression):
     left: "ExpressionType"
     right: "ExpressionType"
@@ -33,11 +38,6 @@ class TypeUnionExpr(Expression):
     right: "ExpressionType"
 
 
-@dataclass(frozen=True)
-class SuspendedExpr(Expression):
-    expr: "ExpressionType"
-
-
-ValueExpressionType = LiteralExpr | SuspendedExpr | AddExpr
-TypeExpressionType = LiteralExpr | SuspendedExpr | TypeUnionExpr
+ValueExpressionType = LiteralExpr | AddExpr | LocalVarExpr
+TypeExpressionType = LiteralExpr | TypeUnionExpr
 ExpressionType = ValueExpressionType | TypeExpressionType

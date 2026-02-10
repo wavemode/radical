@@ -8,13 +8,13 @@ from radical.data.sema.value import Value
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from radical.unit.compiler.analysis_scope import AnalysisScope
+    from radical.unit.compiler.scope import Scope
 
 
 @dataclass
 class AnalysisResult(Data):
     name: str
-    scope: "AnalysisScope"
+    scope: "Scope"
     value_node: Node | None = None
     value_expr: ExpressionType | None = None
     value: Value | None = None

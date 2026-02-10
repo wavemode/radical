@@ -15,18 +15,16 @@ from radical.data.parser.ast import (
     TypeDeclarationNode,
 )
 from radical.data.parser.node import Node
-from radical.unit.compiler.analysis_scope import AnalysisScope
+from radical.unit.compiler.scope import Scope
 from typing import assert_never
 
 
-def populate_decls(
-    scope: AnalysisScope, decls: list[TopLevelDeclarationNodeType]
-) -> None:
+def populate_decls(scope: Scope, decls: list[TopLevelDeclarationNodeType]) -> None:
     for decl in decls:
         _populate_decl(scope, decl)
 
 
-def _populate_decl(scope: AnalysisScope, decl: TopLevelDeclarationNodeType) -> None:
+def _populate_decl(scope: Scope, decl: TopLevelDeclarationNodeType) -> None:
     name: str
     expr_node: Node | None = None
     type_node: Node | None = None

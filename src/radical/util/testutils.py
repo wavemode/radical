@@ -125,7 +125,7 @@ def evaluate_sema_test_case(test_case: CompilerTestCase) -> str:
             FileReader() as file_reader,
             Loader(file_reader) as loader,
             Namespace() as namespace,
-            Interpreter(namespace) as interpreter,
+            Interpreter() as interpreter,
             Analyzer(namespace, loader, interpreter) as analyzer,
         ):
             module_id = analyzer.load_module(

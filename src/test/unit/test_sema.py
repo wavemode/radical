@@ -10,16 +10,12 @@ from radical.unit.interp.interpreter import Interpreter
 from radical.util.testutils import collect_test_cases, evaluate_sema_test_case
 
 
-class TestLexer(TestCase):
-    maxDiff = None
-
-
 class TestAnalyzer(TestCase):
     maxDiff = None
 
     def setUp(self) -> None:
         self.namespace = Namespace()
-        self.interpreter = Interpreter(self.namespace)
+        self.interpreter = Interpreter()
         self.file_reader = FileReader()
         self.loader = Loader(self.file_reader)
         self.analyzer = Analyzer(

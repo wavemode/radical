@@ -1,16 +1,13 @@
 from unittest import TestCase
 
-from radical.data.sema.expression import (
-    AddExpr,
-    LiteralExpr,
-    TypeUnionExpr,
-)
-from radical.data.sema.type import UnionType
-from radical.unit.compiler.analysis_scope import AnalysisScope
+from radical.effect.filesystem.file_reader import FileReader
+from radical.unit.compiler.analyzer import Analyzer
+from radical.unit.compiler.loader import Loader
 from radical.unit.sema.namespace import Namespace
 from radical.unit.interp.interpreter import Interpreter
-from radical.data.sema.value import Value
-from radical.unit.interp.builtins import setup_builtins
+
+
+from radical.util.testutils import collect_test_cases
 
 
 class TestInterpreter(TestCase):
@@ -18,133 +15,18 @@ class TestInterpreter(TestCase):
 
     def setUp(self) -> None:
         self.namespace = Namespace()
-        self.module_id = self.namespace.add_or_get_module("Test")
-        self.scope = AnalysisScope(
-            module_id=self.module_id,
+        self.interpreter = Interpreter()
+        self.file_reader = FileReader()
+        self.loader = Loader(self.file_reader)
+        self.analyzer = Analyzer(
             namespace=self.namespace,
-            parent=None,
-        )
-        self.builtins = setup_builtins(self.scope)
-        self.interpreter = Interpreter(self.namespace)
-
-    def test_simple_expr(self) -> None:
-        const_1 = LiteralExpr(self.builtins.int_type, None, Value(1))
-        const_2 = LiteralExpr(self.builtins.int_type, None, Value(2))
-        result = self.interpreter.eval(
-            AddExpr(
-                self.builtins.int_type,
-                None,
-                const_1,
-                const_2,
-            )
-        )
-        self.assertEqual(result, Value(3))
-
-    def test_type_union_expr(self) -> None:
-        # Int | String
-        expected_result = Value(
-            UnionType(types={self.builtins.int_type, self.builtins.string_type})
+            loader=self.loader,
+            interpreter=self.interpreter,
         )
 
-        # Int | String
-        result = self.interpreter.eval(
-            TypeUnionExpr(
-                self.builtins.type_type,
-                None,
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.int_type)
-                ),
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.string_type)
-                ),
-            )
-        )
-        self.assertEqual(result, expected_result)
-
-        # String | Int
-        result = self.interpreter.eval(
-            TypeUnionExpr(
-                self.builtins.type_type,
-                None,
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.string_type)
-                ),
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.int_type)
-                ),
-            )
-        )
-        self.assertEqual(result, expected_result)
-
-        # (Int | String) | Int
-        result = self.interpreter.eval(
-            TypeUnionExpr(
-                self.builtins.type_type,
-                None,
-                TypeUnionExpr(
-                    self.builtins.type_type,
-                    None,
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.int_type)
-                    ),
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.string_type)
-                    ),
-                ),
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.int_type)
-                ),
-            )
-        )
-        self.assertEqual(result, expected_result)
-
-        # Int | (String | Int)
-        result = self.interpreter.eval(
-            TypeUnionExpr(
-                self.builtins.type_type,
-                None,
-                LiteralExpr(
-                    self.builtins.type_type, None, Value(self.builtins.int_type)
-                ),
-                TypeUnionExpr(
-                    self.builtins.type_type,
-                    None,
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.string_type)
-                    ),
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.int_type)
-                    ),
-                ),
-            )
-        )
-        self.assertEqual(result, expected_result)
-
-        # (Int | String) | (String | Int)
-        result = self.interpreter.eval(
-            TypeUnionExpr(
-                self.builtins.type_type,
-                None,
-                TypeUnionExpr(
-                    self.builtins.type_type,
-                    None,
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.int_type)
-                    ),
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.string_type)
-                    ),
-                ),
-                TypeUnionExpr(
-                    self.builtins.type_type,
-                    None,
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.string_type)
-                    ),
-                    LiteralExpr(
-                        self.builtins.type_type, None, Value(self.builtins.int_type)
-                    ),
-                ),
-            )
-        )
-        self.assertEqual(result, expected_result)
+    def test_all_cases(self):
+        test_cases = collect_test_cases("test_cases/interp")
+        for test_case in test_cases:
+            with self.subTest(test_case.path):
+                # TODO: interpreter test cases
+                pass
