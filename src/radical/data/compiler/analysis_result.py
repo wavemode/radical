@@ -23,5 +23,5 @@ class AnalysisResult(Data):
     type_annotation: Value | None = None
 
     def format_field(self, name: str, indent_level: int = 0) -> str | None:
-        if name != "scope":
+        if name != "scope" and not name.endswith("_node"):
             return super().format_field(name, indent_level=indent_level)

@@ -1,19 +1,7 @@
-y = 1
 x = y + 2
+y = 1
 
 (*
-AnalysisResult(
-    name="y",
-    value_expr=LiteralExpr(
-        type=IntType(),
-        value=Value(
-            value=1
-        )
-    ),
-    value=Value(
-        value=1
-    )
-)
 AnalysisResult(
     name="x",
     value_expr=AddExpr(
@@ -33,6 +21,18 @@ AnalysisResult(
     ),
     value=Value(
         value=3
+    )
+)
+AnalysisResult(
+    name="y",
+    value_expr=LiteralExpr(
+        type=IntType(),
+        value=Value(
+            value=1
+        )
+    ),
+    value=Value(
+        value=1
     )
 )
 *)
