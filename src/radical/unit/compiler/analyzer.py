@@ -69,15 +69,13 @@ class Analyzer(Unit):
             self._check_type_annotation(result)
             self._check_value_assignment(result)
 
-    def check_value(
-        self, scope: AnalysisScope, name: str, bound: Type | None = None
-    ) -> AnalysisResult:
+    def check_value(self, scope: AnalysisScope, name: str) -> AnalysisResult:
         symbol_id = scope.intern_symbol(name)
         result = scope.lookup_binding(symbol_id)
         if not result:
             raise CompileError(f"Undefined symbol: {name}")
         self._check_type_annotation(result)
-        self._check_value_assignment(result, bound)
+        self._check_value_assignment(result)
         return result
 
     def check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult:
@@ -96,19 +94,12 @@ class Analyzer(Unit):
             type_value = self._interpreter.eval(result.type_annotation_expr)
             result.type_annotation = type_value
 
-    def _check_value_assignment(
-        self, result: AnalysisResult, bound: Type | None = None
-    ) -> None:
+    def _check_value_assignment(self, result: AnalysisResult) -> None:
         if result.value_node and not result.value_expr:
-            result.value_expr = self.infer(result.scope, result.value_node, bound)
+            result.value_expr = self.infer(result.scope, result.value_node)
             if not isinstance(result.value_expr, SuspendedExpr):
                 value = self._interpreter.eval(result.value_expr)
                 result.value = value
-        if bound:
-            assert result.value_expr
-            # TODO: improve unification error messages
-            # TODO: unify should be a standalone function
-            result.value_expr.type.unify(bound)
 
     def infer(
         self, scope: AnalysisScope, node: Node, bound: Type | None = None
