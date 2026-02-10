@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import NoReturn
 from radical.data.compiler.analysis_result import AnalysisResult
 from radical.data.compiler.errors import CompileError
 from radical.data.interp.builtin_lookup import BuiltinLookup
@@ -31,12 +32,15 @@ class Analyzer(Unit):
     _interpreter: Interpreter
     _builtin_lookup: BuiltinLookup
 
+    _current_filename: str | None
+
     def __init__(
         self, namespace: Namespace, loader: Loader, interpreter: Interpreter
     ) -> None:
         self._namespace = namespace
         self._loader = loader
         self._interpreter = interpreter
+        self._current_filename = None
 
     def load_module(self, module_name: str) -> int:
         module_id = self._namespace.add_or_get_module(module_name)
@@ -46,13 +50,15 @@ class Analyzer(Unit):
         module_parts = module_name.split(".")
         module_path = Path(*module_parts).with_suffix(".rad")
         module_contents = self._loader.load_file(module_path)
+        self._current_filename = str(module_path)
         module_parser = Parser(
-            Lexer(contents=module_contents, filename=str(module_path)),
+            Lexer(contents=module_contents, filename=self._current_filename),
             filename=str(module_path),
         )
         module_ast = module_parser.parse_module()
         self._analyze_module(module_id, module_ast)
         self._namespace.mark_module_analyzed(module_id)
+        self._current_filename = None
         return module_id
 
     def _analyze_module(self, module_id: int, module_ast: ModuleNode) -> None:
@@ -69,20 +75,20 @@ class Analyzer(Unit):
             self._check_type_annotation(result)
             self._check_value_assignment(result)
 
-    def check_value(self, scope: AnalysisScope, name: str) -> AnalysisResult:
+    def check_value(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
         symbol_id = scope.intern_symbol(name)
         result = scope.lookup_binding(symbol_id)
         if not result:
-            raise CompileError(f"Undefined symbol: {name}")
+            return None
         self._check_type_annotation(result)
         self._check_value_assignment(result)
         return result
 
-    def check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult:
+    def check_type(self, scope: AnalysisScope, name: str) -> AnalysisResult | None:
         symbol_id = scope.intern_symbol(name)
         result = scope.lookup_type_binding(symbol_id)
         if not result:
-            raise CompileError(f"Undefined type: {name}")
+            return None
         self._check_value_assignment(result)
         return result
 
@@ -104,12 +110,22 @@ class Analyzer(Unit):
     def infer(
         self, scope: AnalysisScope, node: Node, bound: Type | None = None
     ) -> ExpressionType:
+        expr: ExpressionType
         if isinstance(node, BinaryOperationNode) and node.operator == Operator.PLUS:
-            return self._infer_int_addition(scope, node)
+            expr = self._infer_int_addition(scope, node)
         elif isinstance(node, NumberLiteralNode):
-            return self._infer_int_literal(node)
+            expr = self._infer_int_literal(node)
         else:
-            raise CompileError(f"Unsupported node type: {node}")
+            self._raise_compile_error(
+                f"Unsupported syntax: {type(node).__name__}", node
+            )
+
+        if bound and not expr.type.unify(bound):
+            self._raise_compile_error(
+                f"Type mismatch: expected {bound.__class__.__name__}, got {expr.type.__class__.__name__}",
+                node,
+            )
+        return expr
 
     def _infer_int_addition(
         self, scope: AnalysisScope, node: BinaryOperationNode
@@ -135,11 +151,19 @@ class Analyzer(Unit):
             case NumberFormat.HEXADECIMAL:
                 value = int(node.contents.value, 16)
             case NumberFormat.FLOAT | NumberFormat.SCI_FLOAT:
-                raise CompileError(
-                    "Expected value of type Int, got value of type Float"
+                self._raise_compile_error(
+                    f"Expected integer literal, got float literal: '{node.contents.value}'",
+                    node,
                 )
             case NumberFormat.UNKNOWN:
-                raise CompileError(f"Invalid integer literal: '{node.contents.value}'")
+                self._raise_compile_error(
+                    f"Invalid number literal: '{node.contents.value}'", node
+                )
         return LiteralExpr(
             type=self._builtin_lookup.int_type, node=node, value=Value(value)
         )
+
+    def _raise_compile_error(self, message: str, node: Node) -> NoReturn:
+        position = node.position
+        filename = self._current_filename or "<unknown>"
+        raise CompileError(message, position=position, filename=filename)

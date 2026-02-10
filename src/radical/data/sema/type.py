@@ -1,15 +1,13 @@
 from dataclasses import dataclass
 
-from radical.data.compiler.errors import CompileError
 from radical.data.core.data import Data
 
 
 @dataclass(frozen=True)
 class Type(Data):
-    def unify(self, other: "Type") -> None:
+    def unify(self, other: "Type") -> bool:
         # TODO: subtyping
-        if self != other:
-            raise CompileError(f"Type mismatch: {self} != {other}")
+        return self == other
 
 
 @dataclass(frozen=True)
