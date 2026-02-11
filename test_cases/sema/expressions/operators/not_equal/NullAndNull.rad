@@ -1,0 +1,21 @@
+x = null != null
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NotEqualExpr(
+        type=BoolType(),
+        left=LiteralExpr(
+            type=NullType(),
+            value=Value()
+        ),
+        right=LiteralExpr(
+            type=NullType(),
+            value=Value()
+        )
+    ),
+    value=Value(
+        value=false
+    )
+)
+*)

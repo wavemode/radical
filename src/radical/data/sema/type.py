@@ -29,6 +29,11 @@ class FloatType(Type):
 
 
 @dataclass(frozen=True)
+class RationalType(Type):
+    pass
+
+
+@dataclass(frozen=True)
 class StringType(Type):
     pass
 
@@ -39,7 +44,7 @@ class RegexType(Type):
 
 
 @dataclass(frozen=True)
-class BooleanType(Type):
+class BoolType(Type):
     pass
 
 
@@ -66,8 +71,9 @@ TypeKinds = (
     UnknownType
     | IntType
     | FloatType
+    | RationalType
     | StringType
-    | BooleanType
+    | BoolType
     | NullType
     | TypeType
     | RegexType

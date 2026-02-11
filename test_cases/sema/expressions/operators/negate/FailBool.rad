@@ -1,0 +1,5 @@
+x = - true
+
+(*
+FAIL("Expected numerical operand, got Bool at test_cases/sema/expressions/operators/negate/FailBool.rad:1:7")
+*)

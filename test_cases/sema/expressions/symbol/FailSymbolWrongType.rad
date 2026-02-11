@@ -2,5 +2,5 @@ x = y + 1
 y = "2"
 
 (*
-FAIL("Unsupported operand types for `+`: String and Int at test_cases/sema/expressions/symbol/FailSymbolWrongType.rad:1:5")
+FAIL("Expected numerical operand, got String at test_cases/sema/expressions/symbol/FailSymbolWrongType.rad:1:5")
 *)

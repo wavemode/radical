@@ -1,0 +1,28 @@
+x = 1.0 - 2
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=SubExpr(
+        type=FloatType(),
+        left=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=1.0
+            )
+        ),
+        right=ToFloatExpr(
+            type=FloatType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=2
+                )
+            )
+        )
+    ),
+    value=Value(
+        value=-1.0
+    )
+)
+*)

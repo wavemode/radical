@@ -1,0 +1,19 @@
+x = - 1
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NegativeExpr(
+        type=IntType(),
+        operand=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=1
+            )
+        )
+    ),
+    value=Value(
+        value=-1
+    )
+)
+*)

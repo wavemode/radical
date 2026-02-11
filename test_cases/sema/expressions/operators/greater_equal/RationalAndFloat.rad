@@ -1,0 +1,43 @@
+x = (2/1) >= 0.66666666666
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=GreaterThanEqualExpr(
+        type=BoolType(),
+        left=ToFloatExpr(
+            type=FloatType(),
+            operand=DivideExpr(
+                type=RationalType(),
+                left=ToRationalExpr(
+                    type=RationalType(),
+                    operand=LiteralExpr(
+                        type=IntType(),
+                        value=Value(
+                            value=2
+                        )
+                    )
+                ),
+                right=ToRationalExpr(
+                    type=RationalType(),
+                    operand=LiteralExpr(
+                        type=IntType(),
+                        value=Value(
+                            value=1
+                        )
+                    )
+                )
+            )
+        ),
+        right=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=0.66666666666
+            )
+        )
+    ),
+    value=Value(
+        value=true
+    )
+)
+*)

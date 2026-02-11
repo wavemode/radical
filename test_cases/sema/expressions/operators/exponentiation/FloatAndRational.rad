@@ -1,0 +1,43 @@
+x = 2.0 ** (2/3)
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=ExponentiationExpr(
+        type=FloatType(),
+        left=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=2.0
+            )
+        ),
+        right=ToFloatExpr(
+            type=FloatType(),
+            operand=DivideExpr(
+                type=RationalType(),
+                left=ToRationalExpr(
+                    type=RationalType(),
+                    operand=LiteralExpr(
+                        type=IntType(),
+                        value=Value(
+                            value=2
+                        )
+                    )
+                ),
+                right=ToRationalExpr(
+                    type=RationalType(),
+                    operand=LiteralExpr(
+                        type=IntType(),
+                        value=Value(
+                            value=3
+                        )
+                    )
+                )
+            )
+        )
+    ),
+    value=Value(
+        value=1.5874010519681994
+    )
+)
+*)

@@ -1,0 +1,5 @@
+x = null == true
+
+(*
+FAIL("Expected Bool operand, got Null at test_cases/sema/expressions/operators/equal/FailNullAndBool.rad:1:5")
+*)

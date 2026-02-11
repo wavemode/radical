@@ -1,0 +1,25 @@
+x = "1" + "2"
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=AddExpr(
+        type=StringType(),
+        left=LiteralExpr(
+            type=StringType(),
+            value=Value(
+                value="1"
+            )
+        ),
+        right=LiteralExpr(
+            type=StringType(),
+            value=Value(
+                value="2"
+            )
+        )
+    ),
+    value=Value(
+        value="12"
+    )
+)
+*)

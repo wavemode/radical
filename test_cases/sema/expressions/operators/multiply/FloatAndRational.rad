@@ -1,0 +1,40 @@
+x = 1.0 * 2/3
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=DivideExpr(
+        type=FloatType(),
+        left=MultiplyExpr(
+            type=FloatType(),
+            left=LiteralExpr(
+                type=FloatType(),
+                value=Value(
+                    value=1.0
+                )
+            ),
+            right=ToFloatExpr(
+                type=FloatType(),
+                operand=LiteralExpr(
+                    type=IntType(),
+                    value=Value(
+                        value=2
+                    )
+                )
+            )
+        ),
+        right=ToFloatExpr(
+            type=FloatType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=3
+                )
+            )
+        )
+    ),
+    value=Value(
+        value=0.6666666666666666
+    )
+)
+*)

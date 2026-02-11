@@ -20,7 +20,7 @@ AnalysisResult(
         type=IntType(),
         left=LocalVarExpr(
             type=IntType(),
-            symbol_id=8
+            symbol_id=9
         ),
         right=LiteralExpr(
             type=IntType(),

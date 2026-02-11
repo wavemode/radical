@@ -1,0 +1,25 @@
+x = /123/ == /123/
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=EqualExpr(
+        type=BoolType(),
+        left=LiteralExpr(
+            type=RegexType(),
+            value=Value(
+                value="123"
+            )
+        ),
+        right=LiteralExpr(
+            type=RegexType(),
+            value=Value(
+                value="123"
+            )
+        )
+    ),
+    value=Value(
+        value=true
+    )
+)
+*)

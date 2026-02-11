@@ -1,0 +1,5 @@
+x = not null
+
+(*
+FAIL("Expected Bool operand, got Null at test_cases/sema/expressions/operators/not/FailNull.rad:1:9")
+*)

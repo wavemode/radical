@@ -1,5 +1,0 @@
-x = 1 + "2"
-
-(*
-FAIL("Unsupported operand types for `+`: Int and String at test_cases/sema/expressions/operators/plus/FailIntPlusString.rad:1:9")
-*)

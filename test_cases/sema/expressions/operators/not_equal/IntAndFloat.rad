@@ -1,0 +1,28 @@
+x = 2 != 2.0
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NotEqualExpr(
+        type=BoolType(),
+        left=ToFloatExpr(
+            type=FloatType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=2
+                )
+            )
+        ),
+        right=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=2.0
+            )
+        )
+    ),
+    value=Value(
+        value=false
+    )
+)
+*)

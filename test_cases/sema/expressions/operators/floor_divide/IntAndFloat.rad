@@ -1,0 +1,28 @@
+x = 1 // 2.0
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=FloorDivideExpr(
+        type=IntType(),
+        left=ToFloatExpr(
+            type=FloatType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=1
+                )
+            )
+        ),
+        right=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=2.0
+            )
+        )
+    ),
+    value=Value(
+        value=0
+    )
+)
+*)

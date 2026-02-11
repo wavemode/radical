@@ -5,7 +5,7 @@ y = false
 AnalysisResult(
     name="x",
     value_expr=LiteralExpr(
-        type=BooleanType(),
+        type=BoolType(),
         value=Value(
             value=true
         )
@@ -17,7 +17,7 @@ AnalysisResult(
 AnalysisResult(
     name="y",
     value_expr=LiteralExpr(
-        type=BooleanType(),
+        type=BoolType(),
         value=Value(
             value=false
         )

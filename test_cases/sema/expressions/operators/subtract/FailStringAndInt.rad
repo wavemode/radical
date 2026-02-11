@@ -1,0 +1,5 @@
+x = "1" - 2
+
+(*
+FAIL("Expected numerical operand, got String at test_cases/sema/expressions/operators/subtract/FailStringAndInt.rad:1:5")
+*)

@@ -1,0 +1,25 @@
+x = 2 == 2
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=EqualExpr(
+        type=BoolType(),
+        left=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=2
+            )
+        ),
+        right=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=2
+            )
+        )
+    ),
+    value=Value(
+        value=true
+    )
+)
+*)

@@ -1,0 +1,25 @@
+x = 1 * 2
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=MultiplyExpr(
+        type=IntType(),
+        left=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=1
+            )
+        ),
+        right=LiteralExpr(
+            type=IntType(),
+            value=Value(
+                value=2
+            )
+        )
+    ),
+    value=Value(
+        value=2
+    )
+)
+*)

@@ -1,0 +1,25 @@
+x = "1" != "1"
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NotEqualExpr(
+        type=BoolType(),
+        left=LiteralExpr(
+            type=StringType(),
+            value=Value(
+                value="1"
+            )
+        ),
+        right=LiteralExpr(
+            type=StringType(),
+            value=Value(
+                value="1"
+            )
+        )
+    ),
+    value=Value(
+        value=false
+    )
+)
+*)

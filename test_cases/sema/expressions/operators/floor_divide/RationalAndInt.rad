@@ -1,0 +1,43 @@
+x = (1/1) // 2
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=FloorDivideExpr(
+        type=IntType(),
+        left=DivideExpr(
+            type=RationalType(),
+            left=ToRationalExpr(
+                type=RationalType(),
+                operand=LiteralExpr(
+                    type=IntType(),
+                    value=Value(
+                        value=1
+                    )
+                )
+            ),
+            right=ToRationalExpr(
+                type=RationalType(),
+                operand=LiteralExpr(
+                    type=IntType(),
+                    value=Value(
+                        value=1
+                    )
+                )
+            )
+        ),
+        right=ToRationalExpr(
+            type=RationalType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=2
+                )
+            )
+        )
+    ),
+    value=Value(
+        value=0
+    )
+)
+*)

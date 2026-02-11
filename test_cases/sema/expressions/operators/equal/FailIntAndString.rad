@@ -1,0 +1,5 @@
+x = 2 == "2"
+
+(*
+FAIL("Expected numerical operand, got String at test_cases/sema/expressions/operators/equal/FailIntAndString.rad:1:10")
+*)

@@ -1,0 +1,25 @@
+x = true != false
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NotEqualExpr(
+        type=BoolType(),
+        left=LiteralExpr(
+            type=BoolType(),
+            value=Value(
+                value=true
+            )
+        ),
+        right=LiteralExpr(
+            type=BoolType(),
+            value=Value(
+                value=false
+            )
+        )
+    ),
+    value=Value(
+        value=true
+    )
+)
+*)

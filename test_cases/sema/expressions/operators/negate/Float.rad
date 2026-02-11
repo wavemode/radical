@@ -1,0 +1,19 @@
+x = - 0.66
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NegativeExpr(
+        type=FloatType(),
+        operand=LiteralExpr(
+            type=FloatType(),
+            value=Value(
+                value=0.66
+            )
+        )
+    ),
+    value=Value(
+        value=-0.66
+    )
+)
+*)

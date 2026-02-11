@@ -1,0 +1,19 @@
+x = not true
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=NotExpr(
+        type=BoolType(),
+        operand=LiteralExpr(
+            type=BoolType(),
+            value=Value(
+                value=true
+            )
+        )
+    ),
+    value=Value(
+        value=false
+    )
+)
+*)

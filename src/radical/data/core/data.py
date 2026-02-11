@@ -1,3 +1,4 @@
+from fractions import Fraction
 import json
 from typing import Any, cast
 
@@ -42,6 +43,8 @@ def pretty_print_field(
         parts.append(f"{name}=")
     if isinstance(value, Data):
         parts.append(value.format(indent_level=indent_level))
+    elif isinstance(value, Fraction):
+        parts.append(f"{value.numerator}/{value.denominator}")
     elif isinstance(value, list):
         parts.append("[\n")
         element_lines: list[str] = []

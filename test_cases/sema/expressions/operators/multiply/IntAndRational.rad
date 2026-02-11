@@ -1,0 +1,40 @@
+x = 3 * 2/3
+
+(*
+AnalysisResult(
+    name="x",
+    value_expr=DivideExpr(
+        type=RationalType(),
+        left=ToRationalExpr(
+            type=RationalType(),
+            operand=MultiplyExpr(
+                type=IntType(),
+                left=LiteralExpr(
+                    type=IntType(),
+                    value=Value(
+                        value=3
+                    )
+                ),
+                right=LiteralExpr(
+                    type=IntType(),
+                    value=Value(
+                        value=2
+                    )
+                )
+            )
+        ),
+        right=ToRationalExpr(
+            type=RationalType(),
+            operand=LiteralExpr(
+                type=IntType(),
+                value=Value(
+                    value=3
+                )
+            )
+        )
+    ),
+    value=Value(
+        value=2/1
+    )
+)
+*)
