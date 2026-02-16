@@ -2,15 +2,10 @@ from dataclasses import dataclass
 import os
 from pathlib import Path
 
-from radical.effect.filesystem.file_reader import FileReader
-from radical.unit.compiler.analyzer import Analyzer
-from radical.unit.compiler.loader import Loader
-from radical.unit.interp.interpreter import Interpreter
 from radical.unit.parser.lexer import Lexer
 import json
 
 from radical.unit.parser.parser import Parser
-from radical.unit.sema.namespace import Namespace
 
 
 @dataclass(frozen=True)
@@ -106,7 +101,7 @@ def evaluate_parser_test_case(test_case: CompilerTestCase) -> str:
     try:
         with (
             Lexer(test_case.contents, filename=str(test_case.path)) as lexer,
-            Parser(lexer=lexer, filename=str(test_case.path)) as parser,
+            Parser(lexer=lexer) as parser,
         ):
             formatted = parser.parse_module().format()
     except Exception as e:
@@ -117,29 +112,3 @@ def evaluate_parser_test_case(test_case: CompilerTestCase) -> str:
         if "fail_" in test_case.path.stem:
             print(f"Test case {test_case.path} was expected to fail but succeeded")
     return formatted
-
-
-def evaluate_sema_test_case(test_case: CompilerTestCase) -> str:
-    try:
-        with (
-            FileReader() as file_reader,
-            Loader(file_reader) as loader,
-            Namespace() as namespace,
-            Interpreter() as interpreter,
-            Analyzer(namespace, loader, interpreter) as analyzer,
-        ):
-            module_id = analyzer.load_module(
-                str(test_case.path).replace("/", ".").removesuffix(".rad")
-            )
-            expected_output = "\n".join(
-                list(b.format() for b in namespace.type_bindings(module_id))
-                + list(b.format() for b in namespace.bindings(module_id))
-            )
-    except Exception as e:
-        if "Fail" not in test_case.path.stem:
-            raise
-        expected_output = f"FAIL({json.dumps(str(e))})"
-    else:
-        if "Fail" in test_case.path.stem:
-            print(f"Test case {test_case.path} was expected to fail but succeeded")
-    return expected_output

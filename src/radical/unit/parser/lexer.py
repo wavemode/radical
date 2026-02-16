@@ -311,6 +311,7 @@ class Lexer(Unit):
             TokenType.MULTILINE_FORMAT_STRING_END,
             '"' * num_starting_quotes,
             position=Position(
+                filename=self._filename,
                 line=self._line,
                 column=self._column - num_starting_quotes,
                 indent_level=self._indent_level,
@@ -436,6 +437,7 @@ class Lexer(Unit):
             TokenType.RAW_MULTILINE_STRING_LITERAL_END,
             '"' * num_ending_quotes,
             position=Position(
+                filename=self._filename,
                 line=self._line,
                 column=self._column - num_ending_quotes,
                 indent_level=self._indent_level,
@@ -501,6 +503,7 @@ class Lexer(Unit):
             TokenType.MULTILINE_STRING_LITERAL_END,
             '"' * num_ending_quotes,
             position=Position(
+                filename=self._filename,
                 line=self._line,
                 column=self._column - num_ending_quotes,
                 indent_level=self._indent_level,
@@ -801,6 +804,7 @@ class Lexer(Unit):
 
     def _position(self) -> Position:
         return Position(
+            filename=self._filename,
             line=self._line,
             column=self._column,
             indent_level=self._indent_level,
@@ -814,6 +818,7 @@ class Lexer(Unit):
                 position
                 if position is not None
                 else Position(
+                    filename=self._filename,
                     line=self._line,
                     column=self._column,
                     indent_level=self._indent_level,
@@ -829,11 +834,11 @@ class Lexer(Unit):
     ) -> NoReturn:
         raise ParseError(
             message=message,
-            filename=self._filename,
             position=(
                 position
                 if position is not None
                 else Position(
+                    filename=self._filename,
                     line=self._line,
                     column=self._column,
                     indent_level=self._indent_level,

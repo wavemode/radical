@@ -10,7 +10,7 @@ class Type(Data):
 
     def unify(self, other: "Type") -> bool:
         # TODO: subtyping
-        return self == other
+        return self is other or self == other
 
 
 @dataclass(frozen=True)

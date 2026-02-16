@@ -5,6 +5,7 @@ from radical.data.core.data import Data
 
 @dataclass
 class Position(Data):
+    filename: str
     line: int
     column: int
     indent_level: int

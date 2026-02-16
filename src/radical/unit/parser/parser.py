@@ -116,9 +116,8 @@ T = TypeVar("T")
 
 
 class Parser(Unit):
-    def __init__(self, lexer: Lexer, filename: str):
+    def __init__(self, lexer: Lexer):
         self._lexer = lexer
-        self._filename = filename
         self._position = self._lexer.peek().position
         self._placeholder_stack: list[Position] = []
         self._atom_parsers: list[Callable[[], AtomNodeType | None]] = [
@@ -294,6 +293,7 @@ class Parser(Unit):
                     declarations[0].position
                     if declarations
                     else Position(
+                        self._position.filename,
                         line=1,
                         column=1,
                         indent_level=0,
@@ -2330,7 +2330,6 @@ class Parser(Unit):
     ) -> NoReturn:
         raise ParseError(
             message=message,
-            filename=self._filename,
             position=position or self._position,
         )
 
